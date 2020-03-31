@@ -1,0 +1,4 @@
+/build
+
+#built application files
+*.apk
