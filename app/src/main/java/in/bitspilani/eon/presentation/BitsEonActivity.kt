@@ -3,8 +3,8 @@ package `in`.bitspilani.eon.presentation
 import `in`.bitspilani.eon.BitsEonApp
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.databinding.ActivityBitsEonBinding
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
