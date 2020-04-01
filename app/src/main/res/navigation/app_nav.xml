@@ -38,21 +38,8 @@
         android:label="fragment_basic_details"
         tools:layout="@layout/fragment_basic_details">
         <action
-            android:id="@+id/action_basicInfo_to_bankDetailsFragment"
-            app:destination="@id/bankDetailsFragment"
-            app:popUpTo="@+id/signInFragment"
-            app:popUpToInclusive="true" />
-    </fragment>
-    <fragment
-        android:id="@+id/bankDetailsFragment"
-        android:name="in.bitspilani.eon.presentation.auth.fragments.signup.BankDetailsFragment"
-        android:label="fragment_bank_details"
-        tools:layout="@layout/fragment_bank_details">
-        <action
-            android:id="@+id/action_bankDetailsFragment_to_createPasswordFragment"
-            app:destination="@id/createPasswordFragment"
-            app:popUpTo="@+id/basicInfo"
-            app:popUpToInclusive="true"/>
+            android:id="@+id/action_basicInfo_to_createPasswordFragment"
+            app:destination="@id/createPasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/createPasswordFragment"
