@@ -10,4 +10,7 @@
     <color name="red">#d50000</color>
     <color name="black">#000</color>
     <color name="chip_bg">#535970</color>
+    <color name="appColor">#6000D0</color>
+    <color name="grey">#808080</color>
+    <color name="appHeaderTextColor">#9369DE</color>
 </resources>
