@@ -12,7 +12,6 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 class RestClient{
-    private var retrofit: Retrofit? = null
 
 
     @Singleton
@@ -32,13 +31,36 @@ class RestClient{
                 .addInterceptor(Authinterceptor())
                 .build()
 
-            if (retrofit == null) {
-                retrofit = Retrofit.Builder()
-                    .baseUrl(BuildConfig.BASE_SERVER_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .client(okHttpClient)
-                    .build()
-            }
+            val retrofit = Retrofit.Builder()
+                .baseUrl(BuildConfig.BASE_SERVER_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
+                .build()
+            return retrofit!!
+
+        }
+
+    @Singleton
+    val noAuthClient: Retrofit
+        get() {
+            val interceptor = HttpLoggingInterceptor()
+            interceptor.level = HttpLoggingInterceptor.Level.BODY
+            val okHttpClient = OkHttpClient.Builder()
+                .addInterceptor(interceptor)
+                .followRedirects(true)
+                .followSslRedirects(true)
+                .retryOnConnectionFailure(true)
+                .connectTimeout(20, TimeUnit.SECONDS)
+                .readTimeout(20, TimeUnit.SECONDS)
+                .writeTimeout(20, TimeUnit.SECONDS)
+                .cache(null)
+                .build()
+
+            val retrofit = Retrofit.Builder()
+                .baseUrl(BuildConfig.BASE_SERVER_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
+                .build()
             return retrofit!!
 
         }

@@ -27,8 +27,9 @@ class BitsEonActivity : AppCompatActivity() {
 
     private fun checkIfAuthenticated(){
         lifecycleScope.launch {
-            delay(700)
             if (BitsEonApp.localStorageHandler!!.token.isNullOrEmpty()){
+
+                delay(700)
                 navController.navigate(R.id.action_splashScreen_to_homeFragment,
                     null,
                     NavOptions.Builder()
@@ -36,6 +37,8 @@ class BitsEonActivity : AppCompatActivity() {
                             true).build()
                 )
             }else{
+
+                delay(700)
                 navController.navigate(R.id.action_splashScreen_to_signInFragment,
                     null,
                     NavOptions.Builder()
