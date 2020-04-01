@@ -28,7 +28,7 @@ abstract class ApiCallback<T> : Callback<T> {
             val converter = RestClient().authClient.responseBodyConverter<ErrorResponse>(ErrorResponse::class.java, arrayOfNulls(0))
             try {
                 val errors = converter.convert(response.errorBody())
-                var errorMessage = errors.message
+                var errorMessage = errors!!.message
                 if (TextUtils.isEmpty(errorMessage))
                     errorMessage = errors.detail
                 if (response.code()<500){
