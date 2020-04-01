@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".presentation.auth.fragments.signup.BankDetailsFragment">
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edt_bank_account_number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_16sdp"
+        android:hint="Account Number" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edt_bank_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_16sdp"
+        android:hint="Bank Name" />
+
+
+   <!-- not adding into string files as there will a chnage-->
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edt_ifsc_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_16sdp"
+        android:hint="Ifsc Code" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edt_branch_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_16sdp"
+        android:autofillHints="Organisation Address"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:lines="8"
+        android:minLines="6"
+        android:scrollbars="vertical"
+        android:singleLine="false" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_16sdp"
+        android:text="Next" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_prev"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_16sdp"
+        android:text="Previous" />
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>
