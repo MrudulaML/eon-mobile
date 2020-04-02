@@ -13,7 +13,6 @@ import javax.inject.Singleton
 
 class RestClient{
 
-
     @Singleton
     val authClient: Retrofit
         get() {

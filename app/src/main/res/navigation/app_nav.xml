@@ -1,23 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/app_nav"
-            app:startDestination="@id/splashScreen">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_nav"
+    app:startDestination="@id/splashScreen">
 
 
-    <fragment android:id="@+id/splashScreen"
-              android:name="in.bitspilani.eon.presentation.auth.fragments.SplashScreen"
-              android:label="fragment_splash_screen" tools:layout="@layout/fragment_splash_screen">
-        <action android:id="@+id/action_splashScreen_to_signInFragment" app:destination="@id/signInFragment"/>
-        <action android:id="@+id/action_splashScreen_to_homeFragment" app:destination="@id/homeFragment"/>
+    <fragment
+        android:id="@+id/splashScreen"
+        android:name="in.bitspilani.eon.presentation.auth.fragments.SplashScreen"
+        android:label="fragment_splash_screen"
+        tools:layout="@layout/fragment_splash_screen">
+        <action
+            android:id="@+id/action_splashScreen_to_signInFragment"
+            app:destination="@id/signInFragment" />
+        <action
+            android:id="@+id/action_splashScreen_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
-    <fragment android:id="@+id/signInFragment" android:name="in.bitspilani.eon.presentation.auth.fragments.SignInFragment"
-              android:label="fragment_sign_in" tools:layout="@layout/fragment_sign_in">
-        <action android:id="@+id/action_signInFragment_to_signUpFragment" app:destination="@id/signUpFragment"/>
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="in.bitspilani.eon.presentation.auth.fragments.SignInFragment"
+        android:label="fragment_sign_in"
+        tools:layout="@layout/fragment_sign_in">
+        <action
+            android:id="@+id/action_signInFragment_to_basicInfo"
+            app:destination="@id/basicInfo" />
     </fragment>
-    <fragment android:id="@+id/signUpFragment" android:name="in.bitspilani.eon.presentation.auth.fragments.SignUpFragment"
-              android:label="fragment_sign_up" tools:layout="@layout/fragment_sign_up"/>
-    <fragment android:id="@+id/homeFragment" android:name="in.bitspilani.eon.presentation.event.fragments.HomeFragment" android:label="fragment_home"
-              tools:layout="@layout/fragment_home"/>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="in.bitspilani.eon.presentation.event.fragments.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/basicInfo"
+        android:name="in.bitspilani.eon.presentation.auth.fragments.signup.BasicInfo"
+        android:label="fragment_basic_details"
+        tools:layout="@layout/fragment_basic_details">
+        <action
+            android:id="@+id/action_basicInfo_to_createPasswordFragment"
+            app:destination="@id/createPasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createPasswordFragment"
+        android:name="in.bitspilani.eon.presentation.auth.fragments.signup.CreatePasswordFragment"
+        android:label="fragment_create_password"
+        tools:layout="@layout/fragment_create_password"
+        app:popUpTo="@+id/bankDetailsFragment"
+        app:popUpToInclusive="true"/>
 </navigation>

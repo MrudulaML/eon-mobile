@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".presentation.auth.fragments.signup.BankDetailsFragment">
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edt_org_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_16sdp"
+        android:hint="Organisation Name"/>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edt_org_contact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_16sdp"
+        android:hint="Contact Number"/>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edt_org_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minLines="6"
+        android:singleLine="false"
+        android:layout_margin="@dimen/_16sdp"
+        android:lines="8"
+        android:scrollbars="vertical"
+        android:autofillHints="Organisation Address"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next"/>
+
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>

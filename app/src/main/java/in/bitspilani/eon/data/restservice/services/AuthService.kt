@@ -15,4 +15,7 @@ interface AuthService {
     @POST("/api/v1/core/user/resetPassword")
     fun resetPassword(@Body body: JsonObject): Call<JsonObject>
 
+    @POST("/api/v1/core/user/resetPassword")
+    fun registerUser(@Body body: JsonObject): Call<JsonObject>
+
 }

@@ -8,10 +8,10 @@ import `in`.bitspilani.eon.utils.SingleLiveEvent
 import androidx.lifecycle.ViewModel
 import com.google.gson.JsonObject
 
-class AuthViewModel: ViewModel() {
+class AuthViewModel(private val restClient: RestClient): ViewModel() {
 
     val progress: SingleLiveEvent<Boolean> = SingleLiveEvent()
-    val restClient = RestClient()
+
 
     var fcmToken:String? = null
 
@@ -21,6 +21,25 @@ class AuthViewModel: ViewModel() {
         body.addProperty("username",username)
         body.addProperty("password",password)
         body.addProperty("user_type", userType)
+        progress.value = true
+        restClient.authClient.create(AuthService::class.java).validateUser(body)
+            .enqueue(object : ApiCallback<LoginResponse>(){
+                override fun onSuccessResponse(responseBody: LoginResponse) {
+                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                }
+
+                override fun onApiError(errorType: ApiError, error: String?) {
+                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                }
+            })
+
+    }
+
+
+    fun register(username:String, password:String){
+        val body = JsonObject()
+        body.addProperty("username",username)
+        body.addProperty("password",password)
         progress.value = true
         restClient.authClient.create(AuthService::class.java).validateUser(body)
             .enqueue(object : ApiCallback<LoginResponse>(){
