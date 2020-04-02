@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 
 class SignInFragment : Fragment() {
@@ -16,6 +17,7 @@ class SignInFragment : Fragment() {
     lateinit var username: EditText
     lateinit var password: EditText
     lateinit var buttonLogin: Button
+    lateinit var forgotPassword: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,9 +29,11 @@ class SignInFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         username = view.findViewById(R.id.etEmailAddress)
         password = view.findViewById(R.id.etPassword)
         buttonLogin = view.findViewById(R.id.btn_login)
+        forgotPassword = view.findViewById(R.id.tv_forgot_password)
 
         buttonLogin.setOnClickListener(View.OnClickListener {
 
@@ -41,6 +45,14 @@ class SignInFragment : Fragment() {
 
             // demo of getting data from user - need to remove
             Toast.makeText(getActivity(),"Username: "+username+"Password: "+password,Toast.LENGTH_SHORT).show();
+        })
+
+        forgotPassword.setOnClickListener(View.OnClickListener {
+
+            // to do
+
+            // click event on forgot password
+            Toast.makeText(getActivity(),"Forgot password",Toast.LENGTH_SHORT).show();
         })
 
     }
