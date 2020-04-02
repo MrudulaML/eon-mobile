@@ -1,6 +1,7 @@
 package `in`.bitspilani.eon.presentation.auth.fragments.signup
 
 import `in`.bitspilani.eon.R
+import `in`.bitspilani.eon.utils.Validator
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -47,7 +48,12 @@ class CreatePasswordFragment : Fragment() {
 
         btn_submit.clickWithDebounce {
 
-            findNavController().navigate(R.id.action_password_to_login)
+            if (Validator.isValidPassword(edt_password)
+                && Validator.isValidPassword(edt_confirm_password))
+                findNavController().navigate(R.id.action_password_to_login).apply {
+
+                    //TODO map the API
+                }
         }
     }
 

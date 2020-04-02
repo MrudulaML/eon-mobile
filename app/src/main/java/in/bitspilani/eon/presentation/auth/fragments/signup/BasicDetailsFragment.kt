@@ -1,6 +1,7 @@
 package `in`.bitspilani.eon.presentation.auth.fragments.signup
 
 import `in`.bitspilani.eon.R
+import `in`.bitspilani.eon.utils.Validator
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import `in`.bitspilani.eon.utils.getViewModelFactory
 import `in`.bitspilani.eon.viewmodel.AuthViewModel
@@ -53,7 +54,12 @@ class BasicDetailsFragment : Fragment() {
 
         btn_next.clickWithDebounce {
 
-            findNavController().navigate(R.id.action_basicInfo_to_createPasswordFragment)
+            if (Validator.isValidName(edt_org_name, true) &&
+                Validator.isValidName(edt_org_contact, true) &&
+                Validator.isValidName(edt_org_address, true)
+            )
+
+                findNavController().navigate(R.id.action_basicInfo_to_createPasswordFragment)
         }
     }
 

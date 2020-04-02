@@ -10,6 +10,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -22,7 +24,9 @@ class BitsEonActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_bits_eon)
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
-        checkIfAuthenticated()
+        //checkIfAuthenticated()
+
+        navController.navigate(R.id.signInFragment)
     }
 
     private fun checkIfAuthenticated(){
