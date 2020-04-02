@@ -8,10 +8,15 @@ import `in`.bitspilani.eon.utils.SingleLiveEvent
 import androidx.lifecycle.ViewModel
 import com.google.gson.JsonObject
 
+enum class OrganiserDetailsSteps(val desc: String) {
+    BASIC_DETAILS("Basic Details"),
+    BANK_DETAILS("Bank Details"),
+    PASSWORD("Password"),
+}
 class AuthViewModel(private val restClient: RestClient): ViewModel() {
 
     val progress: SingleLiveEvent<Boolean> = SingleLiveEvent()
-
+    var registerCurrentStep:OrganiserDetailsSteps = OrganiserDetailsSteps.BASIC_DETAILS
 
     var fcmToken:String? = null
 
@@ -53,4 +58,6 @@ class AuthViewModel(private val restClient: RestClient): ViewModel() {
             })
 
     }
+
+
 }
