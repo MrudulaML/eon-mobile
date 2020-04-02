@@ -1,9 +1,11 @@
 package `in`.bitspilani.eon.data.restservice.services
 
+import `in`.bitspilani.eon.data.restservice.models.IndividualEvent
 import `in`.bitspilani.eon.data.restservice.models.LoginResponse
 import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface AuthService {
@@ -17,5 +19,8 @@ interface AuthService {
 
     @POST("/api/v1/core/user/resetPassword")
     fun registerUser(@Body body: JsonObject): Call<JsonObject>
+
+    @GET("/api/v1/core/user/events")
+    fun getEvents(): Call<IndividualEvent>
 
 }

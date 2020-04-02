@@ -32,9 +32,7 @@ class SignInFragment : Fragment() {
 
            if( Validator.isValidName(etEmailAddress,true) &&
             Validator.isValidPassword(etPassword,true))
-               Toast.makeText(activity,"Login Successful",Toast.LENGTH_LONG).show()
-
-            //TODO map the API for login
+               findNavController().navigate(R.id.action_signInFragment_to_homeFragment)
 
         }
 
