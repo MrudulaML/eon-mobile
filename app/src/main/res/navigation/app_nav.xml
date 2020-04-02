@@ -26,12 +26,16 @@
         <action
             android:id="@+id/action_signInFragment_to_basicInfo"
             app:destination="@id/basicInfo" />
+        <action android:id="@+id/action_signInFragment_to_homeFragment" app:destination="@id/homeFragment"/>
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="in.bitspilani.eon.presentation.event.fragments.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action android:id="@+id/action_homeFragment_to_createPasswordFragment"
+                app:destination="@id/createPasswordFragment"/>
+    </fragment>
     <fragment
         android:id="@+id/basicInfo"
         android:name="in.bitspilani.eon.presentation.auth.fragments.signup.BasicDetailsFragment"
