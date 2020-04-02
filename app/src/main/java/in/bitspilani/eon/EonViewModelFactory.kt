@@ -1,6 +1,7 @@
 package `in`.bitspilani.eon
 import `in`.bitspilani.eon.data.restservice.RestClient
 import `in`.bitspilani.eon.viewmodel.AuthViewModel
+import `in`.bitspilani.eon.viewmodel.HomeViewModel
 import android.os.Bundle
 import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
@@ -21,6 +22,7 @@ class EonViewModelFactory(
     ) = with(modelClass) {
         when {
             isAssignableFrom(AuthViewModel::class.java) -> AuthViewModel(restClient)
+            isAssignableFrom(HomeViewModel::class.java) -> HomeViewModel(restClient)
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
