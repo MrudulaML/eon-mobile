@@ -1,11 +1,14 @@
 package `in`.bitspilani.eon.presentation.auth.fragments.signup
 
 import `in`.bitspilani.eon.R
+import `in`.bitspilani.eon.utils.clickWithDebounce
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import kotlinx.android.synthetic.main.fragment_create_password.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -37,6 +40,15 @@ class CreatePasswordFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_create_password, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        btn_submit.clickWithDebounce {
+
+            findNavController().navigate(R.id.action_password_to_login)
+        }
     }
 
     companion object {

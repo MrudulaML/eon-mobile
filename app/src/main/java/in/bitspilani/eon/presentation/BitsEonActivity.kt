@@ -30,7 +30,7 @@ class BitsEonActivity : AppCompatActivity() {
             if (BitsEonApp.localStorageHandler!!.token.isNullOrEmpty()){
 
                 delay(700)
-                navController.navigate(R.id.action_splashScreen_to_homeFragment,
+                navController.navigate(R.id.action_splashScreen_to_signInFragment,
                     null,
                     NavOptions.Builder()
                         .setPopUpTo(R.id.splashScreen,
