@@ -1,6 +1,8 @@
 package `in`.bitspilani.eon.presentation.auth.fragments.signup
 
 import `in`.bitspilani.eon.R
+import `in`.bitspilani.eon.utils.Validator
+import `in`.bitspilani.eon.utils.clickWithDebounce
 import `in`.bitspilani.eon.utils.getViewModelFactory
 import `in`.bitspilani.eon.viewmodel.AuthViewModel
 import android.os.Bundle
@@ -9,6 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import kotlinx.android.synthetic.main.fragment_basic_details.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -43,6 +47,20 @@ class BasicDetailsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_basic_details, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        btn_next.clickWithDebounce {
+
+            if (Validator.isValidName(edt_org_name, true) &&
+                Validator.isValidName(edt_org_contact, true) &&
+                Validator.isValidName(edt_org_address, true)
+            )
+
+                findNavController().navigate(R.id.action_basicInfo_to_createPasswordFragment)
+        }
     }
 
     companion object {

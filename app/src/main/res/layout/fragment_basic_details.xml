@@ -1,46 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:layout_marginHorizontal="@dimen/_24sdp"
     android:orientation="vertical"
-    tools:context=".presentation.auth.fragments.signup.BankDetailsFragment">
+    tools:context=".presentation.BitsEonActivity">
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/edt_org_name"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_16sdp"
-        android:hint="Organisation Name"/>
+        android:layout_below="@id/emailAddressWrapper"
+        android:layout_marginTop="@dimen/_10dp"
+        android:theme="@style/TextLabel">
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/edt_org_contact"
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edt_org_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:hint="Organisation Name" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_16sdp"
-        android:hint="Contact Number"/>
+        android:layout_below="@id/emailAddressWrapper"
+        android:layout_marginTop="@dimen/_10dp"
+        android:theme="@style/TextLabel">
 
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edt_org_contact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:hint="Contact Number" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:text="Address"/>
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/edt_org_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minLines="6"
-        android:singleLine="false"
-        android:layout_margin="@dimen/_16sdp"
-        android:lines="8"
-        android:scrollbars="vertical"
+
         android:autofillHints="Organisation Address"
         android:gravity="start|top"
-        android:inputType="textMultiLine"/>
+        android:inputType="textMultiLine"
+        android:lines="8"
+        android:minLines="3"
+        android:scrollbars="vertical"
+        android:singleLine="false" />
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_next"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Next"/>
+        android:layout_marginTop="@dimen/_20dp"
 
+        android:background="@drawable/bg_button_rounded_corners"
+        android:clickable="true"
+        android:text="Next"
+        android:textColor="@color/white" />
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>
