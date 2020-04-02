@@ -30,22 +30,27 @@ class SignInFragment : Fragment() {
 
         btn_login.clickWithDebounce {
 
-           if( Validator.isValidName(etEmailAddress,true) &&
-            Validator.isValidPassword(etPassword,true))
+           if( Validator.isValidName(etEmailAddress,true)){
+               Toast.makeText(activity,"Login Successful",Toast.LENGTH_LONG).show()
                findNavController().navigate(R.id.action_signInFragment_to_homeFragment)
+           }
+
+            //TODO map the API for login
 
         }
 
-        tv_forgot_password.clickWithDebounce {
-
-            // click event on forgot password
-            //TODO map the API for forgot password
-            Toast.makeText(getActivity(),"Forgot password",Toast.LENGTH_SHORT).show()
-        }
 
         btn_register.clickWithDebounce {
 
             findNavController().navigate(R.id.action_signInFragment_to_basicInfo)
+        }
+        organiser.clickWithDebounce {
+            organiser.isChecked = true
+            guest.isChecked = false
+        }
+        guest.clickWithDebounce {
+            organiser.isChecked = false
+            guest.isChecked = true
         }
 
     }

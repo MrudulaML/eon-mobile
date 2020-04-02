@@ -10,4 +10,11 @@
     <string name="password_hint">Password</string>
     <string name="organiser">Organiser</string>
     <string name="guest">Guest</string>
+    <string name="bank_acc_no">Bank Acc No</string>
+    <string name="ifsc_code">IFSC Code</string>
+    <string name="bank_name">Bank Name</string>
+    <string name="next">Next</string>
+    <string name="password_restriction_hint">Password must contain at least a Lower case, Upper case, Numbers and
+        Special,8-16 characters
+    </string>
 </resources>
