@@ -4,9 +4,13 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <import type="in.bitspilani.eon.viewmodel.OrganiserDetailsSteps" />
+        <import type="in.bitspilani.eon.viewmodel.USER_TYPE" />
         <variable
                 name="step"
                 type="in.bitspilani.eon.viewmodel.OrganiserDetailsSteps" />
+        <variable
+                name="userType"
+                type="in.bitspilani.eon.viewmodel.USER_TYPE" />
         <import type="android.view.View" />
     </data>
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -58,6 +62,7 @@
             <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="@{userType == USER_TYPE.ORGANISER  ? View.VISIBLE : View.GONE }"
                     android:layout_below="@id/emailAddressWrapper"
                     android:layout_marginTop="@dimen/_10dp"
                     android:theme="@style/TextLabel">

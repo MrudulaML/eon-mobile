@@ -3,6 +3,7 @@ package `in`.bitspilani.eon.presentation.event.fragments
 
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.data.restservice.models.IndividualEvent
+import `in`.bitspilani.eon.presentation.BitsEonActivity
 import `in`.bitspilani.eon.presentation.event.adapter.EventAdapter
 import `in`.bitspilani.eon.utils.GridSpacingItemDecoration
 import `in`.bitspilani.eon.utils.getViewModelFactory
@@ -44,8 +45,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //TODO implement with api
-
+        (activity as BitsEonActivity).binding.toolbar.visibility = View.VISIBLE
         initView()
     }
 
