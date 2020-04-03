@@ -1,6 +1,7 @@
 package `in`.bitspilani.eon.presentation.auth.fragments
 
 
+import `in`.bitspilani.eon.BitsEonApp
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.utils.Validator
 import `in`.bitspilani.eon.utils.clickWithDebounce
@@ -37,7 +38,8 @@ class SignInFragment : Fragment() {
         } ?: throw Exception("Invalid Activity")
         btn_login.clickWithDebounce {
             if (authViewModel.userType!=null){
-                if( Validator.isValidName(etEmailAddress,true)){
+                if( Validator.isValidEmail(etEmailAddress,true)){
+                    BitsEonApp.localStorageHandler?.token = "abcdefg" //dummy token to mock auth
                     showUserMsg("Login Successful")
                     findNavController().navigate(R.id.action_signInFragment_to_homeFragment)
                 }

@@ -5,6 +5,7 @@ import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.databinding.ActivityBitsEonBinding
 import `in`.bitspilani.eon.viewmodel.AuthViewModel
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -31,7 +32,18 @@ class BitsEonActivity : AppCompatActivity() {
         authViewModel = ViewModelProviders.of(this).get(AuthViewModel::class.java)
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         checkIfAuthenticated()
+        binding.layoutDrawer.logout.setOnClickListener {
+            binding.drawerLayout.closeDrawer(Gravity.LEFT)
+            binding.toolbar.visibility = View.GONE
+            BitsEonApp.localStorageHandler?.clearData()
+            navController.navigate(R.id.action_global_signInFragment,
+                null,
+                NavOptions.Builder()
+                    .setPopUpTo(R.id.signInFragment,
+                        true).build()
+            )
 
+        }
     }
 
     private fun checkIfAuthenticated(){
