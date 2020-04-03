@@ -23,6 +23,8 @@ class Validator {
         private const val NAME_VALIDATION_MSG = "Enter a valid name"
         private const val EMAIL_VALIDATION_MSG = "Enter a valid email address"
         private const val PHONE_VALIDATION_MSG = "Enter a valid phone number"
+        private const val IFSC_VALIDATION_MSG = "Enter a valid ifsc"
+
 
         /**
          * Retrieve string data from the parameter.
@@ -110,7 +112,7 @@ class Validator {
             val str = getText(data)
             val valid = str.trim().length != 11
             if (updateUI) {
-                val error: String? = if (valid) null else NAME_VALIDATION_MSG
+                val error: String? = if (valid) null else IFSC_VALIDATION_MSG
                 setError(data, error)
             }
             return valid
