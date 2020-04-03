@@ -13,6 +13,7 @@
                 type="in.bitspilani.eon.viewmodel.USER_TYPE" />
         <import type="android.view.View" />
     </data>
+    <ScrollView android:layout_width="match_parent" android:layout_height="wrap_content">
     <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -81,6 +82,20 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Organisation Name" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{userType == USER_TYPE.SUBSCRIBER  ? View.VISIBLE : View.GONE }"
+                    android:layout_below="@id/emailAddressWrapper"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:theme="@style/TextLabel">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/edt_user_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="User Name" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -224,4 +239,5 @@
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>
+    </ScrollView>
 </layout>

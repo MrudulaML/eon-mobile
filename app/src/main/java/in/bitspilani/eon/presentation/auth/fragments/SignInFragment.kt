@@ -36,6 +36,7 @@ class SignInFragment : Fragment() {
         authViewModel = activity?.run {
             ViewModelProviders.of(this).get(AuthViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
+        authViewModel.userType = null
         btn_login.clickWithDebounce {
             if (authViewModel.userType!=null){
                 if( Validator.isValidEmail(etEmailAddress,true)){
