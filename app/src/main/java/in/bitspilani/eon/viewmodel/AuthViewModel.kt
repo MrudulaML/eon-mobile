@@ -13,10 +13,18 @@ enum class OrganiserDetailsSteps(val desc: String) {
     BANK_DETAILS("Bank Details"),
     PASSWORD("Password"),
 }
-class AuthViewModel(private val restClient: RestClient): ViewModel() {
+
+enum class USER_TYPE(val desc: String) {
+    ORGANISER("Event Organiser"),
+    SUBSCRIBER("Event Subscriber"),
+}
+
+class AuthViewModel: ViewModel() {
 
     val progress: SingleLiveEvent<Boolean> = SingleLiveEvent()
     var registerCurrentStep:OrganiserDetailsSteps = OrganiserDetailsSteps.BASIC_DETAILS
+    var userType:USER_TYPE? = null
+    val restClient: RestClient = RestClient()
 
     var fcmToken:String? = null
 

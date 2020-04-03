@@ -21,7 +21,7 @@ class EonViewModelFactory(
         handle: SavedStateHandle
     ) = with(modelClass) {
         when {
-            isAssignableFrom(AuthViewModel::class.java) -> AuthViewModel(restClient)
+            isAssignableFrom(AuthViewModel::class.java) -> AuthViewModel()
             isAssignableFrom(HomeViewModel::class.java) -> HomeViewModel(restClient)
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

@@ -8,13 +8,17 @@ import `in`.bitspilani.eon.utils.clickWithDebounce
 import `in`.bitspilani.eon.utils.getViewModelFactory
 import `in`.bitspilani.eon.viewmodel.AuthViewModel
 import `in`.bitspilani.eon.viewmodel.OrganiserDetailsSteps
+import `in`.bitspilani.eon.viewmodel.USER_TYPE
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_basic_details.*
@@ -25,7 +29,7 @@ import kotlinx.android.synthetic.main.fragment_create_password.*
 
 class BasicDetailsFragment : Fragment() {
 
-    private val authViewModel by viewModels<AuthViewModel> { getViewModelFactory() }
+    lateinit var authViewModel:AuthViewModel
     lateinit var binding: FragmentBasicDetailsBinding
 
 
@@ -44,6 +48,10 @@ class BasicDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        authViewModel = activity?.run {
+            ViewModelProviders.of(this).get(AuthViewModel::class.java)
+        } ?: throw Exception("Invalid Activity")
+
         initViews()
         btn_next.clickWithDebounce {
             onNextClick()
@@ -53,13 +61,12 @@ class BasicDetailsFragment : Fragment() {
         when(authViewModel.registerCurrentStep){
             OrganiserDetailsSteps.BASIC_DETAILS ->{
                 if (Validator.isValidEmail(edit_email, true) &&
-                    Validator.isValidName(edt_org_name, true) &&
                     Validator.isValidPhone(edt_org_contact, true) &&
                     Validator.isValidName(edt_org_address, true)
                 ){
-                    authViewModel.registerCurrentStep = OrganiserDetailsSteps.BANK_DETAILS
-                    binding.step = OrganiserDetailsSteps.BANK_DETAILS
-                    binding.stepView.go(1,true)
+                    authViewModel.registerCurrentStep = OrganiserDetailsSteps.PASSWORD
+                    binding.step = OrganiserDetailsSteps.PASSWORD
+                    binding.stepView.go(1, true)
                 }
 
             }
@@ -74,16 +81,21 @@ class BasicDetailsFragment : Fragment() {
             }
 
             OrganiserDetailsSteps.PASSWORD->{
-                if (Validator.isValidPassword(edt_password)
-                    && Validator.isValidPassword(edt_confirm_password)){
-
+                if (Validator.isValidPassword(edt_password)){
+                    if(TextUtils.equals(edt_password.text,edt_confirm_password.text)) {
                         BitsEonApp.localStorageHandler?.token = "abcdefg" //dummy token to mock auth
-                        findNavController().navigate(R.id.action_basicInfo_to_homeFragment,
+                        findNavController().navigate(
+                            R.id.action_basicInfo_to_homeFragment,
                             null,
                             NavOptions.Builder()
-                                .setPopUpTo(R.id.basicInfo,
-                                    true).build()
+                                .setPopUpTo(
+                                    R.id.basicInfo,
+                                    true
+                                ).build()
                         )
+                    }else{
+                        showUserMsg("Password Does not match")
+                    }
                 }
             }
         }
@@ -91,11 +103,15 @@ class BasicDetailsFragment : Fragment() {
     private fun initViews(){
         val steps = listOf<String>(
             OrganiserDetailsSteps.BASIC_DETAILS.desc,
-            OrganiserDetailsSteps.BANK_DETAILS.desc,
             OrganiserDetailsSteps.PASSWORD.desc)
+        binding.stepView.setSteps(steps)
+        binding.title.text = "${authViewModel.userType?.desc} Registration"
         authViewModel.registerCurrentStep = OrganiserDetailsSteps.BASIC_DETAILS
         binding.step = OrganiserDetailsSteps.BASIC_DETAILS
-        binding.stepView.setSteps(steps)
+        binding.userType = authViewModel.userType
+    }
+    fun showUserMsg(msg:String){
+        Toast.makeText(activity,msg, Toast.LENGTH_LONG).show()
     }
 
 }
