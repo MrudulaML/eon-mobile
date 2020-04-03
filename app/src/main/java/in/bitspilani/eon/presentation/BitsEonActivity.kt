@@ -7,6 +7,7 @@ import `in`.bitspilani.eon.viewmodel.AuthViewModel
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -78,8 +79,10 @@ class BitsEonActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelec
             }
             R.id.action_logout->{
 
-                navController.navigate(R.id.homeFragment)
+                navController.navigate(R.id.signInFragment)
                 drawer_layout.closeDrawer(GravityCompat.START)
+                Toast.makeText(this, "Logged out Successfully", Toast.LENGTH_LONG)
+                    .show()
             }
 
         }
