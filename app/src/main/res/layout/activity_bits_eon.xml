@@ -56,12 +56,15 @@
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
         <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_drawer"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:background="#b4979797"
+                android:background="@color/white"
+                app:menu="@menu/navigation_menu"
+                app:headerLayout="@layout/lay_drawer_menu"
                 android:layout_gravity="start">
-            <include layout="@layout/lay_drawer_menu"
-                     android:id="@+id/layout_drawer"/>
+           `<!-- <include layout="@layout/lay_drawer_menu"
+                     android:id="@+id/layout_drawer"/>-->`
         </com.google.android.material.navigation.NavigationView>
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

@@ -4,17 +4,23 @@ import `in`.bitspilani.eon.BitsEonApp
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.databinding.ActivityBitsEonBinding
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
+import androidx.navigation.Navigation.findNavController
+import com.google.android.material.navigation.NavigationView
+import kotlinx.android.synthetic.main.activity_bits_eon.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class BitsEonActivity : AppCompatActivity() {
+
+class BitsEonActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener {
     lateinit var navController: NavController
     lateinit var binding: ActivityBitsEonBinding
 
@@ -25,6 +31,7 @@ class BitsEonActivity : AppCompatActivity() {
         binding.toolbar.visibility = View.GONE
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         checkIfAuthenticated()
+        setNavigationViewListener()
 
     }
 
@@ -51,6 +58,31 @@ class BitsEonActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+
+
+        when(item.itemId){
+
+            R.id.action_change_password ->{
+
+                navController.navigate(R.id.changePasswordFragment)
+                drawer_layout.closeDrawer(GravityCompat.START)
+            }
+            R.id.action_logout->{
+
+                navController.navigate(R.id.homeFragment)
+                drawer_layout.closeDrawer(GravityCompat.START)
+            }
+
+        }
+        return true
+    }
+    private fun setNavigationViewListener() {
+        val navigationView =
+            findViewById<View>(R.id.nav_drawer) as NavigationView
+        navigationView.setNavigationItemSelectedListener(this)
     }
 
 }
