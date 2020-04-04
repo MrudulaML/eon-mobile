@@ -6,8 +6,8 @@ import `in`.bitspilani.eon.databinding.ActivityBitsEonBinding
 import `in`.bitspilani.eon.viewmodel.AuthViewModel
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.Gravity
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -39,7 +39,21 @@ class BitsEonActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelec
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         checkIfAuthenticated()
         setNavigationViewListener()
-
+        binding.menu.setOnClickListener {
+            binding.drawerLayout.openDrawer(Gravity.LEFT)
+        }
+//        binding.layoutDrawer.logout.setOnClickListener {
+//            binding.drawerLayout.closeDrawer(Gravity.LEFT)
+//            binding.toolbar.visibility = View.GONE
+//            BitsEonApp.localStorageHandler?.clearData()
+//            navController.navigate(R.id.action_global_signInFragment,
+//                null,
+//                NavOptions.Builder()
+//                    .setPopUpTo(R.id.signInFragment,
+//                        true).build()
+//            )
+//
+//        }
     }
 
     private fun checkIfAuthenticated(){
@@ -73,16 +87,19 @@ class BitsEonActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelec
         when(item.itemId){
 
             R.id.action_change_password ->{
-
-                navController.navigate(R.id.changePasswordFragment)
+                navController.navigate(R.id.action_to_change_password)
                 drawer_layout.closeDrawer(GravityCompat.START)
             }
             R.id.action_logout->{
-
-                navController.navigate(R.id.signInFragment)
+                binding.toolbar.visibility = View.GONE
                 drawer_layout.closeDrawer(GravityCompat.START)
-                Toast.makeText(this, "Logged out Successfully", Toast.LENGTH_LONG)
-                    .show()
+                BitsEonApp.localStorageHandler?.clearData()
+                navController.navigate(R.id.action_global_signInFragment,
+                    null,
+                    NavOptions.Builder()
+                        .setPopUpTo(R.id.signInFragment,
+                            true).build()
+                )
             }
 
         }

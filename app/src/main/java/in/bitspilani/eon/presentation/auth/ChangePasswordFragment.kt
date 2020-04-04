@@ -40,7 +40,7 @@ class ChangePasswordFragment : Fragment() {
                 else {
                     Toast.makeText(activity, "Password Change Successfully", Toast.LENGTH_LONG)
                         .show()
-                    findNavController().navigate(R.id.signInFragment)
+                    findNavController().navigate(R.id.action_changePasswordFragment_to_homeFragment)
 
                 }
             }
