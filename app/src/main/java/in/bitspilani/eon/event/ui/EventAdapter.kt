@@ -1,13 +1,12 @@
-package `in`.bitspilani.eon.presentation.event.adapter
+package `in`.bitspilani.eon.event.ui
 
-import `in`.bitspilani.eon.data.restservice.models.IndividualEvent
 import `in`.bitspilani.eon.databinding.EventItemRowBinding
-import `in`.bitspilani.eon.viewmodel.HomeViewModel
+import `in`.bitspilani.eon.event.data.IndividualEvent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class EventAdapter(private val evenList : List<IndividualEvent>,val homeViewModel: HomeViewModel) : RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
+class EventAdapter(private val evenList : List<IndividualEvent>, val homeViewModel: HomeViewModel) : RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = EventItemRowBinding.inflate(inflater)

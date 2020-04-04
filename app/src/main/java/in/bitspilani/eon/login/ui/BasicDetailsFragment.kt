@@ -1,14 +1,10 @@
-package `in`.bitspilani.eon.presentation.auth.fragments.signup
+package `in`.bitspilani.eon.login.ui
 
 import `in`.bitspilani.eon.BitsEonApp
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.databinding.FragmentBasicDetailsBinding
 import `in`.bitspilani.eon.utils.Validator
 import `in`.bitspilani.eon.utils.clickWithDebounce
-import `in`.bitspilani.eon.utils.getViewModelFactory
-import `in`.bitspilani.eon.viewmodel.AuthViewModel
-import `in`.bitspilani.eon.viewmodel.OrganiserDetailsSteps
-import `in`.bitspilani.eon.viewmodel.USER_TYPE
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -17,19 +13,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_basic_details.*
-import kotlinx.android.synthetic.main.fragment_basic_details.edt_confirm_password
-import kotlinx.android.synthetic.main.fragment_basic_details.edt_password
-import kotlinx.android.synthetic.main.fragment_create_password.*
 
 
 class BasicDetailsFragment : Fragment() {
 
-    lateinit var authViewModel:AuthViewModel
+    lateinit var authViewModel: AuthViewModel
     lateinit var binding: FragmentBasicDetailsBinding
 
 

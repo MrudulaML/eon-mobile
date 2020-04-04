@@ -1,13 +1,11 @@
-package `in`.bitspilani.eon.presentation.event.fragments
+package `in`.bitspilani.eon.event.ui
 
 
+import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
-import `in`.bitspilani.eon.data.restservice.models.IndividualEvent
-import `in`.bitspilani.eon.presentation.BitsEonActivity
-import `in`.bitspilani.eon.presentation.event.adapter.EventAdapter
+import `in`.bitspilani.eon.event.data.IndividualEvent
 import `in`.bitspilani.eon.utils.GridSpacingItemDecoration
 import `in`.bitspilani.eon.utils.getViewModelFactory
-import `in`.bitspilani.eon.viewmodel.HomeViewModel
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -53,20 +51,59 @@ class HomeFragment : Fragment() {
     private fun initView() {
         //dummy list
         val listOfEvent = mutableListOf<IndividualEvent>()
-        listOfEvent.add(IndividualEvent("Food Festival","2000"))
-        listOfEvent.add(IndividualEvent("Music Festival","1000"))
-        listOfEvent.add(IndividualEvent("Technical Corridor","3000"))
-        listOfEvent.add(IndividualEvent("Financial Planning","4000"))
-        listOfEvent.add(IndividualEvent("Health and Fitness","3000"))
-        listOfEvent.add(IndividualEvent("Ethical Hacking","2500"))
-        listOfEvent.add(IndividualEvent("Angular JS Classes","2600"))
+        listOfEvent.add(
+            IndividualEvent(
+                "Food Festival",
+                "2000"
+            )
+        )
+        listOfEvent.add(
+            IndividualEvent(
+                "Music Festival",
+                "1000"
+            )
+        )
+        listOfEvent.add(
+            IndividualEvent(
+                "Technical Corridor",
+                "3000"
+            )
+        )
+        listOfEvent.add(
+            IndividualEvent(
+                "Financial Planning",
+                "4000"
+            )
+        )
+        listOfEvent.add(
+            IndividualEvent(
+                "Health and Fitness",
+                "3000"
+            )
+        )
+        listOfEvent.add(
+            IndividualEvent(
+                "Ethical Hacking",
+                "2500"
+            )
+        )
+        listOfEvent.add(
+            IndividualEvent(
+                "Angular JS Classes",
+                "2600"
+            )
+        )
 
         rv_event_list.layoutManager = GridLayoutManager(activity,2)
 
         val spacingInPixels = resources.getDimensionPixelSize(R.dimen.grid_layout_margin)
         rv_event_list.addItemDecoration(GridSpacingItemDecoration(2, spacingInPixels, true, 0))
 
-        val movieListAdapter = EventAdapter(listOfEvent,homeViewModel)
+        val movieListAdapter =
+            EventAdapter(
+                listOfEvent,
+                homeViewModel
+            )
         rv_event_list.adapter = movieListAdapter
 
     }

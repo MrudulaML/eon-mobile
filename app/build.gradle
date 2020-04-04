@@ -90,14 +90,15 @@ dependencies {
     //Arch lifecycle
     implementation  "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
     implementation  "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
 
 
     //logging
     implementation "com.jakewharton.timber:timber:$timberVersion"
 
     //Retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.6.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
 
 
@@ -117,6 +118,11 @@ dependencies {
 
     //stepview
     implementation 'com.shuhart.stepview:stepview:1.5.1'
+
+    //dagger
+    api 'com.google.dagger:dagger-android:2.15'
+    api 'com.google.dagger:dagger-android-support:2.24' // if you use the support libraries
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.24'
 
 
 }

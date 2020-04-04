@@ -1,4 +1,4 @@
-package `in`.bitspilani.eon.presentation.auth.fragments
+package `in`.bitspilani.eon.login.ui
 
 
 import `in`.bitspilani.eon.R

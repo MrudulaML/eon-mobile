@@ -1,4 +1,4 @@
-package `in`.bitspilani.eon.data.restservice
+package `in`.bitspilani.eon.api
 
 import `in`.bitspilani.eon.BitsEonApp
 import `in`.bitspilani.eon.BuildConfig

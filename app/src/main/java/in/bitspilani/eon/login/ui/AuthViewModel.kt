@@ -1,8 +1,8 @@
-package `in`.bitspilani.eon.viewmodel
+package `in`.bitspilani.eon.login.ui
 
-import `in`.bitspilani.eon.data.restservice.RestClient
-import `in`.bitspilani.eon.data.restservice.models.LoginResponse
-import `in`.bitspilani.eon.data.restservice.services.AuthService
+import `in`.bitspilani.eon.api.AuthService
+import `in`.bitspilani.eon.api.RestClient
+import `in`.bitspilani.eon.login.data.LoginResponse
 import `in`.bitspilani.eon.utils.ApiCallback
 import `in`.bitspilani.eon.utils.SingleLiveEvent
 import androidx.lifecycle.ViewModel
@@ -22,9 +22,11 @@ enum class USER_TYPE(val desc: String) {
 class AuthViewModel: ViewModel() {
 
     val progress: SingleLiveEvent<Boolean> = SingleLiveEvent()
-    var registerCurrentStep:OrganiserDetailsSteps = OrganiserDetailsSteps.BASIC_DETAILS
-    var userType:USER_TYPE? = null
-    val restClient: RestClient = RestClient()
+    var registerCurrentStep: OrganiserDetailsSteps =
+        OrganiserDetailsSteps.BASIC_DETAILS
+    var userType: USER_TYPE? = null
+    val restClient: RestClient =
+        RestClient()
 
     var fcmToken:String? = null
 

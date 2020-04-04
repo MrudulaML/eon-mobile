@@ -1,4 +1,4 @@
-package `in`.bitspilani.eon.data.restservice.models
+package `in`.bitspilani.eon.login.data
 
 //will be changed acc to actual contract
 data class LoginResponse(
