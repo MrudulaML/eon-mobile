@@ -1,8 +1,8 @@
 package `in`.bitspilani.eon.utils
 
 import `in`.bitspilani.eon.BuildConfig
-import `in`.bitspilani.eon.api.ErrorResponse
-import `in`.bitspilani.eon.api.RestClient
+import `in`.bitspilani.eon.data.remote.ErrorResponse
+import `in`.bitspilani.eon.data.remote.RestClient
 import android.text.TextUtils
 import retrofit2.Call
 import retrofit2.Callback

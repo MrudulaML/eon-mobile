@@ -119,10 +119,8 @@ dependencies {
     //stepview
     implementation 'com.shuhart.stepview:stepview:1.5.1'
 
-    //dagger
-    api 'com.google.dagger:dagger-android:2.15'
-    api 'com.google.dagger:dagger-android-support:2.24' // if you use the support libraries
-    annotationProcessor 'com.google.dagger:dagger-android-processor:2.24'
+  
+
 
 
 }

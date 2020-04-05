@@ -1,4 +1,4 @@
-package `in`.bitspilani.eon.api
+package `in`.bitspilani.eon.data.remote
 
 import `in`.bitspilani.eon.BitsEonApp
 import `in`.bitspilani.eon.BuildConfig
@@ -27,7 +27,7 @@ class RestClient{
                 .readTimeout(20, TimeUnit.SECONDS)
                 .writeTimeout(20, TimeUnit.SECONDS)
                 .cache(null)
-                .addInterceptor(Authinterceptor())
+                .addInterceptor(AuthInterceptor())
                 .build()
 
             val retrofit = Retrofit.Builder()
@@ -67,7 +67,7 @@ class RestClient{
 
 }
 
-class Authinterceptor: Interceptor {
+class AuthInterceptor: Interceptor {
 
     /**
      * Interceptor class for setting of the headers for every request

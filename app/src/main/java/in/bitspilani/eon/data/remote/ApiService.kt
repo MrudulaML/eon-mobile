@@ -1,4 +1,4 @@
-package `in`.bitspilani.eon.api
+package `in`.bitspilani.eon.data.remote
 
 import `in`.bitspilani.eon.event.data.EventResponse
 import `in`.bitspilani.eon.login.data.LoginResponse
@@ -9,7 +9,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 
-interface AuthService {
+interface ApiService {
 
     //will be changed after getting api contract
     @POST("/api/v1/core/user/login/")
