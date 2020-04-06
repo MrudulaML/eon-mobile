@@ -45,9 +45,17 @@ class SignInFragment : Fragment() {
             }
 
             //TODO map the API for login
-
         }
 
+        tv_forgot_password.clickWithDebounce {
+
+            findNavController().navigate(R.id.action_signInFragment_to_createPasswordFragment)
+//            if (authViewModel.userType!=null){
+//                findNavController().navigate(R.id.action_signInFragment_to_createPasswordFragment)
+//            }else{
+//                showUserMsg("Select user type")
+//            }
+        }
 
         btn_register.clickWithDebounce {
             if (authViewModel.userType!=null){

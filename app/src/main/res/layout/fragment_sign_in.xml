@@ -4,86 +4,132 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".login.ui.SignInFragment"
-            android:orientation="vertical"
-            android:paddingTop="@dimen/_40sdp"
-            android:paddingBottom ="@dimen/_20dp"
-            android:layout_marginHorizontal="@dimen/_24dp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".login.ui.SignInFragment"
+        android:orientation="vertical"
+        android:background="@color/navy">
 
-        <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/login"
-                android:textStyle="bold"
-                android:textColor="@color/appColor"
-                android:padding="@dimen/_10dp"
-                android:textSize="@dimen/_20fs"
-                android:layout_gravity="center_horizontal"/>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/_40sdp"
+        android:paddingBottom ="@dimen/_20dp"
+        android:layout_marginHorizontal="@dimen/_24dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/logo"/>
 
         <com.google.android.material.chip.ChipGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/organiser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="16dp">
+                android:checkable="true"
+                android:allowUndo="false"
+                android:text="@string/organiser"
+                android:textColor="@color/grey"
+                android:theme="@style/Theme.MaterialComponents.Light"/>
 
             <com.google.android.material.chip.Chip
-                    android:id="@+id/organiser"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checkable="true"
-                    android:allowUndo="false"
-                    android:text="@string/organiser"
-                    android:textColor="@color/appColor"
-                    android:theme="@style/Theme.MaterialComponents.Light"/>
-
-            <com.google.android.material.chip.Chip
-                    android:id="@+id/guest"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/guest"
-                    android:allowUndo="false"
-                    android:checkable="true"
-                    android:textColor="@color/appColor"
-                    android:theme="@style/Theme.MaterialComponents.Light"/>
+                android:id="@+id/guest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_32dp"
+                android:text="@string/subscriber"
+                android:textColor="@color/grey"
+                android:allowUndo="false"
+                android:checkable="true"
+                android:theme="@style/Theme.MaterialComponents.Light"/>
         </com.google.android.material.chip.ChipGroup>
 
-        <com.google.android.material.textfield.TextInputLayout
+
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/_20dp"
+            android:background="@drawable/custom_shape">
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/emailAddressWrapper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:theme="@style/TextLabel"
-                android:layout_marginTop="@dimen/_10sdp">
+                android:layout_below="@id/emailAddressWrapper"
+                android:padding="@dimen/_12dp"
+                android:background="@drawable/bg_edit_text">
 
-            <androidx.appcompat.widget.AppCompatEditText
+                <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/etEmailAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
-                    android:hint="Email"
-            />
-        </com.google.android.material.textfield.TextInputLayout>
+                    android:drawableLeft="@drawable/user"
+                    android:drawableStart="@drawable/user"
+                    android:drawablePadding="@dimen/_20dp"
+                    android:hint="@string/username"
+                    android:textSize="@dimen/_18dp"
+                    android:textColorHint="@color/grey"
+                    android:background="@android:color/transparent"/>
 
-        <com.google.android.material.textfield.TextInputLayout
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/passwordWrapper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:theme="@style/TextLabel"
                 android:layout_below="@id/emailAddressWrapper"
                 android:layout_marginTop="@dimen/_10dp"
-                app:endIconMode="password_toggle">
+                android:padding="@dimen/_12dp"
+                android:background="@drawable/bg_edit_text">
 
-            <androidx.appcompat.widget.AppCompatEditText
+                <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/etPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
-                    android:hint="@string/password_hint"/>
+                    android:drawableLeft="@drawable/password_login"
+                    android:drawableStart="@drawable/password_login"
+                    android:drawablePadding="@dimen/_20dp"
+                    android:hint="@string/password_hint"
+                    android:textSize="@dimen/_18dp"
+                    android:textColorHint="@color/grey"
+                    android:background="@android:color/transparent"/>
 
-        </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/_20dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_forgot_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/forgot_password"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_16fs"
+                android:layout_gravity="right"
+                android:clickable="true"
+                android:onClick="tvForgotPassword"/>
+
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -91,25 +137,26 @@
                 android:textColor="@color/white"
                 android:background="@drawable/bg_button_rounded_corners"
                 android:layout_marginTop="@dimen/_20dp"
+                android:padding="@dimen/_18dp"
+                android:textAllCaps="false"
                 android:clickable="true"
                 android:onClick="btnLogin"/>
-        <androidx.appcompat.widget.AppCompatTextView android:layout_width="wrap_content"
-                                                     android:layout_height="wrap_content"
-                                                     android:text="OR"
-                                                     android:layout_gravity="center_horizontal"
-                                                     android:layout_marginTop="@dimen/_20sdp"/>
 
-        <androidx.appcompat.widget.AppCompatButton
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Register"
                 android:textColor="@color/white"
-                android:background="@drawable/bg_button_rounded_corners"
+                android:background="@drawable/bg_register_button"
                 android:layout_marginTop="@dimen/_20sdp"
+                android:padding="@dimen/_18dp"
                 android:clickable="true"
+                android:textAllCaps="false"
                 android:onClick="btnLogin"/>
 
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 </layout>

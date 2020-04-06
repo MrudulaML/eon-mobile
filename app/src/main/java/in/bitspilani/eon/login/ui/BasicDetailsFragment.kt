@@ -97,7 +97,7 @@ class BasicDetailsFragment : Fragment() {
             OrganiserDetailsSteps.BASIC_DETAILS.desc,
             OrganiserDetailsSteps.PASSWORD.desc)
         binding.stepView.setSteps(steps)
-        binding.title.text = "${authViewModel.userType?.desc} Registration"
+        binding.title.text = "Registration - ${authViewModel.userType?.desc}"
         authViewModel.registerCurrentStep = OrganiserDetailsSteps.BASIC_DETAILS
         binding.step = OrganiserDetailsSteps.BASIC_DETAILS
         binding.userType = authViewModel.userType
