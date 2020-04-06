@@ -1,11 +1,12 @@
-package `in`.bitspilani.eon.event.ui
+package `in`.bitspilani.eon.eventOrganiser.ui
 
 
-import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
-import `in`.bitspilani.eon.event.data.IndividualEvent
-import `in`.bitspilani.eon.utils.GridSpacingItemDecoration
+import `in`.bitspilani.eon.eventOrganiser.data.IndividualEvent
+import `in`.bitspilani.eon.utils.MarginItemDecoration
+import `in`.bitspilani.eon.utils.clickWithDebounce
 import `in`.bitspilani.eon.utils.getViewModelFactory
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,23 +14,25 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_dashboard.*
+
 
 /**
  * A simple [Fragment] subclass.
  *
  */
 class HomeFragment : Fragment() {
-    private val homeViewModel by viewModels<EventDashboardViewModel> { getViewModelFactory() }
+    private val dashboardViewModel by viewModels<EventDashboardViewModel> { getViewModelFactory() }
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(false)
         return inflater.inflate(R.layout.fragment_dashboard, container, false)
 
 
@@ -39,6 +42,33 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initView()
+
+
+
+        btn_filter.clickWithDebounce {
+
+
+        }
+
+        setUpObservables()
+    }
+
+    private fun setUpObservables() {
+
+        dashboardViewModel.eventDetails.observe(viewLifecycleOwner, Observer {
+
+
+            findNavController().navigate(R.id.eventDetailsFragment)
+
+
+        })
+
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        activity?.title = "My Title"
+
     }
 
 
@@ -47,51 +77,55 @@ class HomeFragment : Fragment() {
         val listOfEvent = mutableListOf<IndividualEvent>()
         listOfEvent.add(
             IndividualEvent(
-                "Food Festival",
+                "Food Festival",1,
                 "2000"
             )
         )
         listOfEvent.add(
             IndividualEvent(
-                "Music Festival",
+                "Music Festival",2,
                 "1000"
             )
         )
         listOfEvent.add(
             IndividualEvent(
-                "Technical Corridor",
+                "Technical Corridor",3,
                 "3000"
             )
         )
         listOfEvent.add(
             IndividualEvent(
-                "Financial Planning",
+                "Financial Planning",4,
                 "4000"
             )
         )
         listOfEvent.add(
             IndividualEvent(
-                "Health and Fitness",
+                "Health and Fitness",5,
                 "3000"
             )
         )
         listOfEvent.add(
             IndividualEvent(
-                "Ethical Hacking",
+                "Ethical Hacking",6,
                 "2500"
             )
         )
         listOfEvent.add(
             IndividualEvent(
-                "Angular JS Classes",
+                "Angular JS Classes",7,
                 "2600"
             )
         )
 
         rv_event_list.layoutManager = LinearLayoutManager(activity)
+        rv_event_list.addItemDecoration(
+            MarginItemDecoration(
+            resources.getDimension(R.dimen._16sdp).toInt())
+        )
         val movieListAdapter = EventAdapter(
                 listOfEvent,
-                homeViewModel
+            dashboardViewModel
             )
         rv_event_list.adapter = movieListAdapter
 

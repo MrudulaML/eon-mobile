@@ -9,7 +9,7 @@
     <fragment
         android:id="@+id/splashScreen"
         android:name="in.bitspilani.eon.login.ui.SplashScreen"
-        android:label="fragment_splash_screen"
+
         tools:layout="@layout/fragment_splash_screen">
         <action
             android:id="@+id/action_splashScreen_to_signInFragment"
@@ -17,12 +17,18 @@
         <action
             android:id="@+id/action_splashScreen_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_splashScreen_to_notificationFragment"
+            app:destination="@id/notificationFragment" />
+        <action
+            android:id="@+id/action_splashScreen_to_userProfileFragment"
+            app:destination="@id/userProfileFragment" />
 
     </fragment>
     <fragment
         android:id="@+id/signInFragment"
         android:name="in.bitspilani.eon.login.ui.SignInFragment"
-        android:label="fragment_sign_in"
+
         tools:layout="@layout/fragment_sign_in">
         <action
             android:id="@+id/action_signInFragment_to_basicInfo"
@@ -33,33 +39,56 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="in.bitspilani.eon.event.ui.HomeFragment"
-        android:label="fragment_home"
+        android:name="in.bitspilani.eon.eventOrganiser.ui.HomeFragment"
+
         tools:layout="@layout/fragment_dashboard" >
         <action android:id="@+id/action_homeFragment_to_createPasswordFragment"
                 app:destination="@id/createPasswordFragment"/>
+        <action
+            android:id="@+id/action_homeFragment_to_eventDetailsFragment"
+            app:destination="@id/eventDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/basicInfo"
         android:name="in.bitspilani.eon.login.ui.BasicDetailsFragment"
-        android:label="fragment_basic_details"
+
         tools:layout="@layout/fragment_basic_details">
         <action android:id="@+id/action_basicInfo_to_homeFragment" app:destination="@id/homeFragment"/>
     </fragment>
     <fragment
         android:id="@+id/createPasswordFragment"
         android:name="in.bitspilani.eon.login.ui.ResetPassword"
-        android:label="fragment_create_password"
+
         tools:layout="@layout/fragment_create_password"/>
     <fragment
         android:id="@+id/changePasswordFragment"
         android:name="in.bitspilani.eon.login.ui.ChangePasswordFragment"
-        android:label="ChangePasswordFragment"
+
         tools:layout="@layout/fragment_change_password">
-        <action android:id="@+id/action_changePasswordFragment_to_homeFragment" app:destination="@id/homeFragment"/>
+        <action android:id="@+id/action_changePasswordFragment_to_homeFragment"
+            app:destination="@id/homeFragment"/>
     </fragment>
 
     <action android:id="@+id/action_to_change_password"
         app:destination="@id/changePasswordFragment"/>
-        tools:layout="@layout/fragment_create_password"/><action android:id="@+id/action_global_signInFragment" app:destination="@id/signInFragment"/>
+        <action android:id="@+id/action_global_signInFragment"
+            app:destination="@id/signInFragment"/>
+    <fragment
+        android:id="@+id/eventDetailsFragment"
+        android:name="in.bitspilani.eon.eventOrganiser.ui.EventDetailsFragment"
+
+        tools:layout="@layout/fragment_event_detail"/>
+    <action android:id="@+id/action_homeFragment_to_eventDetailsFragment"
+        app:popUpTo="@id/homeFragment"
+        app:destination="@id/eventDetailsFragment"/>
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="in.bitspilani.eon.eventOrganiser.ui.NotificationFragment"
+        tools:layout="@layout/fragment_notification" />
+    <action android:id="@+id/toolbar_to_notification"
+        app:destination="@id/notificationFragment"/>
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="in.bitspilani.eon.eventOrganiser.ui.UserProfileFragment"
+        tools:layout="@layout/fragment_user_profile" />
 </navigation>

@@ -1,6 +1,6 @@
 package `in`.bitspilani.eon
 import `in`.bitspilani.eon.api.ApiService
-import `in`.bitspilani.eon.event.ui.EventDashboardViewModel
+import `in`.bitspilani.eon.eventOrganiser.ui.EventDashboardViewModel
 import `in`.bitspilani.eon.login.ui.AuthViewModel
 import android.os.Bundle
 import androidx.lifecycle.AbstractSavedStateViewModelFactory

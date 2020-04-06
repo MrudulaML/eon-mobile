@@ -1,9 +1,9 @@
-package `in`.bitspilani.eon.event.ui
+package `in`.bitspilani.eon.eventOrganiser.ui
 
 
 
 import `in`.bitspilani.eon.api.ApiService
-import `in`.bitspilani.eon.event.data.IndividualEvent
+import `in`.bitspilani.eon.eventOrganiser.data.IndividualEvent
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -14,8 +14,10 @@ import retrofit2.HttpException
 
 class EventDashboardViewModel(private val apiService: ApiService): ViewModel() {
 
-    private val mutableLiveData: MutableLiveData<List<IndividualEvent>> =
+     val mutableLiveData: MutableLiveData<List<IndividualEvent>> =
         MutableLiveData<List<IndividualEvent>>()
+
+     val eventDetails : MutableLiveData<String> = MutableLiveData()
 
     fun observeEventResponse() {
 
@@ -36,6 +38,11 @@ class EventDashboardViewModel(private val apiService: ApiService): ViewModel() {
             }
         }
 
+    }
+
+     fun onEventClick( eventId:Int ){
+
+        eventDetails.postValue("details")
     }
 
 }

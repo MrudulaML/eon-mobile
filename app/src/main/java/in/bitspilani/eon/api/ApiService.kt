@@ -1,6 +1,6 @@
 package `in`.bitspilani.eon.api
 
-import `in`.bitspilani.eon.event.data.EventResponse
+import `in`.bitspilani.eon.eventOrganiser.data.EventResponse
 import `in`.bitspilani.eon.login.data.LoginResponse
 import com.google.gson.JsonObject
 import retrofit2.Call

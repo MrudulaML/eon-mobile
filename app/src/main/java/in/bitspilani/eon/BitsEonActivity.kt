@@ -3,14 +3,20 @@ package `in`.bitspilani.eon
 
 import `in`.bitspilani.eon.login.ui.AuthViewModel
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_bits_eon.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -28,16 +34,19 @@ class BitsEonActivity : AppCompatActivity() {
         authViewModel = ViewModelProviders.of(this).get(AuthViewModel::class.java)
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         bottomNavigation= findViewById(R.id.bottom_navigation)
-        checkIfAuthenticated()
 
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        checkIfAuthenticated()
         NavigationUI.setupWithNavController(bottomNavigation,navController)
 
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return super.onSupportNavigateUp()
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.top_navigation, menu);
+        return super.onCreateOptionsMenu(menu)
     }
+
 
     private fun checkIfAuthenticated(){
         lifecycleScope.launch {
