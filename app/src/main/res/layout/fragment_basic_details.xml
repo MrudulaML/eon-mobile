@@ -3,14 +3,14 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <import type="in.bitspilani.eon.viewmodel.OrganiserDetailsSteps" />
-        <import type="in.bitspilani.eon.viewmodel.USER_TYPE" />
+        <import type="in.bitspilani.eon.login.ui.OrganiserDetailsSteps" />
+        <import type="in.bitspilani.eon.login.ui.USER_TYPE" />
         <variable
                 name="step"
-                type="in.bitspilani.eon.viewmodel.OrganiserDetailsSteps" />
+                type="in.bitspilani.eon.login.ui.OrganiserDetailsSteps" />
         <variable
                 name="userType"
-                type="in.bitspilani.eon.viewmodel.USER_TYPE" />
+                type="in.bitspilani.eon.login.ui.USER_TYPE" />
         <import type="android.view.View" />
     </data>
     <ScrollView android:layout_width="match_parent" android:layout_height="wrap_content">
@@ -20,7 +20,7 @@
             android:layout_marginHorizontal="@dimen/_24sdp"
             android:orientation="vertical"
             android:layout_marginTop="@dimen/_80sdp"
-            tools:context=".presentation.BitsEonActivity">
+            tools:context=".BitsEonActivity">
         <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

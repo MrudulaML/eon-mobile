@@ -1,8 +1,8 @@
-package `in`.bitspilani.eon.viewmodel
+package `in`.bitspilani.eon.login.ui
 
-import `in`.bitspilani.eon.data.restservice.RestClient
-import `in`.bitspilani.eon.data.restservice.models.LoginResponse
-import `in`.bitspilani.eon.data.restservice.services.AuthService
+import `in`.bitspilani.eon.api.ApiService
+import `in`.bitspilani.eon.api.RestClient
+import `in`.bitspilani.eon.login.data.LoginResponse
 import `in`.bitspilani.eon.utils.ApiCallback
 import `in`.bitspilani.eon.utils.SingleLiveEvent
 import androidx.lifecycle.ViewModel
@@ -22,8 +22,9 @@ enum class USER_TYPE(val desc: String) {
 class AuthViewModel: ViewModel() {
 
     val progress: SingleLiveEvent<Boolean> = SingleLiveEvent()
-    var registerCurrentStep:OrganiserDetailsSteps = OrganiserDetailsSteps.BASIC_DETAILS
-    var userType:USER_TYPE? = null
+    var registerCurrentStep: OrganiserDetailsSteps =
+        OrganiserDetailsSteps.BASIC_DETAILS
+    var userType: USER_TYPE? = null
     val restClient: RestClient = RestClient()
 
     var fcmToken:String? = null
@@ -35,7 +36,7 @@ class AuthViewModel: ViewModel() {
         body.addProperty("password",password)
         body.addProperty("user_type", userType)
         progress.value = true
-        restClient.authClient.create(AuthService::class.java).validateUser(body)
+        restClient.authClient.create(ApiService::class.java).validateUser(body)
             .enqueue(object : ApiCallback<LoginResponse>(){
                 override fun onSuccessResponse(responseBody: LoginResponse) {
                     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -54,7 +55,7 @@ class AuthViewModel: ViewModel() {
         body.addProperty("username",username)
         body.addProperty("password",password)
         progress.value = true
-        restClient.authClient.create(AuthService::class.java).validateUser(body)
+        restClient.authClient.create(ApiService::class.java).validateUser(body)
             .enqueue(object : ApiCallback<LoginResponse>(){
                 override fun onSuccessResponse(responseBody: LoginResponse) {
                     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

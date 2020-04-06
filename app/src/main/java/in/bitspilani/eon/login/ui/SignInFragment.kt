@@ -1,26 +1,22 @@
-package `in`.bitspilani.eon.presentation.auth.fragments
+package `in`.bitspilani.eon.login.ui
 
 
 import `in`.bitspilani.eon.BitsEonApp
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.utils.Validator
 import `in`.bitspilani.eon.utils.clickWithDebounce
-import `in`.bitspilani.eon.utils.getViewModelFactory
-import `in`.bitspilani.eon.viewmodel.AuthViewModel
-import `in`.bitspilani.eon.viewmodel.USER_TYPE
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 
 class SignInFragment : Fragment() {
-    lateinit var authViewModel:AuthViewModel
+    lateinit var authViewModel: AuthViewModel
 
 
     override fun onCreateView(

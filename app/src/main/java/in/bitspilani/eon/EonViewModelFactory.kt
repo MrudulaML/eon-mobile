@@ -1,7 +1,7 @@
 package `in`.bitspilani.eon
-import `in`.bitspilani.eon.data.restservice.RestClient
-import `in`.bitspilani.eon.viewmodel.AuthViewModel
-import `in`.bitspilani.eon.viewmodel.HomeViewModel
+import `in`.bitspilani.eon.api.ApiService
+import `in`.bitspilani.eon.event.ui.HomeViewModel
+import `in`.bitspilani.eon.login.ui.AuthViewModel
 import android.os.Bundle
 import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
@@ -12,7 +12,7 @@ import androidx.savedstate.SavedStateRegistryOwner
 @Suppress("UNCHECKED_CAST")
 class EonViewModelFactory(
     owner: SavedStateRegistryOwner,
-    private val restClient : RestClient,
+    private val apiService: ApiService,
     defaultArgs: Bundle? = null
 ) : AbstractSavedStateViewModelFactory(owner, defaultArgs) {
     override fun <T : ViewModel> create(
@@ -22,12 +22,11 @@ class EonViewModelFactory(
     ) = with(modelClass) {
         when {
             isAssignableFrom(AuthViewModel::class.java) -> AuthViewModel()
-            isAssignableFrom(HomeViewModel::class.java) -> HomeViewModel(restClient)
+            isAssignableFrom(HomeViewModel::class.java) -> HomeViewModel(apiService)
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
     } as T
-
 
 }
 

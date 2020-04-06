@@ -1,4 +1,4 @@
-package `in`.bitspilani.eon.data.restservice
+package `in`.bitspilani.eon.api
 
 data class ErrorResponse(
     val detail:String,

@@ -4,7 +4,6 @@ import android.os.SystemClock
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.constraintlayout.widget.Group
 import androidx.databinding.BindingAdapter
 
 

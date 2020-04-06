@@ -1,4 +1,4 @@
-package `in`.bitspilani.eon.presentation.auth
+package `in`.bitspilani.eon.login.ui
 
 
 import `in`.bitspilani.eon.R
@@ -12,7 +12,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_change_password.*
-import kotlinx.android.synthetic.main.fragment_sign_in.*
 
 class ChangePasswordFragment : Fragment() {
 

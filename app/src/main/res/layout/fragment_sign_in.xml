@@ -6,7 +6,7 @@
     <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".presentation.auth.fragments.SignInFragment"
+            tools:context=".login.ui.SignInFragment"
             android:orientation="vertical"
             android:paddingTop="@dimen/_40sdp"
             android:paddingBottom ="@dimen/_20dp"

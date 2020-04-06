@@ -1,14 +1,11 @@
-package `in`.bitspilani.eon.presentation
+package `in`.bitspilani.eon
 
-import `in`.bitspilani.eon.BitsEonApp
-import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.databinding.ActivityBitsEonBinding
-import `in`.bitspilani.eon.viewmodel.AuthViewModel
+import `in`.bitspilani.eon.login.ui.AuthViewModel
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.Gravity
+import android.view.MenuItem
 import android.view.View
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
@@ -17,7 +14,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
-import androidx.navigation.Navigation.findNavController
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_bits_eon.*
 import kotlinx.coroutines.delay
@@ -27,7 +23,7 @@ import kotlinx.coroutines.launch
 class BitsEonActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelectedListener {
     lateinit var navController: NavController
     lateinit var binding: ActivityBitsEonBinding
-    lateinit var authViewModel:AuthViewModel
+    lateinit var authViewModel: AuthViewModel
 
 
 
