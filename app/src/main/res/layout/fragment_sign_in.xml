@@ -1,14 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context=".presentation.auth.fragments.SignInFragment">
+<layout xmlns:tools="http://schemas.android.com/tools"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment"/>
+            tools:context=".login.ui.SignInFragment"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/_40sdp"
+            android:paddingBottom ="@dimen/_20dp"
+            android:layout_marginHorizontal="@dimen/_24dp">
 
-</FrameLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login"
+                android:textStyle="bold"
+                android:textColor="@color/appColor"
+                android:padding="@dimen/_10dp"
+                android:textSize="@dimen/_20fs"
+                android:layout_gravity="center_horizontal"/>
+
+        <com.google.android.material.chip.ChipGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp">
+
+            <com.google.android.material.chip.Chip
+                    android:id="@+id/organiser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:allowUndo="false"
+                    android:text="@string/organiser"
+                    android:textColor="@color/appColor"
+                    android:theme="@style/Theme.MaterialComponents.Light"/>
+
+            <com.google.android.material.chip.Chip
+                    android:id="@+id/guest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/guest"
+                    android:allowUndo="false"
+                    android:checkable="true"
+                    android:textColor="@color/appColor"
+                    android:theme="@style/Theme.MaterialComponents.Light"/>
+        </com.google.android.material.chip.ChipGroup>
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/emailAddressWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/TextLabel"
+                android:layout_marginTop="@dimen/_10sdp">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/etEmailAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:hint="Email"
+            />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/passwordWrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/TextLabel"
+                android:layout_below="@id/emailAddressWrapper"
+                android:layout_marginTop="@dimen/_10dp"
+                app:endIconMode="password_toggle">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/etPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:hint="@string/password_hint"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/login"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_button_rounded_corners"
+                android:layout_marginTop="@dimen/_20dp"
+                android:clickable="true"
+                android:onClick="btnLogin"/>
+        <androidx.appcompat.widget.AppCompatTextView android:layout_width="wrap_content"
+                                                     android:layout_height="wrap_content"
+                                                     android:text="OR"
+                                                     android:layout_gravity="center_horizontal"
+                                                     android:layout_marginTop="@dimen/_20sdp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Register"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_button_rounded_corners"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:clickable="true"
+                android:onClick="btnLogin"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</layout>
