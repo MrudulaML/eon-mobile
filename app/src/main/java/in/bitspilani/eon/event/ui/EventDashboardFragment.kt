@@ -27,7 +27,7 @@ private const val ARG_PARAM2 = "param2"
  *
  */
 class HomeFragment : Fragment() {
-    private val homeViewModel by viewModels<HomeViewModel> { getViewModelFactory() }
+    private val homeViewModel by viewModels<EventDashboardViewModel> { getViewModelFactory() }
 
 
     override fun onCreateView(

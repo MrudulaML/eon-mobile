@@ -10,8 +10,8 @@
             type="in.bitspilani.eon.event.data.IndividualEvent"/>
 
         <variable
-            name="homeViewModel"
-            type="in.bitspilani.eon.event.ui.HomeViewModel" />
+            name="dashboardViewmodel"
+            type="in.bitspilani.eon.event.ui.EventDashboardViewModel" />
     </data>
 
     <androidx.cardview.widget.CardView
