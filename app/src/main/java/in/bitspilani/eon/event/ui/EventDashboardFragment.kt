@@ -14,20 +14,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import kotlinx.android.synthetic.main.fragment_home.*
-
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.fragment_dashboard.*
 
 /**
  * A simple [Fragment] subclass.
  *
  */
 class HomeFragment : Fragment() {
-    private val homeViewModel by viewModels<HomeViewModel> { getViewModelFactory() }
+    private val homeViewModel by viewModels<EventDashboardViewModel> { getViewModelFactory() }
 
 
     override fun onCreateView(
@@ -35,15 +30,14 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        (activity as AppCompatActivity?)!!.supportActionBar?.hide()
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        return inflater.inflate(R.layout.fragment_dashboard, container, false)
 
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as BitsEonActivity).binding.toolbar.visibility = View.VISIBLE
+
         initView()
     }
 
@@ -94,13 +88,8 @@ class HomeFragment : Fragment() {
             )
         )
 
-        rv_event_list.layoutManager = GridLayoutManager(activity,2)
-
-        val spacingInPixels = resources.getDimensionPixelSize(R.dimen.grid_layout_margin)
-        rv_event_list.addItemDecoration(GridSpacingItemDecoration(2, spacingInPixels, true, 0))
-
-        val movieListAdapter =
-            EventAdapter(
+        rv_event_list.layoutManager = LinearLayoutManager(activity)
+        val movieListAdapter = EventAdapter(
                 listOfEvent,
                 homeViewModel
             )
