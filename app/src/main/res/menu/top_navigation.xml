@@ -6,6 +6,7 @@
         android:id="@+id/userProfileFragment"
         android:orderInCategory="100"
         android:title=""
+        app:iconTint="@color/white"
         android:icon="@drawable/ic_user"
         app:showAsAction="always" />
 
@@ -13,7 +14,7 @@
         android:id="@+id/notificationFragment"
         android:orderInCategory="200"
         android:title=""
-        android:iconTint="@color/white"
+        app:iconTint="@color/white"
         android:icon="@drawable/ic_notifications"
         app:showAsAction="always" />
 

@@ -82,12 +82,12 @@ class BitsEonActivity : AppCompatActivity() {
             R.id.userProfileFragment -> {
 
                 navController.navigate(R.id.userProfileFragment)
-                bottomNavigation.visibility= View.GONE
+
                 true
             }
             R.id.notificationFragment ->{
                 navController.navigate(R.id.notificationFragment)
-                bottomNavigation.visibility= View.GONE
+
                 return true
             }
 

@@ -30,7 +30,10 @@ class UserProfileFragment : Fragment() {
         super.onAttach(context)
         activity?.title = "My Profile"
     }
-
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.clear()
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         setHasOptionsMenu(false)

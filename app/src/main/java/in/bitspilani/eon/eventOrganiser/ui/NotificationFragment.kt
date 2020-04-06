@@ -18,8 +18,6 @@ class NotificationFragment : Fragment() {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
         (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-
-
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
