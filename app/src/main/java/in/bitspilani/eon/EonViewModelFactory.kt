@@ -1,5 +1,5 @@
 package `in`.bitspilani.eon
-import `in`.bitspilani.eon.data.remote.ApiService
+import `in`.bitspilani.eon.api.ApiService
 import `in`.bitspilani.eon.event.ui.HomeViewModel
 import `in`.bitspilani.eon.login.ui.AuthViewModel
 import android.os.Bundle

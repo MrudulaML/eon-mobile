@@ -1,7 +1,7 @@
 package `in`.bitspilani.eon.login.ui
 
-import `in`.bitspilani.eon.data.remote.ApiService
-import `in`.bitspilani.eon.data.remote.RestClient
+import `in`.bitspilani.eon.api.ApiService
+import `in`.bitspilani.eon.api.RestClient
 import `in`.bitspilani.eon.login.data.LoginResponse
 import `in`.bitspilani.eon.utils.ApiCallback
 import `in`.bitspilani.eon.utils.SingleLiveEvent

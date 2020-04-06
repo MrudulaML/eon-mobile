@@ -5,8 +5,8 @@ package `in`.bitspilani.eon.utils
  */
 
 import `in`.bitspilani.eon.EonViewModelFactory
-import `in`.bitspilani.eon.data.remote.ApiService
-import `in`.bitspilani.eon.data.remote.RestClient
+import `in`.bitspilani.eon.api.ApiService
+import `in`.bitspilani.eon.api.RestClient
 import androidx.fragment.app.Fragment
 
 

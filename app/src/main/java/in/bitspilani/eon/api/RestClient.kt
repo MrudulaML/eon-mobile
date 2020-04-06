@@ -1,7 +1,8 @@
-package `in`.bitspilani.eon.data.remote
+package `in`.bitspilani.eon.api
 
 import `in`.bitspilani.eon.BitsEonApp
 import `in`.bitspilani.eon.BuildConfig
+import com.facebook.stetho.okhttp3.StethoInterceptor
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -28,6 +29,7 @@ class RestClient{
                 .writeTimeout(20, TimeUnit.SECONDS)
                 .cache(null)
                 .addInterceptor(AuthInterceptor())
+                .addNetworkInterceptor(StethoInterceptor())
                 .build()
 
             val retrofit = Retrofit.Builder()

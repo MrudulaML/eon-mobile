@@ -2,7 +2,7 @@ package `in`.bitspilani.eon.event.ui
 
 
 
-import `in`.bitspilani.eon.data.remote.ApiService
+import `in`.bitspilani.eon.api.ApiService
 import `in`.bitspilani.eon.event.data.IndividualEvent
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

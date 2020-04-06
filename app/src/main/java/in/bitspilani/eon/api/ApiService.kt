@@ -1,4 +1,4 @@
-package `in`.bitspilani.eon.data.remote
+package `in`.bitspilani.eon.api
 
 import `in`.bitspilani.eon.event.data.EventResponse
 import `in`.bitspilani.eon.login.data.LoginResponse
