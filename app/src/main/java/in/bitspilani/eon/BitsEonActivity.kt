@@ -6,12 +6,15 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -42,9 +45,10 @@ class BitsEonActivity : AppCompatActivity() {
 
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.top_navigation, menu);
-        return super.onCreateOptionsMenu(menu)
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.top_navigation, menu)
+        return true
     }
 
 
@@ -71,6 +75,24 @@ class BitsEonActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.userProfileFragment -> {
+
+                navController.navigate(R.id.userProfileFragment)
+                bottomNavigation.visibility= View.GONE
+                true
+            }
+            R.id.notificationFragment ->{
+                navController.navigate(R.id.notificationFragment)
+                bottomNavigation.visibility= View.GONE
+                return true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
 

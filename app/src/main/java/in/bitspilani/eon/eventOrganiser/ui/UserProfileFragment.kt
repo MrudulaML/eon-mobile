@@ -1,11 +1,12 @@
 package `in`.bitspilani.eon.eventOrganiser.ui
 
+import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
+import android.content.Context
 import android.os.Bundle
+import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 
 
 /**
@@ -13,12 +14,39 @@ import android.view.ViewGroup
  */
 class UserProfileFragment : Fragment() {
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+        (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_user_profile, container, false)
     }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        activity?.title = "My Profile"
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        setHasOptionsMenu(false)
+        (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val activity = activity as? BitsEonActivity
+        return when (item.itemId) {
+            android.R.id.home -> {
+                activity?.onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
 
 }

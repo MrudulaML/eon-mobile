@@ -32,7 +32,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+
         return inflater.inflate(R.layout.fragment_dashboard, container, false)
 
 
@@ -65,13 +65,11 @@ class HomeFragment : Fragment() {
 
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        activity?.title = "My Title"
 
+    override fun onResume() {
+        super.onResume()
+        activity?.title = "Event Management"
     }
-
-
     private fun initView() {
         //dummy list
         val listOfEvent = mutableListOf<IndividualEvent>()
