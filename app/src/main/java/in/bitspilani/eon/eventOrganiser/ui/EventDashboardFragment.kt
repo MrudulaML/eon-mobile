@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.fragment_dashboard.*
  * A simple [Fragment] subclass.
  *
  */
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), CallbackListener {
     private val dashboardViewModel by viewModels<EventDashboardViewModel> { getViewModelFactory() }
 
 
@@ -43,14 +43,17 @@ class HomeFragment : Fragment() {
 
         initView()
 
-
-
         btn_filter.clickWithDebounce {
 
-
+            showDialog()
         }
 
         setUpObservables()
+    }
+
+    private fun showDialog() {
+        val dialogFragment = FilterDialogFragment(this)
+        dialogFragment.show(childFragmentManager, "signature")
     }
 
     private fun setUpObservables() {
@@ -70,48 +73,49 @@ class HomeFragment : Fragment() {
         super.onResume()
         activity?.title = "Event Management"
     }
+
     private fun initView() {
         //dummy list
         val listOfEvent = mutableListOf<IndividualEvent>()
         listOfEvent.add(
             IndividualEvent(
-                "Food Festival",1,
+                "Food Festival", 1,
                 "2000"
             )
         )
         listOfEvent.add(
             IndividualEvent(
-                "Music Festival",2,
+                "Music Festival", 2,
                 "1000"
             )
         )
         listOfEvent.add(
             IndividualEvent(
-                "Technical Corridor",3,
+                "Technical Corridor", 3,
                 "3000"
             )
         )
         listOfEvent.add(
             IndividualEvent(
-                "Financial Planning",4,
+                "Financial Planning", 4,
                 "4000"
             )
         )
         listOfEvent.add(
             IndividualEvent(
-                "Health and Fitness",5,
+                "Health and Fitness", 5,
                 "3000"
             )
         )
         listOfEvent.add(
             IndividualEvent(
-                "Ethical Hacking",6,
+                "Ethical Hacking", 6,
                 "2500"
             )
         )
         listOfEvent.add(
             IndividualEvent(
-                "Angular JS Classes",7,
+                "Angular JS Classes", 7,
                 "2600"
             )
         )
@@ -119,13 +123,18 @@ class HomeFragment : Fragment() {
         rv_event_list.layoutManager = LinearLayoutManager(activity)
         rv_event_list.addItemDecoration(
             MarginItemDecoration(
-            resources.getDimension(R.dimen._16sdp).toInt())
+                resources.getDimension(R.dimen._16sdp).toInt()
+            )
         )
         val movieListAdapter = EventAdapter(
-                listOfEvent,
+            listOfEvent,
             dashboardViewModel
-            )
+        )
         rv_event_list.adapter = movieListAdapter
+
+    }
+
+    override fun onDataReceived(data: String) {
 
     }
 
