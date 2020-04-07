@@ -1,14 +1,9 @@
-package `in`.bitspilani.eon.eventOrganiser.ui
+package `in`.bitspilani.eon.eventOrganiser.ui.adapter
 
 import `in`.bitspilani.eon.databinding.InviteeItemRowBinding
 import `in`.bitspilani.eon.eventOrganiser.data.Invitee
-import `in`.bitspilani.eon.generated.callback.OnClickListener
-import android.R
 import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 
 

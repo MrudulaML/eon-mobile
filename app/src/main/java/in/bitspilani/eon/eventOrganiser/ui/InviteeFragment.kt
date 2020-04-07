@@ -2,6 +2,7 @@ package `in`.bitspilani.eon.eventOrganiser.ui
 
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.eventOrganiser.data.Invitee
+import `in`.bitspilani.eon.eventOrganiser.ui.adapter.InviteesAdapter
 import `in`.bitspilani.eon.utils.MarginItemDecoration
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import android.os.Bundle
@@ -10,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_invitee.*
 
 
@@ -77,14 +77,17 @@ class InviteeFragment : Fragment(),CallbackListener {
             MarginItemDecoration(
                 resources.getDimension(R.dimen._16sdp).toInt())
         )
-        val movieListAdapter = InviteesAdapter(listOfEvent)
+        val movieListAdapter =
+            InviteesAdapter(
+                listOfEvent
+            )
         rv_invitee_list.adapter = movieListAdapter
 
     }
 
     private fun showDialog() {
         val dialogFragment = AddInviteeFragment(this)
-        dialogFragment.show(childFragmentManager, "signature")
+        dialogFragment.show(childFragmentManager, "AaddInviteeDialog")
     }
     override fun onDataReceived(data: String) {
 

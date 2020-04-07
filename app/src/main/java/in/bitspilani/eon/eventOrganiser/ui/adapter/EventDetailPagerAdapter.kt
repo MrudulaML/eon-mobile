@@ -1,5 +1,7 @@
-package `in`.bitspilani.eon.eventOrganiser.ui
+package `in`.bitspilani.eon.eventOrganiser.ui.adapter
 
+import `in`.bitspilani.eon.eventOrganiser.ui.EventFragment
+import `in`.bitspilani.eon.eventOrganiser.ui.InviteeFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter

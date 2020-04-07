@@ -4,6 +4,7 @@ package `in`.bitspilani.eon.eventOrganiser.ui
 
 import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
+import `in`.bitspilani.eon.eventOrganiser.ui.adapter.EventDetailPagerAdapter
 import android.content.Context
 import android.os.Bundle
 import android.view.*
@@ -39,7 +40,10 @@ class EventDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        event_detail_view_pager.adapter= EventDetailPagerAdapter(activity!!)
+        event_detail_view_pager.adapter=
+            EventDetailPagerAdapter(
+                activity!!
+            )
         TabLayoutMediator(tab_layout, event_detail_view_pager) { tab, position ->
             //To get the first name of doppelganger celebrities
             tab.text = titles[position]

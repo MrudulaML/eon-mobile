@@ -2,11 +2,16 @@ package `in`.bitspilani.eon.eventOrganiser.ui
 
 import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
+import `in`.bitspilani.eon.eventOrganiser.data.Notification
+import `in`.bitspilani.eon.eventOrganiser.ui.adapter.NotificationAdapter
+import `in`.bitspilani.eon.utils.MarginItemDecoration
 import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.fragment_notification.*
 
 
 /**
@@ -31,6 +36,11 @@ class NotificationFragment : Fragment() {
         menu.clear()
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView()
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         activity?.title = "My Notifications"
@@ -51,6 +61,47 @@ class NotificationFragment : Fragment() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun initView() {
+        //dummy list
+        val listOfEvent = mutableListOf<Notification>()
+        listOfEvent.add(
+            Notification( "BITS Pilani unveils 16th edition of 'Conquest' startup accelerator",
+                "BITS Pilani Hyderabad distributes essentials to poor. The institute has decided to cover residential areas adjacent to its campus at Shameerpet")
+        )
+        listOfEvent.add(
+            Notification( "BITS Pilani unveils 16th edition of 'Conquest' startup accelerator",
+                "BITS Pilani Hyderabad distributes essentials to poor. The institute has decided to cover residential areas adjacent to its campus at Shameerpet")
+        )
+        listOfEvent.add(
+            Notification( "BITS Pilani unveils 16th edition of 'Conquest' startup accelerator",
+                "BITS Pilani Hyderabad distributes essentials to poor. The institute has decided to cover residential areas adjacent to its campus at Shameerpet")
+        )
+        listOfEvent.add(
+            Notification( "BITS Pilani unveils 16th edition of 'Conquest' startup accelerator",
+                "BITS Pilani Hyderabad distributes essentials to poor. The institute has decided to cover residential areas adjacent to its campus at Shameerpet")
+        )
+        listOfEvent.add(
+            Notification( "BITS Pilani unveils 16th edition of 'Conquest' startup accelerator",
+                "BITS Pilani Hyderabad distributes essentials to poor. The institute has decided to cover residential areas adjacent to its campus at Shameerpet")
+        )
+        listOfEvent.add(
+            Notification( "BITS Pilani unveils 16th edition of 'Conquest' startup accelerator",
+                "BITS Pilani Hyderabad distributes essentials to poor. The institute has decided to cover residential areas adjacent to its campus at Shameerpet")
+        )
+
+        rv_notifications.layoutManager = LinearLayoutManager(activity)
+        rv_notifications.addItemDecoration(
+            MarginItemDecoration(
+                resources.getDimension(R.dimen._16sdp).toInt())
+        )
+        val notificationAdapter =
+            NotificationAdapter(
+                listOfEvent
+            )
+        rv_notifications.adapter = notificationAdapter
+
     }
 
 

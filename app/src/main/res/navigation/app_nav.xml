@@ -91,4 +91,6 @@
         android:id="@+id/userProfileFragment"
         android:name="in.bitspilani.eon.eventOrganiser.ui.UserProfileFragment"
         tools:layout="@layout/fragment_user_profile" />
+
+
 </navigation>
