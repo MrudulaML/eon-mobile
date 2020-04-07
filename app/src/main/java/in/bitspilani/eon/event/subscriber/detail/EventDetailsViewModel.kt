@@ -1,4 +1,4 @@
-package `in`.bitspilani.eon.event.subscriber
+package `in`.bitspilani.eon.event.subscriber.detail
 
 import androidx.lifecycle.ViewModel
 

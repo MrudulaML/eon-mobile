@@ -1,4 +1,4 @@
-package `in`.bitspilani.eon.event.subscriber
+package `in`.bitspilani.eon.event.subscriber.detail
 
 import `in`.bitspilani.eon.R
 import androidx.lifecycle.ViewModelProviders
@@ -12,7 +12,8 @@ import android.view.ViewGroup
 class EventDetails : Fragment() {
 
     companion object {
-        fun newInstance() = EventDetails()
+        fun newInstance() =
+            EventDetails()
     }
 
     private lateinit var viewModel: EventDetailsViewModel
