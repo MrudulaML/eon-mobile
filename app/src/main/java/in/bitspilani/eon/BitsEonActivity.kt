@@ -101,6 +101,9 @@ class BitsEonActivity : AppCompatActivity(),ActionbarHost {
                 supportActionBar!!.hide()
             }
         }
+        title?.let {
+            supportActionBar!!.title = title
+        }
 
         bottom_navigation.goneUnless(showBottomNav)
 

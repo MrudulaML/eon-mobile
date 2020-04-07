@@ -71,7 +71,7 @@ class HomeFragment : Fragment(), CallbackListener {
     private fun initView() {
 
         //show navigation
-        actionbarHost?.showToolbar(showToolbar = true,showBottomNav = true)
+        actionbarHost?.showToolbar(showToolbar = true,title = "Event Management",showBottomNav = true)
         //dummy list
         val listOfEvent = mutableListOf<IndividualEvent>()
         listOfEvent.add(
@@ -141,6 +141,7 @@ class HomeFragment : Fragment(), CallbackListener {
             actionbarHost = context
         }
     }
+
 
 
     /**

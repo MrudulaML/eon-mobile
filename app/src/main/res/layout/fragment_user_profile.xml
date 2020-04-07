@@ -20,9 +20,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:onClick="showToast"
         android:layout_marginTop="@dimen/_8sdp"
         android:focusable="true"
+
         android:layout_margin="@dimen/_4sdp"
         android:orientation="horizontal">
         <androidx.appcompat.widget.AppCompatImageView
@@ -33,7 +33,7 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:layout_marginStart="@dimen/_16sdp"
             android:textColor="@color/grey"
             android:text="Basic Details"/>
@@ -46,6 +46,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="true"
+
         android:layout_margin="@dimen/_4sdp"
         android:orientation="horizontal">
         <androidx.appcompat.widget.AppCompatImageView
@@ -56,7 +57,7 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:layout_marginStart="@dimen/_16sdp"
             android:textColor="@color/grey"
             android:text="Change Password"/>
@@ -69,6 +70,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="true"
+
         android:layout_margin="@dimen/_4sdp"
         android:orientation="horizontal">
         <androidx.appcompat.widget.AppCompatImageView
@@ -79,7 +81,7 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:layout_marginStart="@dimen/_16sdp"
             android:textColor="@color/grey"
             android:text="Wishlist"/>
@@ -102,7 +104,7 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:layout_marginStart="@dimen/_16sdp"
             android:textColor="@color/grey"
             android:text="Logout"/>

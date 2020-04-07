@@ -3,6 +3,7 @@ package `in`.bitspilani.eon.eventOrganiser.ui
 import ProfileBasicDetailFragment
 import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
+import `in`.bitspilani.eon.login.ui.ActionbarHost
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import android.content.Context
 import android.os.Bundle
@@ -18,6 +19,7 @@ import kotlinx.android.synthetic.main.fragment_user_profile.*
  */
 class UserProfileFragment : Fragment(),CallbackListener {
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -31,9 +33,19 @@ class UserProfileFragment : Fragment(),CallbackListener {
         return inflater.inflate(R.layout.fragment_user_profile, container, false)
     }
 
+    /**
+     * toggle visibility of different navigation
+     */
+    private var actionbarHost: ActionbarHost? = null
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        activity?.title = "My Profile"
+        if (context is ActionbarHost) {
+            actionbarHost = context
+        }
+    }
+    override fun onDetach() {
+        super.onDetach()
+        actionbarHost?.showToolbar(showToolbar = true,showBottomNav = true)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -62,10 +74,11 @@ class UserProfileFragment : Fragment(),CallbackListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        onItemClickClick()
+        onItemClick()
+        actionbarHost?.showToolbar(showToolbar = true,title = "User Profile",showBottomNav = false)
     }
 
-     private fun onItemClickClick() {
+     private fun onItemClick() {
          profile_basic_details.clickWithDebounce {
 
              val dialogFragment = ProfileBasicDetailFragment(this)
