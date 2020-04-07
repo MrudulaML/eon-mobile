@@ -16,4 +16,6 @@
     <color name="appHeaderTextColor">#9369DE</color>
     <color name="blue">#6111EE</color>
     <color name="navy">#2A046F</color>
+
+    <color name="green">#25AC2B</color>
 </resources>

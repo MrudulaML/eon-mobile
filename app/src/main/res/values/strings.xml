@@ -6,8 +6,8 @@
 
     <string name="login">Login</string>
     <string name="forgot_password">Forgot Password?</string>
-    <string name="username">Johndoe@gmail.com</string>
-    <string name="password_hint">***********</string>
+    <string name="username">Username</string>
+    <string name="password_hint">Password</string>
     <string name="organiser">Organiser</string>
     <string name="guest">Subscriber</string>
     <string name="bank_acc_no">Bank Acc No</string>
@@ -30,4 +30,12 @@
     <string name="create_password">Create Password</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="confirm_password_details">Lower case, Uppercase, Numbers, 8-16 characters</string>
+
+    <string name="reset_password">Reset Password</string>
+    <string name="verification_code">Enter the Verification code</string>
+    <string name="verification_code_text">You will be getting verification code on your registered email id</string>
+    <string name="re_enter_password">Re-enter Password</string>
+    <string name="create_new_password">Create New Password</string>
+    <string name="password_set_message">Your Password has been updated successfully</string>
+    <string name="change_password">Change password</string>
 </resources>

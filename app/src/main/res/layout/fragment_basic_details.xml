@@ -3,21 +3,25 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <import type="in.bitspilani.eon.viewmodel.OrganiserDetailsSteps" />
+        <import type="in.bitspilani.eon.login.ui.OrganiserDetailsSteps" />
+        <import type="in.bitspilani.eon.login.ui.USER_TYPE" />
         <variable
                 name="step"
-                type="in.bitspilani.eon.viewmodel.OrganiserDetailsSteps" />
+                type="in.bitspilani.eon.login.ui.OrganiserDetailsSteps" />
+        <variable
+                name="userType"
+                type="in.bitspilani.eon.login.ui.USER_TYPE" />
         <import type="android.view.View" />
     </data>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".presentation.BitsEonActivity"
-        android:background="@color/navy">
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".login.ui.BasicDetailFragment"
+            android:background="@color/navy">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="@dimen/_20sdp"
@@ -25,27 +29,28 @@
             android:layout_marginTop="@dimen/_25sdp">
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_reg_event"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/register_event_organiser"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_20fs"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                tools:text="@string/register"
+                android:layout_gravity="left"
+                android:textSize="@dimen/_14sdp"
+                android:id="@+id/title"
+                android:textColor="@color/white"/>
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/details"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_16fs"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/details"
+                android:layout_gravity="left"
+                android:textSize="@dimen/_10sdp"
+                android:textColor="@color/white"/>
 
         <com.shuhart.stepview.StepView
                 android:id="@+id/step_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_5dp"
                 android:padding="16dp"
                 app:sv_nextStepCircleEnabled="true"
                 app:sv_animationType="Line"
@@ -60,13 +65,12 @@
                 app:sv_selectedCircleColor="@color/colorPrimaryDark"
                 app:sv_nextStepCircleColor="@color/colorPrimary"/>
 
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/_20dp"
-            android:background="@drawable/custom_shape">
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/_20dp"
+                android:background="@drawable/custom_shape">
 
         <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
@@ -74,10 +78,13 @@
                 android:visibility="@{step == OrganiserDetailsSteps.BASIC_DETAILS ? View.VISIBLE : View.GONE }"
                 android:orientation="vertical">
 
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/organizationNameWrapper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
+                android:visibility="@{userType == USER_TYPE.ORGANISER  ? View.VISIBLE : View.GONE }"
                 android:theme="@style/TextLabel"
                 android:layout_marginTop="@dimen/_10dp"
                 android:padding="@dimen/_12dp"
@@ -124,11 +131,34 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{userType == USER_TYPE.SUBSCRIBER  ? View.VISIBLE : View.GONE }"
+                android:theme="@style/TextLabel"
+                android:layout_marginTop="@dimen/_10dp"
+                android:padding="@dimen/_12dp"
+                android:background="@drawable/bg_edit_text">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/edt_user_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:drawableLeft="@drawable/user"
+                    android:drawableStart="@drawable/user"
+                    android:drawablePadding="@dimen/_20dp"
+                    android:hint="@string/username"
+                    android:textSize="@dimen/_18dp"
+                    android:textColorHint="@color/grey"
+                    android:background="@android:color/transparent"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/organisationContactWrapper"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:theme="@style/TextLabel"
-                android:layout_below="@id/emailAddressWrapper"
                 android:layout_marginTop="@dimen/_10dp"
                 android:padding="@dimen/_12dp"
                 android:background="@drawable/bg_edit_text">
@@ -148,27 +178,27 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:text="@string/address"
-                    android:textSize="@dimen/_18fs"
-                    android:textColor="@color/black"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:text="@string/address"
+                android:textSize="@dimen/_18fs"
+                android:textColor="@color/black"/>
 
             <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/edt_org_address"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_16sdp"
-                    android:autofillHints="Organisation Address"
-                    android:hint="@string/address_detail"
-                    android:gravity="start|top"
-                    android:padding="@dimen/_10dp"
-                    android:inputType="textMultiLine"
-                    android:lines="8"
-                    android:minLines="3"
-                    android:scrollbars="vertical"
-                    android:singleLine="false"
+                android:id="@+id/edt_org_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:autofillHints="Organisation Address"
+                android:hint="@string/address_detail"
+                android:gravity="start|top"
+                android:padding="@dimen/_10dp"
+                android:inputType="textMultiLine"
+                android:lines="8"
+                android:minLines="3"
+                android:scrollbars="vertical"
+                android:singleLine="false"
                 android:background="@drawable/bg_edit_text"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -176,9 +206,9 @@
         <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                tools:visibility="gone"
                 android:visibility="@{step == OrganiserDetailsSteps.BANK_DETAILS ? View.VISIBLE : View.GONE }"
                 android:orientation="vertical">
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/bankAccountNumberWrapper"
                 android:layout_width="match_parent"
@@ -251,13 +281,11 @@
             </com.google.android.material.textfield.TextInputLayout>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
-
         <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="@{step == OrganiserDetailsSteps.PASSWORD ? View.VISIBLE : View.GONE }"
                 android:orientation="vertical">
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_password"
                 android:layout_width="match_parent"
@@ -283,10 +311,10 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_16sdp"
-                    android:text="@string/password_restriction_hint"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_16sdp"
+                android:text="@string/password_restriction_hint"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout_confirm_password"
@@ -311,16 +339,15 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
         <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_next"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_20dp"
-                android:background="@drawable/bg_button_rounded_corners"
-                android:text="@string/next"
-                android:textColor="@color/white" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
+            android:id="@+id/btn_next"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20dp"
+            android:background="@drawable/bg_button_rounded_corners"
+            android:text="@string/next"
+            android:textColor="@color/white" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>
