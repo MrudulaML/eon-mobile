@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
 
-class HomeViewModel(private val apiService: ApiService): ViewModel() {
+class EventDashboardViewModel(private val apiService: ApiService): ViewModel() {
 
     private val mutableLiveData: MutableLiveData<List<IndividualEvent>> =
         MutableLiveData<List<IndividualEvent>>()
