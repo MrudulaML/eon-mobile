@@ -14,6 +14,13 @@ enum class OrganiserDetailsSteps(val desc: String) {
     PASSWORD("Password"),
 }
 
+enum class ForgotPasswordSteps(val desc: String) {
+    ENTER_DETAILS("Enter Details"),
+    VERIFICATION_CODE("Verification Code"),
+    PASSWORD("Password"),
+    SUCCESS("Success"),
+}
+
 enum class USER_TYPE(val desc: String) {
     ORGANISER("Event Organiser"),
     SUBSCRIBER("Event Subscriber"),
@@ -24,6 +31,8 @@ class AuthViewModel: ViewModel() {
     val progress: SingleLiveEvent<Boolean> = SingleLiveEvent()
     var registerCurrentStep: OrganiserDetailsSteps =
         OrganiserDetailsSteps.BASIC_DETAILS
+
+    var forgotPasswordSteps: ForgotPasswordSteps = ForgotPasswordSteps.ENTER_DETAILS
     var userType: USER_TYPE? = null
     val restClient: RestClient = RestClient()
 

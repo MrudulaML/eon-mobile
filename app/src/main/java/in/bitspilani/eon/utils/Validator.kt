@@ -104,6 +104,18 @@ class Validator {
             return valid
         }
 
+        fun isValidVerificationCode(data: Any, updateUI: Boolean = true): Boolean {
+
+            // to do
+            val str = getText(data)
+            val valid = str.trim().length >= 6
+            if (updateUI) {
+                val error: String? = if (valid) null else NAME_VALIDATION_MSG
+                setError(data, error)
+            }
+            return valid
+        }
+
         fun isValidIFSC(data: Any, updateUI: Boolean = true): Boolean {
             val str = getText(data)
             val valid = str.trim().length != 11

@@ -9,7 +9,7 @@
     <fragment
         android:id="@+id/splashScreen"
         android:name="in.bitspilani.eon.login.ui.SplashScreen"
-
+        android:label="fragment_splash_screen"
         tools:layout="@layout/fragment_splash_screen">
         <action
             android:id="@+id/action_splashScreen_to_signInFragment"
@@ -33,6 +33,9 @@
         <action
             android:id="@+id/action_signInFragment_to_basicInfo"
             app:destination="@id/basicInfo" />
+        <action
+            android:id="@+id/action_signInFragment_to_createPasswordFragment"
+            app:destination="@id/createPasswordFragment" />
         <action
             android:id="@+id/action_signInFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -71,8 +74,7 @@
 
     <action android:id="@+id/action_to_change_password"
         app:destination="@id/changePasswordFragment"/>
-        <action android:id="@+id/action_global_signInFragment"
-            app:destination="@id/signInFragment"/>
+
     <fragment
         android:id="@+id/eventDetailsFragment"
         android:name="in.bitspilani.eon.eventOrganiser.ui.EventDetailsFragment"
@@ -93,4 +95,7 @@
         tools:layout="@layout/fragment_user_profile" />
 
 
+    tools:layout="@layout/fragment_create_password"/>
+
+    <action android:id="@+id/action_global_signInFragment" app:destination="@id/signInFragment"/>
 </navigation>
