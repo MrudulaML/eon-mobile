@@ -13,4 +13,5 @@
     <color name="appColor">#6000D0</color>
     <color name="grey">#808080</color>
     <color name="appHeaderTextColor">#9369DE</color>
+    <color name="yellow">#FFC400</color>
 </resources>
