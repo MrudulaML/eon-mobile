@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".event.subscriber.eventDetails">
+    tools:context=".event.subscriber.EventDetails">
 
     <ImageView
         android:id="@+id/iv_event"
@@ -84,19 +84,26 @@
         app:layout_constraintTop_toBottomOf="@id/tv_type_of_event" />
 
     <TextView
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:textAlignment="textStart"
         android:id="@+id/tv_event_detail_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
         android:text="@string/lorem_ipsum"
+        android:textAlignment="textStart"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_type_of_event_value" />
+
+    <include
+        layout="@layout/layout_seat_booking"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

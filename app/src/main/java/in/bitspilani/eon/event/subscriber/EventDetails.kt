@@ -9,10 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 
 
-class eventDetails : Fragment() {
+class EventDetails : Fragment() {
 
     companion object {
-        fun newInstance() = eventDetails()
+        fun newInstance() = EventDetails()
     }
 
     private lateinit var viewModel: EventDetailsViewModel

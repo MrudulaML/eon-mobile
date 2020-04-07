@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".event.subscriber.summary.EventSummaryFrag">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_event_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@drawable/stroke_rectangle_grey_curved"
+        android:padding="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_attendees"
+            android:layout_width="40dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_icon_user_grey"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_attendees_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="No. of attendees"
+            app:layout_constraintStart_toEndOf="@+id/iv_attendees"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_attendees_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:text="0"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/iv_attendees"
+            app:layout_constraintTop_toBottomOf="@id/tv_attendees_title" />
+
+        <ImageView
+            android:id="@+id/iv_rupees"
+            android:layout_width="40dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_icon_rupee_grey"
+            app:layout_constraintEnd_toStartOf="@id/tv_amount_title"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_amount_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:text="Total Amount"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_amount_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:text="1500"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/iv_rupees"
+            app:layout_constraintTop_toBottomOf="@id/tv_amount_title" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tv_promocode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Promocode"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cl_event_details" />
+
+    <EditText
+        android:id="@+id/et_promocode"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/stroke_rectangle_grey_curved"
+        app:layout_constraintTop_toBottomOf="@id/tv_promocode" />
+
+    <TextView
+        android:id="@+id/tv_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Details"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_promocode" />
+
+    <TextView
+        android:id="@+id/tv_total_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:text="Total Amount    ₹ 1500"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_details" />
+
+    <TextView
+        android:id="@+id/tv_discounted_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:text="Discounted Amount    -₹ 175"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_total_amount" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/grey"
+        app:layout_constraintTop_toBottomOf="@id/tv_discounted_amount" />
+
+    <TextView
+        android:textColor="@color/appColor"
+        android:id="@+id/tv_payable_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:text="Discounted Amount    ₹ 1325"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
