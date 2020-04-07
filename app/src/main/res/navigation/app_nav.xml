@@ -18,7 +18,24 @@
             android:id="@+id/action_splashScreen_to_homeFragment"
             app:destination="@id/homeFragment" />
 
+        <action
+            android:id="@+id/action_splashScreen_to_eventDetails"
+            app:destination="@id/eventDetails" />
     </fragment>
+
+    <fragment
+        android:id="@+id/eventDetails"
+        android:name="in.bitspilani.eon.login.ui.SignInFragment"
+        android:label="fragment_event_details"
+        tools:layout="@layout/event_details_fragment">
+        <action
+            android:id="@+id/action_signInFragment_to_basicInfo"
+            app:destination="@id/basicInfo" />
+        <action
+            android:id="@+id/action_signInFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/signInFragment"
         android:name="in.bitspilani.eon.login.ui.SignInFragment"
