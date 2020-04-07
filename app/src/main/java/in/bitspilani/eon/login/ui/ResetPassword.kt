@@ -1,4 +1,4 @@
-package `in`.bitspilani.eon.presentation.auth.fragments.signup
+package `in`.bitspilani.eon.login.ui
 
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.utils.Validator
@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_create_password.*
 
 

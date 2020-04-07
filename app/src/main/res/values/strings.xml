@@ -9,7 +9,7 @@
     <string name="username">Johndoe@gmail.com</string>
     <string name="password_hint">***********</string>
     <string name="organiser">Organiser</string>
-    <string name="guest">Guest</string>
+    <string name="guest">Subscriber</string>
     <string name="bank_acc_no">Bank Acc No</string>
     <string name="ifsc_code">IFSC Code</string>
     <string name="bank_name">Bank Name</string>
