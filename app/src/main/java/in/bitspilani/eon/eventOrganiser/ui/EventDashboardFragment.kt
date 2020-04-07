@@ -4,9 +4,11 @@ package `in`.bitspilani.eon.eventOrganiser.ui
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.eventOrganiser.data.IndividualEvent
 import `in`.bitspilani.eon.eventOrganiser.ui.adapter.EventAdapter
+import `in`.bitspilani.eon.login.ui.ActionbarHost
 import `in`.bitspilani.eon.utils.MarginItemDecoration
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import `in`.bitspilani.eon.utils.getViewModelFactory
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,7 +27,7 @@ import kotlinx.android.synthetic.main.fragment_dashboard.*
  */
 class HomeFragment : Fragment(), CallbackListener {
     private val dashboardViewModel by viewModels<EventDashboardViewModel> { getViewModelFactory() }
-
+    private var actionbarHost: ActionbarHost? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +35,6 @@ class HomeFragment : Fragment(), CallbackListener {
     ): View? {
 
         return inflater.inflate(R.layout.fragment_dashboard, container, false)
-
 
     }
 
@@ -68,6 +69,9 @@ class HomeFragment : Fragment(), CallbackListener {
     }
 
     private fun initView() {
+
+        //show navigation
+        actionbarHost?.showToolbar(showToolbar = true,showBottomNav = true)
         //dummy list
         val listOfEvent = mutableListOf<IndividualEvent>()
         listOfEvent.add(
@@ -127,6 +131,17 @@ class HomeFragment : Fragment(), CallbackListener {
         rv_event_list.adapter = movieListAdapter
 
     }
+
+    /**
+     * toggle visibility of different navigation
+     */
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is ActionbarHost) {
+            actionbarHost = context
+        }
+    }
+
 
     /**
      * handle filter data here
