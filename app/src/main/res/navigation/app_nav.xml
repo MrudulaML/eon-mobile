@@ -22,25 +22,11 @@
             app:exitAnim="@anim/fade_out"
             app:destination="@id/home_nav" />
 
-        <action
-            android:id="@+id/action_splashScreen_to_eventDetails"
-            app:destination="@id/eventDetails" />
     </fragment>
 
-    <fragment
-        android:id="@+id/eventDetails"
-        android:name="in.bitspilani.eon.event.subscriber.detail.EventDetails"
-        android:label="fragment_event_details"
-        tools:layout="@layout/event_details_fragment">
-        <action
-            android:id="@+id/action_eventDetails_to_summary"
-            app:destination="@id/eventSummaryFrag" />
 
-    </fragment>
 
-    <fragment
-        android:id="@+id/eventSummaryFrag"
-        android:name="in.bitspilani.eon.event.subscriber.summary.EventSummaryFrag" />
+
 
 
     <!--sign in fragment-->
@@ -68,6 +54,8 @@
         <action android:id="@+id/action_basicInfo_to_signInFragment"
             app:destination="@id/signInFragment"/>
     </fragment>
+
+
 
    <!-- basic info -->
     <fragment
@@ -122,6 +110,39 @@
                 app:destination="@id/home_nav"/>
 
         </fragment>
+
+        <fragment
+            android:id="@+id/paymentFrag"
+            tools:layout="@layout/payment_fragment"
+            android:name="in.bitspilani.eon.event.subscriber.payments.PaymentFrag" >
+            <action android:id="@+id/action_details_to_payment"
+                app:popUpTo="@id/eventDetails"
+                app:popUpToInclusive="true"
+                app:destination="@id/paymentFrag"/>
+
+        </fragment>
+
+        <fragment
+            android:id="@+id/eventSummaryFrag"
+            android:name="in.bitspilani.eon.event.subscriber.summary.EventSummaryFrag" >
+            <action android:id="@+id/action_summery_to_payment"
+                app:popUpTo="@id/eventDetails"
+                app:popUpToInclusive="true"
+                app:destination="@id/paymentFrag"/>
+        </fragment>
+        <fragment
+            android:id="@+id/eventDetails"
+            android:name="in.bitspilani.eon.event.subscriber.detail.EventDetails"
+            android:label="fragment_event_details"
+            tools:layout="@layout/event_details_fragment">
+            <action
+                android:id="@+id/action_eventDetails_to_summary"
+                app:popUpTo="@id/homeFragment"
+                app:destination="@id/eventSummaryFrag" />
+
+        </fragment>
+
+
         <action android:id="@+id/action_homeFragment_to_eventDetailsFragment"
             app:popUpTo="@id/homeFragment"
             app:destination="@id/eventDetailsFragment"/>

@@ -60,14 +60,13 @@ class HomeFragment : Fragment(), CallbackListener {
     private fun setUpObservables() {
 
         dashboardViewModel.eventDetails.observe(viewLifecycleOwner, Observer {
-            findNavController().navigate(R.id.action_homeFragment_to_eventDetailsFragment,
-                null,
-                NavOptions.Builder()
-                    .setPopUpTo(R.id.homeFragment,
-                        false).build())
 
             if (BitsEonApp.localStorageHandler?.user_role.equals("organiser"))
-                findNavController().navigate(R.id.eventDetailsFragment)
+                findNavController().navigate(R.id.action_homeFragment_to_eventDetailsFragment,
+                    null,
+                    NavOptions.Builder()
+                        .setPopUpTo(R.id.homeFragment,
+                            false).build())
             else
                 findNavController().navigate(R.id.eventDetails)
 
