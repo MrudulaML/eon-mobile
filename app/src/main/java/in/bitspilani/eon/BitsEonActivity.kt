@@ -2,7 +2,10 @@ package `in`.bitspilani.eon
 
 
 import `in`.bitspilani.eon.login.ui.AuthViewModel
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Base64
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
@@ -13,6 +16,8 @@ import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 
 
 class BitsEonActivity : AppCompatActivity() {
@@ -29,6 +34,7 @@ class BitsEonActivity : AppCompatActivity() {
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         bottomNavigation= findViewById(R.id.bottom_navigation)
         checkIfAuthenticated()
+        //printKeyHash()
 
         NavigationUI.setupWithNavController(bottomNavigation,navController)
 
@@ -64,6 +70,22 @@ class BitsEonActivity : AppCompatActivity() {
 
     }
 
+    private fun printKeyHash(){
+        try {
+            val packageInfo = packageManager.getPackageInfo(
+                "in.bitspilani.eon",
+                PackageManager.GET_SIGNATURES
+            )
 
-
+            for (signature in packageInfo.signatures) {
+                val md = MessageDigest.getInstance("SHA")
+                md.update(signature.toByteArray())
+                Log.d("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT))
+            }
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        } catch (e: NoSuchAlgorithmException) {
+            e.printStackTrace()
+        }
+    }
 }

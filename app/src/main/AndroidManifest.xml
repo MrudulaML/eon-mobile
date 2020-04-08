@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="in.bitspilani.eon">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
             android:name=".BitsEonApp"
             android:allowBackup="false"
@@ -10,6 +12,8 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+            <meta-data android:name="com.facebook.sdk.ApplicationId"
+                android:value="@string/facebook_app_id"/>
         <activity
                 android:name=".BitsEonActivity"
                 android:screenOrientation="portrait"
@@ -20,6 +24,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <provider android:authorities="com.facebook.app.FacebookContentProvider676731286488616"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true"/>
         <meta-data android:name="preloaded_fonts" android:resource="@array/preloaded_fonts"/>
     </application>
 

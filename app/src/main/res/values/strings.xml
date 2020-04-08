@@ -38,4 +38,11 @@
     <string name="create_new_password">Create New Password</string>
     <string name="password_set_message">Your Password has been updated successfully</string>
     <string name="change_password">Change password</string>
+
+    <string name="share_intent_title">Whatsapp</string>
+    <string name="share_whatsapp_not_installed">Whatsapp not installed</string>
+
+    <string name="facebook_app_id">676731286488616</string>
+    <string name="facebook_login_protocol_scheme">fb676731286488616</string>
+
 </resources>

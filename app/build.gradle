@@ -88,8 +88,8 @@ dependencies {
 
 
     //Arch lifecycle
-    implementation  "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
-    implementation  "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
 
 
@@ -122,5 +122,9 @@ dependencies {
     //stetho
     implementation 'com.facebook.stetho:stetho:1.5.1'
     implementation 'com.facebook.stetho:stetho-okhttp3:1.5.1'
+
+    // share facebook
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation 'com.facebook.android:facebook-share:[5,6)'
 
 }
