@@ -2,26 +2,31 @@
     xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/homeFragment"
+        android:id="@+id/action_one"
         android:orderInCategory="100"
-        android:title="One"
+        android:title=""
+        android:icon="@drawable/ic_ifsce_code"
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/changePasswordFragment"
+        android:id="@+id/homeFragment"
         android:orderInCategory="200"
-        android:title="Two"
+        android:title=""
+        android:checkable="true"
+        android:icon="@drawable/ic_calendar_header"
         app:showAsAction="never" />
     <item
-        android:id="@+id/signInFragment"
+        android:id="@+id/action_three"
         android:orderInCategory="200"
-        android:title="Three"
+        android:title=""
+        android:icon="@drawable/ic_users__guests"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_four"
         android:orderInCategory="200"
-        android:title="Four"
+        android:title=""
+        android:icon="@drawable/ic_tickets"
         app:showAsAction="never" />
 
 </menu>
