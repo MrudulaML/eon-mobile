@@ -65,55 +65,54 @@ class HomeFragment : Fragment(), CallbackListener {
 
     override fun onResume() {
         super.onResume()
-        activity?.title = "Event Management"
+        actionbarHost?.showToolbar(showToolbar = true,title = "Event Management",showBottomNav = true)
     }
 
     private fun initView() {
 
         //show navigation
-        actionbarHost?.showToolbar(showToolbar = true,title = "Event Management",showBottomNav = true)
         //dummy list
         val listOfEvent = mutableListOf<IndividualEvent>()
         listOfEvent.add(
             IndividualEvent(
                 "Food Festival", 1,
-                "2000"
+                "2000 Attendees"
             )
         )
         listOfEvent.add(
             IndividualEvent(
                 "Music Festival", 2,
-                "1000"
+                "1000 Attendees"
             )
         )
         listOfEvent.add(
             IndividualEvent(
                 "Technical Corridor", 3,
-                "3000"
+                "3000 Attendees"
             )
         )
         listOfEvent.add(
             IndividualEvent(
                 "Financial Planning", 4,
-                "4000"
+                "4000 Attendees"
             )
         )
         listOfEvent.add(
             IndividualEvent(
                 "Health and Fitness", 5,
-                "3000"
+                "3000 Attendees"
             )
         )
         listOfEvent.add(
             IndividualEvent(
                 "Ethical Hacking", 6,
-                "2500"
+                "2500 Attendees"
             )
         )
         listOfEvent.add(
             IndividualEvent(
                 "Angular JS Classes", 7,
-                "2600"
+                "2600 Attendees"
             )
         )
 

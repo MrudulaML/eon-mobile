@@ -30,7 +30,7 @@
         android:textSize="25sp"
         android:layout_marginTop="16dp"
         android:text="Technical Corridor"
-        android:textColor="@color/design_default_color_primary"
+        android:textColor="@color/navy"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appCompatImageView2" />
@@ -39,7 +39,6 @@
         android:id="@+id/appCompatTextView5"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
         android:padding="@dimen/_16dp"
         android:text="The technical corridor network of nemesis allow the crew to repair The technical corridor network of nemesis allow the crew to repair The technical corridor network of nemesis allow the crew to repair The technical corridor network of nemesis allow the crew to repair The technical corridor network of nemesis allow the crew to repair"
         android:textColor="@color/grey"
@@ -53,7 +52,7 @@
         android:id="@+id/appCompatTextView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
+        android:layout_marginStart="36dp"
         android:layout_marginTop="16dp"
         android:text="Type of Event"
         android:textColor="@color/grey"
@@ -80,8 +79,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="48dp"
-        android:text="Type of Event"
+        android:layout_marginEnd="60dp"
+        android:text="No. of tickets"
         android:textColor="@color/grey"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -92,7 +91,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Seminar"
+        android:text="1000"
         android:textColor="@color/grey"
         android:textSize="15sp"
         android:textStyle="bold"
@@ -105,7 +104,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Type of Event"
+        android:text="Event date and time"
         android:textColor="@color/grey"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="@+id/appCompatTextView9"
@@ -116,7 +115,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Seminar"
+        android:text="9:00 PM 12 Mar'20"
         android:textColor="@color/grey"
         android:textSize="15sp"
         android:textStyle="bold"
@@ -131,7 +130,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Type of Event"
+        android:text="Subscription fees"
         android:textColor="@color/grey"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="@+id/appCompatTextView11"
@@ -142,7 +141,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Seminar"
+        android:text="2000"
         android:textColor="@color/grey"
         android:textSize="15sp"
         android:textStyle="bold"
@@ -164,6 +163,7 @@
             android:layout_height="@dimen/_100dp"
             android:layout_margin="@dimen/_8sdp"
             android:layout_weight="1"
+
             android:background="@drawable/rounded_corner_grey_25"
             android:gravity="center"
             android:orientation="vertical">
@@ -232,7 +232,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_6sdp"
-                android:text="no.of Subscribers"
+                android:text="view feedback"
                 android:textSize="10sp" />
 
         </LinearLayout>
@@ -281,7 +281,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_6sdp"
-                android:text="no.of Subscribers"
+                android:text="share with social media"
                 android:textSize="10sp" />
 
         </LinearLayout>
@@ -320,7 +320,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_6sdp"
-                android:text="no.of Subscribers"
+                android:text="send reminders"
                 android:textSize="10sp" />
 
         </LinearLayout>

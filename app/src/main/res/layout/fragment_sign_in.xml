@@ -41,6 +41,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
             app:shape_arc_cropDirection="outside"
             app:shape_arc_height="40dp"
             app:shape_arc_position="top">
@@ -62,6 +64,7 @@
             android:layout_marginHorizontal="@dimen/_24dp"
             android:orientation="vertical"
             android:paddingBottom="@dimen/_20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/arcView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/appCompatImageView3">
@@ -84,7 +87,7 @@
                     android:theme="@style/Theme.MaterialComponents.Light" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/guest"
+                    android:id="@+id/subscriber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_32dp"

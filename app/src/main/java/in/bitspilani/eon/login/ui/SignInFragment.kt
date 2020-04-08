@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 
@@ -56,10 +57,16 @@ class SignInFragment : Fragment() {
         authViewModel.userType = null
         btn_login.clickWithDebounce {
             if (authViewModel.userType!=null){
-                if( Validator.isValidEmail(etEmailAddress,true)){
+                if(Validator.isValidEmail(etEmailAddress,true)){
                     //store user role
-
-                    authViewModel.login(etEmailAddress.toString(),etPassword.toString())
+                    showUserMsg("Login Successful")
+                    BitsEonApp.localStorageHandler?.token= "1234"
+                    findNavController().navigate(R.id.action_signInFragment_to_homeFragment,
+                        null,
+                        NavOptions.Builder()
+                            .setPopUpTo(R.id.app_nav,
+                                true).build())
+                    //authViewModel.login(etEmailAddress.toString(),etPassword.toString())
                 }
             }else{
                 showUserMsg("Select user type")
@@ -67,7 +74,6 @@ class SignInFragment : Fragment() {
 
         }
 
-        actionbarHost?.showToolbar(showToolbar = false,showBottomNav = false)
         tv_forgot_password.clickWithDebounce {
 
             findNavController().navigate(R.id.action_signInFragment_to_createPasswordFragment)
@@ -82,19 +88,28 @@ class SignInFragment : Fragment() {
             }
         }
         organiser.clickWithDebounce {
+            setRoleToPref("organizer")
             organiser.isChecked = true
-            guest.isChecked = false
+            subscriber.isChecked = false
             authViewModel.userType = USER_TYPE.ORGANISER
         }
-        guest.clickWithDebounce {
+        subscriber.clickWithDebounce {
+            setRoleToPref("subscriber")
             organiser.isChecked = false
-            guest.isChecked = true
+            subscriber.isChecked = true
             authViewModel.userType = USER_TYPE.SUBSCRIBER
         }
-        setObservables()
+       // setObservables()
     }
 
+    private fun setRoleToPref(role:String){
+        BitsEonApp.localStorageHandler?.user_role=role
+    }
 
+    override fun onResume() {
+        super.onResume()
+        actionbarHost?.showToolbar(showToolbar = false,showBottomNav = false)
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
