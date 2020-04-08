@@ -1,12 +1,15 @@
-package `in`.bitspilani.eon.event.ui
+package `in`.bitspilani.eon.eventOrganiser.ui.adapter
 
 import `in`.bitspilani.eon.databinding.EventItemRowBinding
-import `in`.bitspilani.eon.event.data.IndividualEvent
+import `in`.bitspilani.eon.eventOrganiser.data.IndividualEvent
+import `in`.bitspilani.eon.eventOrganiser.ui.EventDashboardViewModel
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class EventAdapter(private val evenList : List<IndividualEvent>, val homeViewModel: HomeViewModel) : RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
+class EventAdapter(private val evenList : List<IndividualEvent>,
+                   val eventDashboardViewModel: EventDashboardViewModel
+) : RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = EventItemRowBinding.inflate(inflater)
@@ -21,7 +24,7 @@ class EventAdapter(private val evenList : List<IndividualEvent>, val homeViewMod
         fun bind(item: IndividualEvent) {
 
             binding.event = item
-            binding.homeViewModel=homeViewModel
+            binding.dashboardViewmodel=eventDashboardViewModel
             binding.executePendingBindings()
         }
 

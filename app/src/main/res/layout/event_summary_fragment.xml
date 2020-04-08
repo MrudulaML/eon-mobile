@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_event_details"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:layout_margin="20dp"
         android:background="@drawable/stroke_rectangle_grey_curved"
         android:padding="5dp"
@@ -18,8 +18,8 @@
 
         <ImageView
             android:id="@+id/iv_attendees"
-            android:layout_width="40dp"
-            android:layout_height="60dp"
+            android:layout_width="25dp"
+            android:layout_height="35dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:src="@drawable/ic_icon_user_grey"
@@ -30,8 +30,8 @@
             android:id="@+id/tv_attendees_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
             android:text="No. of attendees"
             app:layout_constraintStart_toEndOf="@+id/iv_attendees"
             app:layout_constraintTop_toTopOf="parent" />
@@ -40,41 +40,43 @@
             android:id="@+id/tv_attendees_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="5dp"
-            android:text="0"
+            android:layout_marginStart="15dp"
+            android:text="3"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@id/iv_attendees"
             app:layout_constraintTop_toBottomOf="@id/tv_attendees_title" />
 
         <ImageView
             android:id="@+id/iv_rupees"
-            android:layout_width="40dp"
-            android:layout_height="60dp"
+            android:layout_width="20dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="12dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             android:src="@drawable/ic_icon_rupee_grey"
-            app:layout_constraintEnd_toStartOf="@id/tv_amount_title"
+            app:layout_constraintStart_toEndOf="@id/tv_attendees_title"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_amount_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
             android:text="Total Amount"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBaseline_toBaselineOf="@id/tv_attendees_title"
+            app:layout_constraintStart_toEndOf="@id/iv_rupees"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_amount_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
             android:text="1500"
             android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@id/tv_attendees_value"
             app:layout_constraintStart_toEndOf="@id/iv_rupees"
             app:layout_constraintTop_toBottomOf="@id/tv_amount_title" />
 
@@ -100,6 +102,21 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/stroke_rectangle_grey_curved"
+        android:paddingStart="15dp"
+        android:text="15% Applied"
+        android:textColor="@color/green"
+        android:textSize="15sp"
+        app:layout_constraintTop_toBottomOf="@id/tv_promocode" />
+
+    <ImageView
+        android:id="@+id/tv_apply"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="40dp"
+        android:src="@drawable/ic_icon_red_close"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_promocode" />
 
     <TextView
@@ -120,6 +137,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:text="Total Amount    ₹ 1500"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_details" />
 
@@ -129,6 +147,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:text="Discounted Amount    -₹ 175"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_total_amount" />
 
@@ -143,14 +162,29 @@
         app:layout_constraintTop_toBottomOf="@id/tv_discounted_amount" />
 
     <TextView
-        android:textColor="@color/appColor"
         android:id="@+id/tv_payable_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:text="Discounted Amount    ₹ 1325"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/divider" />
+
+    <Button
+        android:id="@+id/btn_pay"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/colorPrimary"
+        android:text="Pay"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".eventOrganiser.ui.UserProfileFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+  <!--<ListView
+      android:id="@+id/lv_user_profile"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"/>-->
+    <!--Basic details-->
+    <LinearLayout
+        android:id="@+id/profile_basic_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:focusable="true"
+
+        android:layout_margin="@dimen/_4sdp"
+        android:orientation="horizontal">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            app:srcCompat="@drawable/ic_user"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:textColor="@color/grey"
+            android:text="Basic Details"/>
+    </LinearLayout>
+
+    <!--change password-->
+    <LinearLayout
+        android:id="@+id/profile_change_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+
+        android:layout_margin="@dimen/_4sdp"
+        android:orientation="horizontal">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            app:srcCompat="@drawable/ic_user"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:textColor="@color/grey"
+            android:text="Change Password"/>
+    </LinearLayout>
+
+    <!--wishList-->
+    <LinearLayout
+        android:id="@+id/profile_wish_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+
+        android:layout_margin="@dimen/_4sdp"
+        android:orientation="horizontal">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            app:srcCompat="@drawable/ic_user"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:textColor="@color/grey"
+            android:text="Wishlist"/>
+    </LinearLayout>
+
+    <!--logout-->
+    <LinearLayout
+        android:id="@+id/profile_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_margin="@dimen/_4sdp"
+        android:orientation="horizontal">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            app:srcCompat="@drawable/ic_user"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:textColor="@color/grey"
+            android:text="Logout"/>
+    </LinearLayout>
+
+</LinearLayout>
