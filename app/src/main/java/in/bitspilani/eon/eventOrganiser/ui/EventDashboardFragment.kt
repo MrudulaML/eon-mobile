@@ -16,6 +16,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_dashboard.*
@@ -57,7 +58,11 @@ class HomeFragment : Fragment(), CallbackListener {
     private fun setUpObservables() {
 
         dashboardViewModel.eventDetails.observe(viewLifecycleOwner, Observer {
-            findNavController().navigate(R.id.eventDetailsFragment)
+            findNavController().navigate(R.id.action_homeFragment_to_eventDetailsFragment,
+                null,
+                NavOptions.Builder()
+                    .setPopUpTo(R.id.homeFragment,
+                        false).build())
         })
 
     }

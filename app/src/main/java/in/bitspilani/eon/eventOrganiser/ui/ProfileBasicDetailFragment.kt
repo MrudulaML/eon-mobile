@@ -1,4 +1,5 @@
 import `in`.bitspilani.eon.BitsEonActivity
+import `in`.bitspilani.eon.BitsEonApp
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.eventOrganiser.ui.CallbackListener
 import `in`.bitspilani.eon.utils.clickWithDebounce
@@ -36,6 +37,9 @@ class ProfileBasicDetailFragment(private val callbackListener: CallbackListener)
         btn_basic_confirm.clickWithDebounce {   dismiss() }
 
         populateCheckBox()
+
+
+
 
     }
 

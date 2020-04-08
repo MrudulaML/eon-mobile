@@ -95,8 +95,14 @@
         <fragment
             android:id="@+id/eventDetailsFragment"
             android:name="in.bitspilani.eon.eventOrganiser.ui.EventDetailsFragment"
+            tools:layout="@layout/fragment_event_detail">
 
-            tools:layout="@layout/fragment_event_detail"/>
+            <action android:id="@+id/action_event_details_to_dashboardFragment"
+                app:popUpTo="@id/homeFragment"
+                app:popUpToInclusive="true"
+                app:destination="@id/home_nav"/>
+
+        </fragment>
         <action android:id="@+id/action_homeFragment_to_eventDetailsFragment"
             app:popUpTo="@id/homeFragment"
             app:destination="@id/eventDetailsFragment"/>

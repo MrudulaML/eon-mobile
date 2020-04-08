@@ -159,6 +159,7 @@
         app:layout_constraintTop_toBottomOf="@+id/appCompatTextView10">
 
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="@dimen/_100dp"
             android:layout_margin="@dimen/_8sdp"
@@ -199,9 +200,11 @@
         </LinearLayout>
 
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="@dimen/_100dp"
             android:layout_margin="@dimen/_8sdp"
+
             android:layout_weight="1"
             android:background="@drawable/rounded_corner_grey_25"
             android:gravity="center"
@@ -248,9 +251,11 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <LinearLayout
+            android:id="@+id/share_fb"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_100dp"
             android:layout_margin="@dimen/_8sdp"
+            android:foreground="?android:attr/selectableItemBackground"
             android:layout_weight="1"
             android:background="@drawable/rounded_corner_grey_25"
             android:gravity="center"
@@ -267,14 +272,7 @@
                     android:src="@drawable/ic_user"
                     app:tint="@color/yellow" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_8sdp"
-                    android:text="0"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -287,6 +285,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/send_reminder"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_100dp"
             android:layout_margin="@dimen/_8sdp"
@@ -306,14 +305,7 @@
                     android:src="@drawable/ic_user"
                     app:tint="@color/yellow" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_8sdp"
-                    android:text="0"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -336,9 +328,11 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
         <LinearLayout
+            android:id="@+id/send_updates"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_100dp"
             android:layout_margin="@dimen/_8sdp"
+            android:foreground="?android:attr/selectableItemBackground"
             android:layout_weight="1"
             android:background="@drawable/rounded_corner_grey_25"
             android:gravity="center"
@@ -355,14 +349,7 @@
                     android:src="@drawable/ic_user"
                     app:tint="@color/yellow" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_8sdp"
-                    android:text="0"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatTextView

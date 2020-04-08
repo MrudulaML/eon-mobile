@@ -84,6 +84,8 @@ class UserProfileFragment : Fragment(),CallbackListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         onItemClick()
+        if(BitsEonApp.localStorageHandler?.user_role.equals("organizer"))
+            profile_wish_list.visibility=View.GONE
     }
 
 
