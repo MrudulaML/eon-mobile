@@ -111,7 +111,7 @@
         android:id="@+id/btn_invitee_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_corner_grey_25"
+        android:background="@drawable/rounded_corner_grey_4"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:padding="@dimen/_4sdp"
         android:text="Cancel"
