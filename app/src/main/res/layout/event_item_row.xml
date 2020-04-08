@@ -1,4 +1,5 @@
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -8,21 +9,23 @@
 
         <variable
             name="event"
-            type="in.bitspilani.eon.event.data.IndividualEvent"/>
+            type="in.bitspilani.eon.eventOrganiser.data.IndividualEvent"/>
 
         <variable
             name="dashboardViewmodel"
-            type="in.bitspilani.eon.event.ui.EventDashboardViewModel" />
+            type="in.bitspilani.eon.eventOrganiser.ui.EventDashboardViewModel" />
     </data>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_4dp"
         android:foreground="?android:attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_marginBottom="@dimen/_4sdp"
         app:cardElevation="@dimen/_2dp"
+        android:onClick="@{() -> dashboardViewmodel.onEventClick(event.eventId)}"
         app:cardCornerRadius="@dimen/_4sdp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -56,11 +59,26 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="@{event.attendees}"
+                tools:text="290 Attendeees"
                 android:textColor="@color/black"
                 android:textSize="10sp"
                 android:paddingBottom="@dimen/_8sdp"
                 app:layout_constraintStart_toStartOf="@+id/appCompatTextView"
                 app:layout_constraintTop_toBottomOf="@+id/appCompatTextView" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text_event_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:paddingBottom="@dimen/_8sdp"
+                android:text="@{event.attendees}"
+                android:textColor="@color/black"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="12 Apr 2020" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

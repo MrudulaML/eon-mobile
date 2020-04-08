@@ -13,341 +13,365 @@
                 type="in.bitspilani.eon.login.ui.USER_TYPE" />
         <import type="android.view.View" />
     </data>
-
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            tools:context=".login.ui.BasicDetailFragment"
-            android:background="@color/navy">
+            android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="@dimen/_20sdp"
-            android:orientation="vertical"
-            android:layout_marginTop="@dimen/_25sdp">
-
-        <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                tools:text="@string/register"
-                android:layout_gravity="left"
-                android:textSize="@dimen/_14sdp"
-                android:id="@+id/title"
-                android:textColor="@color/white"/>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/details"
-                android:layout_gravity="left"
-                android:textSize="@dimen/_10sdp"
-                android:textColor="@color/white"/>
-
-        <com.shuhart.stepview.StepView
-                android:id="@+id/step_view"
+            <com.github.florent37.shapeofview.shapes.ArcView
+                android:id="@+id/arcView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/_5sdp"
-                android:padding="16dp"
-                app:sv_nextStepCircleEnabled="true"
-                app:sv_animationType="Line"
-                app:sv_doneStepLineColor="@color/colorPrimaryDark"
-                app:sv_nextStepLineColor="@color/colorPrimary"
-                app:sv_selectedStepNumberColor="@color/white"
-                app:sv_doneStepMarkColor="@color/white"
-                app:sv_doneTextColor="@color/colorPrimaryDark"
-                app:sv_selectedTextColor="@color/colorPrimaryDark"
-                app:sv_nextTextColor="@color/colorPrimary"
-                app:sv_doneCircleColor="@color/colorPrimaryDark"
-                app:sv_selectedCircleColor="@color/colorPrimaryDark"
-                app:sv_nextStepCircleColor="@color/colorPrimary"/>
+                android:layout_height="@dimen/_300sdp"
+                android:background="@color/navy"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shape_arc_cropDirection="outside"
+                app:shape_arc_height="20dp"
+                app:shape_arc_position="bottom" >
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/navy"/>
+            </com.github.florent37.shapeofview.shapes.ArcView>
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/_20dp"
-                android:background="@drawable/custom_shape">
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:context=".login.ui.BasicDetailFragment">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="@{step == OrganiserDetailsSteps.BASIC_DETAILS ? View.VISIBLE : View.GONE }"
-                android:orientation="vertical">
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/organizationNameWrapper"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:visibility="@{userType == USER_TYPE.ORGANISER  ? View.VISIBLE : View.GONE }"
-                android:theme="@style/TextLabel"
-                android:layout_marginTop="@dimen/_10dp"
-                android:padding="@dimen/_12dp"
-                android:background="@drawable/bg_edit_text">
-
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/edt_org_name"
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:drawableLeft="@drawable/organisation_name"
-                    android:drawableStart="@drawable/organisation_name"
-                    android:drawablePadding="@dimen/_20dp"
-                    android:hint="@string/organisation_name"
-                    android:textSize="@dimen/_18dp"
-                    android:textColorHint="@color/grey"
-                    android:background="@android:color/transparent"/>
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_25sdp"
+                    android:orientation="vertical">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_14sdp"
+                        android:textStyle="bold"
+                        tools:text="@string/register" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/emailAddressWrapper"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/organizationNameWrapper"
-                android:theme="@style/TextLabel"
-                android:layout_marginTop="@dimen/_10dp"
-                android:padding="@dimen/_12dp"
-                android:background="@drawable/bg_edit_text">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:text="@string/details"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_10sdp" />
 
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/edit_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
-                    android:drawableLeft="@drawable/email_id"
-                    android:drawableStart="@drawable/email_id"
-                    android:drawablePadding="@dimen/_20dp"
-                    android:hint="@string/email_id"
-                    android:textSize="@dimen/_18dp"
-                    android:textColorHint="@color/grey"
-                    android:background="@android:color/transparent"/>
+                    <com.shuhart.stepview.StepView
+                        android:id="@+id/step_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:padding="16dp"
+                        app:sv_animationType="Line"
+                        app:sv_doneCircleColor="@color/white"
+                        app:sv_doneStepLineColor="@color/white"
+                        app:sv_doneStepMarkColor="@color/white"
+                        app:sv_doneTextColor="@color/navy"
+                        app:sv_nextStepCircleColor="@color/grey"
+                        app:sv_nextStepCircleEnabled="true"
+                        app:sv_nextStepLineColor="@color/grey"
+                        app:sv_nextTextColor="@color/lightGrey"
+                        app:sv_selectedCircleColor="@color/white"
+                        app:sv_selectedStepNumberColor="@color/navy"
+                        app:sv_selectedTextColor="@color/white" />
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/custom_shape"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_20dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="@{userType == USER_TYPE.SUBSCRIBER  ? View.VISIBLE : View.GONE }"
-                android:theme="@style/TextLabel"
-                android:layout_marginTop="@dimen/_10dp"
-                android:padding="@dimen/_12dp"
-                android:background="@drawable/bg_edit_text">
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:visibility="@{step == OrganiserDetailsSteps.BASIC_DETAILS ? View.VISIBLE : View.GONE }">
 
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/edt_user_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
-                    android:drawableLeft="@drawable/user"
-                    android:drawableStart="@drawable/user"
-                    android:drawablePadding="@dimen/_20dp"
-                    android:hint="@string/username"
-                    android:textSize="@dimen/_18dp"
-                    android:textColorHint="@color/grey"
-                    android:background="@android:color/transparent"/>
 
-            </com.google.android.material.textfield.TextInputLayout>
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/organizationNameWrapper"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_10dp"
+                                android:background="@drawable/bg_edit_text"
+                                android:padding="@dimen/_8dp"
+                                android:theme="@style/TextLabel"
+                                android:visibility="@{userType == USER_TYPE.ORGANISER  ? View.VISIBLE : View.GONE }">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/organisationContactWrapper"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/TextLabel"
-                android:layout_marginTop="@dimen/_10dp"
-                android:padding="@dimen/_12dp"
-                android:background="@drawable/bg_edit_text">
+                                <androidx.appcompat.widget.AppCompatEditText
+                                    android:id="@+id/edt_org_name"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@android:color/transparent"
+                                    android:drawableStart="@drawable/organisation_name"
+                                    android:drawableLeft="@drawable/organisation_name"
+                                    android:drawablePadding="@dimen/_20dp"
+                                    android:hint="@string/organisation_name"
+                                    android:inputType="text"
+                                    android:textColorHint="@color/grey"
+                                    android:textSize="@dimen/_18dp" />
 
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/edt_org_contact"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="phone"
-                    android:drawableLeft="@drawable/phone"
-                    android:drawableStart="@drawable/phone"
-                    android:drawablePadding="@dimen/_20dp"
-                    android:hint="@string/contact_details"
-                    android:textSize="@dimen/_18dp"
-                    android:textColorHint="@color/grey"
-                    android:background="@android:color/transparent"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                            </com.google.android.material.textfield.TextInputLayout>
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_16sdp"
-                android:text="@string/address"
-                android:textSize="@dimen/_18fs"
-                android:textColor="@color/black"/>
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/emailAddressWrapper"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/organizationNameWrapper"
+                                android:layout_marginTop="@dimen/_10dp"
+                                android:background="@drawable/bg_edit_text"
+                                android:padding="@dimen/_8dp"
+                                android:theme="@style/TextLabel">
 
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/edt_org_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_16sdp"
-                android:autofillHints="Organisation Address"
-                android:hint="@string/address_detail"
-                android:gravity="start|top"
-                android:padding="@dimen/_10dp"
-                android:inputType="textMultiLine"
-                android:lines="8"
-                android:minLines="3"
-                android:scrollbars="vertical"
-                android:singleLine="false"
-                android:background="@drawable/bg_edit_text"/>
+                                <androidx.appcompat.widget.AppCompatEditText
+                                    android:id="@+id/edit_email"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@android:color/transparent"
+                                    android:drawableStart="@drawable/email_id"
+                                    android:drawableLeft="@drawable/email_id"
+                                    android:drawablePadding="@dimen/_20dp"
+                                    android:hint="@string/email_id"
+                                    android:inputType="textEmailAddress"
+                                    android:textColorHint="@color/grey"
+                                    android:textSize="@dimen/_18dp" />
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                            </com.google.android.material.textfield.TextInputLayout>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:visibility="gone"
-                android:visibility="@{step == OrganiserDetailsSteps.BANK_DETAILS ? View.VISIBLE : View.GONE }"
-                android:orientation="vertical">
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/bankAccountNumberWrapper"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/TextLabel"
-                android:layout_marginTop="@dimen/_10dp"
-                android:padding="@dimen/_12dp"
-                android:background="@drawable/bg_edit_text">
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_10dp"
+                                android:background="@drawable/bg_edit_text"
+                                android:padding="@dimen/_8dp"
+                                android:theme="@style/TextLabel"
+                                android:visibility="@{userType == USER_TYPE.SUBSCRIBER  ? View.VISIBLE : View.GONE }">
 
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/edit_bank_acc_no"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:drawableLeft="@drawable/account_number"
-                    android:drawableStart="@drawable/account_number"
-                    android:drawablePadding="@dimen/_20dp"
-                    android:hint="@string/bank_acc_no"
-                    android:textSize="@dimen/_18dp"
-                    android:textColorHint="@color/grey"
-                    android:background="@android:color/transparent"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                                <androidx.appcompat.widget.AppCompatEditText
+                                    android:id="@+id/edt_user_name"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@android:color/transparent"
+                                    android:drawableStart="@drawable/user"
+                                    android:drawableLeft="@drawable/user"
+                                    android:drawablePadding="@dimen/_20dp"
+                                    android:hint="@string/username"
+                                    android:inputType="textEmailAddress"
+                                    android:textColorHint="@color/grey"
+                                    android:textSize="@dimen/_18dp" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/bankNameWrapper"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/bankAccountNumberWrapper"
-                android:theme="@style/TextLabel"
-                android:layout_marginTop="@dimen/_10dp"
-                android:padding="@dimen/_12dp"
-                android:background="@drawable/bg_edit_text">
+                            </com.google.android.material.textfield.TextInputLayout>
 
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/edt_bank_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:drawableLeft="@drawable/bank_name"
-                    android:drawableStart="@drawable/bank_name"
-                    android:drawablePadding="@dimen/_20dp"
-                    android:hint="@string/bank_name"
-                    android:textSize="@dimen/_18dp"
-                    android:textColorHint="@color/grey"
-                    android:background="@android:color/transparent"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/organisationContactWrapper"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_10dp"
+                                android:background="@drawable/bg_edit_text"
+                                android:padding="@dimen/_8dp"
+                                android:theme="@style/TextLabel">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/ifscCodeWrapper"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/TextLabel"
-                android:layout_below="@id/bankNameWrapper"
-                android:layout_marginTop="@dimen/_10dp"
-                android:padding="@dimen/_12dp"
-                android:background="@drawable/bg_edit_text">
+                                <androidx.appcompat.widget.AppCompatEditText
+                                    android:id="@+id/edt_org_contact"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@android:color/transparent"
+                                    android:drawableStart="@drawable/phone"
+                                    android:drawableLeft="@drawable/phone"
+                                    android:drawablePadding="@dimen/_20dp"
+                                    android:hint="@string/contact_details"
+                                    android:inputType="phone"
+                                    android:textColorHint="@color/grey"
+                                    android:textSize="@dimen/_18dp" />
+                            </com.google.android.material.textfield.TextInputLayout>
 
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/edt_ifsc"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:drawableLeft="@drawable/ifsc_code"
-                    android:drawableStart="@drawable/ifsc_code"
-                    android:drawablePadding="@dimen/_20dp"
-                    android:hint="@string/ifsc_code"
-                    android:textSize="@dimen/_18dp"
-                    android:textColorHint="@color/grey"
-                    android:background="@android:color/transparent"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_16sdp"
+                                android:text="@string/address"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_18fs" />
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
-        <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="@{step == OrganiserDetailsSteps.PASSWORD ? View.VISIBLE : View.GONE }"
-                android:orientation="vertical">
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/TextLabel"
-                android:padding="@dimen/_12dp"
-                android:layout_marginTop="@dimen/_10dp"
-                android:hint="Password"
-                android:background="@drawable/bg_edit_text">
+                            <androidx.appcompat.widget.AppCompatEditText
+                                android:id="@+id/edt_org_address"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_16sdp"
+                                android:autofillHints="Organisation Address"
+                                android:background="@drawable/bg_edit_text"
+                                android:gravity="start|top"
+                                android:hint="@string/address_detail"
+                                android:inputType="textMultiLine"
+                                android:lines="8"
+                                android:minLines="3"
+                                android:padding="@dimen/_10dp"
+                                android:scrollbars="vertical"
+                                android:singleLine="false" />
 
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/edt_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:drawableLeft="@drawable/password_login"
-                    android:drawableStart="@drawable/password_login"
-                    android:drawablePadding="@dimen/_20dp"
-                    android:hint="@string/password_hint"
-                    android:textSize="@dimen/_18dp"
-                    android:textColorHint="@color/grey"
-                    android:background="@android:color/transparent"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                        </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_16sdp"
-                android:text="@string/password_restriction_hint"/>
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:visibility="@{step == OrganiserDetailsSteps.BANK_DETAILS ? View.VISIBLE : View.GONE }"
+                            tools:visibility="gone">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/layout_confirm_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/TextLabel"
-                android:padding="@dimen/_12dp"
-                android:layout_marginTop="@dimen/_10dp"
-                android:hint="@string/confirm_password"
-                android:background="@drawable/bg_edit_text">
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/bankAccountNumberWrapper"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_10dp"
+                                android:background="@drawable/bg_edit_text"
+                                android:padding="@dimen/_8dp"
+                                android:theme="@style/TextLabel">
 
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/edt_confirm_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:drawableLeft="@drawable/password_login"
-                    android:drawableStart="@drawable/password_login"
-                    android:drawablePadding="@dimen/_20dp"
-                    android:background="@android:color/transparent"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                                <androidx.appcompat.widget.AppCompatEditText
+                                    android:id="@+id/edit_bank_acc_no"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@android:color/transparent"
+                                    android:drawableStart="@drawable/account_number"
+                                    android:drawableLeft="@drawable/account_number"
+                                    android:drawablePadding="@dimen/_20dp"
+                                    android:hint="@string/bank_acc_no"
+                                    android:inputType="number"
+                                    android:textColorHint="@color/grey"
+                                    android:textSize="@dimen/_18dp" />
+                            </com.google.android.material.textfield.TextInputLayout>
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/bankNameWrapper"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/bankAccountNumberWrapper"
+                                android:layout_marginTop="@dimen/_10dp"
+                                android:background="@drawable/bg_edit_text"
+                                android:padding="@dimen/_8dp"
+                                android:theme="@style/TextLabel">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_next"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_20dp"
-            android:background="@drawable/bg_button_rounded_corners"
-            android:text="@string/next"
-            android:textColor="@color/white" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
-        </androidx.appcompat.widget.LinearLayoutCompat>
-    </androidx.appcompat.widget.LinearLayoutCompat>
+                                <androidx.appcompat.widget.AppCompatEditText
+                                    android:id="@+id/edt_bank_name"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@android:color/transparent"
+                                    android:drawableStart="@drawable/bank_name"
+                                    android:drawableLeft="@drawable/bank_name"
+                                    android:drawablePadding="@dimen/_20dp"
+                                    android:hint="@string/bank_name"
+                                    android:inputType="text"
+                                    android:textColorHint="@color/grey"
+                                    android:textSize="@dimen/_18dp" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/ifscCodeWrapper"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/bankNameWrapper"
+                                android:layout_marginTop="@dimen/_10dp"
+                                android:background="@drawable/bg_edit_text"
+                                android:padding="@dimen/_8dp"
+                                android:theme="@style/TextLabel">
+
+                                <androidx.appcompat.widget.AppCompatEditText
+                                    android:id="@+id/edt_ifsc"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@android:color/transparent"
+                                    android:drawableStart="@drawable/ifsc_code"
+                                    android:drawableLeft="@drawable/ifsc_code"
+                                    android:drawablePadding="@dimen/_20dp"
+                                    android:hint="@string/ifsc_code"
+                                    android:inputType="text"
+                                    android:textColorHint="@color/grey"
+                                    android:textSize="@dimen/_18dp" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:visibility="@{step == OrganiserDetailsSteps.PASSWORD ? View.VISIBLE : View.GONE }">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/layout_password"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_10dp"
+                                android:background="@drawable/bg_edit_text"
+                                android:hint="Password"
+                                android:padding="@dimen/_8dp"
+                                android:theme="@style/TextLabel">
+
+                                <androidx.appcompat.widget.AppCompatEditText
+                                    android:id="@+id/edt_password"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@android:color/transparent"
+                                    android:drawableStart="@drawable/password_login"
+                                    android:drawableLeft="@drawable/password_login"
+                                    android:drawablePadding="@dimen/_20dp"
+                                    android:inputType="textPassword"
+                                    android:textColorHint="@color/grey"
+                                    android:textSize="@dimen/_18dp" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_16sdp"
+                                android:text="@string/password_restriction_hint" />
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/layout_confirm_password"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_10dp"
+                                android:background="@drawable/bg_edit_text"
+                                android:hint="@string/confirm_password"
+                                android:padding="@dimen/_8dp"
+                                android:theme="@style/TextLabel">
+
+                                <androidx.appcompat.widget.AppCompatEditText
+                                    android:id="@+id/edt_confirm_password"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@android:color/transparent"
+                                    android:drawableStart="@drawable/password_login"
+                                    android:drawableLeft="@drawable/password_login"
+                                    android:drawablePadding="@dimen/_20dp"
+                                    android:inputType="textPassword" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btn_next"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_20dp"
+                            android:background="@drawable/bg_button_rounded_corners"
+                            android:text="@string/next"
+                            android:textColor="@color/white" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

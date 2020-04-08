@@ -6,8 +6,18 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
     </style>
 
+    <!-- Set parent theme as app theme. -->
+    <style name="DialogTheme" parent="AppTheme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+    <style name="ToolBarTheme"  parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlNormal">@color/white</item>
+    </style>
     <style name="CircularProgress" parent="Theme.AppCompat.Light">
         <item name="colorAccent">@color/colorPrimary</item>
     </style>
@@ -16,7 +26,7 @@
         <item name="android:textColorHint">@color/grey</item>
         <item name="colorAccent">@color/grey</item>
         <item name="colorControlNormal">@color/grey</item>
-        <item name="colorControlActivated">@color/appColor</item>
+        <item name="colorControlActivated">@color/navy</item>
     </style>
 
     <style name="ChipCustomStyle" parent="Widget.MaterialComponents.Chip.Action">

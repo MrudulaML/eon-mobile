@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="notofication"
+            type="in.bitspilani.eon.eventOrganiser.data.Notification" />
+
+    </data>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/noti_title"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_marginHorizontal="@dimen/_8sdp"
+        android:text="@{notofication.title}"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        tools:text="Asajshajkshajkshajksh"
+        android:layout_height="wrap_content"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/noti_Body"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_width="wrap_content"
+        android:text="@{notofication.body}"
+        android:layout_marginHorizontal="@dimen/_8sdp"
+        tools:text="adhkjahdakjhdakjhdkjahdkjahdjkahdkjahdkjahdajdfkajfllvnesjflkenjvjkehnvml"
+        android:layout_height="wrap_content"/>
+
+
+
+</LinearLayout>
+</layout>
