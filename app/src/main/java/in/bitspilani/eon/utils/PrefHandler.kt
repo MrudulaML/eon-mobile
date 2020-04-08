@@ -40,10 +40,10 @@ class PrefHandler(context: Context) {
             editor.apply()
         }
 
-    var user_role: Int
-        get() = pref.getInt("user_role", 0)
+    var user_role: String?
+        get() = pref.getString("user_role", "")
         set(id) {
-            editor.putInt("user_role", id)
+            editor.putString("user_role", id)
             editor.apply()
         }
 

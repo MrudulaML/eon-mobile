@@ -38,21 +38,22 @@ class AuthViewModel: ViewModel() {
 
     var fcmToken:String? = null
 
+    val loginResponse: SingleLiveEvent<LoginResponse> = SingleLiveEvent()
 
-    fun login(username:String, password:String, userType:String){
+
+    fun login(username:String, password:String){
         val body = JsonObject()
         body.addProperty("username",username)
         body.addProperty("password",password)
-        body.addProperty("user_type", userType)
         progress.value = true
-        restClient.authClient.create(ApiService::class.java).validateUser(body)
+        restClient.authClient.create(ApiService::class.java).login(body)
             .enqueue(object : ApiCallback<LoginResponse>(){
                 override fun onSuccessResponse(responseBody: LoginResponse) {
-                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                        loginResponse.postValue(responseBody)
                 }
 
                 override fun onApiError(errorType: ApiError, error: String?) {
-                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                        //handle errors
                 }
             })
 
@@ -64,7 +65,7 @@ class AuthViewModel: ViewModel() {
         body.addProperty("username",username)
         body.addProperty("password",password)
         progress.value = true
-        restClient.authClient.create(ApiService::class.java).validateUser(body)
+       /* restClient.authClient.create(ApiService::class.java).validateUser(body)
             .enqueue(object : ApiCallback<LoginResponse>(){
                 override fun onSuccessResponse(responseBody: LoginResponse) {
                     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -73,7 +74,7 @@ class AuthViewModel: ViewModel() {
                 override fun onApiError(errorType: ApiError, error: String?) {
                     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                 }
-            })
+            })*/
 
     }
 

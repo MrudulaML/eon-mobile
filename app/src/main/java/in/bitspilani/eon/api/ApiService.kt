@@ -12,8 +12,11 @@ import retrofit2.http.POST
 interface ApiService {
 
     //will be changed after getting api contract
-    @POST("/api/v1/core/user/login/")
-    fun validateUser(@Body body: JsonObject): Call<LoginResponse>
+
+
+    @POST("/authentication/login")
+    fun login(@Body body: JsonObject): Call<LoginResponse>
+
 
     @POST("/api/v1/core/user/resetPassword")
     fun resetPassword(@Body body: JsonObject): Call<JsonObject>
