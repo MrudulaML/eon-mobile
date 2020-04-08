@@ -6,12 +6,12 @@ import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.utils.Validator
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import android.content.Context
+import android.graphics.Outline
+import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
+import android.view.*
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
@@ -82,6 +82,8 @@ class SignInFragment : Fragment() {
         }
 
     }
+
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

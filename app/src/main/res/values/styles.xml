@@ -26,7 +26,7 @@
         <item name="android:textColorHint">@color/grey</item>
         <item name="colorAccent">@color/grey</item>
         <item name="colorControlNormal">@color/grey</item>
-        <item name="colorControlActivated">@color/appColor</item>
+        <item name="colorControlActivated">@color/navy</item>
     </style>
 
     <style name="ChipCustomStyle" parent="Widget.MaterialComponents.Chip.Action">

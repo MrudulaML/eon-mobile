@@ -52,7 +52,7 @@ class BitsEonActivity : AppCompatActivity(),ActionbarHost {
 
     private fun checkIfAuthenticated(){
         lifecycleScope.launch {
-            if (false){
+            if (true){
 
                 delay(200)
                 navController.navigate(R.id.action_splashScreen_to_signInFragment,
