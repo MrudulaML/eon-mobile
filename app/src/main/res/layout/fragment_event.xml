@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/_200dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/dummy_image"
+        android:src="@drawable/ic_4th_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -215,8 +215,7 @@
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_user"
-                    app:tint="@color/yellow" />
+                    android:src="@drawable/ic_icon_feedback_line_green"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
@@ -232,7 +231,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_6sdp"
-                android:text="no.of Subscribers"
+                android:text="@string/view_feedback"
                 android:textSize="10sp" />
 
         </LinearLayout>
@@ -264,8 +263,7 @@
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_user"
-                    app:tint="@color/yellow" />
+                    android:src="@drawable/ic_icon_socialmedia_lightblue"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
@@ -281,7 +279,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_6sdp"
-                android:text="no.of Subscribers"
+                android:text="@string/share_with_social_media"
                 android:textSize="10sp" />
 
         </LinearLayout>
@@ -303,7 +301,7 @@
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_user"
+                    android:src="@drawable/ic_icon_reminder_orange"
                     app:tint="@color/yellow" />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -320,7 +318,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_6sdp"
-                android:text="no.of Subscribers"
+                android:text="@string/send_reminder"
                 android:textSize="10sp" />
 
         </LinearLayout>
@@ -352,8 +350,8 @@
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_user"
-                    app:tint="@color/yellow" />
+                    android:src="@drawable/ic_icon_send_update"
+                    app:tint="@color/blue" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
@@ -369,7 +367,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_6sdp"
-                android:text="no.of Subscribers"
+                android:text="@string/send_updates"
                 android:textSize="10sp" />
 
         </LinearLayout>
@@ -392,8 +390,8 @@
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_user"
-                    app:tint="@color/yellow" />
+                    android:src="@drawable/ic_icon_send_update"
+                    app:tint="@color/blue" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
@@ -409,7 +407,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_6sdp"
-                android:text="no.of Subscribers"
+                android:text="@string/send_updates"
                 android:textSize="10sp" />
 
         </LinearLayout>

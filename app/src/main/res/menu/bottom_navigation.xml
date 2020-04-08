@@ -5,7 +5,7 @@
         android:id="@+id/action_one"
         android:orderInCategory="100"
         android:title=""
-        android:icon="@drawable/ic_ifsce_code"
+        android:icon="@drawable/ic_icon_analytics_off"
         app:showAsAction="never" />
 
     <item
@@ -13,7 +13,7 @@
         android:orderInCategory="200"
         android:title=""
         android:checkable="true"
-        android:icon="@drawable/ic_calendar_header"
+        android:icon="@drawable/ic_icon_event_calendar_on"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_three"

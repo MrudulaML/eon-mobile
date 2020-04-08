@@ -53,9 +53,10 @@ class SignInFragment : Fragment() {
         }
 
         actionbarHost?.showToolbar(showToolbar = false,showBottomNav = false)
-        tv_forgot_password.clickWithDebounce {
 
-           // findNavController().navigate(R.id.action_signInFragment_to_createPasswordFragment)
+
+        tv_forgot_password.clickWithDebounce {
+            findNavController().navigate(R.id.action_signInFragment_to_createPasswordFragment)
 //            if (authViewModel.userType!=null){
 //                findNavController().navigate(R.id.action_signInFragment_to_createPasswordFragment)
 //            }else{
