@@ -1,7 +1,9 @@
 package `in`.bitspilani.eon.event.subscriber.detail
 
 import `in`.bitspilani.eon.R
+import `in`.bitspilani.eon.login.ui.ActionbarHost
 import `in`.bitspilani.eon.utils.clickWithDebounce
+import android.content.Context
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -24,6 +26,7 @@ class EventDetails : Fragment() {
 
     var seatCount: MutableLiveData<Int> = MutableLiveData()
     private lateinit var viewModel: EventDetailsViewModel
+    private var actionbarHost: ActionbarHost? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,6 +45,8 @@ class EventDetails : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setDummyCounterLogic()
+
+        actionbarHost?.showToolbar(showToolbar = false,showBottomNav = false)
 
         tv_seat_counter.text = 1.toString()
 
@@ -76,5 +81,18 @@ class EventDetails : Fragment() {
 
 
     }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is ActionbarHost) {
+            actionbarHost = context
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        actionbarHost?.showToolbar(showToolbar = true,showBottomNav = true)
+    }
+
 
 }

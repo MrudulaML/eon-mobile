@@ -68,6 +68,7 @@ class SignInFragment : Fragment() {
         }
 
         actionbarHost?.showToolbar(showToolbar = false,showBottomNav = false)
+
         tv_forgot_password.clickWithDebounce {
 
             findNavController().navigate(R.id.action_signInFragment_to_createPasswordFragment)

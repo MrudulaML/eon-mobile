@@ -60,7 +60,7 @@ class HomeFragment : Fragment(), CallbackListener {
 
         dashboardViewModel.eventDetails.observe(viewLifecycleOwner, Observer {
 
-           if (BitsEonApp.localStorageHandler?.user_role.equals("organiser"))
+            if (BitsEonApp.localStorageHandler?.user_role.equals("organiser"))
                 findNavController().navigate(R.id.eventDetailsFragment)
             else
                 findNavController().navigate(R.id.eventDetails)
@@ -77,12 +77,17 @@ class HomeFragment : Fragment(), CallbackListener {
 
     private fun initView() {
 
+        if (BitsEonApp.localStorageHandler?.user_role != "organiser") {
+
+            actionbarHost?.showToolbar(showToolbar = true, title = "Event Management",showBottomNav = false)
+
+        }
         //show navigation
-        actionbarHost?.showToolbar(
-            showToolbar = true,
-            title = "Event Management",
-            showBottomNav = true
-        )
+//        actionbarHost?.showToolbar(
+//            showToolbar = true,
+//            title = "Event Management",
+//            showBottomNav = true
+//        )
         //dummy list
         val listOfEvent = mutableListOf<IndividualEvent>()
         listOfEvent.add(
