@@ -4,6 +4,7 @@ import ProfileBasicDetailFragment
 import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.login.ui.ActionbarHost
+import `in`.bitspilani.eon.login.ui.ChangePasswordFragment
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import android.content.Context
 import android.os.Bundle
@@ -86,7 +87,10 @@ class UserProfileFragment : Fragment(),CallbackListener {
 
          }
          profile_wish_list.clickWithDebounce {}
-         profile_change_password.clickWithDebounce { findNavController().navigate(R.id.changePasswordFragment) }
+         profile_change_password.clickWithDebounce {
+             val dialogFragment = ChangePasswordFragment(this)
+             dialogFragment.show(childFragmentManager, "changePassword")
+         }
          profile_logout.clickWithDebounce {}
 
      }

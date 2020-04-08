@@ -32,6 +32,18 @@ class PrefHandler(context: Context) {
             editor.putString("user_id", id)
             editor.apply()
         }
+    var user_email: String?
+        get() = pref.getString("user_email", null)
+        set(id) {
+            editor.putString("user_email", id)
+            editor.apply()
+        }
+    var user_id: String?
+        get() = pref.getString("user_id",null)
+        set(id) {
+            editor.putString("user_id", id)
+            editor.apply()
+        }
 
     var token: String?
         get() = pref.getString("d_token", null)

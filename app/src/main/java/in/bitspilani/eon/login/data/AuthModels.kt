@@ -28,4 +28,14 @@ data class User(
 data class Role(
     var id: Int,
     var role: String
+
 )
+
+data class ResetPasswordResponse(
+    var message: String
+)
+data class GenerateCodeResponse(
+    var message: String
+)
+
+

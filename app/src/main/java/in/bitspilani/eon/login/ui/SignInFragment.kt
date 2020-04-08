@@ -3,16 +3,13 @@ package `in`.bitspilani.eon.login.ui
 
 import `in`.bitspilani.eon.BitsEonApp
 import `in`.bitspilani.eon.R
-import `in`.bitspilani.eon.utils.PrefHandler
+import `in`.bitspilani.eon.login.data.LoginResponse
 import `in`.bitspilani.eon.utils.Validator
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import android.content.Context
-import android.graphics.Outline
-import android.os.Build
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -34,12 +31,21 @@ class SignInFragment : Fragment() {
     }
 
     private fun setObservables() {
-        authViewModel.loginResponse.observe(viewLifecycleOwner, Observer {
-            PrefHandler(activity!!).token= it.data.access
+        authViewModel.loginLiveData.observe(viewLifecycleOwner, Observer {
+            saveUserData(it)
+
             showUserMsg("Login Successful")
             findNavController().navigate(R.id.action_signInFragment_to_homeFragment)
 
         })
+
+    }
+
+    private fun saveUserData(it: LoginResponse) {
+        BitsEonApp.localStorageHandler?.token=it.data.access
+        BitsEonApp.localStorageHandler?.user_role=it.data.user.role.role
+        BitsEonApp.localStorageHandler?.user_email=it.data.user.email
+        BitsEonApp.localStorageHandler?.user_id=it.data.user.user_id.toString()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,7 +58,7 @@ class SignInFragment : Fragment() {
             if (authViewModel.userType!=null){
                 if( Validator.isValidEmail(etEmailAddress,true)){
                     //store user role
-                    BitsEonApp.localStorageHandler?.user_role=authViewModel.userType?.desc
+
                     authViewModel.login(etEmailAddress.toString(),etPassword.toString())
                 }
             }else{
@@ -63,6 +69,8 @@ class SignInFragment : Fragment() {
 
         actionbarHost?.showToolbar(showToolbar = false,showBottomNav = false)
         tv_forgot_password.clickWithDebounce {
+
+            findNavController().navigate(R.id.action_signInFragment_to_createPasswordFragment)
 
         }
 
