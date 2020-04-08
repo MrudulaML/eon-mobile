@@ -13,7 +13,6 @@ import retrofit2.http.POST
 
 interface ApiService {
 
-
     //Login
     @POST("/authentication/login")
     fun login(@Body body: JsonObject): Call<LoginResponse>
@@ -24,6 +23,8 @@ interface ApiService {
     @POST("authentication/generate-code")
     fun generateCode(@Body body: JsonObject): Call<GenerateCodeResponse>
 
+    @POST("authentication/change-password")
+    fun changePassword(@Body body: JsonObject): Call<GenerateCodeResponse>
 
     @POST("/api/v1/core/user/resetPassword")
     fun registerUser(@Body body: JsonObject): Call<JsonObject>
