@@ -118,11 +118,6 @@ class SignInFragment : Fragment() {
         }
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        actionbarHost?.showToolbar(showToolbar = true,showBottomNav = true)
-    }
-
     private fun showUserMsg(msg:String){
         Toast.makeText(activity,msg,Toast.LENGTH_LONG).show()
     }

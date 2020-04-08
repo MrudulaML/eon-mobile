@@ -15,6 +15,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_create_password.*
 
@@ -47,14 +48,13 @@ class ResetPassword : Fragment() {
         btn_forgot_password_next.clickWithDebounce {
             onNextClick()
         }
-        setUpObservables()
+        //setUpObservables()
     }
 
     private fun setUpObservables() {
         authViewModel.generateCodeLiveData.observe(viewLifecycleOwner, Observer {
 
-            binding.step = ForgotPasswordSteps.VERIFICATION_CODE
-            binding.stepView.go(1, true)
+
 
         })
         authViewModel.resetPasswordLiveData.observe(viewLifecycleOwner, Observer {
@@ -86,6 +86,8 @@ class ResetPassword : Fragment() {
                     BitsEonApp.localStorageHandler?.user_email?.let {
                         authViewModel.generateCode(it)
                     }
+                    binding.step = ForgotPasswordSteps.VERIFICATION_CODE
+                    binding.stepView.go(1, true)
 
                 }
 
@@ -107,6 +109,12 @@ class ResetPassword : Fragment() {
                         BitsEonApp.localStorageHandler?.user_email?.let {
                         authViewModel.resetPassword(it,edit_verification_code.text.toString(),edt_create_new_password.text.toString())
                         }
+
+                        findNavController().navigate(R.id.action_basicInfo_to_signInFragment,
+                            null,
+                            NavOptions.Builder()
+                                .setPopUpTo(R.id.signInFragment,
+                                    true).build())
                     }else{
                         showUserMsg("Password does not match")
                     }

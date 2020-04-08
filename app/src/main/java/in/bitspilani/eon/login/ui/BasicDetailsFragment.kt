@@ -77,7 +77,7 @@ class BasicDetailsFragment : Fragment() {
                     if(TextUtils.equals(edt_password.text,edt_confirm_password.text)) {
                         BitsEonApp.localStorageHandler?.token = "abcdefg" //dummy token to mock auth
                         findNavController().navigate(
-                            R.id.action_basicInfo_to_homeFragment,
+                            R.id.action_basicInfo_to_signInFragment,
                             null,
                             NavOptions.Builder()
                                 .setPopUpTo(

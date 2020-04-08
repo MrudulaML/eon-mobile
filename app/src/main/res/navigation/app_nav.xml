@@ -40,6 +40,15 @@
             app:destination="@id/home_nav" />
 
     </fragment>
+    <!--create password-->
+    <fragment
+        android:id="@+id/createPasswordFragment"
+        android:name="in.bitspilani.eon.login.ui.ResetPassword"
+
+        tools:layout="@layout/fragment_create_password">
+        <action android:id="@+id/action_basicInfo_to_signInFragment"
+            app:destination="@id/signInFragment"/>
+    </fragment>
 
    <!-- basic info -->
     <fragment
@@ -69,13 +78,7 @@
                 app:destination="@id/eventDetailsFragment" />
         </fragment>
 
-        <fragment
-            android:id="@+id/createPasswordFragment"
-            android:name="in.bitspilani.eon.login.ui.ResetPassword"
 
-            tools:layout="@layout/fragment_create_password">
-            <action android:id="@+id/action_basicInfo_to_homeFragment" app:destination="@id/signInFragment"/>
-        </fragment>
         <fragment
             android:id="@+id/changePasswordFragment"
             android:name="in.bitspilani.eon.login.ui.ChangePasswordFragment"
