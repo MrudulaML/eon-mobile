@@ -27,7 +27,6 @@ class BitsEonActivity : AppCompatActivity(),ActionbarHost {
     lateinit var bottomNavigation : BottomNavigationView
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bits_eon)
@@ -52,7 +51,8 @@ class BitsEonActivity : AppCompatActivity(),ActionbarHost {
 
     private fun checkIfAuthenticated(){
         lifecycleScope.launch {
-            if (false){
+
+            if (BitsEonApp.localStorageHandler?.token ==null){
 
                 delay(200)
                 navController.navigate(R.id.action_splashScreen_to_signInFragment,
