@@ -4,12 +4,15 @@ import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.eventOrganiser.data.Invitee
 import `in`.bitspilani.eon.eventOrganiser.ui.CallbackListener
 import `in`.bitspilani.eon.utils.MarginItemDecoration
+import `in`.bitspilani.eon.utils.Validator
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import android.content.Context
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,6 +36,7 @@ class ChangePasswordFragment(private val callbackListener: CallbackListener) : D
         isCancelable = false
         return inflater.inflate(R.layout.fragment_change_password, container, false)
     }
+
     override fun getTheme(): Int {
         return R.style.DialogTheme
     }
@@ -47,9 +51,10 @@ class ChangePasswordFragment(private val callbackListener: CallbackListener) : D
             actionbarHost = context
         }
     }
+
     override fun onDetach() {
         super.onDetach()
-        actionbarHost?.showToolbar(showToolbar = true,showBottomNav = true)
+        actionbarHost?.showToolbar(showToolbar = true, showBottomNav = true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -62,7 +67,16 @@ class ChangePasswordFragment(private val callbackListener: CallbackListener) : D
 
         btn_close.clickWithDebounce { dismiss() }
         btn_password_cancel.clickWithDebounce { dismiss() }
+        btn_password_confirm.clickWithDebounce {
+            if (Validator.isValidPassword(edt_create_password)) {
+                if (TextUtils.equals(edt_create_password.text, edt_confirm_password.text)) {
 
+                    Toast.makeText(activity, "Password Changed successfully", Toast.LENGTH_LONG)
+                        .show()
+                }
+
+            }
+        }
     }
 
 
