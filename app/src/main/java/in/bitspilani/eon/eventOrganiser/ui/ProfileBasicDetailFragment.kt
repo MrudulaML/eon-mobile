@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.CheckBox
 import android.widget.GridLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -35,7 +36,14 @@ class ProfileBasicDetailFragment(private val callbackListener: CallbackListener)
         //callbackListener.onDataReceived(editText.text.toString())
         btn_close.clickWithDebounce { dismiss() }
         btn_basic_cancel.clickWithDebounce {   dismiss() }
-        btn_basic_confirm.clickWithDebounce {   dismiss() }
+        btn_basic_confirm.clickWithDebounce {
+
+            dismiss()
+
+            Toast.makeText(activity, "Saved successfully", Toast.LENGTH_LONG)
+                .show()
+
+        }
 
         rdt_basic_email.value= BitsEonApp.localStorageHandler?.user_email.toString()
         populateCheckBox()
