@@ -15,6 +15,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_add_invitee.*
+import kotlinx.android.synthetic.main.fragment_add_invitee.btn_close
+import kotlinx.android.synthetic.main.fragment_change_password.*
 import kotlinx.android.synthetic.main.fragment_invitee.*
 
 
@@ -58,10 +60,8 @@ class ChangePasswordFragment(private val callbackListener: CallbackListener) : D
                  // Now dismiss the fragment
                  dismiss()*/
 
-        btn_close.clickWithDebounce {
-
-            dismiss()
-        }
+        btn_close.clickWithDebounce { dismiss() }
+        btn_password_cancel.clickWithDebounce { dismiss() }
 
     }
 

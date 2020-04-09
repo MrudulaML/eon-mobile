@@ -36,6 +36,22 @@
         tools:text="adhkjahdakjhdakjhdkjahdkjahdjkahdkjahdkjahdajdfkajfllvnesjflkenjvjkehnvml"
         android:layout_height="wrap_content"/>
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_width="wrap_content"
+        android:text="1 hour ago"
+        android:textSize="10sp"
+        android:layout_marginHorizontal="@dimen/_8sdp"
+        tools:text="adhkjahdakjhdakjhdkjahdkjahdjkahdkjahdkjahdajdfkajfllvnesjflkenjvjkehnvml"
+        android:layout_height="wrap_content"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginBottom="@dimen/_4sdp"
+        android:background="@color/lightGrey"
+        android:layout_height="@dimen/_1dp"/>
+
 
 
 </LinearLayout>

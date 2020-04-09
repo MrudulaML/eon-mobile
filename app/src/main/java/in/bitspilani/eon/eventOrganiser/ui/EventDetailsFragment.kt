@@ -5,11 +5,16 @@ package `in`.bitspilani.eon.eventOrganiser.ui
 import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.eventOrganiser.ui.adapter.EventDetailPagerAdapter
+import `in`.bitspilani.eon.generated.callback.OnClickListener
+import `in`.bitspilani.eon.login.ui.ActionbarHost
+import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.fragment_event_detail.*
 
@@ -27,14 +32,11 @@ class EventDetailsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-        (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        (activity as AppCompatActivity?)!!.supportActionBar!!.elevation=0f
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_event_detail, container, false)
     }
 
@@ -48,15 +50,27 @@ class EventDetailsFragment : Fragment() {
             //To get the first name of doppelganger celebrities
             tab.text = titles[position]
         }.attach()
+
+        toolbar_fragment.setNavigationOnClickListener {
+
+            findNavController().navigate(R.id.action_event_details_to_dashboardFragment)
+        }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        menu.clear()
-    }
+    /**
+     * toggle visibility of different navigation
+     */
+    private var actionbarHost: ActionbarHost? = null
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        activity?.title = "Event Details"
+        if (context is ActionbarHost) {
+            actionbarHost = context
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        actionbarHost?.showToolbar(showToolbar = false,showBottomNav = false)
     }
 
     override fun onDestroyView() {
@@ -65,17 +79,10 @@ class EventDetailsFragment : Fragment() {
         (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(false)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val activity = activity as? BitsEonActivity
-        return when (item.itemId) {
-            android.R.id.home -> {
-                activity?.onBackPressed()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.clear()
     }
-
-
-
 }
+
+

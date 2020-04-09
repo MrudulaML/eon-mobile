@@ -87,7 +87,7 @@ class BasicDetailsFragment : Fragment() {
                         }
 
                         findNavController().navigate(
-                            R.id.action_basicInfo_to_homeFragment,
+                            R.id.action_basicInfo_to_signInFragment,
                             null,
                             NavOptions.Builder()
                                 .setPopUpTo(

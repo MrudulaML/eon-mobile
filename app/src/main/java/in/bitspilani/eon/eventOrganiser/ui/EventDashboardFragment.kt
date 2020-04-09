@@ -18,6 +18,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_dashboard.*
@@ -61,7 +62,11 @@ class HomeFragment : Fragment(), CallbackListener {
         dashboardViewModel.eventDetails.observe(viewLifecycleOwner, Observer {
 
             if (BitsEonApp.localStorageHandler?.user_role.equals("organiser"))
-                findNavController().navigate(R.id.eventDetailsFragment)
+                findNavController().navigate(R.id.action_homeFragment_to_eventDetailsFragment,
+                    null,
+                    NavOptions.Builder()
+                        .setPopUpTo(R.id.homeFragment,
+                            false).build())
             else
                 findNavController().navigate(R.id.eventDetails)
 
@@ -72,7 +77,7 @@ class HomeFragment : Fragment(), CallbackListener {
 
     override fun onResume() {
         super.onResume()
-        activity?.title = "Event Management"
+        actionbarHost?.showToolbar(showToolbar = true,title = "Event Management",showBottomNav = true)
     }
 
     private fun initView() {
@@ -83,53 +88,48 @@ class HomeFragment : Fragment(), CallbackListener {
 
         }
         //show navigation
-//        actionbarHost?.showToolbar(
-//            showToolbar = true,
-//            title = "Event Management",
-//            showBottomNav = true
-//        )
         //dummy list
         val listOfEvent = mutableListOf<IndividualEvent>()
         listOfEvent.add(
             IndividualEvent(
                 "Food Festival", 1,
-                "2000"
+                "2000 Attendees"
             )
         )
         listOfEvent.add(
             IndividualEvent(
                 "Music Festival", 2,
-                "1000"
+                "1000 Attendees"
             )
         )
         listOfEvent.add(
             IndividualEvent(
                 "Technical Corridor", 3,
-                "3000"
+                "3000 Attendees"
             )
         )
         listOfEvent.add(
             IndividualEvent(
                 "Financial Planning", 4,
-                "4000"
+                "4000 Attendees"
             )
         )
         listOfEvent.add(
             IndividualEvent(
                 "Health and Fitness", 5,
-                "3000"
+                "3000 Attendees"
             )
         )
         listOfEvent.add(
             IndividualEvent(
                 "Ethical Hacking", 6,
-                "2500"
+                "2500 Attendees"
             )
         )
         listOfEvent.add(
             IndividualEvent(
                 "Angular JS Classes", 7,
-                "2600"
+                "2600 Attendees"
             )
         )
 
@@ -157,6 +157,7 @@ class HomeFragment : Fragment(), CallbackListener {
             actionbarHost = context
         }
     }
+
 
 
     /**

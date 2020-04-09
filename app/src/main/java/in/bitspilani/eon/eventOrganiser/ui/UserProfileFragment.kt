@@ -2,6 +2,7 @@ package `in`.bitspilani.eon.eventOrganiser.ui
 
 import ProfileBasicDetailFragment
 import `in`.bitspilani.eon.BitsEonActivity
+import `in`.bitspilani.eon.BitsEonApp
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.login.ui.ActionbarHost
 import `in`.bitspilani.eon.login.ui.ChangePasswordFragment
@@ -11,8 +12,13 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_user_profile.*
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 /**
@@ -44,9 +50,11 @@ class UserProfileFragment : Fragment(),CallbackListener {
             actionbarHost = context
         }
     }
-    override fun onDetach() {
-        super.onDetach()
-        actionbarHost?.showToolbar(showToolbar = true,showBottomNav = true)
+
+    override fun onResume() {
+        super.onResume()
+        actionbarHost?.showToolbar(showToolbar = true,title = "User Profile",showBottomNav = true)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -76,8 +84,10 @@ class UserProfileFragment : Fragment(),CallbackListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         onItemClick()
-        actionbarHost?.showToolbar(showToolbar = true,title = "User Profile",showBottomNav = false)
+        if(BitsEonApp.localStorageHandler?.user_role.equals("organizer"))
+            profile_wish_list.visibility=View.GONE
     }
+
 
      private fun onItemClick() {
          profile_basic_details.clickWithDebounce {
@@ -91,7 +101,21 @@ class UserProfileFragment : Fragment(),CallbackListener {
              val dialogFragment = ChangePasswordFragment(this)
              dialogFragment.show(childFragmentManager, "changePassword")
          }
-         profile_logout.clickWithDebounce {}
+         profile_logout.clickWithDebounce {
+
+             BitsEonApp.localStorageHandler?.clearData()
+             //heavy task delay
+             lifecycleScope.launch {
+                 delay(200)
+                 findNavController().navigate(R.id.signInFragment,
+                     null,
+                     NavOptions.Builder()
+                         .setPopUpTo(R.id.app_nav,
+                             true)
+                         .build())
+             }
+
+         }
 
      }
     /**

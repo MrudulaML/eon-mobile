@@ -37,7 +37,7 @@ class EventSummaryFrag : Fragment() {
 
         btn_pay.clickWithDebounce {
 
-            findNavController().navigate(R.id.paymentFrag)
+            findNavController().navigate(R.id.action_summery_to_payment)
         }
 
     }
