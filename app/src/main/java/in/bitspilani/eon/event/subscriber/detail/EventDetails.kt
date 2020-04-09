@@ -91,7 +91,7 @@ class EventDetails : Fragment() {
 
     override fun onDetach() {
         super.onDetach()
-        actionbarHost?.showToolbar(showToolbar = true,showBottomNav = true)
+        actionbarHost?.showToolbar(showToolbar = false,showBottomNav = false)
     }
 
 
