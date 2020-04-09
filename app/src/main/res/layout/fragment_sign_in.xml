@@ -121,7 +121,7 @@
                         android:drawableStart="@drawable/user"
                         android:drawableLeft="@drawable/user"
                         android:drawablePadding="@dimen/_20dp"
-                        android:hint="@string/username"
+                        android:hint="Email"
                         android:inputType="textEmailAddress"
                         android:padding="@dimen/_8dp"
                         android:textColorHint="@color/grey"
