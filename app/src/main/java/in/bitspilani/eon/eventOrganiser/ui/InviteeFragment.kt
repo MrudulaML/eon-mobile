@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_invitee.*
@@ -23,6 +24,7 @@ class InviteeFragment : Fragment(),CallbackListener {
     // tab titles
     private val titles =
         arrayOf("Movies", "Events")
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,10 +42,13 @@ class InviteeFragment : Fragment(),CallbackListener {
             showDialog()
         }
     }
-
+    private val listOfEvent = mutableListOf<Invitee>()
+    var inviteesAdapter =  InviteesAdapter(
+        listOfEvent
+    )
     private fun initView() {
         //dummy list
-        val listOfEvent = mutableListOf<Invitee>()
+
         listOfEvent.add(
             Invitee( "abcd@gmail.com","200","200","9876543210")
         )
@@ -77,11 +82,11 @@ class InviteeFragment : Fragment(),CallbackListener {
             MarginItemDecoration(
                 resources.getDimension(R.dimen._16sdp).toInt())
         )
-        val movieListAdapter =
+        inviteesAdapter=
             InviteesAdapter(
                 listOfEvent
             )
-        rv_invitee_list.adapter = movieListAdapter
+        rv_invitee_list.adapter = inviteesAdapter
 
     }
 
@@ -90,6 +95,11 @@ class InviteeFragment : Fragment(),CallbackListener {
         dialogFragment.show(childFragmentManager, "AaddInviteeDialog")
     }
     override fun onDataReceived(data: String) {
+
+        rv_invitee_list.refreshDrawableState()
+        inviteesAdapter.notifyDataSetChanged()
+        Toast.makeText(activity, "New invitee added successfully.", Toast.LENGTH_LONG)
+            .show()
 
     }
 

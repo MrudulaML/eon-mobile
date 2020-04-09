@@ -1,11 +1,13 @@
 package `in`.bitspilani.eon.eventOrganiser.ui
 
 
+import `in`.bitspilani.eon.BitsEonApp
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.eventOrganiser.data.IndividualEvent
 import `in`.bitspilani.eon.eventOrganiser.ui.adapter.EventAdapter
 import `in`.bitspilani.eon.login.ui.ActionbarHost
 import `in`.bitspilani.eon.utils.MarginItemDecoration
+import `in`.bitspilani.eon.utils.PrefHandler
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import `in`.bitspilani.eon.utils.getViewModelFactory
 import android.content.Context
@@ -16,6 +18,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_dashboard.*
@@ -57,7 +60,16 @@ class HomeFragment : Fragment(), CallbackListener {
     private fun setUpObservables() {
 
         dashboardViewModel.eventDetails.observe(viewLifecycleOwner, Observer {
-            findNavController().navigate(R.id.eventDetailsFragment)
+
+            if (BitsEonApp.localStorageHandler?.user_role.equals("organizer"))
+                findNavController().navigate(R.id.action_homeFragment_to_eventDetailsFragment,
+                    null,
+                    NavOptions.Builder()
+                        .setPopUpTo(R.id.homeFragment,
+                            false).build())
+            else
+                findNavController().navigate(R.id.eventDetails)
+
         })
 
     }
@@ -65,55 +77,63 @@ class HomeFragment : Fragment(), CallbackListener {
 
     override fun onResume() {
         super.onResume()
-        activity?.title = "Event Management"
+
+        if(BitsEonApp.localStorageHandler?.user_role.equals("organizer"))
+            actionbarHost?.showToolbar(showToolbar = true,title = "Event Management",showBottomNav = true)
+        else
+            actionbarHost?.showToolbar(showToolbar = true,title = "Event Management",showBottomNav = false)
     }
 
     private fun initView() {
 
+        if (BitsEonApp.localStorageHandler?.user_role != "organiser") {
+
+            actionbarHost?.showToolbar(showToolbar = true, title = "Event Management",showBottomNav = false)
+
+        }
         //show navigation
-        actionbarHost?.showToolbar(showToolbar = true,title = "Event Management",showBottomNav = true)
         //dummy list
         val listOfEvent = mutableListOf<IndividualEvent>()
         listOfEvent.add(
             IndividualEvent(
                 "Food Festival", 1,
-                "2000"
+                "2000 Attendees"
             )
         )
         listOfEvent.add(
             IndividualEvent(
                 "Music Festival", 2,
-                "1000"
+                "1000 Attendees"
             )
         )
         listOfEvent.add(
             IndividualEvent(
                 "Technical Corridor", 3,
-                "3000"
+                "3000 Attendees"
             )
         )
         listOfEvent.add(
             IndividualEvent(
                 "Financial Planning", 4,
-                "4000"
+                "4000 Attendees"
             )
         )
         listOfEvent.add(
             IndividualEvent(
                 "Health and Fitness", 5,
-                "3000"
+                "3000 Attendees"
             )
         )
         listOfEvent.add(
             IndividualEvent(
                 "Ethical Hacking", 6,
-                "2500"
+                "2500 Attendees"
             )
         )
         listOfEvent.add(
             IndividualEvent(
                 "Angular JS Classes", 7,
-                "2600"
+                "2600 Attendees"
             )
         )
 

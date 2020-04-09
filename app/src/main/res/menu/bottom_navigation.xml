@@ -5,7 +5,8 @@
         android:id="@+id/action_one"
         android:orderInCategory="100"
         android:title=""
-        android:icon="@drawable/ic_icon_analytics_off"
+        android:iconTint="@color/grey"
+        android:icon="@drawable/ic_icon_analytics_on"
         app:showAsAction="never" />
 
     <item
@@ -13,6 +14,7 @@
         android:orderInCategory="200"
         android:title=""
         android:checkable="true"
+        android:iconTint="@color/grey"
         android:icon="@drawable/ic_icon_event_calendar_on"
         app:showAsAction="never" />
     <item

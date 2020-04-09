@@ -34,7 +34,8 @@ class BasicDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_basic_details, container, false)
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_basic_details, container, false)
         return binding.root
     }
 
@@ -49,13 +50,14 @@ class BasicDetailsFragment : Fragment() {
             onNextClick()
         }
     }
-    private fun onNextClick(){
-        when(authViewModel.registerCurrentStep){
-            OrganiserDetailsSteps.BASIC_DETAILS ->{
+
+    private fun onNextClick() {
+        when (authViewModel.registerCurrentStep) {
+            OrganiserDetailsSteps.BASIC_DETAILS -> {
                 if (Validator.isValidEmail(edit_email, true) &&
                     Validator.isValidPhone(edt_org_contact, true) &&
                     Validator.isValidName(edt_org_address, true)
-                ){
+                ) {
                     authViewModel.registerCurrentStep = OrganiserDetailsSteps.PASSWORD
                     binding.step = OrganiserDetailsSteps.PASSWORD
                     binding.stepView.go(1, true)
@@ -63,21 +65,29 @@ class BasicDetailsFragment : Fragment() {
 
             }
 
-            OrganiserDetailsSteps.BANK_DETAILS->{
+            OrganiserDetailsSteps.BANK_DETAILS -> {
                 if (Validator.isValidBankAccNo(edit_bank_acc_no)
-                    && Validator.isValidIFSC(edt_ifsc)){
+                    && Validator.isValidIFSC(edt_ifsc)
+                ) {
                     authViewModel.registerCurrentStep = OrganiserDetailsSteps.PASSWORD
                     binding.step = OrganiserDetailsSteps.PASSWORD
-                    binding.stepView.go(2,true)
+                    binding.stepView.go(2, true)
                 }
             }
 
-            OrganiserDetailsSteps.PASSWORD->{
-                if (Validator.isValidPassword(edt_password)){
-                    if(TextUtils.equals(edt_password.text,edt_confirm_password.text)) {
+            OrganiserDetailsSteps.PASSWORD -> {
+                if (Validator.isValidPassword(edt_password)) {
+                    if (TextUtils.equals(edt_password.text, edt_confirm_password.text)) {
                         BitsEonApp.localStorageHandler?.token = "abcdefg" //dummy token to mock auth
+
+                        if (authViewModel.userType == USER_TYPE.ORGANISER) {
+                            BitsEonApp.localStorageHandler?.user_role = "organiser"
+                        } else {
+                            BitsEonApp.localStorageHandler?.user_role = "subscriber"
+                        }
+
                         findNavController().navigate(
-                            R.id.action_basicInfo_to_homeFragment,
+                            R.id.action_basicInfo_to_signInFragment,
                             null,
                             NavOptions.Builder()
                                 .setPopUpTo(
@@ -85,25 +95,28 @@ class BasicDetailsFragment : Fragment() {
                                     true
                                 ).build()
                         )
-                    }else{
+                    } else {
                         showUserMsg("Password Does not match")
                     }
                 }
             }
         }
     }
-    private fun initViews(){
+
+    private fun initViews() {
         val steps = listOf<String>(
             OrganiserDetailsSteps.BASIC_DETAILS.desc,
-            OrganiserDetailsSteps.PASSWORD.desc)
+            OrganiserDetailsSteps.PASSWORD.desc
+        )
         binding.stepView.setSteps(steps)
         binding.title.text = "Registration - ${authViewModel.userType?.desc}"
         authViewModel.registerCurrentStep = OrganiserDetailsSteps.BASIC_DETAILS
         binding.step = OrganiserDetailsSteps.BASIC_DETAILS
         binding.userType = authViewModel.userType
     }
-    fun showUserMsg(msg:String){
-        Toast.makeText(activity,msg, Toast.LENGTH_LONG).show()
+
+    fun showUserMsg(msg: String) {
+        Toast.makeText(activity, msg, Toast.LENGTH_LONG).show()
     }
 
 }

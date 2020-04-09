@@ -1,12 +1,15 @@
 import `in`.bitspilani.eon.BitsEonActivity
+import `in`.bitspilani.eon.BitsEonApp
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.eventOrganiser.ui.CallbackListener
 import `in`.bitspilani.eon.utils.clickWithDebounce
+import `in`.bitspilani.eon.utils.value
 import android.content.Context
 import android.os.Bundle
 import android.view.*
 import android.widget.CheckBox
 import android.widget.GridLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -33,19 +36,30 @@ class ProfileBasicDetailFragment(private val callbackListener: CallbackListener)
         //callbackListener.onDataReceived(editText.text.toString())
         btn_close.clickWithDebounce { dismiss() }
         btn_basic_cancel.clickWithDebounce {   dismiss() }
-        btn_basic_confirm.clickWithDebounce {   dismiss() }
+        btn_basic_confirm.clickWithDebounce {
 
+            dismiss()
+
+            Toast.makeText(activity, "Saved successfully", Toast.LENGTH_LONG)
+                .show()
+
+        }
+
+        rdt_basic_email.value= BitsEonApp.localStorageHandler?.user_email.toString()
         populateCheckBox()
+
+
+
 
     }
 
     fun populateCheckBox(){
 
         val checkBox1 = CheckBox(context)
-        checkBox1.text = "First CheckBox"
+        checkBox1.text = "Music"
         checkBox1.isChecked = true
         val checkBox2 = CheckBox(context)
-        checkBox2.text = "Second Checkbox"
+        checkBox2.text = "Technical"
         checkbox_layout.addView(checkBox1)
         checkbox_layout.addView(checkBox2)
 
