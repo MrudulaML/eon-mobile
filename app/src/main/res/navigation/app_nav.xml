@@ -172,6 +172,16 @@
                 app:destination="@id/signInFragment"/>
 
         </fragment>
+        <fragment
+            android:id="@+id/eventFilterFragment"
+            android:name="in.bitspilani.eon.eventOrganiser.ui.EventFilterFragment"
+            android:label="EventFilterFragment" >
+
+        <action android:id="@+id/filter_to_dashboard"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"
+            app:destination="@id/homeFragment"/>
+        </fragment>
     </navigation>
 
 </navigation>
