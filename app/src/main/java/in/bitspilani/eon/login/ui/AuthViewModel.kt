@@ -10,6 +10,7 @@ import `in`.bitspilani.eon.utils.SingleLiveEvent
 import androidx.lifecycle.ViewModel
 import com.google.gson.JsonObject
 import org.jetbrains.anko.custom.asyncResult
+import timber.log.Timber
 
 enum class OrganiserDetailsSteps(val desc: String) {
     BASIC_DETAILS("Basic Details"),
@@ -49,7 +50,7 @@ class AuthViewModel: ViewModel() {
 
     fun login(username:String, password:String){
         val body = JsonObject()
-        body.addProperty("username",username)
+        body.addProperty("email",username)
         body.addProperty("password",password)
         progress.value = true
         restClient.authClient.create(ApiService::class.java).login(body)
@@ -59,7 +60,7 @@ class AuthViewModel: ViewModel() {
                 }
 
                 override fun onApiError(errorType: ApiError, error: String?) {
-                        //handle errors
+                    Timber.d(errorType.toString())
                 }
             })
 
