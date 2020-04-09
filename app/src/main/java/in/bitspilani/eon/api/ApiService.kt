@@ -1,10 +1,9 @@
 package `in`.bitspilani.eon.api
 
 import `in`.bitspilani.eon.eventOrganiser.data.EventResponse
-import `in`.bitspilani.eon.login.data.GenerateCodeResponse
-import `in`.bitspilani.eon.login.data.LoginResponse
-import `in`.bitspilani.eon.login.data.ResetPasswordResponse
+import `in`.bitspilani.eon.login.data.*
 import com.google.gson.JsonObject
+import io.reactivex.Observable
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
@@ -26,8 +25,9 @@ interface ApiService {
     @POST("authentication/change-password")
     fun changePassword(@Body body: JsonObject): Call<GenerateCodeResponse>
 
-    @POST("/api/v1/core/user/resetPassword")
-    fun registerUser(@Body body: JsonObject): Call<JsonObject>
+
+    @POST("authentication/register")
+    fun registerUser(@Body map: HashMap<String,Any>): Call<SignUpResponse>
 
     @GET("/api/v1/core/user/events")
     suspend fun getEvents(): Response<EventResponse>

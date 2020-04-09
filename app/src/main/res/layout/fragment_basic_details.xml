@@ -112,6 +112,7 @@
 
                                 <androidx.appcompat.widget.AppCompatEditText
                                     android:id="@+id/edt_org_name"
+                                    android:text="gazzet"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:background="@android:color/transparent"
@@ -137,6 +138,7 @@
 
                                 <androidx.appcompat.widget.AppCompatEditText
                                     android:id="@+id/edit_email"
+                                    android:text="milind.dave@hashedin.com"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:background="@android:color/transparent"
@@ -161,6 +163,7 @@
 
                                 <androidx.appcompat.widget.AppCompatEditText
                                     android:id="@+id/edt_user_name"
+                                    android:text="milind"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:background="@android:color/transparent"
@@ -185,6 +188,7 @@
 
                                 <androidx.appcompat.widget.AppCompatEditText
                                     android:id="@+id/edt_org_contact"
+                                    android:text="9234567890"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:background="@android:color/transparent"
@@ -321,6 +325,7 @@
 
                                 <androidx.appcompat.widget.AppCompatEditText
                                     android:id="@+id/edt_password"
+                                    android:text="Milind@111"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:background="@android:color/transparent"
@@ -352,6 +357,7 @@
                                     android:id="@+id/edt_confirm_password"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:text="Milind@111"
                                     android:background="@android:color/transparent"
                                     android:drawableStart="@drawable/password_login"
                                     android:drawableLeft="@drawable/password_login"

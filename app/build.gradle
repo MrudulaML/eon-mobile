@@ -43,7 +43,7 @@ android {
         dev {
             applicationId "in.bitspilani.eon"
             versionNameSuffix "-dev"
-            buildConfigField 'String', 'BASE_SERVER_URL', '"https://platform.xyz.in/"'
+            buildConfigField 'String', 'BASE_SERVER_URL', '"http://dev-env-bits-pilani-backend.us-east-1.elasticbeanstalk.com/"'
 
 
         }
@@ -113,6 +113,9 @@ dependencies {
 
     implementation "org.jetbrains.anko:anko-commons:0.10.4"
 
+    //Rxjava2
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
+    implementation 'androidx.room:room-rxjava2:2.1.0'
 
     //fcm
     implementation 'com.google.firebase:firebase-messaging:20.1.3'

@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -24,6 +25,7 @@ class BasicDetailsFragment : Fragment() {
     lateinit var authViewModel: AuthViewModel
     lateinit var binding: FragmentBasicDetailsBinding
 
+    var signupMap: HashMap<String, Any> = HashMap<String, Any>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +51,29 @@ class BasicDetailsFragment : Fragment() {
         btn_next.clickWithDebounce {
             onNextClick()
         }
+
+        setObservers()
+    }
+
+
+    fun setObservers() {
+
+        authViewModel.registerData.observe(viewLifecycleOwner, Observer {
+
+            findNavController().navigate(
+                R.id.action_basicInfo_to_signInFragment,
+                null,
+                NavOptions.Builder()
+                    .setPopUpTo(
+                        R.id.basicInfo,
+                        true
+                    ).build()
+            )
+        })
+
+        authViewModel.registerError.observe(this, Observer {
+
+        })
     }
 
     private fun onNextClick() {
@@ -61,6 +86,11 @@ class BasicDetailsFragment : Fragment() {
                     authViewModel.registerCurrentStep = OrganiserDetailsSteps.PASSWORD
                     binding.step = OrganiserDetailsSteps.PASSWORD
                     binding.stepView.go(1, true)
+
+                    signupMap.put("email", edit_email.text.toString())
+                    signupMap.put("contact", edt_org_contact.text.toString())
+                    signupMap.put("address", edt_org_address.text.toString())
+
                 }
 
             }
@@ -81,20 +111,21 @@ class BasicDetailsFragment : Fragment() {
                         BitsEonApp.localStorageHandler?.token = "abcdefg" //dummy token to mock auth
 
                         if (authViewModel.userType == USER_TYPE.ORGANISER) {
+
+                            signupMap.put("edt_org_name", edt_org_name.text.toString())
+
                             BitsEonApp.localStorageHandler?.user_role = "organiser"
+                            signupMap.put("role", "organiser")
+
                         } else {
                             BitsEonApp.localStorageHandler?.user_role = "subscriber"
+                            signupMap.put("role", "subscriber")
+
                         }
 
-                        findNavController().navigate(
-                            R.id.action_basicInfo_to_signInFragment,
-                            null,
-                            NavOptions.Builder()
-                                .setPopUpTo(
-                                    R.id.basicInfo,
-                                    true
-                                ).build()
-                        )
+                        authViewModel.register(signupMap)
+
+
                     } else {
                         showUserMsg("Password Does not match")
                     }
