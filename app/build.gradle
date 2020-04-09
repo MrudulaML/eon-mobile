@@ -6,6 +6,8 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+def testingProperties = new Properties()
+testingProperties.load(new FileInputStream(rootProject.file("app/common.properties")))
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
@@ -19,9 +21,22 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+
         release {
-            minifyEnabled false
+            debuggable false
+            minifyEnabled true
+            useProguard true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            //signingConfig signingConfigs.release
+        }
+        debug {
+            debuggable true
+            minifyEnabled false
+            useProguard false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            ext.alwaysUpdateBuildId = false
         }
     }
     compileOptions {
@@ -40,18 +55,18 @@ android {
 
     productFlavors {
 
-        dev {
+        TESTING {
             applicationId "in.bitspilani.eon"
             versionNameSuffix "-dev"
-            buildConfigField 'String', 'BASE_SERVER_URL', '"http://dev-env-bits-pilani-backend.us-east-1.elasticbeanstalk.com/"'
+            buildConfigField 'String', 'BASE_SERVER_URL', testingProperties.BASE_URL_DEV
 
 
         }
 
-        local {
+        PRODUCTION {
             applicationId "in.bitspilani.eon.local"
             versionNameSuffix "-local"
-            buildConfigField 'String', 'BASE_SERVER_URL', '"http://192.168.43.84:8000/"'
+            buildConfigField 'String', 'BASE_SERVER_URL', testingProperties.BASE_URL_PROD
 
         }
 
@@ -78,6 +93,9 @@ dependencies {
 
     //scalable dps
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
+
+    //prefs
+    implementation "androidx.preference:preference:1.1.0"
 
     //Navigation
 

@@ -26,7 +26,7 @@ interface ApiService {
     fun changePassword(@Body body: JsonObject): Call<GenerateCodeResponse>
 
 
-    @POST("authentication/register")
+    @POST("/authentication/registration")
     fun registerUser(@Body map: HashMap<String,Any>): Call<SignUpResponse>
 
     @GET("/api/v1/core/user/events")

@@ -3,17 +3,19 @@ package `in`.bitspilani.eon.login.ui
 
 import `in`.bitspilani.eon.BitsEonApp
 import `in`.bitspilani.eon.R
-import `in`.bitspilani.eon.login.data.LoginResponse
+import `in`.bitspilani.eon.utils.Constants
+import `in`.bitspilani.eon.utils.ModelPreferencesManager
 import `in`.bitspilani.eon.utils.Validator
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import android.content.Context
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 
@@ -33,20 +35,16 @@ class SignInFragment : Fragment() {
 
     private fun setObservables() {
         authViewModel.loginLiveData.observe(viewLifecycleOwner, Observer {
-            saveUserData(it)
 
+            //save object to pref
+            ModelPreferencesManager.put(it, Constants.CURRENT_USER)
             showUserMsg("Login Successful")
             findNavController().navigate(R.id.action_signInFragment_to_homeFragment)
 
         })
 
-    }
 
-    private fun saveUserData(it: LoginResponse) {
-        BitsEonApp.localStorageHandler?.token=it.data.access
-        BitsEonApp.localStorageHandler?.user_role=it.data.user.role.role
-        BitsEonApp.localStorageHandler?.user_email=it.data.user.email
-        BitsEonApp.localStorageHandler?.user_id=it.data.user.user_id.toString()
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -54,61 +52,55 @@ class SignInFragment : Fragment() {
         authViewModel = activity?.run {
             ViewModelProviders.of(this).get(AuthViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
-        authViewModel.userType = null
+
+        setUpClickListeners()
+        setObservables()
+    }
+
+    private fun setUpClickListeners() {
         btn_login.clickWithDebounce {
-            if (authViewModel.userType!=null){
-                if(Validator.isValidEmail(etEmailAddress,true)){
-                    //store user role
-                    showUserMsg("Login Successful")
-                    BitsEonApp.localStorageHandler?.token= "1234"
-                    findNavController().navigate(R.id.action_signInFragment_to_homeFragment,
-                        null,
-                        NavOptions.Builder()
-                            .setPopUpTo(R.id.app_nav,
-                                true).build())
-                    //authViewModel.login(etEmailAddress.toString(),etPassword.toString())
+            if (authViewModel.userType != null) {
+                //local validation for password email
+                if (Validator.isValidEmail(etEmailAddress, true)) {
+                    authViewModel.login(etEmailAddress.text.toString(), etPassword.text.toString())
+                } else {
+
+                    showUserMsg("Please select user role")
                 }
-            }else{
-                showUserMsg("Select user type")
             }
 
         }
-
         tv_forgot_password.clickWithDebounce {
 
             findNavController().navigate(R.id.action_signInFragment_to_createPasswordFragment)
-
         }
-
         btn_register.clickWithDebounce {
-            if (authViewModel.userType!=null){
+            if (authViewModel.userType != null) {
                 findNavController().navigate(R.id.action_signInFragment_to_basicInfo)
-            }else{
+            } else {
                 showUserMsg("Select user type")
             }
         }
         organiser.clickWithDebounce {
-            setRoleToPref("organizer")
             organiser.isChecked = true
             subscriber.isChecked = false
             authViewModel.userType = USER_TYPE.ORGANISER
         }
         subscriber.clickWithDebounce {
-            setRoleToPref("subscriber")
             organiser.isChecked = false
             subscriber.isChecked = true
             authViewModel.userType = USER_TYPE.SUBSCRIBER
         }
-       // setObservables()
+
     }
 
-    private fun setRoleToPref(role:String){
-        BitsEonApp.localStorageHandler?.user_role=role
+    private fun setRoleToPref(role: String) {
+        BitsEonApp.localStorageHandler?.user_role = role
     }
 
     override fun onResume() {
         super.onResume()
-        actionbarHost?.showToolbar(showToolbar = false,showBottomNav = false)
+        actionbarHost?.showToolbar(showToolbar = false, showBottomNav = false)
     }
 
     override fun onAttach(context: Context) {
@@ -118,11 +110,11 @@ class SignInFragment : Fragment() {
         }
     }
 
-    private fun showUserMsg(msg:String){
-        Toast.makeText(activity,msg,Toast.LENGTH_LONG).show()
+    private fun showUserMsg(msg: String) {
+        Toast.makeText(activity, msg, Toast.LENGTH_LONG).show()
     }
 }
 
 interface ActionbarHost {
-    fun showToolbar(showToolbar: Boolean,title: String? = null,showBottomNav : Boolean)
+    fun showToolbar(showToolbar: Boolean, title: String? = null, showBottomNav: Boolean)
 }

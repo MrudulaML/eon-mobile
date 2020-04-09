@@ -58,19 +58,14 @@ class BasicDetailsFragment : Fragment() {
 
     fun setObservers() {
 
-        authViewModel.registerData.observe(viewLifecycleOwner, Observer {
 
-            findNavController().navigate(
-                R.id.action_basicInfo_to_signInFragment,
-                null,
-                NavOptions.Builder()
-                    .setPopUpTo(
-                        R.id.basicInfo,
-                        true
-                    ).build()
-            )
+        authViewModel.registerData.observe(this, Observer {
+
+            showUserMsg("Registration Successful")
+
+            findNavController().navigate(R.id.action_BasicInfoFragment_to_homeFragment)
+
         })
-
         authViewModel.registerError.observe(this, Observer {
 
         })
@@ -110,6 +105,7 @@ class BasicDetailsFragment : Fragment() {
                     if (TextUtils.equals(edt_password.text, edt_confirm_password.text)) {
                         BitsEonApp.localStorageHandler?.token = "abcdefg" //dummy token to mock auth
 
+                        signupMap.put("password", edt_password.text.toString())
                         if (authViewModel.userType == USER_TYPE.ORGANISER) {
 
                             signupMap.put("edt_org_name", edt_org_name.text.toString())

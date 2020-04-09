@@ -29,7 +29,7 @@ data class User (
     @SerializedName("name") val name : String,
     @SerializedName("created_on") val created_on : String,
     @SerializedName("updated_on") val updated_on : String,
-    @SerializedName("contact_number") val contact_number : Int,
+    @SerializedName("contact_number") val contact_number : Long,
     @SerializedName("organization") val organization : String,
     @SerializedName("address") val address : String,
     @SerializedName("role") val role : Role

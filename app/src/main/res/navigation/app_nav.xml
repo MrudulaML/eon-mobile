@@ -69,6 +69,11 @@
             android:id="@+id/sign_into_homepage"
             app:destination="@id/app_nav" />
 
+
+        <action
+            android:id="@+id/action_BasicInfoFragment_to_homeFragment"
+            app:destination="@id/home_nav" />
+
     </fragment>
 
     <!--after login navigation-->
@@ -173,6 +178,16 @@
                 app:exitAnim="@anim/fade_out"
                 app:destination="@id/signInFragment"/>
 
+        </fragment>
+        <fragment
+            android:id="@+id/eventFilterFragment"
+            android:name="in.bitspilani.eon.eventOrganiser.ui.EventFilterFragment"
+            android:label="EventFilterFragment" >
+
+        <action android:id="@+id/filter_to_dashboard"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"
+            app:destination="@id/homeFragment"/>
         </fragment>
     </navigation>
 

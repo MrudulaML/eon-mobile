@@ -11,7 +11,11 @@ import androidx.lifecycle.ViewModel
 import com.google.gson.JsonObject
 import io.reactivex.schedulers.Schedulers
 import org.jetbrains.anko.custom.asyncResult
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.lang.Exception
+import timber.log.Timber
 
 enum class OrganiserDetailsSteps(val desc: String) {
     BASIC_DETAILS("Basic Details"),
@@ -41,7 +45,7 @@ class AuthViewModel : ViewModel() {
     var userType: USER_TYPE? = null
     val restClient: RestClient = RestClient()
 
-    var registerData: MutableLiveData<Data> = MutableLiveData()
+    var registerData: SingleLiveEvent<Data> = SingleLiveEvent()
     var registerError: MutableLiveData<String> = MutableLiveData()
 
     var fcmToken: String? = null
@@ -54,17 +58,20 @@ class AuthViewModel : ViewModel() {
 
     fun login(username: String, password: String) {
         val body = JsonObject()
-        body.addProperty("username", username)
+        body.addProperty("email", username)
         body.addProperty("password", password)
         progress.value = true
-        restClient.authClient.create(ApiService::class.java).login(body)
+        restClient
+            .authClient
+            .create(ApiService::class.java)
+            .login(body)
             .enqueue(object : ApiCallback<LoginResponse>() {
                 override fun onSuccessResponse(responseBody: LoginResponse) {
                     loginLiveData.postValue(responseBody)
                 }
 
                 override fun onApiError(errorType: ApiError, error: String?) {
-                    //handle errors
+                    Timber.d(errorType.toString())
                 }
             })
 
@@ -111,27 +118,48 @@ class AuthViewModel : ViewModel() {
         try {
 
             //progress.value = true
-            restClient.authClient.create(ApiService::class.java)
-                .registerUser(hashMap)
-                .enqueue(object : ApiCallback<SignUpResponse>() {
-                    override fun onSuccessResponse(signUpResponse: SignUpResponse) {
+//            restClient
+//                .authClient
+//                .create(ApiService::class.java)
+//                .registerUser(hashMap)
+//                .enqueue(object : ApiCallback<SignUpResponse>() {
+//                    override fun onSuccessResponse(responseBody: SignUpResponse) {
+//
+//                        registerData.postValue(responseBody.data)
+//
+//                        Log.e("xoxo","register success")
+//
+//                    }
+//
+//                    override fun onApiError(errorType: ApiError, error: String?) {
+//                        //handle errors
+//                        Log.e("xoxo","register error: "+errorType+" "+error)
+//                        registerError.postValue(error)
+//
+//                    }
+//                })
 
-                        registerData.postValue(signUpResponse.data)
 
-                        Log.e("xoxo","register success")
+            restClient.authClient.create(ApiService::class.java).registerUser(hashMap)
+                .enqueue(object : Callback<SignUpResponse> {
+                    override fun onResponse(
+                        call: Call<SignUpResponse>,
+                        response: Response<SignUpResponse>
+                    ) {
 
+                        registerData.postValue(response.body()?.data)
+
+                        Log.e("xoxo", "register success")
                     }
 
-                    override fun onApiError(errorType: ApiError, error: String?) {
-                        //handle errors
-                        Log.e("xoxo","register error: "+errorType+" "+error)
-                        registerError.postValue(error)
-
+                    override fun onFailure(call: Call<SignUpResponse>, t: Throwable) {
+                        Log.e("xoxo", "register error: " + t.toString())
+                        registerError.postValue(t.toString())
                     }
                 })
-        }catch (e:Exception){
+        } catch (e: Exception) {
 
-            Log.e("xoxo","register error: "+e.toString())
+            Log.e("xoxo", "register error: " + e.toString())
 
         }
     }

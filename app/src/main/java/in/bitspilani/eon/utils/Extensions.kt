@@ -1,10 +1,16 @@
 package `in`.bitspilani.eon.utils
 
+import android.content.Context
 import android.os.SystemClock
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.ImageView
+import androidx.annotation.StringRes
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import com.google.android.material.snackbar.Snackbar
 
 
 @BindingAdapter("app:`in`.bitspilani.eon.utils.goneUnless")
@@ -16,6 +22,12 @@ fun View.goneUnless(visible: Boolean) {
 fun View.invisibleUnless(visible: Boolean) {
     visibility = if (visible) View.VISIBLE else View.INVISIBLE
 }
+
+var EditText.value
+    get() = this.text.toString()
+    set(value) {
+        this.setText(value)
+    }
 
 @BindingAdapter("app:`in`.bitspilani.eon.utils.visibleUnless")
 fun View.visibleUnless(hide: Boolean) {
@@ -66,6 +78,28 @@ fun View.clickWithDebounce(debounceTime: Long = 1000L, action: () -> Unit) {
 
     })
 }
+
+/**
+ * Extension method to show a keyboard for View.
+ */
+fun View.showKeyboard() {
+    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    this.requestFocus()
+    imm.showSoftInput(this, 0)
+}
+/**
+ * Try to hide the keyboard and returns whether it worked
+ * https://stackoverflow.com/questions/1109022/close-hide-the-android-soft-keyboard
+ */
+fun View.hideKeyboard(): Boolean {
+    try {
+        val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        return inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
+    } catch (ignored: RuntimeException) { }
+    return false
+}
+
+
 
 
 
