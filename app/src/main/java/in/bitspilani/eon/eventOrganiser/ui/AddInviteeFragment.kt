@@ -5,9 +5,11 @@ import `in`.bitspilani.eon.eventOrganiser.data.Invitee
 import `in`.bitspilani.eon.utils.MarginItemDecoration
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -39,10 +41,27 @@ class AddInviteeFragment(private val callbackListener: CallbackListener) : Dialo
             callbackListener.onDataReceived(editText.text.toString())
             // Now dismiss the fragment
             dismiss()*/
-        btn_close.clickWithDebounce {
+        btn_close.clickWithDebounce { dismiss() }
+        btn_invitee_cancel.clickWithDebounce {    dismiss() }
+        btn_invitee_confirm.clickWithDebounce {
 
-            dismiss()
+            if(!TextUtils.isEmpty(edt_updated_fees.text) && !TextUtils.isEmpty(edt_email_addresses.text)
+                && !TextUtils.isEmpty(edt_discount.text))
+            {
+
+                dismiss()
+                callbackListener.onDataReceived("abc")
+            }else{
+
+                Toast.makeText(activity, "Please enter valid details", Toast.LENGTH_LONG).show()
+
+            }
+
+
+
         }
+
+
 
         }
 

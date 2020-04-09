@@ -53,7 +53,7 @@ class UserProfileFragment : Fragment(),CallbackListener {
 
     override fun onResume() {
         super.onResume()
-        actionbarHost?.showToolbar(showToolbar = true,title = "User Profile",showBottomNav = true)
+        actionbarHost?.showToolbar(showToolbar = true,title = "User Profile",showBottomNav = false)
 
     }
 
