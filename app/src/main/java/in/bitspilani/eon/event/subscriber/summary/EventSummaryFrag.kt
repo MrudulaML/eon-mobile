@@ -20,8 +20,10 @@ class EventSummaryFrag : Fragment() {
 
     private lateinit var viewModel: EventSummaryViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.event_summary_fragment, container, false)
     }
 
@@ -40,5 +42,26 @@ class EventSummaryFrag : Fragment() {
             findNavController().navigate(R.id.action_summery_to_payment)
         }
 
+        iv_cancel_promo.clickWithDebounce {
+
+            var a=""
+            et_promocode.text=a
+
+            tv_apply.visibility=View.VISIBLE
+            iv_cancel_promo.visibility=View.GONE
+            tv_payable_amount.text="Payable Amount  ₹ 1500"
+            tv_discounted_amount.visibility=View.GONE
+        }
+
+        tv_apply.clickWithDebounce {
+
+            var a="15% Applied"
+            et_promocode.text=a
+
+            tv_payable_amount.text="Payable Amount  ₹ 1325"
+            tv_discounted_amount.visibility=View.VISIBLE
+            tv_apply.visibility=View.GONE
+            iv_cancel_promo.visibility=View.VISIBLE
+        }
     }
 }
