@@ -120,6 +120,12 @@
                 app:popUpToInclusive="true"
                 app:destination="@id/paymentFrag"/>
 
+            <action
+                android:id="@+id/action_payment_to_homeFragment"
+                app:popUpTo="@id/homeFragment"
+                app:popUpToInclusive="true"
+                app:destination="@id/homeFragment" />
+
         </fragment>
 
         <fragment

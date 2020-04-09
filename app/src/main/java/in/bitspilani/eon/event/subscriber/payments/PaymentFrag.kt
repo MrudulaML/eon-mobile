@@ -7,8 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import `in`.bitspilani.eon.R
+import `in`.bitspilani.eon.utils.clickWithDebounce
 import android.app.AlertDialog
 import android.widget.Toast
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
+import kotlinx.android.synthetic.main.layout_dialog_payment_success.view.*
 import kotlinx.android.synthetic.main.payment_fragment.*
 
 class PaymentFrag : Fragment() {
@@ -31,7 +35,6 @@ class PaymentFrag : Fragment() {
         viewModel = ViewModelProviders.of(this).get(PaymentViewModel::class.java)
         // TODO: Use the ViewModel
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -66,7 +69,23 @@ class PaymentFrag : Fragment() {
             .setView(mDialogView)
         //show dialog
         val mAlertDialog = mBuilder.show()
+
+        mDialogView.btn_okay.clickWithDebounce {
+
+            findNavController().navigate(
+                R.id.action_payment_to_homeFragment,
+                null,
+                NavOptions.Builder()
+                    .setPopUpTo(
+                        R.id.homeFragment,
+                        true
+                    ).build()
+            )
+
+            mAlertDialog.dismiss()
+        }
+
+
     }
 
-    
 }
