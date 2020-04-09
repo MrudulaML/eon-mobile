@@ -61,7 +61,7 @@ class HomeFragment : Fragment(), CallbackListener {
 
         dashboardViewModel.eventDetails.observe(viewLifecycleOwner, Observer {
 
-            if (BitsEonApp.localStorageHandler?.user_role.equals("organiser"))
+            if (BitsEonApp.localStorageHandler?.user_role.equals("organizer"))
                 findNavController().navigate(R.id.action_homeFragment_to_eventDetailsFragment,
                     null,
                     NavOptions.Builder()
@@ -77,7 +77,11 @@ class HomeFragment : Fragment(), CallbackListener {
 
     override fun onResume() {
         super.onResume()
-        actionbarHost?.showToolbar(showToolbar = true,title = "Event Management",showBottomNav = true)
+
+        if(BitsEonApp.localStorageHandler?.user_role.equals("organizer"))
+            actionbarHost?.showToolbar(showToolbar = true,title = "Event Management",showBottomNav = true)
+        else
+            actionbarHost?.showToolbar(showToolbar = true,title = "Event Management",showBottomNav = false)
     }
 
     private fun initView() {
