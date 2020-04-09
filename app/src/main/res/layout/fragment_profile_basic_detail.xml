@@ -110,6 +110,7 @@
     <GridLayout
         android:id="@+id/checkbox_layout"
         android:layout_width="match_parent"
+        android:padding="@dimen/_24sdp"
         android:layout_height="wrap_content"/>
 
     <LinearLayout

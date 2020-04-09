@@ -2,6 +2,7 @@ package `in`.bitspilani.eon.utils
 
 import android.os.SystemClock
 import android.view.View
+import android.widget.EditText
 import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter
@@ -16,6 +17,12 @@ fun View.goneUnless(visible: Boolean) {
 fun View.invisibleUnless(visible: Boolean) {
     visibility = if (visible) View.VISIBLE else View.INVISIBLE
 }
+
+var EditText.value
+    get() = this.text.toString()
+    set(value) {
+        this.setText(value)
+    }
 
 @BindingAdapter("app:`in`.bitspilani.eon.utils.visibleUnless")
 fun View.visibleUnless(hide: Boolean) {

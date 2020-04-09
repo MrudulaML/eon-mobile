@@ -60,6 +60,7 @@ class SignInFragment : Fragment() {
                 if(Validator.isValidEmail(etEmailAddress,true)){
                     //store user role
                     showUserMsg("Login Successful")
+                    BitsEonApp.localStorageHandler?.user_email=etEmailAddress.text.toString()
                     BitsEonApp.localStorageHandler?.token= "1234"
                     findNavController().navigate(R.id.action_signInFragment_to_homeFragment,
                         null,

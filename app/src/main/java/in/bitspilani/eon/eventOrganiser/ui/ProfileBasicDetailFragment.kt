@@ -3,6 +3,7 @@ import `in`.bitspilani.eon.BitsEonApp
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.eventOrganiser.ui.CallbackListener
 import `in`.bitspilani.eon.utils.clickWithDebounce
+import `in`.bitspilani.eon.utils.value
 import android.content.Context
 import android.os.Bundle
 import android.view.*
@@ -36,6 +37,7 @@ class ProfileBasicDetailFragment(private val callbackListener: CallbackListener)
         btn_basic_cancel.clickWithDebounce {   dismiss() }
         btn_basic_confirm.clickWithDebounce {   dismiss() }
 
+        rdt_basic_email.value= BitsEonApp.localStorageHandler?.user_email.toString()
         populateCheckBox()
 
 
@@ -46,10 +48,10 @@ class ProfileBasicDetailFragment(private val callbackListener: CallbackListener)
     fun populateCheckBox(){
 
         val checkBox1 = CheckBox(context)
-        checkBox1.text = "First CheckBox"
+        checkBox1.text = "Music"
         checkBox1.isChecked = true
         val checkBox2 = CheckBox(context)
-        checkBox2.text = "Second Checkbox"
+        checkBox2.text = "Technical"
         checkbox_layout.addView(checkBox1)
         checkbox_layout.addView(checkBox2)
 
