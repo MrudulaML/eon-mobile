@@ -45,7 +45,7 @@ class ProfileBasicDetailFragment(private val callbackListener: CallbackListener)
 
         }
 
-        rdt_basic_email.value= BitsEonApp.localStorageHandler?.user_email.toString()
+
         populateCheckBox()
 
 

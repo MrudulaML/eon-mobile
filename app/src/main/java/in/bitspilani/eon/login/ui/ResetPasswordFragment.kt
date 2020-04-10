@@ -3,6 +3,9 @@ package `in`.bitspilani.eon.login.ui
 import `in`.bitspilani.eon.BitsEonApp
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.databinding.FragmentCreatePasswordBinding
+import `in`.bitspilani.eon.login.data.User
+import `in`.bitspilani.eon.utils.Constants
+import `in`.bitspilani.eon.utils.ModelPreferencesManager
 import `in`.bitspilani.eon.utils.Validator
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import android.os.Bundle
@@ -20,14 +23,10 @@ import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_create_password.*
 
 
-class ResetPassword : Fragment() {
+class ResetPasswordFragment : Fragment() {
 
     lateinit var authViewModel: AuthViewModel
     lateinit var binding: FragmentCreatePasswordBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,11 +53,15 @@ class ResetPassword : Fragment() {
     private fun setUpObservables() {
         authViewModel.generateCodeLiveData.observe(viewLifecycleOwner, Observer {
 
-
+            binding.step = ForgotPasswordSteps.VERIFICATION_CODE
+            binding.stepView.go(1, true)
 
         })
         authViewModel.resetPasswordLiveData.observe(viewLifecycleOwner, Observer {
 
+           /* authViewModel.forgotPasswordSteps = ForgotPasswordSteps.PASSWORD
+            binding.step = ForgotPasswordSteps.PASSWORD
+            binding.stepView.go(2,true)*/
             findNavController().navigate(R.id.action_signInFragment_to_createPasswordFragment)
 
         })
@@ -79,26 +82,15 @@ class ResetPassword : Fragment() {
     private fun onNextClick(){
         when(authViewModel.forgotPasswordSteps){
             ForgotPasswordSteps.ENTER_DETAILS ->{
-                if (Validator.isValidEmail(edit_user_email, true)
-                ){
+                if (Validator.isValidEmail(edit_user_email, true)){
                     authViewModel.forgotPasswordSteps = ForgotPasswordSteps.VERIFICATION_CODE
-
-                    BitsEonApp.localStorageHandler?.user_email?.let {
-                        authViewModel.generateCode(it)
-                    }
-                    binding.step = ForgotPasswordSteps.VERIFICATION_CODE
-                    binding.stepView.go(1, true)
-
+                    authViewModel.generateCode(edit_user_email.text.toString())
                 }
-
             }
 
             ForgotPasswordSteps.VERIFICATION_CODE->{
                 if (Validator.isValidVerificationCode(edit_verification_code)){
 
-                    authViewModel.forgotPasswordSteps = ForgotPasswordSteps.PASSWORD
-                    binding.step = ForgotPasswordSteps.PASSWORD
-                    binding.stepView.go(2,true)
                 }
             }
 
@@ -106,9 +98,9 @@ class ResetPassword : Fragment() {
                 if (Validator.isValidPassword(edt_create_new_password)){
                     if(TextUtils.equals(edt_create_new_password.text,edt_re_enter_password.text)) {
 
-                        BitsEonApp.localStorageHandler?.user_email?.let {
+                    /*    BitsEonApp.localStorageHandler?.user_email?.let {
                         authViewModel.resetPassword(it,edit_verification_code.text.toString(),edt_create_new_password.text.toString())
-                        }
+                        }*/
 
                         findNavController().navigate(R.id.action_basicInfo_to_signInFragment,
                             null,
