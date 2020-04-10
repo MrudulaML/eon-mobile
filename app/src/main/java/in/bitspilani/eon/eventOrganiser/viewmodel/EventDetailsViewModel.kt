@@ -1,29 +1,35 @@
 package `in`.bitspilani.eon.eventOrganiser.viewmodel
 
 
-
 import `in`.bitspilani.eon.api.ApiService
+import `in`.bitspilani.eon.eventOrganiser.data.EventList
 import `in`.bitspilani.eon.eventOrganiser.data.EventResponse
 
 import `in`.bitspilani.eon.eventOrganiser.data.MonoEvent
 import `in`.bitspilani.eon.utils.ApiCallback
 import `in`.bitspilani.eon.utils.SingleLiveEvent
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import timber.log.Timber
 
-class EventDetailsViewModel(private val apiService: ApiService): ViewModel() {
+class EventDetailsViewModel(private val apiService: ApiService) : ViewModel() {
 
-    val eventDetails: SingleLiveEvent<List<MonoEvent>> =
+    val eventDetailsObservables: SingleLiveEvent<EventList> =
         SingleLiveEvent()
 
-    val eventClick : SingleLiveEvent<Int> = SingleLiveEvent()
-    fun getEvents(){
+    val eventClickObservable: SingleLiveEvent<Int> = SingleLiveEvent()
+    fun getEvents(
+        eventType: Int? = null,
+        eventLocation: String? = null,
+        startDate: String? = null,
+        endDate: String? = null,
+        fromFilter: Boolean = false
+    ) {
 
-        apiService.getEvents()
-            .enqueue(object : ApiCallback<EventResponse>(){
+        apiService.getEvents(eventType, eventLocation, startDate, endDate)
+            .enqueue(object : ApiCallback<EventResponse>() {
                 override fun onSuccessResponse(responseBody: EventResponse) {
-                    eventDetails.postValue(responseBody.data)
+                    val eventList = EventList(fromFilter,responseBody.data)
+                    eventDetailsObservables.postValue(eventList)
                     Timber.e(responseBody.data[0].name)
                 }
 
@@ -35,11 +41,27 @@ class EventDetailsViewModel(private val apiService: ApiService): ViewModel() {
 
     }
 
-    fun onEventClick( eventId:Int ){
+    /*  fun getFilter(){
 
-       eventClick.postValue(eventId)
+          apiService.filter()
+              .enqueue(object : ApiCallback<EventResponse>(){
+                  override fun onSuccessResponse(responseBody: EventResponse) {
+                      eventDetails.postValue(responseBody.data)
+                      Timber.e(responseBody.data[0].name)
+                  }
+
+                  override fun onApiError(errorType: ApiError, error: String?) {
+                      *//*progress.value=false
+                    errorView.postValue(error)*//*
+                }
+            })
+
+    }*/
+
+    fun onEventClick(eventId: Int) {
+
+        eventClickObservable.postValue(eventId)
     }
-
 
 
 }

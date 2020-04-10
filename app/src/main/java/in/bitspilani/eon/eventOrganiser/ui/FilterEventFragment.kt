@@ -7,20 +7,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
-import kotlinx.android.synthetic.main.fragment_event_filter.*
+import kotlinx.android.synthetic.main.fragment_filter_event.*
 
-class FilterEventFragment : Fragment() {
+class FilterEventFragment(val filterCallbackListener: FilterCallbackListener) : Fragment() {
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_event_filter, container, false)
+        return inflater.inflate(R.layout.fragment_filter_event, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -30,7 +28,7 @@ class FilterEventFragment : Fragment() {
 
         btn_filter.clickWithDebounce {
 
-            //Navigation.findNavController(view).navigate(R.id.filter_to_dashboard);
+            filterCallbackListener.onApplyFilter(eventType = 1,fromFilter = true)
         }
     }
 

@@ -1,9 +1,8 @@
 package `in`.bitspilani.eon.eventOrganiser.ui
 
 
-import `in`.bitspilani.eon.BitsEonApp
 import `in`.bitspilani.eon.R
-import `in`.bitspilani.eon.eventOrganiser.data.MonoEvent
+import `in`.bitspilani.eon.eventOrganiser.data.EventList
 import `in`.bitspilani.eon.eventOrganiser.ui.adapter.EventAdapter
 import `in`.bitspilani.eon.eventOrganiser.viewmodel.EventDetailsViewModel
 import `in`.bitspilani.eon.login.ui.ActionbarHost
@@ -20,14 +19,13 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_dashboard.*
-import timber.log.Timber
 
 
 /**
  * A simple [Fragment] subclass.
  *
  */
-class HomeFragment : Fragment(), CallbackListener {
+class HomeFragment : Fragment() {
     private val dashboardViewModel by viewModels<EventDetailsViewModel> { getViewModelFactory() }
     private var actionbarHost: ActionbarHost? = null
 
@@ -43,27 +41,28 @@ class HomeFragment : Fragment(), CallbackListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //dummy recycler view
         dashboardViewModel.getEvents()
 
-        btn_filter.clickWithDebounce { showDialog() }
 
         setUpObservables()
+        setUpClickListeners()
     }
 
-    private fun showDialog() {
-        val dialogFragment = FilterDialogFragment(this)
-        dialogFragment.show(childFragmentManager, "filterDialog")
+    private fun setUpClickListeners() {
+        btn_filter.clickWithDebounce {
+            val dialogFragment = FilterDialogFragment(dashboardViewModel)
+            dialogFragment.show(childFragmentManager, "filterDialog")
+        }
     }
 
     private fun setUpObservables() {
 
-        dashboardViewModel.eventDetails.observe(viewLifecycleOwner, Observer {
-            Timber.e(it[0].name)
+        dashboardViewModel.eventDetailsObservables.observe(viewLifecycleOwner, Observer {
+
             setEventRecyclerView(it)
         })
 
-        dashboardViewModel.eventClick.observe(viewLifecycleOwner, Observer {
+        dashboardViewModel.eventClickObservable.observe(viewLifecycleOwner, Observer {
 
             if (ModelPreferencesManager.getInt(Constants.USER_ROLE)==1)
                 findNavController().navigate(R.id.action_homeFragment_to_eventDetailsFragment,
@@ -76,16 +75,27 @@ class HomeFragment : Fragment(), CallbackListener {
         })
 
     }
+    private lateinit var eventListAdapter : EventAdapter
+    private fun setEventRecyclerView(eventList: EventList) {
 
-    private fun setEventRecyclerView(it: List<MonoEvent>) {
-        rv_event_list.layoutManager = LinearLayoutManager(activity)
-        rv_event_list.addItemDecoration(
-            MarginItemDecoration(
-                resources.getDimension(R.dimen._16sdp).toInt()
-            ))
-        val movieListAdapter =
-            EventAdapter(it, dashboardViewModel )
-        rv_event_list.adapter = movieListAdapter
+        if (eventList.fromFilter) {
+            rv_event_list.invalidateItemDecorations()
+            rv_event_list.invalidate()
+            eventListAdapter = EventAdapter(eventList.eventList, dashboardViewModel)
+            rv_event_list.adapter = eventListAdapter
+
+        }
+        else {
+
+            rv_event_list.layoutManager = LinearLayoutManager(activity)
+            rv_event_list.addItemDecoration(
+                MarginItemDecoration(
+                    resources.getDimension(R.dimen._16sdp).toInt()
+                )
+            )
+            eventListAdapter = EventAdapter(eventList.eventList, dashboardViewModel)
+            rv_event_list.adapter = eventListAdapter
+        }
     }
 
 
@@ -108,15 +118,4 @@ class HomeFragment : Fragment(), CallbackListener {
             actionbarHost = context
         }
     }
-
-
-
-    /**
-     * handle filter data here
-     */
-    override fun onDataReceived(data: String) {
-
-    }
-
-
 }
