@@ -1,8 +1,8 @@
 package `in`.bitspilani.eon
 
 import `in`.bitspilani.eon.api.ApiService
-import `in`.bitspilani.eon.event.subscriber.detail.EventDetailsViewModel
-import `in`.bitspilani.eon.eventOrganiser.viewmodel.EventDashboardViewModel
+import `in`.bitspilani.eon.event_subscriber.subscriber.detail.EventDetailsViewModel
+import `in`.bitspilani.eon.event_organiser.viewmodel.EventDashboardViewModel
 import `in`.bitspilani.eon.login.ui.AuthViewModel
 import `in`.bitspilani.eon.login.ui.ChangePwViewModel
 import android.os.Bundle

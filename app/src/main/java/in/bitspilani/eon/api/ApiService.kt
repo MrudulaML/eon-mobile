@@ -1,17 +1,14 @@
 package `in`.bitspilani.eon.api
 
-import `in`.bitspilani.eon.event.models.EventDetailResponse
-import `in`.bitspilani.eon.eventOrganiser.data.EventResponse
-import `in`.bitspilani.eon.eventOrganiser.data.FilterResponse
+import `in`.bitspilani.eon.event_subscriber.models.EventDetailResponse
+import `in`.bitspilani.eon.event_organiser.models.EventResponse
+import `in`.bitspilani.eon.event_organiser.models.FilterResponse
 import `in`.bitspilani.eon.login.data.GenerateCodeResponse
 import `in`.bitspilani.eon.login.data.LoginResponse
 import `in`.bitspilani.eon.login.data.ResetPasswordResponse
 import `in`.bitspilani.eon.login.data.*
-import com.google.android.gms.common.internal.service.Common
 import com.google.gson.JsonObject
-import io.reactivex.Observable
 import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST

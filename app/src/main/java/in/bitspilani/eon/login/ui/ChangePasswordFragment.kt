@@ -1,8 +1,7 @@
 package `in`.bitspilani.eon.login.ui
 
 import `in`.bitspilani.eon.R
-import `in`.bitspilani.eon.eventOrganiser.data.Invitee
-import `in`.bitspilani.eon.eventOrganiser.ui.CallbackListener
+import `in`.bitspilani.eon.event_organiser.ui.CallbackListener
 
 import `in`.bitspilani.eon.login.data.Data
 import `in`.bitspilani.eon.utils.*
@@ -17,12 +16,8 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_add_invitee.*
 import kotlinx.android.synthetic.main.fragment_add_invitee.btn_close
 import kotlinx.android.synthetic.main.fragment_change_password.*
-import kotlinx.android.synthetic.main.fragment_invitee.*
 
 
 /**

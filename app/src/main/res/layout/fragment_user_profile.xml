@@ -7,7 +7,7 @@
     android:layout_marginTop="@dimen/_16sdp"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".eventOrganiser.ui.ToolbarUserProfileFragment">
+    tools:context=".event_organiser.ui.ToolbarUserProfileFragment">
 
     <!--<ListView
       android:id="@+id/lv_user_profile"

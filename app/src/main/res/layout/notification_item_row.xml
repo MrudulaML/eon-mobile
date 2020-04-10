@@ -10,7 +10,7 @@
 
         <variable
             name="notofication"
-            type="in.bitspilani.eon.eventOrganiser.data.Notification" />
+            type="in.bitspilani.eon.event_organiser.models.Notification" />
 
     </data>
 <LinearLayout

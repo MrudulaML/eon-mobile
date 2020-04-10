@@ -9,11 +9,11 @@
 
         <variable
             name="event"
-            type="in.bitspilani.eon.eventOrganiser.data.MonoEvent"/>
+            type="in.bitspilani.eon.event_organiser.models.MonoEvent"/>
 
         <variable
             name="dashboardViewmodel"
-            type="in.bitspilani.eon.eventOrganiser.viewmodel.EventDashboardViewModel" />
+            type="in.bitspilani.eon.event_organiser.viewmodel.EventDashboardViewModel" />
     </data>
 
     <androidx.cardview.widget.CardView
