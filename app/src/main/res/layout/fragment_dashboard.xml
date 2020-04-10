@@ -30,7 +30,7 @@
             android:layout_marginEnd="6dp"
             android:background="?android:attr/actionBarItemBackground"
             android:padding="@dimen/_8sdp"
-            android:src="@drawable/ic_filter"
+            android:src="@drawable/ic_icon_sort_blue"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

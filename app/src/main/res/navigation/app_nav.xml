@@ -98,7 +98,7 @@
         <action android:id="@+id/action_to_change_password"
             app:destination="@id/changePasswordFragment"/>
 
-        e<!--vent details fragme-->
+        <!--vent details fragme-->
         <fragment
             android:id="@+id/eventDetailsFragment"
             android:name="in.bitspilani.eon.eventOrganiser.ui.EventDetailsFragment"
