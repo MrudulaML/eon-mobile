@@ -1,5 +1,6 @@
 package `in`.bitspilani.eon.api
 
+import `in`.bitspilani.eon.event.models.EventDetailResponse
 import `in`.bitspilani.eon.eventOrganiser.data.EventResponse
 import `in`.bitspilani.eon.login.data.*
 import com.google.android.gms.common.internal.service.Common
@@ -10,6 +11,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface ApiService {
 
@@ -35,4 +37,7 @@ interface ApiService {
     @POST("/authentication/change-password")
     fun changePassword(@Body map: HashMap<String, Any>): Call<CommonResponse>
 
+
+    @GET("/core/event/{id}")
+    fun getEventDetails(@Path("id") id: Int): Call<EventDetailResponse>
 }

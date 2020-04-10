@@ -1,5 +1,7 @@
 package `in`.bitspilani.eon
+
 import `in`.bitspilani.eon.api.ApiService
+import `in`.bitspilani.eon.event.subscriber.detail.EventDetailsViewModel
 import `in`.bitspilani.eon.eventOrganiser.ui.EventDashboardViewModel
 import `in`.bitspilani.eon.login.ui.AuthViewModel
 import `in`.bitspilani.eon.login.ui.ChangePwViewModel
@@ -23,8 +25,12 @@ class EonViewModelFactory(
     ) = with(modelClass) {
         when {
             isAssignableFrom(AuthViewModel::class.java) -> AuthViewModel()
-            isAssignableFrom(EventDashboardViewModel::class.java) -> EventDashboardViewModel(apiService)
-            isAssignableFrom(ChangePwViewModel::class.java)->ChangePwViewModel(apiService)
+            isAssignableFrom(EventDashboardViewModel::class.java) -> EventDashboardViewModel(
+                apiService
+            )
+            isAssignableFrom(ChangePwViewModel::class.java) -> ChangePwViewModel(apiService)
+            isAssignableFrom(EventDetailsViewModel::class.java) -> EventDetailsViewModel(apiService)
+
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
