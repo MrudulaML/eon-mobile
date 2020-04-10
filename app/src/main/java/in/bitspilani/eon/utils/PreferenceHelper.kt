@@ -87,4 +87,12 @@ object ModelPreferencesManager {
         //type “T” is used to cast.
         return GsonBuilder().create().fromJson(value, T::class.java)
     }
+
+    /**
+     * Used to clear all the cached data
+     *
+     **/
+    fun clearCache(){
+        preferences.edit().clear().apply()
+    }
 }

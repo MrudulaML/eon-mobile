@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.activity_bits_eon.*
 import kotlinx.android.synthetic.main.fragment_sign_in.*
@@ -40,7 +41,11 @@ class SignInFragment : Fragment() {
             ModelPreferencesManager.putInt(Constants.USER_ROLE,it.data.user.role.id)
             ModelPreferencesManager.put(it, Constants.CURRENT_USER)
             showUserMsg("Login Successful")
-            findNavController().navigate(R.id.action_signInFragment_to_homeFragment)
+            findNavController().navigate(R.id.action_signInFragment_to_homeFragment,
+                null,
+                NavOptions.Builder()
+                    .setPopUpTo(R.id.app_nav,
+                        true).build())
 
         })
 
@@ -67,16 +72,13 @@ class SignInFragment : Fragment() {
 
     private fun setUpClickListeners() {
         btn_login.clickWithDebounce {
-            if (authViewModel.userType != null) {
-                //local validation for password email
-                if (Validator.isValidEmail(etEmailAddress, true)) {
-                    authViewModel.login(etEmailAddress.text.toString(), etPassword.text.toString())
-                } else {
 
-                    showUserMsg("Please select user role")
-                }
+            //local validation for password email
+            if (Validator.isValidEmail(etEmailAddress, true)) {
+                authViewModel.login(etEmailAddress.text.toString(), etPassword.text.toString())
+            } else {
+                showUserMsg("Please select user role")
             }
-
         }
 
         actionbarHost?.showToolbar(showToolbar = false,showBottomNav = false)

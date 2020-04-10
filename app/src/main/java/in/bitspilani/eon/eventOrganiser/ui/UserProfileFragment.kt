@@ -22,6 +22,7 @@ import kotlinx.android.synthetic.main.fragment_user_profile.*
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 
 /**
@@ -106,7 +107,8 @@ class UserProfileFragment : Fragment(),CallbackListener {
          }
          profile_logout.clickWithDebounce {
 
-
+             ModelPreferencesManager.clearCache()
+             Timber.d("Cached cleared")
              //heavy task delay
              lifecycleScope.launch {
                  delay(200)

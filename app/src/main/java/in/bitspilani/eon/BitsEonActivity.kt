@@ -57,19 +57,9 @@ class BitsEonActivity : AppCompatActivity(),ActionbarHost {
     private fun checkIfAuthenticated(){
         lifecycleScope.launch {
 
-           var user = ModelPreferencesManager.get<LoginResponse>(Constants.CURRENT_USER)
+           val user = ModelPreferencesManager.get<LoginResponse>(Constants.CURRENT_USER)
 
             if (user?.data?.access.isNullOrEmpty()){
-
-                delay(400)
-                navController.navigate(R.id.action_splashScreen_to_HomeFragment,
-                    null,
-                    NavOptions.Builder()
-                        .setPopUpTo(R.id.app_nav,
-                            true).build())
-
-
-            }else{
                 delay(400)
                 navController.navigate(R.id.action_splashScreen_to_signInFragment,
                     null,
@@ -77,6 +67,15 @@ class BitsEonActivity : AppCompatActivity(),ActionbarHost {
                         .setPopUpTo(R.id.splashScreen,
                             true).build())
 
+
+            }else{
+
+                delay(400)
+                navController.navigate(R.id.action_splashScreen_to_HomeFragment,
+                    null,
+                    NavOptions.Builder()
+                        .setPopUpTo(R.id.app_nav,
+                            true).build())
 
             }
         }
