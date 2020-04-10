@@ -2,14 +2,19 @@ package `in`.bitspilani.eon.login.ui
 
 import `in`.bitspilani.eon.api.ApiService
 import `in`.bitspilani.eon.api.RestClient
-import `in`.bitspilani.eon.login.data.GenerateCodeResponse
-import `in`.bitspilani.eon.login.data.LoginResponse
-import `in`.bitspilani.eon.login.data.ResetPasswordResponse
+import `in`.bitspilani.eon.login.data.*
 import `in`.bitspilani.eon.utils.ApiCallback
 import `in`.bitspilani.eon.utils.SingleLiveEvent
+import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.JsonObject
+import io.reactivex.schedulers.Schedulers
 import org.jetbrains.anko.custom.asyncResult
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.lang.Exception
 import timber.log.Timber
 
 enum class OrganiserDetailsSteps(val desc: String) {
@@ -30,7 +35,7 @@ enum class USER_TYPE(val desc: String) {
     SUBSCRIBER("Event Subscriber"),
 }
 
-class AuthViewModel: ViewModel() {
+class AuthViewModel : ViewModel() {
 
     internal val progress: SingleLiveEvent<Boolean> = SingleLiveEvent()
 
@@ -42,6 +47,12 @@ class AuthViewModel: ViewModel() {
     var userType: USER_TYPE? = null
     private val restClient: RestClient = RestClient()
 
+    var registerData: SingleLiveEvent<Data> = SingleLiveEvent()
+    var registerError: MutableLiveData<String> = MutableLiveData()
+
+    var fcmToken: String? = null
+
+    lateinit var generatedCode: String
     val loginLiveData: SingleLiveEvent<LoginResponse> = SingleLiveEvent()
     val generateCodeLiveData: SingleLiveEvent<GenerateCodeResponse> = SingleLiveEvent()
     val resetPasswordLiveData: SingleLiveEvent<ResetPasswordResponse> = SingleLiveEvent()
@@ -104,23 +115,35 @@ class AuthViewModel: ViewModel() {
 
     }
 
-    fun register(username:String, password:String){
-        val body = JsonObject()
-        body.addProperty("username",username)
-        body.addProperty("password",password)
-        progress.value = true
-       /* restClient.authClient.create(ApiService::class.java).validateUser(body)
-            .enqueue(object : ApiCallback<LoginResponse>(){
-                override fun onSuccessResponse(responseBody: LoginResponse) {
-                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                }
+    fun register(hashMap: HashMap<String, Any>) {
 
-                override fun onApiError(errorType: ApiError, error: String?) {
-                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-                }
-            })*/
+        try {
 
+            restClient.authClient.create(ApiService::class.java).registerUser(hashMap)
+                .enqueue(object : Callback<SignUpResponse> {
+                    override fun onResponse(
+                        call: Call<SignUpResponse>,
+                        response: Response<SignUpResponse>
+                    ) {
+
+                        registerData.postValue(response.body()?.data)
+
+                        Log.e("xoxo", "register success")
+                    }
+
+                    override fun onFailure(call: Call<SignUpResponse>, t: Throwable) {
+                        Log.e("xoxo", "register error: " + t.toString())
+                        registerError.postValue(t.toString())
+                    }
+                })
+        } catch (e: Exception) {
+
+            Log.e("xoxo", "register error: " + e.toString())
+
+        }
     }
+
+
 
 
 }

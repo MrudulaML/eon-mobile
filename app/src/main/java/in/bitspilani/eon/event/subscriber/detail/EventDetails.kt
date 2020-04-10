@@ -2,7 +2,9 @@ package `in`.bitspilani.eon.event.subscriber.detail
 
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.login.ui.ActionbarHost
+import `in`.bitspilani.eon.login.ui.ChangePwViewModel
 import `in`.bitspilani.eon.utils.clickWithDebounce
+import `in`.bitspilani.eon.utils.getViewModelFactory
 import android.content.Context
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -10,7 +12,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -19,10 +23,8 @@ import kotlinx.android.synthetic.main.layout_seat_booking.*
 
 class EventDetails : Fragment() {
 
-    companion object {
-        fun newInstance() =
-            EventDetails()
-    }
+
+    private val eventDetailsViewModel by viewModels<EventDetailsViewModel> { getViewModelFactory() }
 
     var seatCount: MutableLiveData<Int> = MutableLiveData()
     private lateinit var viewModel: EventDetailsViewModel
@@ -46,7 +48,11 @@ class EventDetails : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setDummyCounterLogic()
 
-        actionbarHost?.showToolbar(showToolbar = false,showBottomNav = false)
+        setObservables()
+
+        eventDetailsViewModel.getEventDetails(1)
+
+        actionbarHost?.showToolbar(showToolbar = false, showBottomNav = false)
 
         tv_seat_counter.text = 1.toString()
 
@@ -61,6 +67,8 @@ class EventDetails : Fragment() {
             findNavController().navigate(R.id.eventSummaryFrag)
 
         }
+
+
     }
 
     var count = 1
@@ -79,7 +87,6 @@ class EventDetails : Fragment() {
 
         }
 
-
     }
 
     override fun onAttach(context: Context) {
@@ -91,8 +98,21 @@ class EventDetails : Fragment() {
 
     override fun onDetach() {
         super.onDetach()
-        actionbarHost?.showToolbar(showToolbar = false,showBottomNav = false)
+        actionbarHost?.showToolbar(showToolbar = false, showBottomNav = false)
     }
 
+
+    fun setObservables() {
+
+        eventDetailsViewModel.eventData.observe(viewLifecycleOwner, Observer {
+
+            showUserMsg(it.message)
+
+        })
+    }
+
+    fun showUserMsg(msg: String) {
+        Toast.makeText(activity, msg, Toast.LENGTH_LONG).show()
+    }
 
 }

@@ -1,6 +1,7 @@
 package `in`.bitspilani.eon
 
 
+import `in`.bitspilani.eon.login.data.Data
 import `in`.bitspilani.eon.login.data.LoginResponse
 import `in`.bitspilani.eon.login.data.User
 import `in`.bitspilani.eon.login.ui.ActionbarHost
@@ -57,9 +58,9 @@ class BitsEonActivity : AppCompatActivity(),ActionbarHost {
     private fun checkIfAuthenticated(){
         lifecycleScope.launch {
 
-           val user = ModelPreferencesManager.get<LoginResponse>(Constants.CURRENT_USER)
+           val userData = ModelPreferencesManager.get<Data>(Constants.CURRENT_USER)
 
-            if (user?.data?.access.isNullOrEmpty()){
+            if (userData?.access.isNullOrEmpty()){
                 delay(400)
                 navController.navigate(R.id.action_splashScreen_to_signInFragment,
                     null,

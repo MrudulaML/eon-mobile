@@ -1,8 +1,12 @@
 package `in`.bitspilani.eon
+
 import `in`.bitspilani.eon.api.ApiService
 import `in`.bitspilani.eon.eventOrganiser.viewmodel.EventDashboardViewModel
 import `in`.bitspilani.eon.eventOrganiser.viewmodel.EventDetailsViewModel
+import `in`.bitspilani.eon.event.subscriber.detail.EventDetailsViewModel
+import `in`.bitspilani.eon.eventOrganiser.ui.EventDashboardViewModel
 import `in`.bitspilani.eon.login.ui.AuthViewModel
+import `in`.bitspilani.eon.login.ui.ChangePwViewModel
 import android.os.Bundle
 import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
@@ -23,6 +27,12 @@ class EonViewModelFactory(
     ) = with(modelClass) {
         when {
             isAssignableFrom(AuthViewModel::class.java) -> AuthViewModel()
+            isAssignableFrom(EventDashboardViewModel::class.java) -> EventDashboardViewModel(
+                apiService
+            )
+            isAssignableFrom(ChangePwViewModel::class.java) -> ChangePwViewModel(apiService)
+            isAssignableFrom(EventDetailsViewModel::class.java) -> EventDetailsViewModel(apiService)
+
             isAssignableFrom(EventDashboardViewModel::class.java) -> EventDashboardViewModel(apiService)
             isAssignableFrom(EventDetailsViewModel::class.java) -> EventDetailsViewModel(apiService)
             else ->

@@ -1,45 +1,20 @@
-.DS_Store
-.cache
-.classpath
+*.iml
 .gradle
-.idea
-.project
-.scala_dependencies
-.settings
-.springBeans
-build
-build*.log
-classes
-npm-debug.log
-local.properties
-target
-out
-gen
-/out/
-*.IGNORE
-app/config.txt
-app/app.iml
-.idea/
-build/
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
 
-
-# CMake
-cmake-build-debug/
-cmake-build-release/
-
-### Java ###
-*.class
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
-*.jar
-*.war
-*.ear
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-# Local configuration file (sdk path, etc)
-local.properties
-/eon-mobile.iml
+#built application files
+*.apk
+/.idea/gradle.xml
+/.idea/misc.xml
+/.idea/vcs.xml
+/.idea/codeStyles/

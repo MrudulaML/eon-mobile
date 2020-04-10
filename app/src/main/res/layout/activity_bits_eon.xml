@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
@@ -55,21 +54,22 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_notifications" />
     </androidx.constraintlayout.widget.ConstraintLayout>-->
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
         android:elevation="5dp"
-        app:titleTextColor="@color/white"
-        android:theme="@style/ToolBarTheme"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         android:gravity="end|center"
-        app:menu="@menu/top_navigation"
         android:orientation="horizontal"
+        android:theme="@style/ToolBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/top_navigation"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:titleTextColor="@color/white" />
 
     <FrameLayout
         android:id="@+id/frameLayout"
@@ -91,10 +91,10 @@
         android:id="@+id/progress"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
-        app:layout_constraintEnd_toEndOf="parent"
         android:background="@color/lightGrey"
         android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -104,8 +104,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:elevation="5dp"
-            android:theme="@style/CircularProgress"
-            />
+            android:theme="@style/CircularProgress" />
     </FrameLayout>
 
 
@@ -115,8 +114,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
-        android:elevation="@dimen/_12sdp"
         android:background="?android:attr/windowBackground"
+        android:elevation="@dimen/_12sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

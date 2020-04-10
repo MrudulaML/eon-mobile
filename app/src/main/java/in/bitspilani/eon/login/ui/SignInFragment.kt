@@ -36,16 +36,20 @@ class SignInFragment : Fragment() {
         authViewModel.loginLiveData.observe(viewLifecycleOwner, Observer {
 
             //save object to pref
-            ModelPreferencesManager.putString(Constants.ACCESS_TOKEN,it.data.access)
-            ModelPreferencesManager.putString(Constants.REFRESH_TOKEN,it.data.refresh)
-            ModelPreferencesManager.putInt(Constants.USER_ROLE,it.data.user.role.id)
-            ModelPreferencesManager.put(it, Constants.CURRENT_USER)
+            ModelPreferencesManager.putString(Constants.ACCESS_TOKEN, it.data.access)
+            ModelPreferencesManager.putString(Constants.REFRESH_TOKEN, it.data.refresh)
+            ModelPreferencesManager.putInt(Constants.USER_ROLE, it.data.user.role.id)
+            ModelPreferencesManager.put(it.data, Constants.CURRENT_USER)
             showUserMsg("Login Successful")
-            findNavController().navigate(R.id.action_signInFragment_to_homeFragment,
+            findNavController().navigate(
+                R.id.action_signInFragment_to_homeFragment,
                 null,
                 NavOptions.Builder()
-                    .setPopUpTo(R.id.app_nav,
-                        true).build())
+                    .setPopUpTo(
+                        R.id.app_nav,
+                        true
+                    ).build()
+            )
 
         })
 
@@ -81,7 +85,7 @@ class SignInFragment : Fragment() {
             }
         }
 
-        actionbarHost?.showToolbar(showToolbar = false,showBottomNav = false)
+        actionbarHost?.showToolbar(showToolbar = false, showBottomNav = false)
 
 
         tv_forgot_password.clickWithDebounce {
