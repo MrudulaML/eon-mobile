@@ -2,15 +2,14 @@ package `in`.bitspilani.eon.eventOrganiser.ui.adapter
 
 import `in`.bitspilani.eon.databinding.EventItemRowBinding
 import `in`.bitspilani.eon.eventOrganiser.data.MonoEvent
-import `in`.bitspilani.eon.eventOrganiser.viewmodel.EventDetailsViewModel
+import `in`.bitspilani.eon.eventOrganiser.viewmodel.EventDashboardViewModel
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 
 
 class EventAdapter(private val eventList : List<MonoEvent>,
-                   val eventDashboardViewModel: EventDetailsViewModel
+                   val eventDashboardViewModel: EventDashboardViewModel
 ) : RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
         val inflater = LayoutInflater.from(parent.context)

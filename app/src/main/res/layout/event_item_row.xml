@@ -13,7 +13,7 @@
 
         <variable
             name="dashboardViewmodel"
-            type="in.bitspilani.eon.eventOrganiser.viewmodel.EventDetailsViewModel" />
+            type="in.bitspilani.eon.eventOrganiser.viewmodel.EventDashboardViewModel" />
     </data>
 
     <androidx.cardview.widget.CardView

@@ -3,7 +3,7 @@ package `in`.bitspilani.eon.login.ui
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.eventOrganiser.data.Invitee
 import `in`.bitspilani.eon.eventOrganiser.ui.CallbackListener
-import `in`.bitspilani.eon.eventOrganiser.ui.EventDashboardViewModel
+
 import `in`.bitspilani.eon.login.data.Data
 import `in`.bitspilani.eon.utils.*
 import android.content.Context

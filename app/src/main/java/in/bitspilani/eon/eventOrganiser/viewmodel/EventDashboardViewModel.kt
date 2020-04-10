@@ -1,38 +1,67 @@
 package `in`.bitspilani.eon.eventOrganiser.viewmodel
 
 
-
 import `in`.bitspilani.eon.api.ApiService
-import androidx.lifecycle.MutableLiveData
+import `in`.bitspilani.eon.eventOrganiser.data.EventList
+import `in`.bitspilani.eon.eventOrganiser.data.EventResponse
+
+import `in`.bitspilani.eon.eventOrganiser.data.MonoEvent
+import `in`.bitspilani.eon.utils.ApiCallback
+import `in`.bitspilani.eon.utils.SingleLiveEvent
 import androidx.lifecycle.ViewModel
+import timber.log.Timber
 
-class EventDashboardViewModel(private val apiService: ApiService): ViewModel() {
+class EventDashboardViewModel(private val apiService: ApiService) : ViewModel() {
 
-    /* val mutableLiveData: MutableLiveData<List<IndividualEvent>> =
-        MutableLiveData<List<IndividualEvent>>()*/
+    val eventDetailsObservables: SingleLiveEvent<EventList> =
+        SingleLiveEvent()
 
+    val eventClickObservable: SingleLiveEvent<Int> = SingleLiveEvent()
+    fun getEvents(
+        eventType: Int? = null,
+        eventLocation: String? = null,
+        startDate: String? = null,
+        endDate: String? = null,
+        fromFilter: Boolean = false
+    ) {
 
-
-    /*fun observeEventResponse() {
-
-        CoroutineScope(Dispatchers.IO).launch {
-            val response = apiService.getEvents()
-            withContext(Dispatchers.Main) {
-                try {
-                    if (response.isSuccessful) {
-                        //Do something with response e.g show to the UI.
-                    } else {
-                        //toast("Error: ${response.code()}")
-                    }
-                } catch (e: HttpException) {
-                    //toast("Exception ${e.message}")
-                } catch (e: Throwable) {
-                    //toast("Ooops: Something else went wrong")
+        apiService.getEvents(eventType, eventLocation, startDate, endDate)
+            .enqueue(object : ApiCallback<EventResponse>() {
+                override fun onSuccessResponse(responseBody: EventResponse) {
+                    val eventList = EventList(fromFilter,responseBody.data)
+                    eventDetailsObservables.postValue(eventList)
+                    Timber.e(responseBody.data[0].name)
                 }
-            }
-        }
+
+                override fun onApiError(errorType: ApiError, error: String?) {
+                    /*progress.value=false
+                    errorView.postValue(error)*/
+                }
+            })
+
+    }
+
+    /*  fun getFilter(){
+
+          apiService.filter()
+              .enqueue(object : ApiCallback<EventResponse>(){
+                  override fun onSuccessResponse(responseBody: EventResponse) {
+                      eventDetails.postValue(responseBody.data)
+                      Timber.e(responseBody.data[0].name)
+                  }
+
+                  override fun onApiError(errorType: ApiError, error: String?) {
+                      *//*progress.value=false
+                    errorView.postValue(error)*//*
+                }
+            })
 
     }*/
+
+    fun onEventClick(eventId: Int) {
+
+        eventClickObservable.postValue(eventId)
+    }
 
 
 }

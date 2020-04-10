@@ -3,26 +3,22 @@ package `in`.bitspilani.eon.eventOrganiser.ui
 
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.eventOrganiser.ui.adapter.FilterPagerAdapter
-import `in`.bitspilani.eon.eventOrganiser.viewmodel.EventDetailsViewModel
+import `in`.bitspilani.eon.eventOrganiser.viewmodel.EventDashboardViewModel
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.fragment_filter_dialog.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 
 /**
  * A simple [Fragment] subclass.
  *
  */
-class FilterDialogFragment(private val eventDetailsViewModel: EventDetailsViewModel) : DialogFragment(),
+class FilterDialogFragment(private val eventDashboardViewModel: EventDashboardViewModel) : DialogFragment(),
     FilterCallbackListener {
 
     // tab titles
@@ -62,7 +58,7 @@ class FilterDialogFragment(private val eventDetailsViewModel: EventDetailsViewMo
         endDate: String?,
         fromFilter:Boolean
     ) {
-        eventDetailsViewModel.getEvents(eventType, eventLocation, startDate, endDate,fromFilter)
+        eventDashboardViewModel.getEvents(eventType, eventLocation, startDate, endDate,fromFilter)
         dismiss()
     }
 

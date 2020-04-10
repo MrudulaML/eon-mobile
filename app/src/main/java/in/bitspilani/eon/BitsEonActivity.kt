@@ -36,7 +36,6 @@ class BitsEonActivity : AppCompatActivity(),ActionbarHost {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bits_eon)
-        authViewModel = ViewModelProviders.of(this).get(AuthViewModel::class.java)
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         bottomNavigation= findViewById(R.id.bottom_navigation)
         setSupportActionBar(toolbar)

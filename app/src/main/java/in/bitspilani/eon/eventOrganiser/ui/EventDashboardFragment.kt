@@ -4,7 +4,7 @@ package `in`.bitspilani.eon.eventOrganiser.ui
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.eventOrganiser.data.EventList
 import `in`.bitspilani.eon.eventOrganiser.ui.adapter.EventAdapter
-import `in`.bitspilani.eon.eventOrganiser.viewmodel.EventDetailsViewModel
+import `in`.bitspilani.eon.eventOrganiser.viewmodel.EventDashboardViewModel
 import `in`.bitspilani.eon.login.ui.ActionbarHost
 import `in`.bitspilani.eon.utils.*
 import android.content.Context
@@ -26,7 +26,7 @@ import kotlinx.android.synthetic.main.fragment_dashboard.*
  *
  */
 class HomeFragment : Fragment() {
-    private val dashboardViewModel by viewModels<EventDetailsViewModel> { getViewModelFactory() }
+    private val dashboardViewModel by viewModels<EventDashboardViewModel> { getViewModelFactory() }
     private var actionbarHost: ActionbarHost? = null
 
     override fun onCreateView(
