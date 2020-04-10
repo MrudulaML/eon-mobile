@@ -15,9 +15,9 @@ import timber.log.Timber
 class EventDetailsViewModel(private val apiService: ApiService): ViewModel() {
 
     val eventDetails: SingleLiveEvent<List<MonoEvent>> =
-        SingleLiveEvent<List<MonoEvent>>()
+        SingleLiveEvent()
 
-    val eventId : MutableLiveData<String> = MutableLiveData()
+    val eventClick : SingleLiveEvent<Int> = SingleLiveEvent()
     fun getEvents(){
 
         apiService.getEvents()
@@ -37,7 +37,7 @@ class EventDetailsViewModel(private val apiService: ApiService): ViewModel() {
 
     fun onEventClick( eventId:Int ){
 
-       // eventDetails.postValue("details")
+       eventClick.postValue(eventId)
     }
 
 

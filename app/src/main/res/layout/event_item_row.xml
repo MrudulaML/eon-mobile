@@ -25,7 +25,7 @@
         android:layout_marginTop="@dimen/_4sdp"
         android:layout_marginBottom="@dimen/_4sdp"
         app:cardElevation="@dimen/_2dp"
-
+        android:onClick="@{() -> dashboardViewmodel.onEventClick(event.id)}"
         app:cardCornerRadius="@dimen/_4sdp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
