@@ -1,8 +1,12 @@
 package `in`.bitspilani.eon
 
 
+import `in`.bitspilani.eon.login.data.LoginResponse
+import `in`.bitspilani.eon.login.data.User
 import `in`.bitspilani.eon.login.ui.ActionbarHost
 import `in`.bitspilani.eon.login.ui.AuthViewModel
+import `in`.bitspilani.eon.utils.Constants
+import `in`.bitspilani.eon.utils.ModelPreferencesManager
 import `in`.bitspilani.eon.utils.goneUnless
 import android.os.Bundle
 import android.view.Menu
@@ -52,23 +56,28 @@ class BitsEonActivity : AppCompatActivity(),ActionbarHost {
 
     private fun checkIfAuthenticated(){
         lifecycleScope.launch {
-            if (BitsEonApp.localStorageHandler?.token.isNullOrEmpty()){
 
-                delay(200)
-                navController.navigate(R.id.action_splashScreen_to_signInFragment,
-                    null,
-                    NavOptions.Builder()
-                        .setPopUpTo(R.id.splashScreen,
-                            true).build()
-                )
-            }else{
+           var user = ModelPreferencesManager.get<LoginResponse>(Constants.CURRENT_USER)
 
-                delay(200)
+            if (user?.data?.access.isNullOrEmpty()){
+
+                delay(400)
                 navController.navigate(R.id.action_splashScreen_to_HomeFragment,
                     null,
                     NavOptions.Builder()
                         .setPopUpTo(R.id.app_nav,
                             true).build())
+
+
+            }else{
+                delay(400)
+                navController.navigate(R.id.action_splashScreen_to_signInFragment,
+                    null,
+                    NavOptions.Builder()
+                        .setPopUpTo(R.id.splashScreen,
+                            true).build())
+
+
             }
         }
 

@@ -78,13 +78,6 @@ class BasicDetailsFragment : Fragment() {
             OrganiserDetailsSteps.PASSWORD -> {
                 if (Validator.isValidPassword(edt_password)) {
                     if (TextUtils.equals(edt_password.text, edt_confirm_password.text)) {
-                        BitsEonApp.localStorageHandler?.token = "abcdefg" //dummy token to mock auth
-
-                        if (authViewModel.userType == USER_TYPE.ORGANISER) {
-                            BitsEonApp.localStorageHandler?.user_role = "organiser"
-                        } else {
-                            BitsEonApp.localStorageHandler?.user_role = "subscriber"
-                        }
 
                         findNavController().navigate(
                             R.id.action_basicInfo_to_signInFragment,

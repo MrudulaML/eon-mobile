@@ -32,17 +32,16 @@ enum class USER_TYPE(val desc: String) {
 
 class AuthViewModel: ViewModel() {
 
-    val progress: SingleLiveEvent<Boolean> = SingleLiveEvent()
+    internal val progress: SingleLiveEvent<Boolean> = SingleLiveEvent()
+
+    val errorView: SingleLiveEvent<String> = SingleLiveEvent()
     var registerCurrentStep: OrganiserDetailsSteps =
         OrganiserDetailsSteps.BASIC_DETAILS
 
     var forgotPasswordSteps: ForgotPasswordSteps = ForgotPasswordSteps.ENTER_DETAILS
     var userType: USER_TYPE? = null
-    val restClient: RestClient = RestClient()
+    private val restClient: RestClient = RestClient()
 
-    var fcmToken:String? = null
-
-    lateinit var generatedCode: String
     val loginLiveData: SingleLiveEvent<LoginResponse> = SingleLiveEvent()
     val generateCodeLiveData: SingleLiveEvent<GenerateCodeResponse> = SingleLiveEvent()
     val resetPasswordLiveData: SingleLiveEvent<ResetPasswordResponse> = SingleLiveEvent()
@@ -60,7 +59,8 @@ class AuthViewModel: ViewModel() {
                 }
 
                 override fun onApiError(errorType: ApiError, error: String?) {
-                    Timber.d(errorType.toString())
+                    progress.value=false
+                    errorView.postValue(error)
                 }
             })
 

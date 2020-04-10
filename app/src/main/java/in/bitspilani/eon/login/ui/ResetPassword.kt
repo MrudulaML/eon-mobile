@@ -83,9 +83,9 @@ class ResetPassword : Fragment() {
                 ){
                     authViewModel.forgotPasswordSteps = ForgotPasswordSteps.VERIFICATION_CODE
 
-                    BitsEonApp.localStorageHandler?.user_email?.let {
+                    /*BitsEonApp.localStorageHandler?.user_email?.let {
                         authViewModel.generateCode(it)
-                    }
+                    }*/
                     binding.step = ForgotPasswordSteps.VERIFICATION_CODE
                     binding.stepView.go(1, true)
 
@@ -106,9 +106,9 @@ class ResetPassword : Fragment() {
                 if (Validator.isValidPassword(edt_create_new_password)){
                     if(TextUtils.equals(edt_create_new_password.text,edt_re_enter_password.text)) {
 
-                        BitsEonApp.localStorageHandler?.user_email?.let {
+                    /*    BitsEonApp.localStorageHandler?.user_email?.let {
                         authViewModel.resetPassword(it,edit_verification_code.text.toString(),edt_create_new_password.text.toString())
-                        }
+                        }*/
 
                         findNavController().navigate(R.id.action_basicInfo_to_signInFragment,
                             null,

@@ -3,10 +3,7 @@ package `in`.bitspilani.eon.login.ui
 
 import `in`.bitspilani.eon.BitsEonApp
 import `in`.bitspilani.eon.R
-import `in`.bitspilani.eon.utils.Constants
-import `in`.bitspilani.eon.utils.ModelPreferencesManager
-import `in`.bitspilani.eon.utils.Validator
-import `in`.bitspilani.eon.utils.clickWithDebounce
+import `in`.bitspilani.eon.utils.*
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import kotlinx.android.synthetic.main.activity_bits_eon.*
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 
 
@@ -37,10 +35,22 @@ class SignInFragment : Fragment() {
         authViewModel.loginLiveData.observe(viewLifecycleOwner, Observer {
 
             //save object to pref
+            ModelPreferencesManager.putString(Constants.ACCESS_TOKEN,it.data.access)
+            ModelPreferencesManager.putString(Constants.REFRESH_TOKEN,it.data.refresh)
+            ModelPreferencesManager.putInt(Constants.USER_ROLE,it.data.user.role.id)
             ModelPreferencesManager.put(it, Constants.CURRENT_USER)
             showUserMsg("Login Successful")
             findNavController().navigate(R.id.action_signInFragment_to_homeFragment)
 
+        })
+
+        authViewModel.errorView.observe(viewLifecycleOwner, Observer {
+
+            showUserMsg(it)
+
+        })
+        authViewModel.progress.observe(viewLifecycleOwner, Observer {
+            //progress.goneUnless(it)
         })
 
     }
@@ -90,10 +100,6 @@ class SignInFragment : Fragment() {
             authViewModel.userType = USER_TYPE.SUBSCRIBER
         }
 
-    }
-
-    private fun setRoleToPref(role: String) {
-        BitsEonApp.localStorageHandler?.user_role = role
     }
 
     override fun onResume() {

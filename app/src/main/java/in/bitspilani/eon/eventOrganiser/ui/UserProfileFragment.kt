@@ -6,6 +6,9 @@ import `in`.bitspilani.eon.BitsEonApp
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.login.ui.ActionbarHost
 import `in`.bitspilani.eon.login.ui.ChangePasswordFragment
+import `in`.bitspilani.eon.utils.Constants
+import `in`.bitspilani.eon.utils.ModelPreferencesManager
+import `in`.bitspilani.eon.utils.UserType
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import android.content.Context
 import android.os.Bundle
@@ -84,7 +87,7 @@ class UserProfileFragment : Fragment(),CallbackListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         onItemClick()
-        if(BitsEonApp.localStorageHandler?.user_role.equals("organizer"))
+        if(ModelPreferencesManager.getInt(Constants.USER_ROLE)==UserType.ORGANISER.ordinal)
             profile_wish_list.visibility=View.GONE
     }
 
@@ -103,7 +106,7 @@ class UserProfileFragment : Fragment(),CallbackListener {
          }
          profile_logout.clickWithDebounce {
 
-             BitsEonApp.localStorageHandler?.clearData()
+
              //heavy task delay
              lifecycleScope.launch {
                  delay(200)
