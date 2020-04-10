@@ -4,7 +4,7 @@ package `in`.bitspilani.eon.event_organiser.models
 
 
 data class EventResponse(
-    var `data`: List<MonoEvent>,
+    var `data`: ArrayList<MonoEvent>,
     var message: String
 )
 

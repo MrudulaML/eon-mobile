@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -46,6 +47,21 @@ class HomeFragment : Fragment() {
 
         setUpObservables()
         setUpClickListeners()
+        setUpSearch()
+    }
+
+    private fun setUpSearch() {
+        event_search_view.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                eventListAdapter.filter.filter(newText)
+                return false
+            }
+
+        })
     }
 
     private fun setUpClickListeners() {

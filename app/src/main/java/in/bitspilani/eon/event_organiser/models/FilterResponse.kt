@@ -13,5 +13,5 @@ data class EventType(
 
 data class EventList(
     val fromFilter: Boolean = false,
-    val eventList: List<MonoEvent>
+    val eventList: ArrayList<MonoEvent>
 )
