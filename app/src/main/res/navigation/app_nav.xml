@@ -48,7 +48,7 @@
     <!--create password-->
     <fragment
         android:id="@+id/createPasswordFragment"
-        android:name="in.bitspilani.eon.login.ui.ResetPassword"
+        android:name="in.bitspilani.eon.login.ui.ResetPasswordFragment"
 
         tools:layout="@layout/fragment_create_password">
         <action android:id="@+id/action_basicInfo_to_signInFragment"
