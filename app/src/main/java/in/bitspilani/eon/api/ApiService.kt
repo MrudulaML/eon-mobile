@@ -2,6 +2,7 @@ package `in`.bitspilani.eon.api
 
 import `in`.bitspilani.eon.eventOrganiser.data.EventResponse
 import `in`.bitspilani.eon.login.data.*
+import com.google.android.gms.common.internal.service.Common
 import com.google.gson.JsonObject
 import io.reactivex.Observable
 import retrofit2.Call
@@ -25,11 +26,13 @@ interface ApiService {
     @POST("authentication/change-password")
     fun changePassword(@Body body: JsonObject): Call<GenerateCodeResponse>
 
-
     @POST("/authentication/registration")
-    fun registerUser(@Body map: HashMap<String,Any>): Call<SignUpResponse>
+    fun registerUser(@Body map: HashMap<String, Any>): Call<SignUpResponse>
 
     @GET("/api/v1/core/user/events")
     suspend fun getEvents(): Response<EventResponse>
+
+    @GET("/authentication/change-password")
+    fun changePassword(@Body map: HashMap<String, Any>): Call<CommonResponse>
 
 }

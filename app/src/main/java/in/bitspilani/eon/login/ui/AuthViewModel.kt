@@ -117,29 +117,6 @@ class AuthViewModel : ViewModel() {
 
         try {
 
-            //progress.value = true
-//            restClient
-//                .authClient
-//                .create(ApiService::class.java)
-//                .registerUser(hashMap)
-//                .enqueue(object : ApiCallback<SignUpResponse>() {
-//                    override fun onSuccessResponse(responseBody: SignUpResponse) {
-//
-//                        registerData.postValue(responseBody.data)
-//
-//                        Log.e("xoxo","register success")
-//
-//                    }
-//
-//                    override fun onApiError(errorType: ApiError, error: String?) {
-//                        //handle errors
-//                        Log.e("xoxo","register error: "+errorType+" "+error)
-//                        registerError.postValue(error)
-//
-//                    }
-//                })
-
-
             restClient.authClient.create(ApiService::class.java).registerUser(hashMap)
                 .enqueue(object : Callback<SignUpResponse> {
                     override fun onResponse(
@@ -163,5 +140,8 @@ class AuthViewModel : ViewModel() {
 
         }
     }
+
+
+
 
 }
