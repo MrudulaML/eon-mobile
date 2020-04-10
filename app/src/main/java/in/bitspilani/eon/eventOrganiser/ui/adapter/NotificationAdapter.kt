@@ -1,10 +1,7 @@
 package `in`.bitspilani.eon.eventOrganiser.ui.adapter
 
-import `in`.bitspilani.eon.databinding.EventItemRowBinding
 import `in`.bitspilani.eon.databinding.NotificationItemRowBinding
-import `in`.bitspilani.eon.eventOrganiser.data.IndividualEvent
 import `in`.bitspilani.eon.eventOrganiser.data.Notification
-import `in`.bitspilani.eon.eventOrganiser.ui.EventDashboardViewModel
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView

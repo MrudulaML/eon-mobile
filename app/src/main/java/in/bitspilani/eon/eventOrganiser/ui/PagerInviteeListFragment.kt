@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_invitee.*
  * A simple [Fragment] subclass.
  *
  */
-class InviteeFragment : Fragment(),CallbackListener {
+class PagerInviteeListFragment : Fragment(),CallbackListener {
 
     // tab titles
     private val titles =

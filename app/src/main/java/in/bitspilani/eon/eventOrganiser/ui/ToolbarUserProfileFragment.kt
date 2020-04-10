@@ -28,7 +28,7 @@ import timber.log.Timber
 /**
  * A simple [Fragment] subclass.
  */
-class UserProfileFragment : Fragment(),CallbackListener {
+class ToolbarUserProfileFragment : Fragment(),CallbackListener {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

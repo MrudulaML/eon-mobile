@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_notification.*
 /**
  * A simple [Fragment] subclass.
  */
-class NotificationFragment : Fragment() {
+class ToolbarNotificationFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

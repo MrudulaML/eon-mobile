@@ -1,10 +1,9 @@
 package `in`.bitspilani.eon.eventOrganiser.ui
 
 
-import `in`.bitspilani.eon.BitsEonApp
 import `in`.bitspilani.eon.R
-import `in`.bitspilani.eon.eventOrganiser.data.IndividualEvent
 import `in`.bitspilani.eon.eventOrganiser.ui.adapter.EventAdapter
+import `in`.bitspilani.eon.eventOrganiser.viewmodel.EventDetailsViewModel
 import `in`.bitspilani.eon.login.ui.ActionbarHost
 import `in`.bitspilani.eon.utils.*
 import android.content.Context
@@ -15,10 +14,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.NavOptions
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_dashboard.*
+import timber.log.Timber
 
 
 /**
@@ -26,7 +24,7 @@ import kotlinx.android.synthetic.main.fragment_dashboard.*
  *
  */
 class HomeFragment : Fragment(), CallbackListener {
-    private val dashboardViewModel by viewModels<EventDashboardViewModel> { getViewModelFactory() }
+    private val dashboardViewModel by viewModels<EventDetailsViewModel> { getViewModelFactory() }
     private var actionbarHost: ActionbarHost? = null
 
     override fun onCreateView(
@@ -42,7 +40,7 @@ class HomeFragment : Fragment(), CallbackListener {
         super.onViewCreated(view, savedInstanceState)
 
         //dummy recycler view
-        initView()
+        dashboardViewModel.getEvents()
 
         btn_filter.clickWithDebounce { showDialog() }
 
@@ -58,14 +56,16 @@ class HomeFragment : Fragment(), CallbackListener {
 
         dashboardViewModel.eventDetails.observe(viewLifecycleOwner, Observer {
 
-            if (ModelPreferencesManager.getInt(Constants.USER_ROLE)==UserType.SUBSCRIBER.ordinal)
-                findNavController().navigate(R.id.action_homeFragment_to_eventDetailsFragment,
-                    null,
-                    NavOptions.Builder()
-                        .setPopUpTo(R.id.homeFragment,
-                            false).build())
-            else
-                findNavController().navigate(R.id.eventDetails)
+
+            Timber.e(it[0].name)
+            rv_event_list.layoutManager = LinearLayoutManager(activity)
+            rv_event_list.addItemDecoration(
+                MarginItemDecoration(
+                    resources.getDimension(R.dimen._16sdp).toInt()
+                ))
+            val movieListAdapter =
+                EventAdapter(it, dashboardViewModel )
+            rv_event_list.adapter = movieListAdapter
 
         })
 
@@ -81,67 +81,6 @@ class HomeFragment : Fragment(), CallbackListener {
             actionbarHost?.showToolbar(showToolbar = true,title = "Event Management",showBottomNav = false)
     }
 
-    private fun initView() {
-        //show navigation
-        //dummy list
-        val listOfEvent = mutableListOf<IndividualEvent>()
-        listOfEvent.add(
-            IndividualEvent(
-                "Food Festival", 1,
-                "2000 Attendees"
-            )
-        )
-        listOfEvent.add(
-            IndividualEvent(
-                "Music Festival", 2,
-                "1000 Attendees"
-            )
-        )
-        listOfEvent.add(
-            IndividualEvent(
-                "Technical Corridor", 3,
-                "3000 Attendees"
-            )
-        )
-        listOfEvent.add(
-            IndividualEvent(
-                "Financial Planning", 4,
-                "4000 Attendees"
-            )
-        )
-        listOfEvent.add(
-            IndividualEvent(
-                "Health and Fitness", 5,
-                "3000 Attendees"
-            )
-        )
-        listOfEvent.add(
-            IndividualEvent(
-                "Ethical Hacking", 6,
-                "2500 Attendees"
-            )
-        )
-        listOfEvent.add(
-            IndividualEvent(
-                "Angular JS Classes", 7,
-                "2600 Attendees"
-            )
-        )
-
-        rv_event_list.layoutManager = LinearLayoutManager(activity)
-        rv_event_list.addItemDecoration(
-            MarginItemDecoration(
-                resources.getDimension(R.dimen._16sdp).toInt()
-            )
-        )
-        val movieListAdapter =
-            EventAdapter(
-                listOfEvent,
-                dashboardViewModel
-            )
-        rv_event_list.adapter = movieListAdapter
-
-    }
 
     /**
      * toggle visibility of different navigation

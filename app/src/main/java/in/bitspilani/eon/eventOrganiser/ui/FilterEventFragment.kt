@@ -13,7 +13,7 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import kotlinx.android.synthetic.main.fragment_event_filter.*
 
-class EventFilterFragment : Fragment() {
+class FilterEventFragment : Fragment() {
 
 
     override fun onCreateView(

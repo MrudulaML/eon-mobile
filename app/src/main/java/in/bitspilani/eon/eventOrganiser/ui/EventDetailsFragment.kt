@@ -5,7 +5,6 @@ package `in`.bitspilani.eon.eventOrganiser.ui
 import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.eventOrganiser.ui.adapter.EventDetailPagerAdapter
-import `in`.bitspilani.eon.generated.callback.OnClickListener
 import `in`.bitspilani.eon.login.ui.ActionbarHost
 import android.app.Activity
 import android.content.Context

@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_event.*
  * A simple [Fragment] subclass.
  *
  */
-class EventFragment : Fragment() {
+class PagerEventFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,6 +1,7 @@
 package `in`.bitspilani.eon
 import `in`.bitspilani.eon.api.ApiService
-import `in`.bitspilani.eon.eventOrganiser.ui.EventDashboardViewModel
+import `in`.bitspilani.eon.eventOrganiser.viewmodel.EventDashboardViewModel
+import `in`.bitspilani.eon.eventOrganiser.viewmodel.EventDetailsViewModel
 import `in`.bitspilani.eon.login.ui.AuthViewModel
 import android.os.Bundle
 import androidx.lifecycle.AbstractSavedStateViewModelFactory
@@ -23,6 +24,7 @@ class EonViewModelFactory(
         when {
             isAssignableFrom(AuthViewModel::class.java) -> AuthViewModel()
             isAssignableFrom(EventDashboardViewModel::class.java) -> EventDashboardViewModel(apiService)
+            isAssignableFrom(EventDetailsViewModel::class.java) -> EventDetailsViewModel(apiService)
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

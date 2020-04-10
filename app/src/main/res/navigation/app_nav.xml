@@ -154,7 +154,7 @@
             app:destination="@id/eventDetailsFragment"/>
         <fragment
             android:id="@+id/notificationFragment"
-            android:name="in.bitspilani.eon.eventOrganiser.ui.NotificationFragment"
+            android:name="in.bitspilani.eon.eventOrganiser.ui.ToolbarNotificationFragment"
             tools:layout="@layout/fragment_notification" />
         <action android:id="@+id/toolbar_to_notification"
             app:destination="@id/notificationFragment"/>
@@ -162,7 +162,7 @@
         <!--profile fragment-->
         <fragment
             android:id="@+id/userProfileFragment"
-            android:name="in.bitspilani.eon.eventOrganiser.ui.UserProfileFragment"
+            android:name="in.bitspilani.eon.eventOrganiser.ui.ToolbarUserProfileFragment"
             tools:layout="@layout/fragment_user_profile" >
             <!-- action to popup back-stack-->
             <action
@@ -174,7 +174,7 @@
         </fragment>
         <fragment
             android:id="@+id/eventFilterFragment"
-            android:name="in.bitspilani.eon.eventOrganiser.ui.EventFilterFragment"
+            android:name="in.bitspilani.eon.eventOrganiser.ui.FilterEventFragment"
             android:label="EventFilterFragment" >
 
         <action android:id="@+id/filter_to_dashboard"

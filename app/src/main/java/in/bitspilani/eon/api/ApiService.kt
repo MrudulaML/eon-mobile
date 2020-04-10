@@ -29,7 +29,7 @@ interface ApiService {
     @POST("/api/v1/core/user/resetPassword")
     fun registerUser(@Body body: JsonObject): Call<JsonObject>
 
-    @GET("/api/v1/core/user/events")
-    suspend fun getEvents(): Response<EventResponse>
+    @GET("/core/event/")
+    fun getEvents(): Call<EventResponse>
 
 }
