@@ -32,7 +32,7 @@ interface ApiService {
     @GET("/api/v1/core/user/events")
     suspend fun getEvents(): Response<EventResponse>
 
-    @GET("/authentication/change-password")
+    @POST("/authentication/change-password")
     fun changePassword(@Body map: HashMap<String, Any>): Call<CommonResponse>
 
 }

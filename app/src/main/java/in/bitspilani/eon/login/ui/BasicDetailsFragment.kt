@@ -3,6 +3,8 @@ package `in`.bitspilani.eon.login.ui
 import `in`.bitspilani.eon.BitsEonApp
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.databinding.FragmentBasicDetailsBinding
+import `in`.bitspilani.eon.utils.Constants
+import `in`.bitspilani.eon.utils.ModelPreferencesManager
 import `in`.bitspilani.eon.utils.Validator
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import android.os.Bundle
@@ -58,10 +60,13 @@ class BasicDetailsFragment : Fragment() {
 
     fun setObservers() {
 
-
         authViewModel.registerData.observe(this, Observer {
 
             showUserMsg("Registration Successful")
+
+            ModelPreferencesManager.putString(Constants.USER_ROLE,it!!.user!!.role!!.role)
+
+            ModelPreferencesManager.putString(Constants.ACCESS_TOKEN,it.access)
 
             findNavController().navigate(R.id.action_BasicInfoFragment_to_homeFragment)
 
@@ -103,18 +108,15 @@ class BasicDetailsFragment : Fragment() {
             OrganiserDetailsSteps.PASSWORD -> {
                 if (Validator.isValidPassword(edt_password)) {
                     if (TextUtils.equals(edt_password.text, edt_confirm_password.text)) {
-                        BitsEonApp.localStorageHandler?.token = "abcdefg" //dummy token to mock auth
 
                         signupMap.put("password", edt_password.text.toString())
                         if (authViewModel.userType == USER_TYPE.ORGANISER) {
 
                             signupMap.put("edt_org_name", edt_org_name.text.toString())
 
-                            BitsEonApp.localStorageHandler?.user_role = "organiser"
                             signupMap.put("role", "organiser")
 
                         } else {
-                            BitsEonApp.localStorageHandler?.user_role = "subscriber"
                             signupMap.put("role", "subscriber")
 
                         }
