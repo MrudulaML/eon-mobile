@@ -42,3 +42,4 @@ cmake-build-release/
 hs_err_pid*
 # Local configuration file (sdk path, etc)
 local.properties
+/eon-mobile.iml
