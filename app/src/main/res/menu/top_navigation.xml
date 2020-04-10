@@ -3,19 +3,19 @@
     xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/userProfileFragment"
+        android:id="@+id/notificationFragment"
         android:orderInCategory="100"
         android:title=""
         app:iconTint="@color/white"
-        android:icon="@drawable/ic_user"
+        android:icon="@drawable/ic_notifications"
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/notificationFragment"
+        android:id="@+id/userProfileFragment"
         android:orderInCategory="200"
         android:title=""
         app:iconTint="@color/white"
-        android:icon="@drawable/ic_notifications"
+        android:icon="@drawable/ic_user"
         app:showAsAction="always" />
 
 </menu>
