@@ -1,7 +1,5 @@
 package `in`.bitspilani.eon.event_organiser.ui
 
-
-
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.event_organiser.ui.adapter.EventDetailPagerAdapter
 import `in`.bitspilani.eon.login.ui.ActionbarHost
@@ -13,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.fragment_event_detail.*
-
 
 /**
  * A simple [Fragment] subclass.
@@ -79,6 +76,7 @@ class EventDetailsFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
         menu.clear()
     }
+
 }
 
 

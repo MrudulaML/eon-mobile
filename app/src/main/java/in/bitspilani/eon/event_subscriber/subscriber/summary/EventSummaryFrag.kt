@@ -14,9 +14,6 @@ import kotlinx.android.synthetic.main.event_summary_fragment.*
 
 class EventSummaryFrag : Fragment() {
 
-    companion object {
-        fun newInstance() = EventSummaryFrag()
-    }
 
     private lateinit var viewModel: EventSummaryViewModel
 
@@ -30,6 +27,8 @@ class EventSummaryFrag : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(EventSummaryViewModel::class.java)
+
+
 
     }
 
@@ -49,7 +48,7 @@ class EventSummaryFrag : Fragment() {
 
             tv_apply.visibility=View.VISIBLE
             iv_cancel_promo.visibility=View.GONE
-            tv_payable_amount.text="Payable Amount  ₹ 1500"
+            tv_payable_amount.text="Payable Amount  ₹"+arguments?.getInt("amount",0)
             tv_discounted_amount.visibility=View.GONE
         }
 
@@ -58,10 +57,13 @@ class EventSummaryFrag : Fragment() {
             var a="15% Applied"
             et_promocode.text=a
 
+            tv_discounted_amount.text="Discount Amount -₹"+arguments?.getInt("disc_amount",0)
             tv_payable_amount.text="Payable Amount  ₹ 1325"
             tv_discounted_amount.visibility=View.VISIBLE
             tv_apply.visibility=View.GONE
             iv_cancel_promo.visibility=View.VISIBLE
         }
     }
+
+
 }

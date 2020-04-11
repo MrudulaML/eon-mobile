@@ -10,7 +10,7 @@ data class EventDetailResponse(
 )
 
 
-data class Data(
+ data class Data(
 
     @SerializedName("event_id") val event_id: Int,
     @SerializedName("event_name") val event_name: String,
