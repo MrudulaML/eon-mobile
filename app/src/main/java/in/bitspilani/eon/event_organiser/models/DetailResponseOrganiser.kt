@@ -12,7 +12,7 @@ data class Data(
     var external_links: String,
     var id: Int,
     var images: String,
-    var invitee_list: List<Invitee>,
+    var invitee_list: ArrayList<Invitee>,
     var location: String,
     var name: String,
     var no_of_tickets: Int,

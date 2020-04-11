@@ -297,7 +297,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/send_reminder"
+            android:id="@+id/send_updates"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_100dp"
             android:layout_margin="@dimen/_8sdp"
@@ -322,7 +322,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_6sdp"
-                android:text="send reminders"
+                android:text="@string/send_updates"
                 android:textSize="10sp" />
 
         </LinearLayout>
@@ -338,7 +338,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
         <LinearLayout
-            android:id="@+id/send_updates"
+            android:id="@+id/send_reminder"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_100dp"
             android:layout_margin="@dimen/_8sdp"
@@ -363,7 +363,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_6sdp"
-                android:text="@string/send_updates"
+                android:text="@string/send_reminder"
                 android:textSize="10sp" />
 
         </LinearLayout>

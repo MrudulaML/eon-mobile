@@ -6,6 +6,7 @@ import `in`.bitspilani.eon.event_organiser.viewmodel.EventDetailOrganiserViewMod
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import `in`.bitspilani.eon.utils.getViewModelFactory
 import android.os.Bundle
+import android.os.Message
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -16,15 +17,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.fragment_add_invitee.*
+import kotlinx.android.synthetic.main.fragment_add_invitee.btn_close
+import kotlinx.android.synthetic.main.fragment_notify_subscriber.*
 
 
 /**
  * A simple [Fragment] subclass.
  *
  */
-class AddInviteeFragment() : DialogFragment() {
-
-    private val addInviteeViewModel by viewModels<AddInviteeViewModel> { getViewModelFactory() }
+class NotifySubscriberFragment(var notifySubscriberCallback: NotifySubscriberCallback) : DialogFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,7 +33,7 @@ class AddInviteeFragment() : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         isCancelable = false
-        return inflater.inflate(R.layout.fragment_add_invitee, container, false)
+        return inflater.inflate(R.layout.fragment_notify_subscriber, container, false)
     }
     override fun getTheme(): Int {
         return R.style.DialogTheme
@@ -47,29 +48,15 @@ class AddInviteeFragment() : DialogFragment() {
 
     private fun setObservables() {
 
-        addInviteeViewModel.addInviteeLiveData.observe(viewLifecycleOwner, Observer {
-
-            dismiss()
-            Toast.makeText(activity, "Invitees added successfully.", Toast.LENGTH_LONG).show()
-        })
 
     }
 
     private fun setUpClickListeners() {
         btn_close.clickWithDebounce { dismiss() }
-        btn_invitee_cancel.clickWithDebounce {    dismiss() }
-        btn_invitee_confirm.clickWithDebounce {
-            if(!TextUtils.isEmpty(edt_updated_fees.text) && !TextUtils.isEmpty(edt_email_addresses.text)
-                && !TextUtils.isEmpty(edt_discount.text))
-            {
+        btn_notify_confirm.clickWithDebounce {
 
-                addInviteeViewModel.adInvitee(3,25, listOf("ashu@gmail.com","aa@gmail.com"))
-
-            }else{
-
-                Toast.makeText(activity, "Please enter valid details", Toast.LENGTH_LONG).show()
-
-            }
+            notifySubscriberCallback.onUpdate("Abcd")
+            dismiss()
         }
 
     }
@@ -77,6 +64,8 @@ class AddInviteeFragment() : DialogFragment() {
 
 }
 
-interface CallbackListener {
-    fun onDataReceived(data: String)
+interface NotifySubscriberCallback {
+    fun onUpdate(message:String)
+    fun onReminder(message:String)
 }
+

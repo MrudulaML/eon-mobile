@@ -11,8 +11,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.fragment_invitee.*
 
 
@@ -38,15 +40,28 @@ class PagerInviteeListFragment(val detailResponseOrganiser: DetailResponseOrgani
         super.onViewCreated(view, savedInstanceState)
 
         setRecyclerview(detailResponseOrganiser)
+        setUpSearch()
 
         fab.clickWithDebounce {
             showDialog()
         }
     }
-    private val listOfEvent = mutableListOf<Invitee>()
-    var inviteesAdapter =  InviteesAdapter(
-        listOfEvent
-    )
+
+    private fun setUpSearch() {
+        invitee_search_view.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                inviteesAdapter.filter.filter(newText)
+                return false
+            }
+
+        })
+    }
+
+    var inviteesAdapter =  InviteesAdapter(arrayListOf())
     private fun setRecyclerview(detailResponseOrganiser: DetailResponseOrganiser) {
 
         rv_invitee_list.layoutManager = LinearLayoutManager(activity)
@@ -61,7 +76,7 @@ class PagerInviteeListFragment(val detailResponseOrganiser: DetailResponseOrgani
     }
 
     private fun showDialog() {
-        val dialogFragment = AddInviteeFragment(this)
+        val dialogFragment = AddInviteeFragment()
         dialogFragment.show(childFragmentManager, "AaddInviteeDialog")
     }
     override fun onDataReceived(data: String) {

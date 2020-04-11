@@ -41,6 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="2dp"
             android:background="@color/white"
+            app:queryHint="Search here for event name / location"
             app:iconifiedByDefault="true"
             app:layout_constraintBottom_toBottomOf="@+id/btn_filter"
             app:layout_constraintEnd_toStartOf="@+id/btn_filter"
