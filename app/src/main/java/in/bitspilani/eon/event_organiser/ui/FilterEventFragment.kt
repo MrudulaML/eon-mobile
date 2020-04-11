@@ -1,18 +1,30 @@
 package `in`.bitspilani.eon.event_organiser.ui
 
 import `in`.bitspilani.eon.R
+import `in`.bitspilani.eon.event_organiser.models.EventType
+import `in`.bitspilani.eon.event_organiser.viewmodel.EventFilterViewModel
 import `in`.bitspilani.eon.utils.clickWithDebounce
+import `in`.bitspilani.eon.utils.getViewModelFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.RadioButton
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.fragment_filter_event.*
+import timber.log.Timber
 
-class FilterEventFragment(val filterCallbackListener: FilterCallbackListener) : Fragment() {
 
+class FilterEventFragment(
+    private val filterCallbackListener: FilterCallbackListener
+) : Fragment() {
+
+    private val eventFilterViewModel by viewModels<EventFilterViewModel> { getViewModelFactory() }
+    private var filterType: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,39 +33,57 @@ class FilterEventFragment(val filterCallbackListener: FilterCallbackListener) : 
         return inflater.inflate(R.layout.fragment_filter_event, container, false)
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-       // addChipToGroup("Music", chip_group)
+
+        eventFilterViewModel.getFilter()
+
+        setObservables()
+        setUpClickListeners()
+
+
+    }
+
+    private fun setUpClickListeners() {
 
         btn_filter.clickWithDebounce {
 
-            filterCallbackListener.onApplyFilter(eventType = 1,fromFilter = true)
+            filterCallbackListener.onApplyFilter(eventType = filterType,fromFilter = true)
         }
+
+
     }
 
-    private fun addChipToGroup(txt: String, chipGroup: ChipGroup) {
-        val chip = Chip(context)
-        chip.text = txt
-//        chip.chipIcon = ContextCompat.getDrawable(requireContext(), baseline_person_black_18)
-        chip.isCloseIconEnabled = true
-        chip.setChipIconTintResource(R.color.green)
-
-        // necessary to get single selection working
-        chip.isClickable = false
-        chip.isCheckable = false
-        chipGroup.addView(chip as View)
-        chip.setOnCloseIconClickListener { chipGroup.removeView(chip as View) }
-        printChipsValue(chipGroup)
+    private fun setObservables() {
+        eventFilterViewModel.eventFilterObservable.observe(viewLifecycleOwner, Observer {
+          populateFilters(it)
+        })
     }
 
-    private fun printChipsValue(chipGroup: ChipGroup) {
-        for (i in 0 until chipGroup.childCount) {
-            val chipObj = chipGroup.getChildAt(i) as Chip
-            //Log.d("Chips text :: " , chipObj.text.toString())
+    private fun populateFilters(eventTypeList: List<EventType>) {
 
+        for (i in eventTypeList) {
+            val rbn = RadioButton(activity)
+            rbn.id = i.id
+            rbn.text = i.type
+            radio_group_filter.addView(rbn)
+            rbn.setOnClickListener {
+
+                filterType=it.id
+                Toast.makeText(activity, ""+filterType, Toast.LENGTH_SHORT)
+                    .show()
+            }
         }
+
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Timber.e("Filter event fragment onDestroy")
+    }
+
 
 
 

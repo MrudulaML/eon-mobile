@@ -54,4 +54,7 @@ interface ApiService {
 
     @GET("/core/event/{id}")
     fun getEventDetails(@Path("id") id: Int): Call<EventDetailResponse>
+
+    @GET("/core/event-type")
+    fun getFilter(): Call<FilterResponse>
 }

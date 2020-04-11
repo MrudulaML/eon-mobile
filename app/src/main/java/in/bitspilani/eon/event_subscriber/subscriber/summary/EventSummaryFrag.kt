@@ -30,7 +30,7 @@ class EventSummaryFrag : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(EventSummaryViewModel::class.java)
-        // TODO: Use the ViewModel
+
     }
 
 

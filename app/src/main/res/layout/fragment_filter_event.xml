@@ -5,87 +5,12 @@
     android:padding="@dimen/_24sdp"
     android:layout_height="wrap_content">
 
-    <com.google.android.material.chip.ChipGroup
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:paddingBottom="@dimen/_16sdp"
-        android:layout_marginTop="@dimen/_24sdp">
-
-        <com.google.android.material.chip.Chip
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:allowUndo="false"
-            android:checkable="true"
-            android:text="Technical"
-            android:textColor="@color/grey"
-            android:theme="@style/Theme.MaterialComponents.Light" />
-        <com.google.android.material.chip.Chip
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:allowUndo="false"
-            android:checkable="true"
-            android:text="Educational"
-            android:textColor="@color/grey"
-            android:theme="@style/Theme.MaterialComponents.Light" />
-        <com.google.android.material.chip.Chip
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:allowUndo="false"
-            android:checkable="true"
-            android:text="Art"
-            android:textColor="@color/grey"
-            android:theme="@style/Theme.MaterialComponents.Light" />
-        <com.google.android.material.chip.Chip
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:allowUndo="false"
-            android:checkable="true"
-            android:text="Sports"
-            android:textColor="@color/grey"
-            android:theme="@style/Theme.MaterialComponents.Light" />
-
-        <com.google.android.material.chip.Chip
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:allowUndo="false"
-            android:checkable="true"
-            android:text="Event"
-            android:textColor="@color/grey"
-            android:theme="@style/Theme.MaterialComponents.Light" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/subscriber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:allowUndo="false"
-            android:checkable="true"
-            android:text="Music"
-            android:textColor="@color/grey"
-            android:theme="@style/Theme.MaterialComponents.Light" />
-        <com.google.android.material.chip.Chip
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:allowUndo="false"
-            android:checkable="true"
-            android:text="Dance"
-            android:textColor="@color/grey"
-            android:theme="@style/Theme.MaterialComponents.Light" />
-        <com.google.android.material.chip.Chip
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:allowUndo="false"
-            android:checkable="true"
-            android:text="Film"
-            android:textColor="@color/grey"
-            android:theme="@style/Theme.MaterialComponents.Light" />
-    </com.google.android.material.chip.ChipGroup>
+    <RadioGroup
+        android:id="@+id/radio_group_filter"
+        android:layout_width="match_parent"
+        android:columnCount="2"
+        android:layout_height="wrap_content">
+    </RadioGroup>
 
 
     <androidx.appcompat.widget.AppCompatButton

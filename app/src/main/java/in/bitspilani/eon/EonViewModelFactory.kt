@@ -3,6 +3,7 @@ package `in`.bitspilani.eon
 import `in`.bitspilani.eon.api.ApiService
 import `in`.bitspilani.eon.event_subscriber.subscriber.detail.EventDetailsViewModel
 import `in`.bitspilani.eon.event_organiser.viewmodel.EventDashboardViewModel
+import `in`.bitspilani.eon.event_organiser.viewmodel.EventFilterViewModel
 import `in`.bitspilani.eon.login.ui.AuthViewModel
 import `in`.bitspilani.eon.login.ui.ChangePwViewModel
 import android.os.Bundle
@@ -24,12 +25,10 @@ class EonViewModelFactory(
         handle: SavedStateHandle
     ) = with(modelClass) {
         when {
-            isAssignableFrom(AuthViewModel::class.java) -> AuthViewModel()
-
+            //only Put non shared View Models here
             isAssignableFrom(ChangePwViewModel::class.java) -> ChangePwViewModel(apiService)
             isAssignableFrom(EventDetailsViewModel::class.java) -> EventDetailsViewModel(apiService)
-
-            isAssignableFrom(EventDashboardViewModel::class.java) -> EventDashboardViewModel(apiService)
+            isAssignableFrom(EventFilterViewModel::class.java) -> EventFilterViewModel(apiService)
 
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

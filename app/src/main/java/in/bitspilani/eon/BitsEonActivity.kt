@@ -28,7 +28,6 @@ import kotlinx.coroutines.launch
 
 class BitsEonActivity : AppCompatActivity(),ActionbarHost {
     lateinit var navController: NavController
-    lateinit var authViewModel: AuthViewModel
     lateinit var bottomNavigation : BottomNavigationView
 
 

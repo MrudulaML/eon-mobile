@@ -16,6 +16,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,8 +28,9 @@ import kotlinx.android.synthetic.main.fragment_dashboard.*
  *
  */
 class HomeFragment : Fragment() {
-    private val dashboardViewModel by viewModels<EventDashboardViewModel> { getViewModelFactory() }
+   // private val dashboardViewModel by viewModels<EventDashboardViewModel> { getViewModelFactory() }
     private var actionbarHost: ActionbarHost? = null
+    private lateinit var eventDashboardViewModel: EventDashboardViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +44,11 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        dashboardViewModel.getEvents()
+        eventDashboardViewModel = activity?.run {
+            ViewModelProviders.of(this).get(EventDashboardViewModel::class.java)
+        } ?: throw Exception("Invalid Activity")
+
+        eventDashboardViewModel.getEvents()
 
 
         setUpObservables()
@@ -66,25 +72,25 @@ class HomeFragment : Fragment() {
 
     private fun setUpClickListeners() {
         btn_filter.clickWithDebounce {
-            val dialogFragment = FilterDialogFragment(dashboardViewModel)
+            //TODO move it to nav graph please
+            val dialogFragment = FilterDialogFragment()
             dialogFragment.show(childFragmentManager, "filterDialog")
         }
     }
 
     private fun setUpObservables() {
-
-        dashboardViewModel.eventDetailsObservables.observe(viewLifecycleOwner, Observer {
-
+        eventDashboardViewModel.eventDetailsObservables.observe(viewLifecycleOwner, Observer {
             setEventRecyclerView(it)
         })
 
-        dashboardViewModel.eventClickObservable.observe(viewLifecycleOwner, Observer {
-
+        eventDashboardViewModel.eventClickObservable.observe(viewLifecycleOwner, Observer {
             if (ModelPreferencesManager.getInt(Constants.USER_ROLE)==1)
                 findNavController().navigate(R.id.action_homeFragment_to_eventDetailsFragment,
                     null,
                     NavOptions.Builder()
+
                         .setPopUpTo(R.id.homeFragment,
+
                             false).build())
             else
                 findNavController().navigate(R.id.eventDetails)
@@ -94,10 +100,11 @@ class HomeFragment : Fragment() {
     private lateinit var eventListAdapter : EventAdapter
     private fun setEventRecyclerView(eventList: EventList) {
 
+        //TODO fix this hack
         if (eventList.fromFilter) {
             rv_event_list.invalidateItemDecorations()
             rv_event_list.invalidate()
-            eventListAdapter = EventAdapter(eventList.eventList, dashboardViewModel)
+            eventListAdapter = EventAdapter(eventList.eventList, eventDashboardViewModel)
             rv_event_list.adapter = eventListAdapter
 
         }
@@ -109,7 +116,7 @@ class HomeFragment : Fragment() {
                     resources.getDimension(R.dimen._16sdp).toInt()
                 )
             )
-            eventListAdapter = EventAdapter(eventList.eventList, dashboardViewModel)
+            eventListAdapter = EventAdapter(eventList.eventList, eventDashboardViewModel)
             rv_event_list.adapter = eventListAdapter
         }
     }

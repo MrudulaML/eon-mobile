@@ -2,6 +2,7 @@ package `in`.bitspilani.eon.event_organiser.viewmodel
 
 
 import `in`.bitspilani.eon.api.ApiService
+import `in`.bitspilani.eon.api.RestClient
 import `in`.bitspilani.eon.event_organiser.models.EventList
 import `in`.bitspilani.eon.event_organiser.models.EventResponse
 
@@ -10,10 +11,12 @@ import `in`.bitspilani.eon.utils.SingleLiveEvent
 import androidx.lifecycle.ViewModel
 import timber.log.Timber
 
-class EventDashboardViewModel(private val apiService: ApiService) : ViewModel() {
+class EventDashboardViewModel : ViewModel() {
 
     val eventDetailsObservables: SingleLiveEvent<EventList> =
         SingleLiveEvent()
+
+    private val restClient: RestClient = RestClient()
 
     val eventClickObservable: SingleLiveEvent<Int> = SingleLiveEvent()
     fun getEvents(
@@ -24,12 +27,12 @@ class EventDashboardViewModel(private val apiService: ApiService) : ViewModel() 
         fromFilter: Boolean = false
     ) {
 
-        apiService.getEvents(eventType, eventLocation, startDate, endDate)
+        restClient.authClient.create(ApiService::class.java).getEvents(eventType, eventLocation, startDate, endDate)
             .enqueue(object : ApiCallback<EventResponse>() {
                 override fun onSuccessResponse(responseBody: EventResponse) {
                     val eventList = EventList(fromFilter,responseBody.data)
                     eventDetailsObservables.postValue(eventList)
-                    Timber.e(responseBody.data[0].name)
+
                 }
 
                 override fun onApiError(errorType: ApiError, error: String?) {
@@ -40,22 +43,7 @@ class EventDashboardViewModel(private val apiService: ApiService) : ViewModel() 
 
     }
 
-    /*  fun getFilter(){
 
-          apiService.filter()
-              .enqueue(object : ApiCallback<EventResponse>(){
-                  override fun onSuccessResponse(responseBody: EventResponse) {
-                      eventDetails.postValue(responseBody.data)
-                      Timber.e(responseBody.data[0].name)
-                  }
-
-                  override fun onApiError(errorType: ApiError, error: String?) {
-                      *//*progress.value=false
-                    errorView.postValue(error)*//*
-                }
-            })
-
-    }*/
 
     fun onEventClick(eventId: Int) {
 

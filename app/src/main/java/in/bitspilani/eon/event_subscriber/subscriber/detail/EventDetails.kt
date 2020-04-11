@@ -39,7 +39,7 @@ class EventDetails : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(EventDetailsViewModel::class.java)
-        // TODO: Use the ViewModel
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
