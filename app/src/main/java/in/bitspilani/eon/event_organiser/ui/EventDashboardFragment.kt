@@ -13,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -82,17 +83,16 @@ class HomeFragment : Fragment() {
         eventDashboardViewModel.eventDetailsObservables.observe(viewLifecycleOwner, Observer {
             setEventRecyclerView(it)
         })
-
+        var bundle =
         eventDashboardViewModel.eventClickObservable.observe(viewLifecycleOwner, Observer {
             if (ModelPreferencesManager.getInt(Constants.USER_ROLE)==1)
-                findNavController().navigate(R.id.action_homeFragment_to_eventDetailsFragment,
-                    null,
+                findNavController().navigate(R.id.action_homeFragment_to_organiser_eventDetailsFragment,
+                    bundleOf("id" to it),
                     NavOptions.Builder()
-
                         .setPopUpTo(R.id.homeFragment,
-
                             false).build())
             else
+                //TODO change this to builder pattern
                 findNavController().navigate(R.id.eventDetails)
         })
 

@@ -1,6 +1,7 @@
 package `in`.bitspilani.eon.event_organiser.ui
 
 import `in`.bitspilani.eon.R
+import `in`.bitspilani.eon.event_organiser.models.DetailResponseOrganiser
 import `in`.bitspilani.eon.event_organiser.models.Invitee
 import `in`.bitspilani.eon.event_organiser.ui.adapter.InviteesAdapter
 import `in`.bitspilani.eon.utils.MarginItemDecoration
@@ -19,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_invitee.*
  * A simple [Fragment] subclass.
  *
  */
-class PagerInviteeListFragment : Fragment(),CallbackListener {
+class PagerInviteeListFragment(val detailResponseOrganiser: DetailResponseOrganiser) : Fragment(),CallbackListener {
 
     // tab titles
     private val titles =
@@ -36,7 +37,7 @@ class PagerInviteeListFragment : Fragment(),CallbackListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initView()
+        setRecyclerview(detailResponseOrganiser)
 
         fab.clickWithDebounce {
             showDialog()
@@ -46,45 +47,14 @@ class PagerInviteeListFragment : Fragment(),CallbackListener {
     var inviteesAdapter =  InviteesAdapter(
         listOfEvent
     )
-    private fun initView() {
-        //dummy list
-
-        listOfEvent.add(
-            Invitee( "abcd@gmail.com","200","200","9876543210")
-        )
-        listOfEvent.add(
-            Invitee( "abcd@gmail.com","200","200","9876543210")
-        )
-        listOfEvent.add(
-            Invitee( "abcd@gmail.com","200","200","9876543210")
-        )
-        listOfEvent.add(
-            Invitee( "abcd@gmail.com","200","200","9876543210")
-        )
-        listOfEvent.add(
-            Invitee( "abcd@gmail.com","200","200","9876543210")
-        )
-        listOfEvent.add(
-            Invitee( "abcd@gmail.com","200","200","9876543210")
-        )
-        listOfEvent.add(
-            Invitee( "abcd@gmail.com","200","200","9876543210")
-        )
-        listOfEvent.add(
-            Invitee( "abcd@gmail.com","200","200","9876543210")
-        )
-        listOfEvent.add(
-            Invitee( "abcd@gmail.com","200","200","9876543210")
-        )
+    private fun setRecyclerview(detailResponseOrganiser: DetailResponseOrganiser) {
 
         rv_invitee_list.layoutManager = LinearLayoutManager(activity)
-        rv_invitee_list.addItemDecoration(
-            MarginItemDecoration(
-                resources.getDimension(R.dimen._16sdp).toInt())
-        )
+        rv_invitee_list.addItemDecoration(MarginItemDecoration(
+                resources.getDimension(R.dimen._16sdp).toInt()) )
         inviteesAdapter=
             InviteesAdapter(
-                listOfEvent
+                detailResponseOrganiser.data[0].invitee_list
             )
         rv_invitee_list.adapter = inviteesAdapter
 

@@ -88,8 +88,11 @@
             <action android:id="@+id/action_homeFragment_to_createPasswordFragment"
                 app:destination="@id/createPasswordFragment"/>
             <action
-                android:id="@+id/action_homeFragment_to_eventDetailsFragment"
-                app:destination="@id/eventDetailsFragment" />
+                android:id="@+id/action_homeFragment_to_organiser_eventDetailsFragment"
+                app:destination="@id/eventDetailsOrganiserFragment" />
+
+            <action android:id="@+id/action_homeFragment_to_subscriber_eventDetailsFragment"
+                app:destination="@id/eventDetails"/>
         </fragment>
 
 
@@ -105,16 +108,15 @@
         <action android:id="@+id/action_to_change_password"
             app:destination="@id/changePasswordFragment"/>
 
-        <!--vent details fragme-->
+        <!--event details fragment-->
         <fragment
-            android:id="@+id/eventDetailsFragment"
-            android:name="in.bitspilani.eon.event_organiser.ui.EventDetailsFragment"
-            tools:layout="@layout/fragment_event_detail">
+            android:id="@+id/eventDetailsOrganiserFragment"
+            android:name="in.bitspilani.eon.event_organiser.ui.EventDetailsOrganiserFragment"
+            tools:layout="@layout/fragment_event_detail_organiser">
 
             <action android:id="@+id/action_event_details_to_dashboardFragment"
                 app:popUpTo="@id/homeFragment"
-                app:popUpToInclusive="true"
-                app:destination="@id/home_nav"/>
+                app:popUpToInclusive="false"/>
 
         </fragment>
 
@@ -156,9 +158,7 @@
         </fragment>
 
 
-        <action android:id="@+id/action_homeFragment_to_eventDetailsFragment"
-            app:popUpTo="@id/homeFragment"
-            app:destination="@id/eventDetailsFragment"/>
+
         <fragment
             android:id="@+id/notificationFragment"
             android:name="in.bitspilani.eon.event_organiser.ui.ToolbarNotificationFragment"

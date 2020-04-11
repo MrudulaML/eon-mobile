@@ -4,6 +4,11 @@ package `in`.bitspilani.eon.event_organiser.ui
 
 
 import `in`.bitspilani.eon.R
+import `in`.bitspilani.eon.databinding.FragmentBasicDetailsBinding
+import `in`.bitspilani.eon.databinding.FragmentEventBinding
+import `in`.bitspilani.eon.event_organiser.models.DetailResponseOrganiser
+import `in`.bitspilani.eon.event_subscriber.models.EventDetailResponse
+import `in`.bitspilani.eon.event_subscriber.subscriber.detail.EventDetailsViewModel
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import android.app.Activity
 import android.content.Intent
@@ -13,16 +18,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.fragment_event.*
+import timber.log.Timber
 
 
 /**
  * A simple [Fragment] subclass.
  *
  */
-class PagerEventFragment : Fragment() {
+class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganiser) : Fragment() {
 
+    lateinit var binding: FragmentEventBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -33,17 +43,22 @@ class PagerEventFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_event, container, false)
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_event, container, false)
+        binding.eventDetail=eventDetailResponse
+        return binding.root
 
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupListeners()
+        setUpClickListeners()
     }
 
-    private fun setupListeners() {
+
+
+    private fun setUpClickListeners() {
         share_fb.clickWithDebounce {
 
             invokeShare(activity!!,"","")

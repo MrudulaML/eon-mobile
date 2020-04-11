@@ -1,5 +1,6 @@
 package `in`.bitspilani.eon.api
 
+import `in`.bitspilani.eon.event_organiser.models.DetailResponseOrganiser
 import `in`.bitspilani.eon.event_subscriber.models.EventDetailResponse
 import `in`.bitspilani.eon.event_organiser.models.EventResponse
 import `in`.bitspilani.eon.event_organiser.models.FilterResponse
@@ -54,6 +55,9 @@ interface ApiService {
 
     @GET("/core/event/{id}")
     fun getEventDetails(@Path("id") id: Int): Call<EventDetailResponse>
+
+    @GET("/core/event/{id}")
+    fun getEventDetailsOrganiser(@Path("id") id: Int): Call<DetailResponseOrganiser>
 
     @GET("/core/event-type")
     fun getFilter(): Call<FilterResponse>
