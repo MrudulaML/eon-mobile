@@ -2,6 +2,7 @@ package `in`.bitspilani.eon.event_subscriber.subscriber.detail
 
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.databinding.EventDetailsFragmentBinding
+import `in`.bitspilani.eon.event_subscriber.models.Data
 import `in`.bitspilani.eon.login.ui.ActionbarHost
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import `in`.bitspilani.eon.utils.getViewModelFactory
@@ -19,6 +20,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import kotlinx.android.synthetic.main.event_details_fragment.*
 import kotlinx.android.synthetic.main.layout_seat_booking.*
 
 
@@ -27,9 +29,9 @@ class EventDetails : Fragment() {
     private val eventDetailsViewModel by viewModels<EventDetailsViewModel> { getViewModelFactory() }
 
     var seatCount: MutableLiveData<Int> = MutableLiveData()
-    private lateinit var viewModel: EventDetailsViewModel
     private var actionbarHost: ActionbarHost? = null
 
+    lateinit var data: Data
     lateinit var eventDetailsFragmentBinding: EventDetailsFragmentBinding
 
     override fun onCreateView(
@@ -44,18 +46,13 @@ class EventDetails : Fragment() {
     }
 
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(EventDetailsViewModel::class.java)
-
-    }
-
     var amount = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setDummyCounterLogic()
 
+        eventDetailsFragmentBinding.viewmodel = eventDetailsViewModel
         setObservables()
 
         eventDetailsViewModel.getEventDetails(1)
@@ -64,11 +61,11 @@ class EventDetails : Fragment() {
 
         tv_seat_counter.text = 1.toString()
 
-        seatCount.observe(this, Observer {
+        setClicks()
+    }
 
-            tv_seat_counter.text = count.toString()
-            btn_price.text = "₹ " + (count * amount)
-        })
+
+    fun setClicks() {
 
         btn_price.clickWithDebounce {
 
@@ -83,8 +80,8 @@ class EventDetails : Fragment() {
 
         }
 
-    }
 
+    }
 
     var count = 1
     fun setDummyCounterLogic() {
@@ -119,15 +116,35 @@ class EventDetails : Fragment() {
 
     fun setObservables() {
 
+
+        //event detail observer
         eventDetailsViewModel.eventData.observe(viewLifecycleOwner, Observer {
 
             eventDetailsFragmentBinding.eventData = it.data
             amount = it.data.subscription_fee
-
+            data = it.data
             btn_price.text = "₹ $amount"
+
             showUserMsg(it.message)
 
         })
+
+        //wishlist observer
+
+        eventDetailsViewModel.wishlistData.observe(viewLifecycleOwner, Observer {
+
+            showUserMsg(it)
+
+        })
+
+
+        //counter observer
+        seatCount.observe(this, Observer {
+
+            tv_seat_counter.text = count.toString()
+            btn_price.text = "₹ " + (count * amount)
+        })
+
     }
 
     fun showUserMsg(msg: String) {

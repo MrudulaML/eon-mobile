@@ -9,11 +9,7 @@ import `in`.bitspilani.eon.login.data.ResetPasswordResponse
 import `in`.bitspilani.eon.login.data.*
 import com.google.gson.JsonObject
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface ApiService {
 
@@ -51,10 +47,18 @@ interface ApiService {
     @POST("/authentication/change-password")
     fun changePassword(@Body map: HashMap<String, Any>): Call<CommonResponse>
 
-
     @GET("/core/event/{id}")
     fun getEventDetails(@Path("id") id: Int): Call<EventDetailResponse>
 
     @GET("/core/event-type")
     fun getFilter(): Call<FilterResponse>
+
+    //to wishlist an event
+    @POST("core/wishlist")
+    fun wishlist(@Body map: HashMap<String, Any>): Call<CommonResponse>
+
+    //to remove event from wishlist
+    @DELETE("core/wishlist/{id}")
+    fun deleteWishlist(@Path("id") id: Int?): Call<CommonResponse>
+
 }

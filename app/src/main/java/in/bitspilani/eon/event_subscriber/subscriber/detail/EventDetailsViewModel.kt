@@ -2,6 +2,7 @@ package `in`.bitspilani.eon.event_subscriber.subscriber.detail
 
 import `in`.bitspilani.eon.api.ApiService
 import `in`.bitspilani.eon.event_subscriber.models.EventDetailResponse
+import `in`.bitspilani.eon.login.data.CommonResponse
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import retrofit2.Call
@@ -14,6 +15,9 @@ class EventDetailsViewModel(private val apiService: ApiService) : ViewModel() {
 
     var errorView: MutableLiveData<String> = MutableLiveData()
 
+    var wishlistData: MutableLiveData<String> = MutableLiveData()
+
+    var eventId: Int? = 0
 
     fun getEventDetails(id: Int) {
 
@@ -26,7 +30,9 @@ class EventDetailsViewModel(private val apiService: ApiService) : ViewModel() {
 
                 if (response.isSuccessful) {
 
+
                     eventData.postValue(response.body())
+                    eventId = response.body()?.data?.event_id
                 }
 
             }
@@ -38,5 +44,73 @@ class EventDetailsViewModel(private val apiService: ApiService) : ViewModel() {
         })
     }
 
+    var wishlist: Boolean = true
+
+    fun addOrRemovetoWishlist() {
+
+        if (wishlist) {
+
+            wishlistEvent()
+        } else {
+
+            removeFromWishlist()
+        }
+    }
+
+
+    fun wishlistEvent() {
+
+
+        var hashMap: HashMap<String, Any> = HashMap()
+
+        hashMap.put("event_id", eventId as Any)
+
+        apiService.wishlist(hashMap).enqueue(object : Callback<CommonResponse> {
+
+            override fun onResponse(
+                call: Call<CommonResponse>,
+                response: Response<CommonResponse>
+            ) {
+
+                if (response.isSuccessful) {
+
+                    wishlist = false
+                    wishlistData.postValue(response.body()?.message)
+                }
+
+            }
+
+            override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
+
+                errorView.postValue(t.message)
+            }
+        })
+    }
+
+    fun removeFromWishlist() {
+
+
+        apiService.deleteWishlist(eventId).enqueue(object : Callback<CommonResponse> {
+
+            override fun onResponse(
+                call: Call<CommonResponse>,
+                response: Response<CommonResponse>
+            ) {
+
+                if (response.isSuccessful) {
+
+                    wishlist = true
+                    wishlistData.postValue(response.body()?.message)
+                }
+
+            }
+
+            override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
+
+                errorView.postValue(t.message)
+            }
+        })
+
+    }
 
 }

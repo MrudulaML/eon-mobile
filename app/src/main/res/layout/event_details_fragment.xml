@@ -8,6 +8,10 @@
         <variable
             name="eventData"
             type="in.bitspilani.eon.event_subscriber.models.Data" />
+
+        <variable
+            name="viewmodel"
+            type="in.bitspilani.eon.event_subscriber.subscriber.detail.EventDetailsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -43,14 +47,16 @@
                 android:textSize="18sp" />
 
             <ImageView
+                android:id="@+id/iv_wishlist"
                 android:layout_width="40dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="90dp"
+                android:onClick="@{() -> viewmodel.addOrRemovetoWishlist()}"
                 android:src="@drawable/ic_icon_bookmark_white" />
 
             <ImageView
-                android:id="@+id/iv_wishlist"
+                android:id="@+id/iv_share"
                 android:layout_width="40dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center_vertical"
