@@ -1,5 +1,6 @@
 package `in`.bitspilani.eon.api
 
+import `in`.bitspilani.eon.event_organiser.models.AddInviteeResponse
 import `in`.bitspilani.eon.event_organiser.models.DetailResponseOrganiser
 import `in`.bitspilani.eon.event_subscriber.models.EventDetailResponse
 import `in`.bitspilani.eon.event_organiser.models.EventResponse
@@ -61,4 +62,7 @@ interface ApiService {
 
     @GET("/core/event-type")
     fun getFilter(): Call<FilterResponse>
+
+    @POST("/core/invite")
+    fun addInvitees(@Body body: JsonObject): Call<AddInviteeResponse>
 }
