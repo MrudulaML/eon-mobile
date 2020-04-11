@@ -27,6 +27,7 @@ class ResetPasswordFragment : Fragment() {
 
     lateinit var authViewModel: AuthViewModel
     lateinit var binding: FragmentCreatePasswordBinding
+    private var resetCode: String? = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,13 +56,14 @@ class ResetPasswordFragment : Fragment() {
 
             binding.step = ForgotPasswordSteps.VERIFICATION_CODE
             binding.stepView.go(1, true)
+            //replace with actual response
+            resetCode= it.message
+
 
         })
         authViewModel.resetPasswordLiveData.observe(viewLifecycleOwner, Observer {
 
-           /* authViewModel.forgotPasswordSteps = ForgotPasswordSteps.PASSWORD
-            binding.step = ForgotPasswordSteps.PASSWORD
-            binding.stepView.go(2,true)*/
+
             findNavController().navigate(R.id.action_signInFragment_to_createPasswordFragment)
 
         })
@@ -90,27 +92,26 @@ class ResetPasswordFragment : Fragment() {
 
             ForgotPasswordSteps.VERIFICATION_CODE->{
                 if (Validator.isValidVerificationCode(edit_verification_code)){
-
+                    authViewModel.forgotPasswordSteps = ForgotPasswordSteps.PASSWORD
+                    binding.step = ForgotPasswordSteps.PASSWORD
+                    binding.stepView.go(2,true)
                 }
             }
 
             ForgotPasswordSteps.PASSWORD->{
                 if (Validator.isValidPassword(edt_create_new_password)){
                     if(TextUtils.equals(edt_create_new_password.text,edt_re_enter_password.text)) {
-
-                    /*    BitsEonApp.localStorageHandler?.user_email?.let {
-                        authViewModel.resetPassword(it,edit_verification_code.text.toString(),edt_create_new_password.text.toString())
-                        }*/
-
-                        findNavController().navigate(R.id.action_basicInfo_to_signInFragment,
-                            null,
-                            NavOptions.Builder()
-                                .setPopUpTo(R.id.signInFragment,
-                                    true).build())
+                        resetCode?.let {
+                            authViewModel.resetPassword(it,edit_verification_code.text.toString(),edt_create_new_password.text.toString())
+                        }
                     }else{
                         showUserMsg("Password does not match")
                     }
                 }
+            }
+            ForgotPasswordSteps.SUCCESS -> {
+
+
             }
         }
     }

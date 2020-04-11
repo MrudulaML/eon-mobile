@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/_16sdp"
     android:orientation="vertical"
-    tools:context=".eventOrganiser.ui.UserProfileFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".event_organiser.ui.ToolbarUserProfileFragment">
 
     <!--<ListView
       android:id="@+id/lv_user_profile"
@@ -17,27 +18,25 @@
         android:id="@+id/profile_basic_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_4sdp"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:background="?attr/selectableItemBackground"
         android:clickable="true"
+        android:padding="@dimen/_4sdp"
+        android:layout_marginTop="@dimen/_8sdp"
         android:focusable="true"
-        android:orientation="horizontal"
-        android:padding="@dimen/_4sdp">
-
+        android:background="?attr/selectableItemBackground"
+        android:layout_margin="@dimen/_4sdp"
+        android:orientation="horizontal">
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
-            app:srcCompat="@drawable/ic_user" />
-
+            app:srcCompat="@drawable/ic_user"/>
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="16sp"
             android:layout_marginStart="@dimen/_16sdp"
-            android:text="Basic Details"
             android:textColor="@color/grey"
-            android:textSize="16sp" />
+            android:text="Basic Details"/>
     </LinearLayout>
 
     <!--change password-->
@@ -45,27 +44,25 @@
         android:id="@+id/profile_change_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_4sdp"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
-        android:orientation="horizontal"
-        android:padding="@dimen/_4sdp">
-
+        android:padding="@dimen/_4sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="?attr/selectableItemBackground"
+       android:layout_marginHorizontal="@dimen/_4sdp"
+        android:orientation="horizontal">
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
-            app:srcCompat="@drawable/ic_icon_lock_password_grey" />
-
+            app:srcCompat="@drawable/ic_icon_lock_password_grey"/>
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="16sp"
             android:layout_marginStart="@dimen/_16sdp"
-            android:text="Change Password"
             android:textColor="@color/grey"
-            android:textSize="16sp" />
+            android:text="Change Password"/>
     </LinearLayout>
 
     <!--wishList-->
@@ -73,27 +70,25 @@
         android:id="@+id/profile_wish_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_4sdp"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:background="?attr/selectableItemBackground"
         android:clickable="true"
+        android:padding="@dimen/_4sdp"
+        android:layout_marginTop="@dimen/_8sdp"
         android:focusable="true"
-        android:orientation="horizontal"
-        android:padding="@dimen/_4sdp">
-
+        android:background="?attr/selectableItemBackground"
+        android:layout_marginHorizontal="@dimen/_4sdp"
+        android:orientation="horizontal">
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
-            app:srcCompat="@drawable/ic_icon_wishlist" />
-
+            app:srcCompat="@drawable/ic_icon_wishlist"/>
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="16sp"
             android:layout_marginStart="@dimen/_16sdp"
-            android:text="Wishlist"
             android:textColor="@color/grey"
-            android:textSize="16sp" />
+            android:text="Wishlist"/>
     </LinearLayout>
 
     <!--logout-->
@@ -101,28 +96,26 @@
         android:id="@+id/profile_logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_4sdp"
+        android:clickable="true"
+        android:padding="@dimen/_4sdp"
         android:layout_marginTop="@dimen/_8sdp"
         android:background="?attr/selectableItemBackground"
-        android:clickable="true"
         android:focusable="true"
 
-        android:orientation="horizontal"
-        android:padding="@dimen/_4sdp">
-
+        android:layout_marginHorizontal="@dimen/_4sdp"
+        android:orientation="horizontal">
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
-            app:srcCompat="@drawable/ic_icon_logout" />
-
+            app:srcCompat="@drawable/ic_icon_logout"/>
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="16sp"
             android:layout_marginStart="@dimen/_16sdp"
-            android:text="Logout"
             android:textColor="@color/grey"
-            android:textSize="16sp" />
+            android:text="Logout"/>
     </LinearLayout>
 
 </LinearLayout>

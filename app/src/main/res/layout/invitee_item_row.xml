@@ -8,7 +8,7 @@
 
         <variable
             name="invitee"
-            type="in.bitspilani.eon.eventOrganiser.data.Invitee" />
+            type="in.bitspilani.eon.event_organiser.models.Invitee" />
 
     </data>
 

@@ -82,7 +82,7 @@
         app:startDestination="@id/homeFragment">
         <fragment
             android:id="@+id/homeFragment"
-            android:name="in.bitspilani.eon.eventOrganiser.ui.HomeFragment"
+            android:name="in.bitspilani.eon.event_organiser.ui.HomeFragment"
             tools:layout="@layout/fragment_dashboard" >
 
             <action android:id="@+id/action_homeFragment_to_createPasswordFragment"
@@ -108,7 +108,7 @@
         <!--vent details fragme-->
         <fragment
             android:id="@+id/eventDetailsFragment"
-            android:name="in.bitspilani.eon.eventOrganiser.ui.EventDetailsFragment"
+            android:name="in.bitspilani.eon.event_organiser.ui.EventDetailsFragment"
             tools:layout="@layout/fragment_event_detail">
 
             <action android:id="@+id/action_event_details_to_dashboardFragment"
@@ -121,7 +121,7 @@
         <fragment
             android:id="@+id/paymentFrag"
             tools:layout="@layout/payment_fragment"
-            android:name="in.bitspilani.eon.event.subscriber.payments.PaymentFrag" >
+            android:name="in.bitspilani.eon.event_subscriber.subscriber.payments.PaymentFrag" >
             <action android:id="@+id/action_details_to_payment"
                 app:popUpTo="@id/eventDetails"
                 app:popUpToInclusive="true"
@@ -137,7 +137,7 @@
 
         <fragment
             android:id="@+id/eventSummaryFrag"
-            android:name="in.bitspilani.eon.event.subscriber.summary.EventSummaryFrag" >
+            android:name="in.bitspilani.eon.event_subscriber.subscriber.summary.EventSummaryFrag" >
             <action android:id="@+id/action_summery_to_payment"
                 app:popUpTo="@id/eventDetails"
                 app:popUpToInclusive="true"
@@ -145,7 +145,7 @@
         </fragment>
         <fragment
             android:id="@+id/eventDetails"
-            android:name="in.bitspilani.eon.event.subscriber.detail.EventDetails"
+            android:name="in.bitspilani.eon.event_subscriber.subscriber.detail.EventDetails"
             android:label="fragment_event_details"
             tools:layout="@layout/event_details_fragment">
             <action
@@ -161,7 +161,7 @@
             app:destination="@id/eventDetailsFragment"/>
         <fragment
             android:id="@+id/notificationFragment"
-            android:name="in.bitspilani.eon.eventOrganiser.ui.NotificationFragment"
+            android:name="in.bitspilani.eon.event_organiser.ui.ToolbarNotificationFragment"
             tools:layout="@layout/fragment_notification" />
         <action android:id="@+id/toolbar_to_notification"
             app:destination="@id/notificationFragment"/>
@@ -169,7 +169,7 @@
         <!--profile fragment-->
         <fragment
             android:id="@+id/userProfileFragment"
-            android:name="in.bitspilani.eon.eventOrganiser.ui.UserProfileFragment"
+            android:name="in.bitspilani.eon.event_organiser.ui.ToolbarUserProfileFragment"
             tools:layout="@layout/fragment_user_profile" >
             <!-- action to popup back-stack-->
             <action
@@ -181,7 +181,7 @@
         </fragment>
         <fragment
             android:id="@+id/eventFilterFragment"
-            android:name="in.bitspilani.eon.eventOrganiser.ui.EventFilterFragment"
+            android:name="in.bitspilani.eon.event_organiser.ui.FilterEventFragment"
             android:label="EventFilterFragment" >
 
         <action android:id="@+id/filter_to_dashboard"
