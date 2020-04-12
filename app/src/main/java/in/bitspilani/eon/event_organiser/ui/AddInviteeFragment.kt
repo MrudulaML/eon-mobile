@@ -2,7 +2,6 @@ package `in`.bitspilani.eon.event_organiser.ui
 
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.event_organiser.viewmodel.AddInviteeViewModel
-import `in`.bitspilani.eon.event_organiser.viewmodel.EventDetailOrganiserViewModel
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import `in`.bitspilani.eon.utils.getViewModelFactory
 import android.os.Bundle
@@ -15,7 +14,10 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import com.google.gson.JsonArray
+import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.fragment_add_invitee.*
+import timber.log.Timber
 
 
 /**
@@ -50,6 +52,7 @@ class AddInviteeFragment() : DialogFragment() {
         addInviteeViewModel.addInviteeLiveData.observe(viewLifecycleOwner, Observer {
 
             dismiss()
+
             Toast.makeText(activity, "Invitees added successfully.", Toast.LENGTH_LONG).show()
         })
 
@@ -63,7 +66,22 @@ class AddInviteeFragment() : DialogFragment() {
                 && !TextUtils.isEmpty(edt_discount.text))
             {
 
-                addInviteeViewModel.adInvitee(3,25, listOf("ashu@gmail.com","aa@gmail.com"))
+                //TODO add actual mapping with emails
+                val listOfEmail = ArrayList<String>()
+                listOfEmail.add("ashutosh@gmail.com")
+                listOfEmail.add("milind@gmail.com")
+                val body = JsonObject()
+                body.addProperty("event",3)
+                body.addProperty("discount_percentage",25)
+                val array =JsonArray()
+                for(each in listOfEmail){
+
+                    array.add(each)
+                }
+
+                body.add("invitee_list",array)
+                Timber.e("list$body")
+                addInviteeViewModel.adInvitee(3,25, array )
 
             }else{
 
