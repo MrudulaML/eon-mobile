@@ -1,6 +1,7 @@
 package `in`.bitspilani.eon.event_organiser.ui
 
 
+import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.event_organiser.models.EventList
 import `in`.bitspilani.eon.event_organiser.ui.adapter.EventAdapter
@@ -12,9 +13,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.appcompat.widget.SearchView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavOptions
@@ -56,6 +58,7 @@ class HomeFragment : Fragment() {
         setUpSearch()
     }
 
+
     private fun setUpSearch() {
         event_search_view.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -82,18 +85,22 @@ class HomeFragment : Fragment() {
         eventDashboardViewModel.eventDetailsObservables.observe(viewLifecycleOwner, Observer {
             setEventRecyclerView(it)
         })
-
+        var bundle =
         eventDashboardViewModel.eventClickObservable.observe(viewLifecycleOwner, Observer {
             if (ModelPreferencesManager.getInt(Constants.USER_ROLE)==1)
-                findNavController().navigate(R.id.action_homeFragment_to_eventDetailsFragment,
-                    null,
+                findNavController().navigate(R.id.action_homeFragment_to_organiser_eventDetailsFragment,
+                    bundleOf("id" to it),
                     NavOptions.Builder()
-
                         .setPopUpTo(R.id.homeFragment,
-
                             false).build())
             else
+                //TODO change this to builder pattern
                 findNavController().navigate(R.id.eventDetails)
+        })
+
+        eventDashboardViewModel.progressLiveData.observe(viewLifecycleOwner, Observer {
+
+            (activity as BitsEonActivity).showProgress(it)
         })
 
     }

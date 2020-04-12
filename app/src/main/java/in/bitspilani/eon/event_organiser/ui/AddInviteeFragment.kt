@@ -1,7 +1,9 @@
 package `in`.bitspilani.eon.event_organiser.ui
 
 import `in`.bitspilani.eon.R
+import `in`.bitspilani.eon.event_organiser.viewmodel.AddInviteeViewModel
 import `in`.bitspilani.eon.utils.clickWithDebounce
+import `in`.bitspilani.eon.utils.getViewModelFactory
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -10,14 +12,22 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import com.google.gson.JsonArray
+import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.fragment_add_invitee.*
+import timber.log.Timber
 
 
 /**
  * A simple [Fragment] subclass.
  *
  */
-class AddInviteeFragment(private val callbackListener: CallbackListener) : DialogFragment() {
+class AddInviteeFragment() : DialogFragment() {
+
+    private val addInviteeViewModel by viewModels<AddInviteeViewModel> { getViewModelFactory() }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,34 +41,57 @@ class AddInviteeFragment(private val callbackListener: CallbackListener) : Dialo
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-   /*     button.setOnClickListener {
-            //send back data to PARENT fragment using callback
-            callbackListener.onDataReceived(editText.text.toString())
-            // Now dismiss the fragment
-            dismiss()*/
+
+
+        setUpClickListeners()
+        setObservables()
+    }
+
+    private fun setObservables() {
+
+        addInviteeViewModel.addInviteeLiveData.observe(viewLifecycleOwner, Observer {
+
+            dismiss()
+
+            Toast.makeText(activity, "Invitees added successfully.", Toast.LENGTH_LONG).show()
+        })
+
+
+    }
+
+    private fun setUpClickListeners() {
         btn_close.clickWithDebounce { dismiss() }
         btn_invitee_cancel.clickWithDebounce {    dismiss() }
         btn_invitee_confirm.clickWithDebounce {
-
             if(!TextUtils.isEmpty(edt_updated_fees.text) && !TextUtils.isEmpty(edt_email_addresses.text)
                 && !TextUtils.isEmpty(edt_discount.text))
             {
 
-                dismiss()
-                callbackListener.onDataReceived("abc")
+                //TODO add actual mapping with emails
+                val listOfEmail = ArrayList<String>()
+                listOfEmail.add("ashutosh@gmail.com")
+                listOfEmail.add("milind@gmail.com")
+                val body = JsonObject()
+                body.addProperty("event",3)
+                body.addProperty("discount_percentage",25)
+                val array =JsonArray()
+                for(each in listOfEmail){
+
+                    array.add(each)
+                }
+
+                body.add("invitee_list",array)
+                Timber.e("list$body")
+                addInviteeViewModel.adInvitee(3,25, array )
+
             }else{
 
                 Toast.makeText(activity, "Please enter valid details", Toast.LENGTH_LONG).show()
 
             }
-
-
-
         }
 
-
-
-        }
+    }
 
 
 }

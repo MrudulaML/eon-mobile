@@ -39,12 +39,16 @@
             android:id="@+id/event_search_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="2dp"
+            android:layout_marginHorizontal="@dimen/_2sdp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="3dp"
             android:background="@color/white"
+            android:paddingStart="@dimen/_16sdp"
             app:iconifiedByDefault="true"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_filter"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btn_filter"
-            app:layout_constraintTop_toTopOf="@+id/btn_filter" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:queryHint="Search here for event name / location" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

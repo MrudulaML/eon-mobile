@@ -122,4 +122,7 @@ class BitsEonActivity : AppCompatActivity(), ActionbarHost {
 
     }
 
+    fun showProgress(show: Boolean) = progress.goneUnless(visible = show)
+
+
 }

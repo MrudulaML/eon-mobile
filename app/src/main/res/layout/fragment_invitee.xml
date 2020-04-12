@@ -6,11 +6,23 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/invitee_search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="2dp"
+        app:queryHint="search by email/contact"
+        android:layout_margin="@dimen/_2sdp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_filter"
+        app:layout_constraintEnd_toStartOf="@+id/btn_filter"
+        app:layout_constraintTop_toTopOf="@+id/btn_filter" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_invitee_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/invitee_search_view"
         tools:listitem="@layout/invitee_item_row" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

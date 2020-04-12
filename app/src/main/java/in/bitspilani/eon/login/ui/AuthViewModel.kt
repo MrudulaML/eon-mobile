@@ -37,7 +37,7 @@ enum class USER_TYPE(val desc: String) {
 
 class AuthViewModel : ViewModel() {
 
-    internal val progress: SingleLiveEvent<Boolean> = SingleLiveEvent()
+    val progress: SingleLiveEvent<Boolean> = SingleLiveEvent()
 
     val errorView: SingleLiveEvent<String> = SingleLiveEvent()
     var registerCurrentStep: OrganiserDetailsSteps =

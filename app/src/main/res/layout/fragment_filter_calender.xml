@@ -7,14 +7,31 @@
     android:padding="@dimen/_24sdp"
     android:layout_height="match_parent">
 
-    <CalendarView
-        android:id="@+id/calender_view_filter"
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edt_start_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:hint="Select Start date"
+        android:layout_centerHorizontal="true"
+        android:focusable="false"
+        android:background="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edt_end_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Select End date"
+        android:layout_centerHorizontal="true"
+        android:focusable="false"
+        android:background="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="@+id/edt_start_date"
+        app:layout_constraintStart_toStartOf="@+id/edt_start_date"
+        app:layout_constraintTop_toBottomOf="@+id/edt_start_date" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_filter"
