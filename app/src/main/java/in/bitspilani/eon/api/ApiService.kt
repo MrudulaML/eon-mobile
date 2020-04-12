@@ -54,11 +54,14 @@ interface ApiService {
     fun getFilter(): Call<FilterResponse>
 
     //to wishlist an event
-    @POST("core/wishlist")
+    @POST("core/wishlist/")
     fun wishlist(@Body map: HashMap<String, Any>): Call<CommonResponse>
 
     //to remove event from wishlist
-    @DELETE("core/wishlist/{id}")
+    @DELETE("core/wishlist/{id}/")
     fun deleteWishlist(@Path("id") id: Int?): Call<CommonResponse>
 
+    //to send email
+    @POST("core/share-with-friend/")
+    fun sendEmail(@Body map: HashMap<String, Any>): Call<CommonResponse>
 }

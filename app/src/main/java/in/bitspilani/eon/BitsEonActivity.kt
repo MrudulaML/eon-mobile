@@ -26,23 +26,22 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
-class BitsEonActivity : AppCompatActivity(),ActionbarHost {
+class BitsEonActivity : AppCompatActivity(), ActionbarHost {
     lateinit var navController: NavController
-    lateinit var bottomNavigation : BottomNavigationView
-
+    lateinit var bottomNavigation: BottomNavigationView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bits_eon)
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
-        bottomNavigation= findViewById(R.id.bottom_navigation)
+        bottomNavigation = findViewById(R.id.bottom_navigation)
         setSupportActionBar(toolbar)
         supportActionBar!!.hide()
-        bottom_navigation.visibility=View.GONE
+        bottom_navigation.visibility = View.GONE
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
         checkIfAuthenticated()
-        NavigationUI.setupWithNavController(bottomNavigation,navController)
+        NavigationUI.setupWithNavController(bottomNavigation, navController)
 
     }
 
@@ -53,28 +52,36 @@ class BitsEonActivity : AppCompatActivity(),ActionbarHost {
     }
 
 
-    private fun checkIfAuthenticated(){
+    private fun checkIfAuthenticated() {
         lifecycleScope.launch {
 
-           val userData = ModelPreferencesManager.get<Data>(Constants.CURRENT_USER)
+            val userData = ModelPreferencesManager.get<Data>(Constants.CURRENT_USER)
 
-            if (userData?.access.isNullOrEmpty()){
+            if (userData?.access.isNullOrEmpty()) {
                 delay(400)
-                navController.navigate(R.id.action_splashScreen_to_signInFragment,
+                navController.navigate(
+                    R.id.action_splashScreen_to_signInFragment,
                     null,
                     NavOptions.Builder()
-                        .setPopUpTo(R.id.splashScreen,
-                            true).build())
+                        .setPopUpTo(
+                            R.id.splashScreen,
+                            true
+                        ).build()
+                )
 
 
-            }else{
+            } else {
 
-                delay(400)
-                navController.navigate(R.id.action_splashScreen_to_HomeFragment,
+                delay(2400)
+                navController.navigate(
+                    R.id.action_splashScreen_to_HomeFragment,
                     null,
                     NavOptions.Builder()
-                        .setPopUpTo(R.id.app_nav,
-                            true).build())
+                        .setPopUpTo(
+                            R.id.app_nav,
+                            true
+                        ).build()
+                )
 
             }
         }
@@ -89,7 +96,7 @@ class BitsEonActivity : AppCompatActivity(),ActionbarHost {
 
                 true
             }
-            R.id.notificationFragment ->{
+            R.id.notificationFragment -> {
                 navController.navigate(R.id.notificationFragment)
 
                 return true
@@ -99,7 +106,7 @@ class BitsEonActivity : AppCompatActivity(),ActionbarHost {
         }
     }
 
-    override fun showToolbar(showToolbar: Boolean, title: String?,showBottomNav : Boolean) {
+    override fun showToolbar(showToolbar: Boolean, title: String?, showBottomNav: Boolean) {
         if (supportActionBar != null) {
             if (showToolbar) {
                 supportActionBar!!.show()

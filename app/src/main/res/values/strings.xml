@@ -51,4 +51,6 @@
     <string name="share_with_social_media">Share with Social Media</string>
     <string name="view_feedback">View Feedback</string>
 
+    <string name="share_event_text">Share this event with your friend</string>
+
 </resources>

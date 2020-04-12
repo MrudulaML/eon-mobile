@@ -17,6 +17,8 @@ class EventDetailsViewModel(private val apiService: ApiService) : ViewModel() {
 
     var wishlistData: MutableLiveData<String> = MutableLiveData()
 
+    var emailApiData: MutableLiveData<String> = MutableLiveData()
+
     var eventId: Int? = 0
 
     fun getEventDetails(id: Int) {
@@ -89,7 +91,6 @@ class EventDetailsViewModel(private val apiService: ApiService) : ViewModel() {
 
     fun removeFromWishlist() {
 
-
         apiService.deleteWishlist(eventId).enqueue(object : Callback<CommonResponse> {
 
             override fun onResponse(
@@ -101,6 +102,9 @@ class EventDetailsViewModel(private val apiService: ApiService) : ViewModel() {
 
                     wishlist = true
                     wishlistData.postValue(response.body()?.message)
+                } else {
+
+                    errorView.postValue(response.message())
                 }
 
             }
@@ -111,6 +115,33 @@ class EventDetailsViewModel(private val apiService: ApiService) : ViewModel() {
             }
         })
 
+    }
+
+
+    fun sendEmail(map: HashMap<String, Any>) {
+
+        apiService.sendEmail(map).enqueue(object : Callback<CommonResponse> {
+
+            override fun onResponse(
+                call: Call<CommonResponse>,
+                response: Response<CommonResponse>
+            ) {
+
+                if (response.isSuccessful) {
+
+                    emailApiData.postValue(response.body()?.message)
+                } else {
+
+                    errorView.postValue(response.message())
+                }
+
+            }
+
+            override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
+
+                errorView.postValue(t.message)
+            }
+        })
     }
 
 }

@@ -4,8 +4,10 @@ import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.databinding.EventDetailsFragmentBinding
 import `in`.bitspilani.eon.event_subscriber.models.Data
 import `in`.bitspilani.eon.login.ui.ActionbarHost
+import `in`.bitspilani.eon.utils.EmailValidator
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import `in`.bitspilani.eon.utils.getViewModelFactory
+import android.app.AlertDialog
 import android.content.Context
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -19,8 +21,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.event_details_fragment.*
+import kotlinx.android.synthetic.main.layout_dialog_payment_success.view.*
+import kotlinx.android.synthetic.main.layout_email_share_to_friend.view.*
 import kotlinx.android.synthetic.main.layout_seat_booking.*
 
 
@@ -80,6 +85,10 @@ class EventDetails : Fragment() {
 
         }
 
+        iv_share.clickWithDebounce {
+
+            showEmailDialog()
+        }
 
     }
 
@@ -145,10 +154,65 @@ class EventDetails : Fragment() {
             btn_price.text = "₹ " + (count * amount)
         })
 
+        //send email observer
+
+        eventDetailsViewModel.emailApiData.observe(viewLifecycleOwner, Observer {
+
+            showUserMsg(it)
+            if (mAlertDialog != null) {
+
+                mAlertDialog.dismiss()
+            }
+
+        })
+
+        eventDetailsViewModel.errorView.observe(viewLifecycleOwner, Observer {
+
+            showUserMsg(it)
+            if (mAlertDialog != null) {
+                mAlertDialog.dismiss()
+
+            }
+
+        })
     }
 
     fun showUserMsg(msg: String) {
         Toast.makeText(activity, msg, Toast.LENGTH_LONG).show()
     }
 
+    lateinit var mAlertDialog: AlertDialog
+
+    fun showEmailDialog() {
+
+        //Inflate the dialog with custom view
+        val mDialogView =
+            LayoutInflater.from(activity).inflate(R.layout.layout_email_share_to_friend, null)
+        //AlertDialogBuilder
+        val mBuilder = AlertDialog.Builder(activity)
+            .setView(mDialogView)
+        //show dialog
+        mAlertDialog = mBuilder.show()
+
+        mDialogView.btn_share.clickWithDebounce {
+
+
+            if (mDialogView.et_email_id.text.isEmpty())
+                showUserMsg("Please enter an email id")
+            if (!EmailValidator.isEmailValid(mDialogView.et_email_id.text.toString()))
+                showUserMsg("Please enter a valid email id")
+            else if (mDialogView.et_message.text.isEmpty())
+                showUserMsg("Please enter some message")
+            else {
+
+                var hashMap: HashMap<String, Any> = HashMap()
+                hashMap.put("email_id", mDialogView.et_email_id.text)
+                hashMap.put("message", mDialogView.et_message.text)
+
+                eventDetailsViewModel.sendEmail(hashMap)
+            }
+
+        }
+
+    }
 }

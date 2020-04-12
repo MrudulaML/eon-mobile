@@ -8,6 +8,7 @@ import `in`.bitspilani.eon.event_organiser.models.EventResponse
 
 import `in`.bitspilani.eon.utils.ApiCallback
 import `in`.bitspilani.eon.utils.SingleLiveEvent
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import timber.log.Timber
 
@@ -27,10 +28,11 @@ class EventDashboardViewModel : ViewModel() {
         fromFilter: Boolean = false
     ) {
 
-        restClient.authClient.create(ApiService::class.java).getEvents(eventType, eventLocation, startDate, endDate)
+        restClient.authClient.create(ApiService::class.java)
+            .getEvents(eventType, eventLocation, startDate, endDate)
             .enqueue(object : ApiCallback<EventResponse>() {
                 override fun onSuccessResponse(responseBody: EventResponse) {
-                    val eventList = EventList(fromFilter,responseBody.data)
+                    val eventList = EventList(fromFilter, responseBody.data)
                     eventDetailsObservables.postValue(eventList)
 
                 }
@@ -38,11 +40,12 @@ class EventDashboardViewModel : ViewModel() {
                 override fun onApiError(errorType: ApiError, error: String?) {
                     /*progress.value=false
                     errorView.postValue(error)*/
+
+                    Log.e("xoxo", "dashboard error: " + error)
                 }
             })
 
     }
-
 
 
     fun onEventClick(eventId: Int) {
