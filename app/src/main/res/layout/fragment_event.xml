@@ -20,12 +20,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <androidx.appcompat.widget.AppCompatImageView
+    <ImageView
         android:id="@+id/appCompatImageView2"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/_200dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_4th_image"
+        app:imageUrl="@{`https://via.placeholder.com/100`}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -45,18 +45,46 @@
         app:layout_constraintTop_toBottomOf="@+id/appCompatImageView2" />
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/appCompatTextView15"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        android:layout_centerHorizontal="true"
+        android:drawableLeft="@android:drawable/ic_dialog_map"
+        android:text="@{eventDetail.data.get(0).location}"
+        android:textAlignment="center"
+        android:textColor="@color/grey"
+        app:layout_constraintStart_toStartOf="@+id/appCompatTextView4"
+        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView16"
+        tools:text="Location" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/appCompatTextView16"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        android:autoLink="web"
+        android:text="@{eventDetail.data.get(0).external_links}"
+        android:textAlignment="center"
+        android:textColor="@color/grey"
+        app:layout_constraintStart_toStartOf="@+id/appCompatTextView4"
+        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView4"
+        tools:text="Link" />
+
+    <!-- type of event-->
+
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/appCompatTextView5"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:padding="@dimen/_16dp"
-        tools:text="Description"
         android:text="@{eventDetail.data.get(0).description}"
         android:textColor="@color/grey"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.052"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView4" />
-
-    <!-- type of event-->
+        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView15"
+        tools:text="Description" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/appCompatTextView7"
@@ -102,7 +130,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         tools:text="1000"
-        android:text="@{eventDetail.data.get(0).date}"
+        android:text="@{Integer.toString(eventDetail.data.get(0).no_of_tickets)}"
         android:textColor="@color/grey"
         android:textSize="15sp"
         android:textStyle="bold"
@@ -154,7 +182,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         tools:text="2000"
-        android:text="@{eventDetail.data.get(0).date}"
+        android:text="@{Integer.toString(eventDetail.data.get(0).subscription_fee)}"
         android:textColor="@color/grey"
         android:textSize="15sp"
         android:textStyle="bold"
@@ -198,7 +226,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_8sdp"
                     tools:text="0"
-                    android:text="0"
+                    android:text="@{Integer.toString(eventDetail.data.get(0).sold_tickets)}"
+
                     android:textColor="@color/colorPrimary"
                     android:textSize="16sp"
                     android:textStyle="bold" />

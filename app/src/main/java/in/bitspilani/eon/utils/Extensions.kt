@@ -1,16 +1,15 @@
 package `in`.bitspilani.eon.utils
 
+
 import android.content.Context
 import android.os.SystemClock
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
-import androidx.annotation.StringRes
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
-import com.google.android.material.snackbar.Snackbar
+import com.squareup.picasso.Picasso
 
 
 @BindingAdapter("app:`in`.bitspilani.eon.utils.goneUnless")
@@ -28,6 +27,7 @@ var EditText.value
     set(value) {
         this.setText(value)
     }
+
 
 @BindingAdapter("app:`in`.bitspilani.eon.utils.visibleUnless")
 fun View.visibleUnless(hide: Boolean) {
@@ -64,6 +64,11 @@ fun ImageView.src(resource: Int) {
 @BindingAdapter("`in`.bitspilani.eon.utils.isSelected")
 fun AppCompatImageView.isSelected(isSelected: Boolean) {
     setSelected(isSelected)
+}
+
+@BindingAdapter("imageUrl")
+fun loadImage(view: ImageView, imageUrl: String) {
+    Picasso.get().load(imageUrl).into(view)
 }
 
 fun View.clickWithDebounce(debounceTime: Long = 1000L, action: () -> Unit) {
