@@ -2,6 +2,7 @@ package `in`.bitspilani.eon.event_organiser.ui
 
 
 
+import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.event_organiser.ui.adapter.EventDetailPagerAdapter
 import `in`.bitspilani.eon.event_organiser.viewmodel.EventDetailOrganiserViewModel
@@ -70,6 +71,10 @@ class EventDetailsOrganiserFragment : Fragment(),InviteeCallbackListener,EventDe
                 //To get the first name of doppelganger celebrities
                 tab.text = titles[position]
             }.attach()
+        })
+        eventDetailOrganiserViewModel.progressLiveData.observe(viewLifecycleOwner, Observer {
+
+            (activity as BitsEonActivity).showProgress(it)
         })
     }
 

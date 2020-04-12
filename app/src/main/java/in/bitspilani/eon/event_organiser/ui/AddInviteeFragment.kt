@@ -56,6 +56,7 @@ class AddInviteeFragment() : DialogFragment() {
             Toast.makeText(activity, "Invitees added successfully.", Toast.LENGTH_LONG).show()
         })
 
+
     }
 
     private fun setUpClickListeners() {

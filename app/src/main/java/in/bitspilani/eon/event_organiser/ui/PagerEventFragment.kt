@@ -1,6 +1,7 @@
 package `in`.bitspilani.eon.event_organiser.ui
 
 
+import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.databinding.FragmentBasicDetailsBinding
 import `in`.bitspilani.eon.databinding.FragmentEventBinding
@@ -66,6 +67,10 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
         eventDetailOrganiserViewModel.notifyLiveData.observe(viewLifecycleOwner, Observer {
 
             Timber.e("notify $it")
+        })
+        eventDetailOrganiserViewModel.progressLiveData.observe(viewLifecycleOwner, Observer {
+
+            (activity as BitsEonActivity).showProgress(it)
         })
     }
 

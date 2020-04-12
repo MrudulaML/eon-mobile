@@ -1,5 +1,6 @@
 package `in`.bitspilani.eon.event_organiser.ui
 
+import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.event_organiser.models.EventType
 import `in`.bitspilani.eon.event_organiser.viewmodel.EventFilterViewModel
@@ -50,7 +51,7 @@ class FilterEventFragment(
 
         btn_filter.clickWithDebounce {
 
-            filterCallbackListener.onApplyFilter(eventType = filterType,fromFilter = true)
+            filterCallbackListener.onApplyFilter(eventType = filterType, fromFilter = true)
         }
 
 
@@ -58,8 +59,13 @@ class FilterEventFragment(
 
     private fun setObservables() {
         eventFilterViewModel.eventFilterObservable.observe(viewLifecycleOwner, Observer {
-          populateFilters(it)
+            populateFilters(it)
         })
+        eventFilterViewModel.progressLiveData.observe(viewLifecycleOwner, Observer {
+
+            (activity as BitsEonActivity).showProgress(it)
+        })
+
     }
 
     private fun populateFilters(eventTypeList: List<EventType>) {
@@ -71,8 +77,8 @@ class FilterEventFragment(
             radio_group_filter.addView(rbn)
             rbn.setOnClickListener {
 
-                filterType=it.id
-                Toast.makeText(activity, ""+filterType, Toast.LENGTH_SHORT)
+                filterType = it.id
+                Toast.makeText(activity, "" + filterType, Toast.LENGTH_SHORT)
                     .show()
             }
         }
@@ -83,8 +89,6 @@ class FilterEventFragment(
         super.onDestroy()
         Timber.e("Filter event fragment onDestroy")
     }
-
-
 
 
 }
