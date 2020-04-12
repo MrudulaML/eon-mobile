@@ -5,6 +5,7 @@ import `in`.bitspilani.eon.event_organiser.viewmodel.AddInviteeViewModel
 import `in`.bitspilani.eon.event_organiser.viewmodel.EventDetailOrganiserViewModel
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import `in`.bitspilani.eon.utils.getViewModelFactory
+import `in`.bitspilani.eon.utils.hideKeyboard
 import android.os.Bundle
 import android.os.Message
 import android.text.TextUtils
@@ -54,8 +55,10 @@ class NotifySubscriberFragment(var notifySubscriberCallback: NotifySubscriberCal
     private fun setUpClickListeners() {
         btn_close.clickWithDebounce { dismiss() }
         btn_notify_confirm.clickWithDebounce {
-
-            notifySubscriberCallback.onUpdate("Abcd")
+            edt_notify_message.text?.let {
+                notifySubscriberCallback.onUpdate(edt_notify_message.text.toString())
+            }
+            hideKeyboard(activity)
             dismiss()
         }
 

@@ -67,6 +67,7 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
         eventDetailOrganiserViewModel.notifyLiveData.observe(viewLifecycleOwner, Observer {
 
             Timber.e("notify $it")
+            showUserMsg("Notified successfully")
         })
         eventDetailOrganiserViewModel.progressLiveData.observe(viewLifecycleOwner, Observer {
 
@@ -89,7 +90,7 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
         }
         send_reminder.clickWithDebounce {
             onReminder("")
-            showUserMsg("Send updates successfully")
+
         }
     }
 
@@ -103,7 +104,7 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
     override fun onUpdate(message: String) {
         Timber.e("on notify confirm")
         eventDetailOrganiserViewModel.notifySubscriber(
-            type = "update",
+            type = "updates",
             event_id =  eventDetailResponse.data[0].id,
             message = message
         )

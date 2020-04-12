@@ -19,9 +19,7 @@ class EventDetailOrganiserViewModel(private val apiService: ApiService) : BaseVi
 
     var eventData: SingleLiveEvent<DetailResponseOrganiser> = SingleLiveEvent()
 
-    var notifyLiveData: SingleLiveEvent<JsonObject> = SingleLiveEvent()
-
-
+    var notifyLiveData: SingleLiveEvent<String> = SingleLiveEvent()
 
     var errorView: SingleLiveEvent<String> = SingleLiveEvent()
 
@@ -51,8 +49,8 @@ class EventDetailOrganiserViewModel(private val apiService: ApiService) : BaseVi
         body.addProperty("message",message)
         body.addProperty("type",type)
         apiService.notifySubscriber(body)
-            .enqueue(object : ApiCallback<JsonObject>() {
-                override fun onSuccessResponse(responseBody: JsonObject) {
+            .enqueue(object : ApiCallback<String>() {
+                override fun onSuccessResponse(responseBody: String) {
                     notifyLiveData.postValue(responseBody)
                     showProgress(false)
                 }

@@ -67,5 +67,5 @@ interface ApiService {
     fun addInvitees(@Body body: JsonObject): Call<AddInviteeResponse>
 
     @POST("/core/notify-subscriber")
-    fun notifySubscriber(@Body body: JsonObject): Call<JsonObject>
+    fun notifySubscriber(@Body body: JsonObject): Call<String>
 }
