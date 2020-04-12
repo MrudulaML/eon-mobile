@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
+<data>
+
+    <import type="android.view.View" />
+
+    <variable
+        name="eventDetail"
+        type="in.bitspilani.eon.event_organiser.models.DetailResponseOrganiser" />
+
+</data>
+<ScrollView
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -12,12 +20,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <androidx.appcompat.widget.AppCompatImageView
+    <ImageView
         android:id="@+id/appCompatImageView2"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/_200dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_4th_image"
+        app:imageUrl="@{`https://via.placeholder.com/100`}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,24 +37,54 @@
         android:layout_marginStart="16dp"
         android:textSize="25sp"
         android:layout_marginTop="16dp"
-        android:text="Technical Corridor"
+        android:text="@{eventDetail.data.get(0).name}"
+        tools:text="Name"
         android:textColor="@color/navy"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appCompatImageView2" />
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/appCompatTextView15"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        android:layout_centerHorizontal="true"
+        android:drawableLeft="@android:drawable/ic_dialog_map"
+        android:text="@{eventDetail.data.get(0).location}"
+        android:textAlignment="center"
+        android:textColor="@color/grey"
+        app:layout_constraintStart_toStartOf="@+id/appCompatTextView4"
+        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView16"
+        tools:text="Location" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/appCompatTextView16"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="4dp"
+        android:autoLink="web"
+        android:text="@{eventDetail.data.get(0).external_links}"
+        android:textAlignment="center"
+        android:textColor="@color/grey"
+        app:layout_constraintStart_toStartOf="@+id/appCompatTextView4"
+        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView4"
+        tools:text="Link" />
+
+    <!-- type of event-->
+
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/appCompatTextView5"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:padding="@dimen/_16dp"
-        android:text="The technical corridor network of nemesis allow the crew to repair The technical corridor network of nemesis allow the crew to repair The technical corridor network of nemesis allow the crew to repair The technical corridor network of nemesis allow the crew to repair The technical corridor network of nemesis allow the crew to repair"
+        android:text="@{eventDetail.data.get(0).description}"
         android:textColor="@color/grey"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.052"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView4" />
-
-    <!-- type of event-->
+        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView15"
+        tools:text="Description" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/appCompatTextView7"
@@ -91,7 +129,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="1000"
+        tools:text="1000"
+        android:text="@{Integer.toString(eventDetail.data.get(0).no_of_tickets)}"
         android:textColor="@color/grey"
         android:textSize="15sp"
         android:textStyle="bold"
@@ -115,7 +154,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="9:00 PM 12 Mar'20"
+        tools:text="9:00 PM 12 Mar'20"
+        android:text="@{eventDetail.data.get(0).date}"
         android:textColor="@color/grey"
         android:textSize="15sp"
         android:textStyle="bold"
@@ -141,7 +181,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="2000"
+        tools:text="2000"
+        android:text="@{Integer.toString(eventDetail.data.get(0).subscription_fee)}"
         android:textColor="@color/grey"
         android:textSize="15sp"
         android:textStyle="bold"
@@ -184,7 +225,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_8sdp"
-                    android:text="0"
+                    tools:text="0"
+                    android:text="@{Integer.toString(eventDetail.data.get(0).sold_tickets)}"
+
                     android:textColor="@color/colorPrimary"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -283,7 +326,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/send_reminder"
+            android:id="@+id/send_updates"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_100dp"
             android:layout_margin="@dimen/_8sdp"
@@ -308,7 +351,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_6sdp"
-                android:text="send reminders"
+                android:text="@string/send_updates"
                 android:textSize="10sp" />
 
         </LinearLayout>
@@ -324,7 +367,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
         <LinearLayout
-            android:id="@+id/send_updates"
+            android:id="@+id/send_reminder"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_100dp"
             android:layout_margin="@dimen/_8sdp"
@@ -349,7 +392,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_6sdp"
-                android:text="@string/send_updates"
+                android:text="@string/send_reminder"
                 android:textSize="10sp" />
 
         </LinearLayout>
@@ -397,3 +440,4 @@
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
+</layout>

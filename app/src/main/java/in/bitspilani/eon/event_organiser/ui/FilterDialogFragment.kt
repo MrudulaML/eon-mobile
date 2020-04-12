@@ -38,11 +38,6 @@ class FilterDialogFragment() : DialogFragment(),
         return inflater.inflate(R.layout.fragment_filter_dialog, container, false)
     }
 
-    override fun getTheme(): Int {
-        return R.style.DialogTheme
-    }
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //using common view fragment with activity scope for reuse

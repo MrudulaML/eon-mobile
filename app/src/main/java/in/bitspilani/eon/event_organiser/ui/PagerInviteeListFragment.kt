@@ -1,6 +1,7 @@
 package `in`.bitspilani.eon.event_organiser.ui
 
 import `in`.bitspilani.eon.R
+import `in`.bitspilani.eon.event_organiser.models.DetailResponseOrganiser
 import `in`.bitspilani.eon.event_organiser.models.Invitee
 import `in`.bitspilani.eon.event_organiser.ui.adapter.InviteesAdapter
 import `in`.bitspilani.eon.utils.MarginItemDecoration
@@ -10,8 +11,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.fragment_invitee.*
 
 
@@ -19,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_invitee.*
  * A simple [Fragment] subclass.
  *
  */
-class PagerInviteeListFragment : Fragment(),CallbackListener {
+class PagerInviteeListFragment(val detailResponseOrganiser: DetailResponseOrganiser) : Fragment(),CallbackListener {
 
     // tab titles
     private val titles =
@@ -36,62 +39,44 @@ class PagerInviteeListFragment : Fragment(),CallbackListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initView()
+        setRecyclerview(detailResponseOrganiser)
+        setUpSearch()
 
         fab.clickWithDebounce {
             showDialog()
         }
     }
-    private val listOfEvent = mutableListOf<Invitee>()
-    var inviteesAdapter =  InviteesAdapter(
-        listOfEvent
-    )
-    private fun initView() {
-        //dummy list
 
-        listOfEvent.add(
-            Invitee( "abcd@gmail.com","200","200","9876543210")
-        )
-        listOfEvent.add(
-            Invitee( "abcd@gmail.com","200","200","9876543210")
-        )
-        listOfEvent.add(
-            Invitee( "abcd@gmail.com","200","200","9876543210")
-        )
-        listOfEvent.add(
-            Invitee( "abcd@gmail.com","200","200","9876543210")
-        )
-        listOfEvent.add(
-            Invitee( "abcd@gmail.com","200","200","9876543210")
-        )
-        listOfEvent.add(
-            Invitee( "abcd@gmail.com","200","200","9876543210")
-        )
-        listOfEvent.add(
-            Invitee( "abcd@gmail.com","200","200","9876543210")
-        )
-        listOfEvent.add(
-            Invitee( "abcd@gmail.com","200","200","9876543210")
-        )
-        listOfEvent.add(
-            Invitee( "abcd@gmail.com","200","200","9876543210")
-        )
+    private fun setUpSearch() {
+        invitee_search_view.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                inviteesAdapter.filter.filter(newText)
+                return false
+            }
+
+        })
+    }
+
+    var inviteesAdapter =  InviteesAdapter(arrayListOf())
+    private fun setRecyclerview(detailResponseOrganiser: DetailResponseOrganiser) {
 
         rv_invitee_list.layoutManager = LinearLayoutManager(activity)
-        rv_invitee_list.addItemDecoration(
-            MarginItemDecoration(
-                resources.getDimension(R.dimen._16sdp).toInt())
-        )
+        rv_invitee_list.addItemDecoration(MarginItemDecoration(
+                resources.getDimension(R.dimen._16sdp).toInt()) )
         inviteesAdapter=
             InviteesAdapter(
-                listOfEvent
+                detailResponseOrganiser.data[0].invitee_list
             )
         rv_invitee_list.adapter = inviteesAdapter
 
     }
 
     private fun showDialog() {
-        val dialogFragment = AddInviteeFragment(this)
+        val dialogFragment = AddInviteeFragment()
         dialogFragment.show(childFragmentManager, "AaddInviteeDialog")
     }
     override fun onDataReceived(data: String) {
