@@ -10,12 +10,13 @@ data class EventDetailResponse(
 )
 
 
- data class Data(
+data class Data(
 
     @SerializedName("id") val event_id: Int,
     @SerializedName("name") val event_name: String,
     @SerializedName("date") val date: String,
     @SerializedName("time") val time: String,
+    @SerializedName("discount_percentage") val discountPercentage: Int,
     @SerializedName("location") val location: String,
     @SerializedName("event_type") val event_type: String,
     @SerializedName("description") val description: String,

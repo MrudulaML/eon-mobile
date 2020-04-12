@@ -5,6 +5,7 @@ import `in`.bitspilani.eon.event_organiser.models.DetailResponseOrganiser
 import `in`.bitspilani.eon.event_subscriber.models.EventDetailResponse
 import `in`.bitspilani.eon.event_organiser.models.EventResponse
 import `in`.bitspilani.eon.event_organiser.models.FilterResponse
+import `in`.bitspilani.eon.event_subscriber.models.PaymentResponse
 import `in`.bitspilani.eon.login.data.GenerateCodeResponse
 import `in`.bitspilani.eon.login.data.LoginResponse
 import `in`.bitspilani.eon.login.data.ResetPasswordResponse
@@ -75,4 +76,9 @@ interface ApiService {
     //to send email
     @POST("core/share-with-friend/")
     fun sendEmail(@Body map: HashMap<String, Any>): Call<CommonResponse>
+
+    //to pay and subscribe to an event
+    @POST("core/subscription/")
+    fun subscribeEvent(@Body map: HashMap<String, Any>): Call<PaymentResponse>
+
 }

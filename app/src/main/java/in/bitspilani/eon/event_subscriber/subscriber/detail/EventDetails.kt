@@ -11,6 +11,7 @@ import android.app.AlertDialog
 import android.content.Context
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -76,11 +77,15 @@ class EventDetails : Fragment() {
 
             var bundle =
                 bundleOf(
+
+                    "event_id" to data.event_id,
                     "amount" to count * amount,
-                    "disc_amount " to 12,
+                    "disc_amount " to calculateDiscount(),
                     "attendees" to count,
-                    "promocode" to 15
+                    "promocode" to data.discountPercentage
                 )
+
+            Log.e("xoxo","event id from event details: "+data.event_id)
             findNavController().navigate(R.id.eventSummaryFrag, bundle)
 
         }
@@ -89,6 +94,17 @@ class EventDetails : Fragment() {
 
             showEmailDialog()
         }
+
+    }
+
+
+    fun calculateDiscount(): Int {
+
+        if (data.discountPercentage == 0) {
+            return 0
+        }
+
+        return (amount * (data.discountPercentage / 100))
 
     }
 

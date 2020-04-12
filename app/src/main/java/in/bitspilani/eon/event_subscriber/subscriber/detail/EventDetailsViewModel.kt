@@ -144,4 +144,5 @@ class EventDetailsViewModel(private val apiService: ApiService) : ViewModel() {
         })
     }
 
+
 }
