@@ -112,20 +112,20 @@ class AuthViewModel : ViewModel() {
                     //handle errors
                 }
             })
-
     }
 
     fun register(hashMap: HashMap<String, Any>) {
 
         try {
 
-            restClient.authClient.create(ApiService::class.java).registerUser(hashMap)
+            restClient.noAuthClient.create(ApiService::class.java).registerUser(hashMap)
                 .enqueue(object : Callback<SignUpResponse> {
                     override fun onResponse(
                         call: Call<SignUpResponse>,
                         response: Response<SignUpResponse>
                     ) {
 
+                        if(response.isSuccessful)
                         registerData.postValue(response.body()?.data)
 
                         Log.e("xoxo", "register success")

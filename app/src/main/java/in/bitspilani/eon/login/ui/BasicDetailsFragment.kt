@@ -64,9 +64,9 @@ class BasicDetailsFragment : Fragment() {
 
             showUserMsg("Registration Successful")
 
-            ModelPreferencesManager.putString(Constants.USER_ROLE,it!!.user!!.role!!.role)
+            ModelPreferencesManager.putInt(Constants.USER_ROLE, it!!.user!!.role!!.id)
 
-            ModelPreferencesManager.putString(Constants.ACCESS_TOKEN,it.access)
+            ModelPreferencesManager.putString(Constants.ACCESS_TOKEN, it.access)
 
             findNavController().navigate(R.id.action_BasicInfoFragment_to_homeFragment)
 
@@ -112,7 +112,7 @@ class BasicDetailsFragment : Fragment() {
                         signupMap.put("password", edt_password.text.toString())
                         if (authViewModel.userType == USER_TYPE.ORGANISER) {
 
-                            signupMap.put("edt_org_name", edt_org_name.text.toString())
+                            signupMap.put("organization", edt_org_name.text.toString())
 
                             signupMap.put("role", "organiser")
 

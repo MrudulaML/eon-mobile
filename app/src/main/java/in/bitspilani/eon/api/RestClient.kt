@@ -56,6 +56,7 @@ class RestClient{
                 .connectTimeout(20, TimeUnit.SECONDS)
                 .readTimeout(20, TimeUnit.SECONDS)
                 .writeTimeout(20, TimeUnit.SECONDS)
+                .addNetworkInterceptor(StethoInterceptor())
                 .cache(null)
                 .build()
 
