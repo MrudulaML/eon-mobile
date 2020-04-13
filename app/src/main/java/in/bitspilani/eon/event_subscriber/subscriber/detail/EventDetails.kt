@@ -61,7 +61,7 @@ class EventDetails : Fragment() {
         eventDetailsFragmentBinding.viewmodel = eventDetailsViewModel
         setObservables()
 
-        eventDetailsViewModel.getEventDetails(1)
+        eventDetailsViewModel.getEventDetails(4)
 
         actionbarHost?.showToolbar(showToolbar = false, showBottomNav = false)
 

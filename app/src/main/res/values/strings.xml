@@ -53,4 +53,5 @@
 
     <string name="share_event_text">Share this event with your friend</string>
 
+    <string name="subscribed_event_text"> You have subscribed for this \n event successfully     \n \n * If you have to Add/Remove invitees,click on Modify  \n * click on "Download" for event details and QR code </string>
 </resources>
