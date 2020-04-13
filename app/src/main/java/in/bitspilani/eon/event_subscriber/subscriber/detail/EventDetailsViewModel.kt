@@ -20,6 +20,8 @@ class EventDetailsViewModel(private val apiService: ApiService) : ViewModel() {
 
     var emailApiData: MutableLiveData<String> = MutableLiveData()
 
+    var cancelEventData: MutableLiveData<String> = MutableLiveData()
+
     var eventId: Int? = 0
 
     fun getEventDetails(id: Int) {
@@ -168,6 +170,33 @@ class EventDetailsViewModel(private val apiService: ApiService) : ViewModel() {
                 }
 
                 override fun onFailure(call: Call<PaymentResponse>, t: Throwable) {
+
+                    errorView.postValue(t.message)
+                }
+            })
+    }
+
+    fun cancelEvent(eventId: Int) {
+
+        apiService.cancelEvent(eventId)
+            .enqueue(object : Callback<CommonResponse> {
+
+                override fun onResponse(
+                    call: Call<CommonResponse>,
+                    response: Response<CommonResponse>
+                ) {
+
+                    if (response.isSuccessful) {
+
+                        cancelEventData.postValue(response.body()!!.message)
+
+                    } else {
+
+                    }
+
+                }
+
+                override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
 
                     errorView.postValue(t.message)
                 }

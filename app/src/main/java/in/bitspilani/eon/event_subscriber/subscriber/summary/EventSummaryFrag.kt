@@ -53,12 +53,12 @@ class EventSummaryFrag : Fragment() {
 
     fun getAndSetValues() {
 
-        totalAttendees = arguments!!.getInt("attendees", 0)
+        totalAttendees = arguments!!.getInt(Constants.ATTENDEES, 0)
         tv_attendees_value.text = totalAttendees.toString()
-        amount = arguments!!.getInt(Constants.AMOUNT, 0)
+        amount = (arguments!!.getInt(Constants.AMOUNT, 0)*totalAttendees)
         tv_amount_value.text = amount.toString()
         discountPercentage = arguments!!.getInt(Constants.PROMOCODE, 0)
-        discountAmount = arguments!!.getInt(Constants.DISCOUNT_AMOUNT, 0)
+        discountAmount = (arguments!!.getInt(Constants.DISCOUNT_AMOUNT, 0)*totalAttendees)
         isUpdate = arguments!!.getBoolean(Constants.IS_UPDATE, false)
 
 

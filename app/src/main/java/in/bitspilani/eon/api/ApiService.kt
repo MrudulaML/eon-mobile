@@ -81,5 +81,8 @@ interface ApiService {
     @POST("core/subscription/")
     fun subscribeEvent(@Body map: HashMap<String, Any>): Call<PaymentResponse>
 
+    @DELETE("core/subscription/{id}/")
+    fun cancelEvent(@Path ("id") id: Int?): Call<CommonResponse>
+
 
 }

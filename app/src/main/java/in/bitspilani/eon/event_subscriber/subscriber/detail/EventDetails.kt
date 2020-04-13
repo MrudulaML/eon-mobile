@@ -24,9 +24,12 @@ import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.event_details_fragment.*
+import kotlinx.android.synthetic.main.layout_cancel_event.view.*
 import kotlinx.android.synthetic.main.layout_dialog_payment_success.view.*
+import kotlinx.android.synthetic.main.layout_download_cancel_button.*
 import kotlinx.android.synthetic.main.layout_email_share_to_friend.view.*
 import kotlinx.android.synthetic.main.layout_seat_booking.*
+import java.lang.Exception
 
 
 class EventDetails : Fragment() {
@@ -57,18 +60,24 @@ class EventDetails : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setDummyCounterLogic()
 
-        eventDetailsFragmentBinding.viewmodel = eventDetailsViewModel
-        setObservables()
-
-        eventDetailsViewModel.getEventDetails(arguments!!.getInt(Constants.EVENT_ID, 0))
-
-        actionbarHost?.showToolbar(showToolbar = false, showBottomNav = false)
+        try {
 
 
-        tv_seat_counter.text = 1.toString()
+            eventDetailsFragmentBinding.viewmodel = eventDetailsViewModel
+            setObservables()
 
-        setClicks()
+            eventDetailsViewModel.getEventDetails(arguments!!.getInt(Constants.EVENT_ID, 0))
 
+            actionbarHost?.showToolbar(showToolbar = false, showBottomNav = false)
+
+
+            tv_seat_counter.text = 1.toString()
+
+            setClicks()
+        } catch (e: Exception) {
+
+            Log.e("EventDetailsTag", e.toString())
+        }
     }
 
     fun setClicks() {
@@ -86,7 +95,7 @@ class EventDetails : Fragment() {
                     bundleOf(
 
                         Constants.EVENT_ID to data.event_id,
-                        Constants.AMOUNT to count * amount,
+                        Constants.AMOUNT to amount,
                         Constants.DISCOUNT_AMOUNT to calculateDiscount(),
                         Constants.ATTENDEES to count,
                         Constants.PROMOCODE to data.discountPercentage,
@@ -107,7 +116,7 @@ class EventDetails : Fragment() {
 
                     if (isSubscribed) {
                         bundle.putInt(Constants.ATTENDEES, count - noOfTickets)
-                        bundle.putInt(Constants.AMOUNT, ((count - noOfTickets) * amount))
+                        bundle.putInt(Constants.AMOUNT, amount)
 
                     } else if (data.subscription_fee == 0) {
 
@@ -128,6 +137,12 @@ class EventDetails : Fragment() {
             showEmailDialog()
         }
 
+        btn_cancel.clickWithDebounce {
+
+            showCancelEventDialog()
+        }
+
+
     }
 
 
@@ -142,6 +157,7 @@ class EventDetails : Fragment() {
     }
 
     fun subscribeToFreeEvent() {
+
         var map: HashMap<String, Any> = HashMap()
         map.put(Constants.EVENT_ID, data.event_id)
         val userData =
@@ -305,5 +321,26 @@ class EventDetails : Fragment() {
 
         }
 
+
+    }
+
+
+    fun showCancelEventDialog() {
+
+        //Inflate the dialog with custom view
+        val mDialogView =
+            LayoutInflater.from(activity).inflate(R.layout.layout_cancel_event, null)
+        //AlertDialogBuilder
+        val mBuilder = AlertDialog.Builder(activity)
+            .setView(mDialogView)
+        //show dialog
+        mAlertDialog = mBuilder.show()
+
+        mDialogView.btn_confirm.clickWithDebounce {
+
+            eventDetailsViewModel.cancelEvent(data.event_id)
+        }
+
     }
 }
+
