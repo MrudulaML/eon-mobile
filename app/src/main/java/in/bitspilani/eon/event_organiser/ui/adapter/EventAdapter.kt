@@ -18,7 +18,7 @@ class EventAdapter(
 ) : RecyclerView.Adapter<EventAdapter.EventViewHolder>(), Filterable {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = EventItemRowBinding.inflate(inflater)
+        val binding = EventItemRowBinding.inflate(inflater,parent,false)
         return EventViewHolder(binding)
     }
 

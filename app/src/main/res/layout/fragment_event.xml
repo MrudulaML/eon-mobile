@@ -22,10 +22,10 @@
 
     <ImageView
         android:id="@+id/appCompatImageView2"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="@dimen/_200dp"
         android:scaleType="centerCrop"
-        app:imageUrl="@{`https://via.placeholder.com/300X200`}"
+        app:imageUrl="@{`https://dummyimage.com/qvga`}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -50,7 +50,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="4dp"
         android:layout_centerHorizontal="true"
-        android:drawableLeft="@android:drawable/ic_dialog_map"
+        android:drawableLeft="@drawable/ic_location_on_black_24dp"
         android:text="@{eventDetail.data.get(0).location}"
         android:textAlignment="center"
         android:textColor="@color/grey"
@@ -105,7 +105,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Seminar"
+        app:eventType="@{eventDetail.data.get(0).event_type}"
         android:textColor="@color/grey"
         android:textSize="15sp"
         android:textStyle="bold"

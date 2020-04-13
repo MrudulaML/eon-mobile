@@ -25,6 +25,7 @@
         android:foreground="?android:attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
+        android:layout_marginHorizontal="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_4sdp"
         android:layout_marginBottom="@dimen/_4sdp"
         app:cardElevation="@dimen/_2dp"
@@ -33,18 +34,19 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:paddingBottom="@dimen/_12sdp"
+            android:paddingBottom="@dimen/_8sdp"
             android:layout_height="wrap_content">
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <ImageView
                 android:id="@+id/appCompatImageView"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:minWidth="@dimen/_200sdp"
                 android:layout_height="@dimen/_160sdp"
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
+                app:imageUrl="@{`https://dummyimage.com/qvga`}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_1st_image" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/appCompatTextView"

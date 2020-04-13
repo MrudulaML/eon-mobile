@@ -37,6 +37,13 @@ class HomeFragment : Fragment() {
    // private val dashboardViewModel by viewModels<EventDashboardViewModel> { getViewModelFactory() }
     private var actionbarHost: ActionbarHost? = null
     private lateinit var eventDashboardViewModel: EventDashboardViewModel
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        eventDashboardViewModel = activity?.run {
+            ViewModelProviders.of(this).get(EventDashboardViewModel::class.java)
+        } ?: throw Exception("Invalid Activity")
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,17 +56,10 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        eventDashboardViewModel = activity?.run {
-            ViewModelProviders.of(this).get(EventDashboardViewModel::class.java)
-        } ?: throw Exception("Invalid Activity")
-
-        eventDashboardViewModel.getEvents()
-
-
         setUpObservables()
         setUpClickListeners()
         setUpSearch()
+        eventDashboardViewModel.getEvents()
     }
 
 
@@ -92,7 +92,7 @@ class HomeFragment : Fragment() {
         eventDashboardViewModel.eventDetailsObservables.observe(viewLifecycleOwner, Observer {
             setEventRecyclerView(it)
         })
-        var bundle =
+
         eventDashboardViewModel.eventClickObservable.observe(viewLifecycleOwner, Observer {
             if (ModelPreferencesManager.getInt(Constants.USER_ROLE)==1)
                 findNavController().navigate(R.id.action_homeFragment_to_organiser_eventDetailsFragment,
@@ -120,7 +120,6 @@ class HomeFragment : Fragment() {
         if (eventList.fromFilter) {
             rv_event_list.invalidateItemDecorations()
             rv_event_list.invalidate()
-
             eventListAdapter = EventAdapter(eventList.eventList, eventDashboardViewModel,isSubscriber)
             rv_event_list.adapter = eventListAdapter
 
@@ -128,11 +127,6 @@ class HomeFragment : Fragment() {
         else {
 
             rv_event_list.layoutManager = LinearLayoutManager(activity)
-            rv_event_list.addItemDecoration(
-                MarginItemDecoration(
-                    resources.getDimension(R.dimen._16sdp).toInt()
-                )
-            )
             eventListAdapter = EventAdapter(eventList.eventList, eventDashboardViewModel,isSubscriber)
             rv_event_list.adapter = eventListAdapter
         }
