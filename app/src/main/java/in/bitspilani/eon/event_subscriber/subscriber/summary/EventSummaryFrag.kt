@@ -1,7 +1,10 @@
 package `in`.bitspilani.eon.event_subscriber.subscriber.summary
 
 import `in`.bitspilani.eon.R
+import `in`.bitspilani.eon.event_subscriber.subscriber.detail.EventDetailsViewModel
+import `in`.bitspilani.eon.utils.Constants
 import `in`.bitspilani.eon.utils.clickWithDebounce
+import `in`.bitspilani.eon.utils.getViewModelFactory
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
@@ -11,17 +14,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.event_summary_fragment.*
+import kotlinx.android.synthetic.main.layout_attendees_amount.*
 
 
 class EventSummaryFrag : Fragment() {
 
-    private lateinit var viewModel: EventSummaryViewModel
+    private val eventSummaryViewModel by viewModels<EventSummaryViewModel> { getViewModelFactory() }
 
     var amount: Int = 0
     var discountPercentage: Int = 0
     var discountAmount: Int = 0
+    var isUpdate: Boolean = false
+    var totalAttendees: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +39,6 @@ class EventSummaryFrag : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(EventSummaryViewModel::class.java)
 
 
     }
@@ -42,20 +48,26 @@ class EventSummaryFrag : Fragment() {
 
         setClicks()
 
-        setValues()
-
+        getAndSetValues()
     }
 
-    fun setValues() {
+    fun getAndSetValues() {
 
-        tv_attendees_value.text = arguments!!.getInt("attendees", 0).toString()
-        amount = arguments!!.getInt("amount", 0)
+        totalAttendees = arguments!!.getInt("attendees", 0)
+        tv_attendees_value.text = totalAttendees.toString()
+        amount = arguments!!.getInt(Constants.AMOUNT, 0)
         tv_amount_value.text = amount.toString()
-        discountPercentage = arguments!!.getInt("promocode", 0)
-        discountAmount = arguments!!.getInt("disc_amount", 0)
+        discountPercentage = arguments!!.getInt(Constants.PROMOCODE, 0)
+        discountAmount = arguments!!.getInt(Constants.DISCOUNT_AMOUNT, 0)
+        isUpdate = arguments!!.getBoolean(Constants.IS_UPDATE, false)
+
+
+        cl_normal_summary.visibility = View.VISIBLE
 
         tv_total_amount.text = "Total Amount    ₹ " + amount
         tv_payable_amount.text = "Payable Amount    ₹  " + amount
+
+
     }
 
 
@@ -64,13 +76,13 @@ class EventSummaryFrag : Fragment() {
         btn_pay.clickWithDebounce {
 
             var bundle = bundleOf(
-                "event_id" to arguments?.getInt("event_id", 0),
-                "no_of_tickets" to arguments!!.getInt("attendees", 0),
-                "amount" to amount,
-                "discount_amount" to discountAmount
+                Constants.EVENT_ID to arguments?.getInt("event_id", 0),
+                "no_of_tickets" to totalAttendees,
+                Constants.AMOUNT to amount,
+                Constants.DISCOUNT_AMOUNT to discountAmount
             )
 
-
+            Log.e("xoxo", "bundle from eventsummary: " + bundle)
 
             findNavController().navigate(R.id.action_summery_to_payment, bundle)
         }

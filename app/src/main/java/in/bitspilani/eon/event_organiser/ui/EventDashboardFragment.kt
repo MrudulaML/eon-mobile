@@ -30,7 +30,7 @@ import kotlinx.android.synthetic.main.fragment_dashboard.*
  *
  */
 class HomeFragment : Fragment() {
-   // private val dashboardViewModel by viewModels<EventDashboardViewModel> { getViewModelFactory() }
+    // private val dashboardViewModel by viewModels<EventDashboardViewModel> { getViewModelFactory() }
     private var actionbarHost: ActionbarHost? = null
     private lateinit var eventDashboardViewModel: EventDashboardViewModel
 
@@ -56,11 +56,16 @@ class HomeFragment : Fragment() {
         setUpObservables()
         setUpClickListeners()
         setUpSearch()
+
+        findNavController().navigate(
+            R.id.eventDetails,
+            bundleOf(Constants.EVENT_ID to 8)
+        )
     }
 
 
     private fun setUpSearch() {
-        event_search_view.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+        event_search_view.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
@@ -86,17 +91,24 @@ class HomeFragment : Fragment() {
             setEventRecyclerView(it)
         })
         var bundle =
-        eventDashboardViewModel.eventClickObservable.observe(viewLifecycleOwner, Observer {
-            if (ModelPreferencesManager.getInt(Constants.USER_ROLE)==1)
-                findNavController().navigate(R.id.action_homeFragment_to_organiser_eventDetailsFragment,
-                    bundleOf("id" to it),
-                    NavOptions.Builder()
-                        .setPopUpTo(R.id.homeFragment,
-                            false).build())
-            else
+            eventDashboardViewModel.eventClickObservable.observe(viewLifecycleOwner, Observer {
+                if (ModelPreferencesManager.getInt(Constants.USER_ROLE) == 1)
+                    findNavController().navigate(
+                        R.id.action_homeFragment_to_organiser_eventDetailsFragment,
+                        bundleOf("id" to it),
+                        NavOptions.Builder()
+                            .setPopUpTo(
+                                R.id.homeFragment,
+                                false
+                            ).build()
+                    )
+                else
                 //TODO change this to builder pattern
-                findNavController().navigate(R.id.eventDetails)
-        })
+                    findNavController().navigate(
+                        R.id.eventDetails,
+                        bundleOf(Constants.EVENT_ID to it)
+                    )
+            })
 
         eventDashboardViewModel.progressLiveData.observe(viewLifecycleOwner, Observer {
 
@@ -104,7 +116,8 @@ class HomeFragment : Fragment() {
         })
 
     }
-    private lateinit var eventListAdapter : EventAdapter
+
+    private lateinit var eventListAdapter: EventAdapter
     private fun setEventRecyclerView(eventList: EventList) {
 
         //TODO fix this hack
@@ -114,8 +127,7 @@ class HomeFragment : Fragment() {
             eventListAdapter = EventAdapter(eventList.eventList, eventDashboardViewModel)
             rv_event_list.adapter = eventListAdapter
 
-        }
-        else {
+        } else {
 
             rv_event_list.layoutManager = LinearLayoutManager(activity)
             rv_event_list.addItemDecoration(
@@ -132,10 +144,18 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        if(ModelPreferencesManager.getInt(Constants.USER_ROLE)==UserType.SUBSCRIBER.ordinal)
-            actionbarHost?.showToolbar(showToolbar = true,title = "Event Management",showBottomNav = true)
+        if (ModelPreferencesManager.getInt(Constants.USER_ROLE) == UserType.SUBSCRIBER.ordinal)
+            actionbarHost?.showToolbar(
+                showToolbar = true,
+                title = "Event Management",
+                showBottomNav = true
+            )
         else
-            actionbarHost?.showToolbar(showToolbar = true,title = "Event Management",showBottomNav = false)
+            actionbarHost?.showToolbar(
+                showToolbar = true,
+                title = "Event Management",
+                showBottomNav = false
+            )
     }
 
 

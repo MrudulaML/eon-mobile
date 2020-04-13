@@ -4,9 +4,7 @@ import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.databinding.EventDetailsFragmentBinding
 import `in`.bitspilani.eon.event_subscriber.models.Data
 import `in`.bitspilani.eon.login.ui.ActionbarHost
-import `in`.bitspilani.eon.utils.EmailValidator
-import `in`.bitspilani.eon.utils.clickWithDebounce
-import `in`.bitspilani.eon.utils.getViewModelFactory
+import `in`.bitspilani.eon.utils.*
 import android.app.AlertDialog
 import android.content.Context
 import androidx.lifecycle.ViewModelProviders
@@ -24,6 +22,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.event_details_fragment.*
 import kotlinx.android.synthetic.main.layout_dialog_payment_success.view.*
 import kotlinx.android.synthetic.main.layout_email_share_to_friend.view.*
@@ -61,32 +60,66 @@ class EventDetails : Fragment() {
         eventDetailsFragmentBinding.viewmodel = eventDetailsViewModel
         setObservables()
 
-        eventDetailsViewModel.getEventDetails(4)
+        eventDetailsViewModel.getEventDetails(arguments!!.getInt(Constants.EVENT_ID, 0))
 
         actionbarHost?.showToolbar(showToolbar = false, showBottomNav = false)
+
 
         tv_seat_counter.text = 1.toString()
 
         setClicks()
-    }
 
+    }
 
     fun setClicks() {
 
+
         btn_price.clickWithDebounce {
 
-            var bundle =
-                bundleOf(
+            var noOfTickets = data.subscription_details!!.no_of_tickets_bought
+            if (count == noOfTickets) {
 
-                    "event_id" to data.event_id,
-                    "amount" to count * amount,
-                    "disc_amount " to calculateDiscount(),
-                    "attendees" to count,
-                    "promocode" to data.discountPercentage
-                )
+                showUserMsg("Please change your current seats")
 
-            Log.e("xoxo","event id from event details: "+data.event_id)
-            findNavController().navigate(R.id.eventSummaryFrag, bundle)
+            } else {
+                var bundle =
+                    bundleOf(
+
+                        Constants.EVENT_ID to data.event_id,
+                        Constants.AMOUNT to count * amount,
+                        Constants.DISCOUNT_AMOUNT to calculateDiscount(),
+                        Constants.ATTENDEES to count,
+                        Constants.PROMOCODE to data.discountPercentage,
+                        Constants.IS_UPDATE to isSubscribed
+
+                    )
+
+                if (count < noOfTickets) {
+
+                    bundle.putInt(
+                        Constants.NUMBER_OF_TICKETS_BOUGHT,
+                        data.subscription_details!!.no_of_tickets_bought
+                    )
+
+                    findNavController().navigate(R.id.refundFragment, bundle)
+
+                } else {
+
+                    if (isSubscribed) {
+                        bundle.putInt(Constants.ATTENDEES, count - noOfTickets)
+                        bundle.putInt(Constants.AMOUNT, ((count - noOfTickets) * amount))
+
+                    } else if (data.subscription_fee == 0) {
+
+                        subscribeToFreeEvent()
+                    } else
+                        findNavController().navigate(R.id.eventSummaryFrag, bundle)
+                }
+
+                Log.e("xoxo", "bundle from eventdetails " + bundle)
+
+
+            }
 
         }
 
@@ -105,6 +138,18 @@ class EventDetails : Fragment() {
         }
 
         return (amount * (data.discountPercentage / 100))
+
+    }
+
+    fun subscribeToFreeEvent() {
+        var map: HashMap<String, Any> = HashMap()
+        map.put(Constants.EVENT_ID, data.event_id)
+        val userData =
+            ModelPreferencesManager.get<`in`.bitspilani.eon.login.data.Data>(Constants.CURRENT_USER)
+        map.put(Constants.USER_ID, userData!!.user.user_id)
+        map.put(Constants.NUMBER_OF_TICKETS, count)
+
+        eventDetailsViewModel.subscribeToFreeEvent(map)
 
     }
 
@@ -138,6 +183,7 @@ class EventDetails : Fragment() {
         actionbarHost?.showToolbar(showToolbar = false, showBottomNav = false)
     }
 
+    var isSubscribed: Boolean = false
 
     fun setObservables() {
 
@@ -149,6 +195,21 @@ class EventDetails : Fragment() {
             amount = it.data.subscription_fee
             data = it.data
             btn_price.text = "₹ $amount"
+
+
+
+            it.data.subscription_details.let {
+
+                if (it!!.is_subscribed) {
+                    tv_subscribed_event_text.visibility = View.VISIBLE
+                    download_cancel_view.visibility = View.VISIBLE
+                    isSubscribed = true
+                    btn_price.text = "Update"
+                    count = it.no_of_tickets_bought
+                    seatCount.postValue(count)
+                }
+
+            }
 
             showUserMsg(it.message)
 
@@ -166,8 +227,11 @@ class EventDetails : Fragment() {
         //counter observer
         seatCount.observe(this, Observer {
 
-            tv_seat_counter.text = count.toString()
-            btn_price.text = "₹ " + (count * amount)
+            tv_seat_counter.text = it.toString()
+            if (!isSubscribed) {
+                btn_price.text = "₹ " + (it * amount)
+
+            }
         })
 
         //send email observer
@@ -191,6 +255,17 @@ class EventDetails : Fragment() {
             }
 
         })
+
+        eventDetailsViewModel.freeEventLiveData.observe(viewLifecycleOwner, Observer {
+
+            SuccessDialog.openDialog(activity!!) {
+
+                findNavController().navigate(R.id.action_eventDetails_to_Homefragment)
+            }
+
+        })
+
+
     }
 
     fun showUserMsg(msg: String) {

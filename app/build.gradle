@@ -157,10 +157,9 @@ dependencies {
     //rx
     implementation("io.reactivex.rxjava3:rxkotlin:3.0.0")
 
-    implementation ("com.github.bumptech.glide:glide:4.9.0") {
+    implementation("com.github.bumptech.glide:glide:4.9.0") {
         exclude group: "com.android.support"
     }
-
 
 
 }

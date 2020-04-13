@@ -25,6 +25,7 @@ class ToolbarNotificationFragment : Fragment() {
         setHasOptionsMenu(true)
         (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,6 +53,7 @@ class ToolbarNotificationFragment : Fragment() {
             actionbarHost = context
         }
     }
+
     override fun onDetach() {
         super.onDetach()
         actionbarHost?.showToolbar(showToolbar = true,showBottomNav = true)

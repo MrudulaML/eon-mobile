@@ -67,15 +67,16 @@ class PaymentFrag : Fragment() {
 
     fun getDataFromArgs() {
 
-        hashMap.put("event_id", arguments!!.getInt("event_id", 0).toString())
+        hashMap.put("event_id", arguments!!.getInt(Constants.EVENT_ID, 0))
 
 
         val userData = ModelPreferencesManager.get<Data>(Constants.CURRENT_USER)
 
-        hashMap.put("user_id", userData?.user?.user_id as Any)
-        hashMap.put("no_of_tickets", arguments!!.getInt("no_of_tickets", 0).toString())
-        hashMap.put("amount", arguments!!.getInt("amount", 0).toString())
-        hashMap.put("discount_amount", arguments!!.getInt("discount_amount", 0).toString())
+        hashMap.put("user_id", userData!!.user!!.user_id)
+        hashMap.put("no_of_tickets", arguments!!.getInt("no_of_tickets", 0))
+        hashMap.put("amount", arguments!!.getInt(Constants.AMOUNT, 0))
+        hashMap.put("discount_amount", arguments!!.getInt(Constants.DISCOUNT_AMOUNT, 0))
+
     }
 
     fun setClicks() {
@@ -93,9 +94,9 @@ class PaymentFrag : Fragment() {
 
                 var expiryDate = et_expiry_date.text.toString()
 
-                hashMap.put("card_number", et_card_number.text.toString())
-                hashMap.put("expiry_month", expiryDate.substring(0, 2))
-                hashMap.put("expiry_year", "20" + expiryDate.substring(2, 4))
+                hashMap.put("card_number", et_card_number.text.toString().toLong())
+                hashMap.put("expiry_month", 12)
+                hashMap.put("expiry_year", 2022)
 
                 paymentViewModel.payAndSubscribe(hashMap)
             }

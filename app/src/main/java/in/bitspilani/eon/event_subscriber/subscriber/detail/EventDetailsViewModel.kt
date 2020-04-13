@@ -2,6 +2,7 @@ package `in`.bitspilani.eon.event_subscriber.subscriber.detail
 
 import `in`.bitspilani.eon.api.ApiService
 import `in`.bitspilani.eon.event_subscriber.models.EventDetailResponse
+import `in`.bitspilani.eon.event_subscriber.models.PaymentResponse
 import `in`.bitspilani.eon.login.data.CommonResponse
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -144,5 +145,33 @@ class EventDetailsViewModel(private val apiService: ApiService) : ViewModel() {
         })
     }
 
+    var freeEventLiveData: MutableLiveData<PaymentResponse> = MutableLiveData()
+
+    fun subscribeToFreeEvent(hashMap: HashMap<String, Any>) {
+
+        apiService.subscribeEvent(hashMap)
+            .enqueue(object : Callback<PaymentResponse> {
+
+                override fun onResponse(
+                    call: Call<PaymentResponse>,
+                    response: Response<PaymentResponse>
+                ) {
+
+                    if (response.isSuccessful) {
+
+                        freeEventLiveData.postValue(response.body())
+
+                    } else {
+
+                    }
+
+                }
+
+                override fun onFailure(call: Call<PaymentResponse>, t: Throwable) {
+
+                    errorView.postValue(t.message)
+                }
+            })
+    }
 
 }
