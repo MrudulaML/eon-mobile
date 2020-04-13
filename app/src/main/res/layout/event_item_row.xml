@@ -25,7 +25,6 @@
         android:foreground="?android:attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
-        android:paddingBottom="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_4sdp"
         android:layout_marginBottom="@dimen/_4sdp"
         app:cardElevation="@dimen/_2dp"
@@ -34,6 +33,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
+            android:paddingBottom="@dimen/_12sdp"
             android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -66,7 +66,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:paddingBottom="@dimen/_12sdp"
                 android:drawableLeft="@drawable/ic_calender_black_24dp"
                 visibility="@{isSubscriber ? View.VISIBLE : View.GONE}"
                 android:text="@{event.date}"
@@ -86,6 +85,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
+                android:textAlignment="center"
+                android:minWidth="@dimen/_40sdp"
                 android:background="@drawable/rounded_corner_solid_yellow_4"
                 android:backgroundTint="@color/yellow"
                 android:padding="@dimen/_2sdp"
@@ -100,12 +101,12 @@
 
             <androidx.appcompat.widget.AppCompatTextView
 
+                visibility="@{isSubscriber ? View.VISIBLE : View.GONE}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:drawableLeft="@drawable/ic_location_on_black_24dp"
                 android:text="@{event.location}"
-                visibility="@{isSubscriber ? View.VISIBLE : View.GONE}"
                 android:textColor="@color/dark_grey"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="@+id/appCompatTextView17"
@@ -117,7 +118,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:paddingBottom="@dimen/_8sdp"
                 android:text="@{Integer.toString(event.sold_tickets)+` Attendees`}"
                 android:textColor="@color/grey"
                 android:textStyle="bold"
@@ -134,7 +134,6 @@
                 app:drawableTint="@color/grey"
                 android:gravity="center"
                 visibility="@{isSubscriber ? View.GONE : View.VISIBLE}"
-                android:paddingBottom="@dimen/_8sdp"
                 android:text="@{event.date}"
                 android:textColor="@color/black"
                 android:textSize="10sp"

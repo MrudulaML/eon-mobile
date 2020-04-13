@@ -13,6 +13,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
@@ -20,6 +21,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
+import com.auth0.android.jwt.JWT
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_bits_eon.*
 import kotlinx.coroutines.delay
@@ -58,24 +60,36 @@ class BitsEonActivity : AppCompatActivity(),ActionbarHost {
 
            val userData = ModelPreferencesManager.get<Data>(Constants.CURRENT_USER)
 
-            if (userData?.access.isNullOrEmpty()){
-                delay(400)
-                navController.navigate(R.id.action_splashScreen_to_signInFragment,
-                    null,
-                    NavOptions.Builder()
-                        .setPopUpTo(R.id.splashScreen,
-                            true).build())
+            when {
+                userData?.access.isNullOrEmpty() -> {
+                    delay(400)
+                    navController.navigate(R.id.action_splashScreen_to_signInFragment,
+                        null,
+                        NavOptions.Builder()
+                            .setPopUpTo(R.id.splashScreen,
+                                true).build())
 
+                    //TODO fix this hack put null safety prone to crash
+                }
+                JWT(userData!!.access).isExpired(10) -> {
+                    delay(400)
+                    Toast.makeText(this@BitsEonActivity, "Session expired", Toast.LENGTH_LONG).show()
+                    navController.navigate(R.id.action_splashScreen_to_signInFragment,
+                        null,
+                        NavOptions.Builder()
+                            .setPopUpTo(R.id.splashScreen,
+                                true).build())
 
-            }else{
+                }
+                else -> {
+                    delay(400)
+                    navController.navigate(R.id.action_splashScreen_to_HomeFragment,
+                        null,
+                        NavOptions.Builder()
+                            .setPopUpTo(R.id.app_nav,
+                                true).build())
 
-                delay(400)
-                navController.navigate(R.id.action_splashScreen_to_HomeFragment,
-                    null,
-                    NavOptions.Builder()
-                        .setPopUpTo(R.id.app_nav,
-                            true).build())
-
+                }
             }
         }
 

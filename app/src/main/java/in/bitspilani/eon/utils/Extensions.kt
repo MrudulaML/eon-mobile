@@ -71,6 +71,17 @@ fun loadImage(view: ImageView, imageUrl: String) {
     Picasso.get().load(imageUrl).into(view)
 }
 
+@BindingAdapter("eventType")
+fun getType(view: View,id: Int) {
+   // Picasso.get().load(imageUrl).into(view)
+}
+
+
+@BindingAdapter("visibility")
+fun setVisibility(view: View, value: Boolean) {
+    view.visibility = if (value) View.VISIBLE else View.GONE
+}
+
 fun View.clickWithDebounce(debounceTime: Long = 1000L, action: () -> Unit) {
     this.setOnClickListener(object : View.OnClickListener {
         private var lastClickTime = 0.toLong()
