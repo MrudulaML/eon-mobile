@@ -1,6 +1,7 @@
 package `in`.bitspilani.eon.login.ui
 
 
+import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.BitsEonApp
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.utils.*
@@ -58,9 +59,11 @@ class SignInFragment : Fragment() {
             showUserMsg(it)
 
         })
-        authViewModel.progress.observe(viewLifecycleOwner, Observer {
-            //progress.goneUnless(it)
+        authViewModel.progressLiveData.observe(viewLifecycleOwner, Observer {
+
+            (activity as BitsEonActivity).showProgress(it)
         })
+
 
     }
 

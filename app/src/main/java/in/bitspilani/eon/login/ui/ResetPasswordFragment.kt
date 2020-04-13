@@ -48,7 +48,7 @@ class ResetPasswordFragment : Fragment() {
         btn_forgot_password_next.clickWithDebounce {
             onNextClick()
         }
-        //setUpObservables()
+        setUpObservables()
     }
 
     private fun setUpObservables() {
@@ -56,7 +56,7 @@ class ResetPasswordFragment : Fragment() {
 
             binding.step = ForgotPasswordSteps.VERIFICATION_CODE
             binding.stepView.go(1, true)
-            //replace with actual response
+            showUserMsg(it.message)
             resetCode= it.message
 
 
