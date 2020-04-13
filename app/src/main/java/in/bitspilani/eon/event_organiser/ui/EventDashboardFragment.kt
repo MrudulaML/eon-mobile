@@ -26,6 +26,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 
 /**
@@ -113,11 +114,14 @@ class HomeFragment : Fragment() {
     private lateinit var eventListAdapter : EventAdapter
     private fun setEventRecyclerView(eventList: EventList) {
 
+        val isSubscriber :  Boolean = ModelPreferencesManager.getInt(Constants.USER_ROLE)==2
+        Timber.e("is subcriber$isSubscriber")
         //TODO fix this hack
         if (eventList.fromFilter) {
             rv_event_list.invalidateItemDecorations()
             rv_event_list.invalidate()
-            eventListAdapter = EventAdapter(eventList.eventList, eventDashboardViewModel)
+
+            eventListAdapter = EventAdapter(eventList.eventList, eventDashboardViewModel,isSubscriber)
             rv_event_list.adapter = eventListAdapter
 
         }
@@ -129,7 +133,7 @@ class HomeFragment : Fragment() {
                     resources.getDimension(R.dimen._16sdp).toInt()
                 )
             )
-            eventListAdapter = EventAdapter(eventList.eventList, eventDashboardViewModel)
+            eventListAdapter = EventAdapter(eventList.eventList, eventDashboardViewModel,isSubscriber)
             rv_event_list.adapter = eventListAdapter
         }
     }

@@ -6,6 +6,9 @@
     <data>
 
         <import type="android.view.View" />
+        <variable
+            name="isSubscriber"
+            type="java.lang.Boolean"/>
 
         <variable
             name="event"
@@ -22,6 +25,7 @@
         android:foreground="?android:attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
+        android:paddingBottom="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_4sdp"
         android:layout_marginBottom="@dimen/_4sdp"
         app:cardElevation="@dimen/_2dp"
@@ -30,7 +34,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/appCompatImageView"
@@ -50,20 +54,74 @@
                 android:layout_marginTop="8dp"
                 android:text="@{event.name}"
                 android:textColor="@color/dark_grey"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/appCompatImageView"
                 tools:text="Event Nmae" />
-
+            <!--subscriber exclusive date-->
             <androidx.appcompat.widget.AppCompatTextView
+
+                android:id="@+id/appCompatTextView17"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                tools:text="290 Attendeees"
+                android:paddingBottom="@dimen/_12sdp"
+                android:drawableLeft="@drawable/ic_calender_black_24dp"
+                visibility="@{isSubscriber ? View.VISIBLE : View.GONE}"
+                android:text="@{event.date}"
+                android:textColor="@color/dark_grey"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/appCompatTextView14"
+                app:layout_constraintTop_toBottomOf="@+id/appCompatTextView14"
+                tools:text="Event Date subscription" />
+
+            <!--subscriber exclusive fees-->
+
+            <!--subscriber exclusive date-->
+
+            <androidx.appcompat.widget.AppCompatTextView
+
+                visibility="@{isSubscriber ? View.VISIBLE : View.GONE}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/rounded_corner_solid_yellow_4"
+                android:backgroundTint="@color/yellow"
+                android:padding="@dimen/_2sdp"
+                android:text="@{Integer.toString(event.subscription_fee)}"
+                android:textColor="@color/dark_grey"
+                android:textSize="14sp"
                 android:textStyle="bold"
-                android:textColor="@color/grey"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/appCompatImageView"
+                tools:text="500" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:drawableLeft="@drawable/ic_location_on_black_24dp"
+                android:text="@{event.location}"
+                visibility="@{isSubscriber ? View.VISIBLE : View.GONE}"
+                android:textColor="@color/dark_grey"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/appCompatTextView17"
+                app:layout_constraintTop_toBottomOf="@+id/appCompatTextView17"
+                tools:text="Event Date subscription" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/appCompatTextView14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:paddingBottom="@dimen/_8sdp"
+                android:text="@{Integer.toString(event.sold_tickets)+` Attendees`}"
+                android:textColor="@color/grey"
+                android:textStyle="bold"
+                tools:text="Attendees"
                 app:layout_constraintStart_toStartOf="@+id/appCompatTextView"
                 app:layout_constraintTop_toBottomOf="@+id/appCompatTextView" />
 
@@ -75,6 +133,7 @@
                 android:drawableLeft="@drawable/ic_calendar_header"
                 app:drawableTint="@color/grey"
                 android:gravity="center"
+                visibility="@{isSubscriber ? View.GONE : View.VISIBLE}"
                 android:paddingBottom="@dimen/_8sdp"
                 android:text="@{event.date}"
                 android:textColor="@color/black"
