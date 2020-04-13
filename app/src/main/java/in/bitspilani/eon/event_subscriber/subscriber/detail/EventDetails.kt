@@ -7,8 +7,10 @@ import `in`.bitspilani.eon.login.ui.ActionbarHost
 import `in`.bitspilani.eon.utils.EmailValidator
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import `in`.bitspilani.eon.utils.getViewModelFactory
+import android.Manifest
 import android.app.AlertDialog
 import android.content.Context
+import android.content.pm.PackageManager
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
@@ -22,15 +24,25 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.event_details_fragment.*
 import kotlinx.android.synthetic.main.layout_dialog_payment_success.view.*
 import kotlinx.android.synthetic.main.layout_email_share_to_friend.view.*
 import kotlinx.android.synthetic.main.layout_seat_booking.*
+import android.graphics.pdf.PdfDocument
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Typeface
+import android.os.Build
+import android.os.Environment
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 
 
 class EventDetails : Fragment() {
+
+    private val STORAGE_PERMISSION_CODE: Int = 1000
 
     private val eventDetailsViewModel by viewModels<EventDetailsViewModel> { getViewModelFactory() }
 
@@ -94,7 +106,35 @@ class EventDetails : Fragment() {
 
             showEmailDialog()
         }
+        // button download
+        btn_download.clickWithDebounce {
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ){
+                if (activity?.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
+                    requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),STORAGE_PERMISSION_CODE)
+                }else{
+                    createPdf()
+                }
+            }else{
 
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when(requestCode){
+            STORAGE_PERMISSION_CODE ->{
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    createPdf()
+                }else{
+                    showUserMsg("Permission denied")
+                }
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
 
@@ -230,5 +270,69 @@ class EventDetails : Fragment() {
 
         }
 
+    }
+
+    // create pdf and save external directory
+    private fun createPdf(){
+
+        val eventName = tv_event_name.text.toString()
+        val eventDateTime = tv_event_date.text.toString()
+        val eventLocation = tv_event_location.text.toString()
+        val eventSeatCounter = tv_seat_counter.text.toString()
+        val eventAmount = btn_price.text.toString()
+
+        val document = PdfDocument()
+
+        val pageInfo = PdfDocument.PageInfo.Builder(1200, 2010, 1).create()
+        val page = document.startPage(pageInfo)
+        val canvas = page.canvas
+        val paint = Paint()
+        val titlePaint = Paint()
+
+        // header title
+        titlePaint.textAlign = Paint.Align.CENTER
+        titlePaint.textSize = resources.getDimension(R.dimen._20fs)
+        titlePaint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+        canvas.drawText(eventName,1200/2F, 200F, titlePaint )
+
+        // tickets info right side
+        paint.textAlign = Paint.Align.RIGHT
+        paint.textSize = resources.getDimension(R.dimen._16fs)
+        paint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)
+        canvas.drawText("Event Name: "+eventName, 1200-40F, 250F, paint);
+        canvas.drawText("Number of seats: "+eventSeatCounter, 1200F-80F, 300F, paint);
+        canvas.drawText("Amount: "+eventAmount, 1200-40F, 350F, paint);
+        canvas.drawText("Event Date: "+eventDateTime, 1200-40F, 400F, paint);
+        canvas.drawText("Location: "+eventLocation, 1200-40F, 450F, paint);
+
+        document.finishPage(page)
+
+        val directoryPath = Environment.getExternalStorageDirectory().path + "/invoices/"
+
+        val dir = File(directoryPath)
+
+        if (!dir.exists())
+            dir.mkdirs()
+        val filePath: File
+        filePath = File(directoryPath, "tickets.pdf")
+
+        if (filePath.exists()) {
+            filePath.delete()
+            filePath.createNewFile()
+        } else {
+            filePath.createNewFile()
+        }
+
+        try {
+            document.writeTo(FileOutputStream(filePath))
+            showUserMsg("Invoice downloaded")
+            Log.e("Invoice","Tickets"+filePath)
+        }catch (e : IOException) {
+            Log.e("Invoice", "Error: "+e.toString());
+            showUserMsg("Error!")
+        }
+
+        document.writeTo(FileOutputStream(filePath));
+        document.close();
     }
 }

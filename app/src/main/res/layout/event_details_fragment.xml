@@ -196,8 +196,6 @@
                             android:text="@string/subscribed_event_text"
                             android:textSize="16sp"
                             app:layout_constraintTop_toBottomOf="@id/tv_event_detail_text" />
-
-
                     </LinearLayout>
                 </androidx.core.widget.NestedScrollView>
 
