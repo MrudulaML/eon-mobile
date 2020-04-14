@@ -13,6 +13,8 @@ object Constants {
 
     const val EVENT_ID = "event_id"
     const val AMOUNT = "amount"
+    const val AMOUNT_PAID = "amount_paid"
+    const val DISCOUNT_GIVEN = "discount_given"
     const val DISCOUNT_AMOUNT = "discount_amount"
     const val DISCOUNT_PERCENTAGE = "disc_percentage"
     const val IS_UPDATE = "is_update"

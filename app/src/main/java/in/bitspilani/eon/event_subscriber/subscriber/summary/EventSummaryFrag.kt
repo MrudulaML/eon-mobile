@@ -55,10 +55,10 @@ class EventSummaryFrag : Fragment() {
 
         totalAttendees = arguments!!.getInt(Constants.ATTENDEES, 0)
         tv_attendees_value.text = totalAttendees.toString()
-        amount = (arguments!!.getInt(Constants.AMOUNT, 0)*totalAttendees)
+        amount = (arguments!!.getInt(Constants.AMOUNT, 0) * totalAttendees)
         tv_amount_value.text = amount.toString()
         discountPercentage = arguments!!.getInt(Constants.PROMOCODE, 0)
-        discountAmount = (arguments!!.getInt(Constants.DISCOUNT_AMOUNT, 0)*totalAttendees)
+        discountAmount = (arguments!!.getInt(Constants.DISCOUNT_AMOUNT, 0) * totalAttendees)
         isUpdate = arguments!!.getBoolean(Constants.IS_UPDATE, false)
 
 
@@ -78,9 +78,10 @@ class EventSummaryFrag : Fragment() {
             var bundle = bundleOf(
                 Constants.EVENT_ID to arguments?.getInt("event_id", 0),
                 "no_of_tickets" to totalAttendees,
-                Constants.AMOUNT to amount,
+                Constants.AMOUNT to (amount-discountAmount),
                 Constants.DISCOUNT_AMOUNT to discountAmount
             )
+
 
             Log.e("xoxo", "bundle from eventsummary: " + bundle)
 
@@ -104,12 +105,14 @@ class EventSummaryFrag : Fragment() {
                 showUserMsg("Promocode not available")
             else {
 
+
                 var a = discountPercentage.toString() + "% Applied"
                 et_promocode.text = a
-                tv_discounted_amount.text = "Discount Amount -₹" + discountAmount.toString()
+                tv_discounted_amount.text =
+                    "Discount Amount -₹" + discountAmount
 
-
-                tv_payable_amount.text = "Payable Amount  ₹" + (amount - discountAmount).toString()
+                tv_payable_amount.text =
+                    "Payable Amount  ₹" + (amount - discountAmount)
                 tv_discounted_amount.visibility = View.VISIBLE
                 tv_apply.visibility = View.GONE
                 iv_cancel_promo.visibility = View.VISIBLE

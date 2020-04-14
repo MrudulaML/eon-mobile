@@ -123,12 +123,16 @@ class EventDetails : Fragment() {
 
                 if (count < noOfTickets) {
 
+                    bundle.putInt(Constants.AMOUNT_PAID, data!!.subscription_details!!.amount_paid)
+                    bundle.putInt(
+                        Constants.DISCOUNT_GIVEN,
+                        data!!.subscription_details!!.discount_given
+                    )
+
                     bundle.putInt(
                         Constants.NUMBER_OF_TICKETS_BOUGHT,
                         data.subscription_details!!.no_of_tickets_bought
                     )
-
-                    Log.e("xoxo", "bundle sent to payments" + bundle)
 
                     findNavController().navigate(R.id.refundFragment, bundle)
 
@@ -140,19 +144,17 @@ class EventDetails : Fragment() {
 
                         findNavController().navigate(R.id.eventSummaryFrag, bundle)
 
+                        Log.e("xoxo", "bundle sent to payments" + bundle)
+
                     } else {
+                        Log.e("xoxo", "bundle sent to summary" + bundle)
 
                         findNavController().navigate(R.id.eventSummaryFrag, bundle)
                     }
 
-
                 }
 
-                Log.e("xoxo", "bundle from eventdetails " + bundle)
-
-
             }
-
         }
 
         iv_share.clickWithDebounce {
@@ -217,7 +219,9 @@ class EventDetails : Fragment() {
             return 0
         }
 
-        return (amount * (data.discountPercentage / 100))
+
+
+        return ((data.discountPercentage.toDouble() / 100) * amount).toInt()
 
     }
 
@@ -361,7 +365,6 @@ class EventDetails : Fragment() {
             findNavController().navigate(R.id.action_eventDetails_to_Homefragment)
 
         })
-
 
     }
 

@@ -56,9 +56,9 @@ class RefundFragment : Fragment() {
 
         Log.e("xoxo", "attendees in args: " + attendees)
 
-        amount = arguments!!.getInt(Constants.AMOUNT, 0)
+        amount = arguments!!.getInt(Constants.AMOUNT_PAID, 0)
         Log.e("xoxo", "amount in args: " + amount)
-        discountAmount = arguments!!.getInt(Constants.DISCOUNT_AMOUNT, 0)
+        discountAmount = arguments!!.getInt(Constants.DISCOUNT_GIVEN, 0)
         eventId = arguments!!.getInt(Constants.EVENT_ID, 0)
 
         tv_attendees_value.text = (noOfTickets - attendees).toString()
@@ -68,11 +68,10 @@ class RefundFragment : Fragment() {
         tv_decreasing_attendees.text = "No. of Attendees have been updated to " + attendees
 
         tv_decreasing_amount.text =
-            "Total amount paid for " + noOfTickets + " tickets Rs." + noOfTickets * (amount - discountAmount)
+            "Total amount paid for " + noOfTickets + " tickets Rs." + amount
 
         tv_refund_amount.text =
-            "Total amount refundable to you Rs." + (((amount - discountAmount) * noOfTickets) - ((amount - discountAmount) * attendees))
-
+            "Total amount refundable to you Rs." + calculateFinalAmount().toString()
 
     }
 
@@ -84,7 +83,11 @@ class RefundFragment : Fragment() {
         hashMap.put(Constants.AMOUNT, (amount * (noOfTickets - attendees)))
         hashMap.put(Constants.EVENT_ID, eventId)
         hashMap.put(Constants.USER_ID, userData!!.user.user_id)
-        hashMap.put(Constants.DISCOUNT_AMOUNT, discountAmount)
+        if (discountAmount == 0)
+            hashMap.put(Constants.DISCOUNT_AMOUNT, discountAmount)
+        else
+            hashMap.put(Constants.DISCOUNT_AMOUNT, (discountAmount / noOfTickets) - (noOfTickets - attendees))
+
         hashMap.put(Constants.NUMBER_OF_TICKETS, attendees - noOfTickets)
 
         btn_confirm.clickWithDebounce {
@@ -94,7 +97,7 @@ class RefundFragment : Fragment() {
 
     fun calculateFinalAmount(): Int {
 
-        return ((amount - discountAmount) * (noOfTickets - attendees))
+        return ((amount / noOfTickets) * (noOfTickets - attendees))
     }
 
     fun setObservables() {
