@@ -157,12 +157,23 @@ class EventDetails : Fragment() {
 
         iv_share.clickWithDebounce {
 
-            showEmailDialog()
+            SendEmailDialog.openDialog(activity!!) { emailId, message ->
+
+                var hashMap: HashMap<String, Any> = HashMap()
+                hashMap.put("email_id", emailId)
+                hashMap.put("message", message)
+
+                eventDetailsViewModel.sendEmail(hashMap)
+
+            }
         }
 
         btn_cancel.clickWithDebounce {
 
-            showCancelEventDialog()
+            CancelDialog.openDialog(activity!!) {
+
+                eventDetailsViewModel.cancelEvent(data.event_id)
+            }
         }
 
         // button download
@@ -316,10 +327,8 @@ class EventDetails : Fragment() {
         eventDetailsViewModel.emailApiData.observe(viewLifecycleOwner, Observer {
 
             showUserMsg(it)
-            if (mAlertDialog != null) {
 
-                mAlertDialog.dismiss()
-            }
+            SendEmailDialog.dismissDialog()
 
         })
 
@@ -332,10 +341,8 @@ class EventDetails : Fragment() {
         eventDetailsViewModel.shareEmailError.observe(viewLifecycleOwner, Observer {
 
             showUserMsg(it)
-            if (mAlertDialog != null) {
-                mAlertDialog.dismiss()
+            SendEmailDialog.dismissDialog()
 
-            }
 
         })
 
@@ -348,46 +355,18 @@ class EventDetails : Fragment() {
 
         })
 
+        eventDetailsViewModel.cancelEventData.observe(viewLifecycleOwner, Observer {
+
+            showUserMsg(it)
+            findNavController().navigate(R.id.action_eventDetails_to_Homefragment)
+
+        })
+
 
     }
 
     fun showUserMsg(msg: String) {
         Toast.makeText(activity, msg, Toast.LENGTH_LONG).show()
-    }
-
-    lateinit var mAlertDialog: AlertDialog
-
-    fun showEmailDialog() {
-
-        //Inflate the dialog with custom view
-        val mDialogView =
-            LayoutInflater.from(activity).inflate(R.layout.layout_email_share_to_friend, null)
-        //AlertDialogBuilder
-        val mBuilder = AlertDialog.Builder(activity)
-            .setView(mDialogView)
-        //show dialog
-        mAlertDialog = mBuilder.show()
-
-        mDialogView.btn_share.clickWithDebounce {
-
-
-            if (mDialogView.et_email_id.text.isEmpty())
-                showUserMsg("Please enter an email id")
-            if (!EmailValidator.isEmailValid(mDialogView.et_email_id.text.toString()))
-                showUserMsg("Please enter a valid email id")
-            else if (mDialogView.et_message.text.isEmpty())
-                showUserMsg("Please enter some message")
-            else {
-
-                var hashMap: HashMap<String, Any> = HashMap()
-                hashMap.put("email_id", mDialogView.et_email_id.text)
-                hashMap.put("message", mDialogView.et_message.text)
-
-                eventDetailsViewModel.sendEmail(hashMap)
-            }
-
-        }
-
     }
 
     // create pdf and save external directory
@@ -456,22 +435,5 @@ class EventDetails : Fragment() {
     }
 
 
-    fun showCancelEventDialog() {
-
-        //Inflate the dialog with custom view
-        val mDialogView =
-            LayoutInflater.from(activity).inflate(R.layout.layout_cancel_event, null)
-        //AlertDialogBuilder
-        val mBuilder = AlertDialog.Builder(activity)
-            .setView(mDialogView)
-        //show dialog
-        mAlertDialog = mBuilder.show()
-
-        mDialogView.btn_confirm.clickWithDebounce {
-
-            eventDetailsViewModel.cancelEvent(data.event_id)
-        }
-
-    }
 }
 
