@@ -6,6 +6,7 @@ import `in`.bitspilani.eon.event_organiser.models.DetailResponseOrganiser
 import `in`.bitspilani.eon.event_organiser.models.EventList
 import `in`.bitspilani.eon.event_organiser.models.EventResponse
 import `in`.bitspilani.eon.event_subscriber.models.EventDetailResponse
+import `in`.bitspilani.eon.login.data.CommonResponse
 import `in`.bitspilani.eon.utils.ApiCallback
 import `in`.bitspilani.eon.utils.SingleLiveEvent
 import androidx.lifecycle.MutableLiveData
@@ -19,7 +20,7 @@ class EventDetailOrganiserViewModel(private val apiService: ApiService) : BaseVi
 
     var eventData: SingleLiveEvent<DetailResponseOrganiser> = SingleLiveEvent()
 
-    var notifyLiveData: SingleLiveEvent<String> = SingleLiveEvent()
+    var notifyLiveData: SingleLiveEvent<CommonResponse> = SingleLiveEvent()
 
     var errorView: SingleLiveEvent<String> = SingleLiveEvent()
 
@@ -49,8 +50,8 @@ class EventDetailOrganiserViewModel(private val apiService: ApiService) : BaseVi
         body.addProperty("message",message)
         body.addProperty("type",type)
         apiService.notifySubscriber(body)
-            .enqueue(object : ApiCallback<String>() {
-                override fun onSuccessResponse(responseBody: String) {
+            .enqueue(object : ApiCallback<CommonResponse>() {
+                override fun onSuccessResponse(responseBody: CommonResponse) {
                     notifyLiveData.postValue(responseBody)
                     showProgress(false)
                 }

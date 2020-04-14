@@ -3,27 +3,22 @@ package `in`.bitspilani.eon.event_organiser.ui
 
 import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
-import `in`.bitspilani.eon.databinding.FragmentBasicDetailsBinding
 import `in`.bitspilani.eon.databinding.FragmentEventBinding
 import `in`.bitspilani.eon.event_organiser.models.DetailResponseOrganiser
 import `in`.bitspilani.eon.event_organiser.viewmodel.EventDetailOrganiserViewModel
-import `in`.bitspilani.eon.event_subscriber.models.EventDetailResponse
-import `in`.bitspilani.eon.event_subscriber.subscriber.detail.EventDetailsViewModel
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import `in`.bitspilani.eon.utils.getViewModelFactory
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.fragment_event.*
 import timber.log.Timber
 
@@ -34,7 +29,7 @@ import timber.log.Timber
  */
 class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganiser) : Fragment(),
     NotifySubscriberCallback {
-
+    private var isFromUpdate = true
     private val eventDetailOrganiserViewModel by viewModels<EventDetailOrganiserViewModel> { getViewModelFactory() }
 
     lateinit var binding: FragmentEventBinding
@@ -66,13 +61,26 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
     private fun setUpObservables() {
         eventDetailOrganiserViewModel.notifyLiveData.observe(viewLifecycleOwner, Observer {
 
-            Timber.e("notify $it")
-            showUserMsg("Notified successfully")
+            if(!isFromUpdate)
+                openReminderDialog(it.message)
         })
         eventDetailOrganiserViewModel.progressLiveData.observe(viewLifecycleOwner, Observer {
 
             (activity as BitsEonActivity).showProgress(it)
         })
+    }
+    //TODO fix this use appcompat
+    private fun openReminderDialog(message: String) {
+        val builder =
+            AlertDialog.Builder(context!!)
+        val layoutInflaterAndroid = LayoutInflater.from(activity)
+        val view2: View =
+            layoutInflaterAndroid.inflate(R.layout.dialog_success_reminder, null)
+        builder.setView(view2)
+        builder.setCancelable(true)
+        val alertDialog = builder.create()
+        alertDialog.show()
+
     }
 
 
@@ -90,6 +98,7 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
         }
         send_reminder.clickWithDebounce {
             onReminder("")
+
 
         }
     }
@@ -111,6 +120,7 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
     }
 
     override fun onReminder(message: String) {
+        isFromUpdate = false
         eventDetailOrganiserViewModel.notifySubscriber(
             type = "reminder",
             event_id =  eventDetailResponse.data[0].id,
