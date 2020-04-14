@@ -2,6 +2,9 @@ package `in`.bitspilani.eon.api
 
 import `in`.bitspilani.eon.event_organiser.models.*
 import `in`.bitspilani.eon.event_subscriber.models.EventDetailResponse
+import `in`.bitspilani.eon.event_organiser.models.EventResponse
+import `in`.bitspilani.eon.event_organiser.models.FilterResponse
+import `in`.bitspilani.eon.event_subscriber.models.PaymentResponse
 import `in`.bitspilani.eon.login.data.GenerateCodeResponse
 import `in`.bitspilani.eon.login.data.LoginResponse
 import `in`.bitspilani.eon.login.data.ResetPasswordResponse
@@ -46,7 +49,6 @@ interface ApiService {
     @POST("/authentication/change-password")
     fun changePassword(@Body map: HashMap<String, Any>): Call<CommonResponse>
 
-
     @GET("/core/event/{id}")
     fun getEventDetails(@Path("id") id: Int): Call<EventDetailResponse>
 
@@ -60,7 +62,26 @@ interface ApiService {
     fun addInvitees(@Body body: JsonObject): Call<AddInviteeResponse>
 
     @POST("/core/notify-subscriber")
-    fun notifySubscriber(@Body body: JsonObject): Call<CommonResponse>
+    fun notifySubscriber(@Body body: JsonObject): Call<JsonObject>
+
+    //to wishlist an event
+    @POST("core/wishlist/")
+    fun wishlist(@Body map: HashMap<String, Any>): Call<CommonResponse>
+
+    //to remove event from wishlist
+    @DELETE("core/wishlist/{id}/")
+    fun deleteWishlist(@Path("id") id: Int?): Call<CommonResponse>
+
+    //to send email
+    @POST("core/share-with-friend/")
+    fun sendEmail(@Body map: HashMap<String, Any>): Call<CommonResponse>
+
+    //to pay and subscribe to an event
+    @POST("core/subscription/")
+    fun subscribeEvent(@Body map: HashMap<String, Any>): Call<PaymentResponse>
+
+    @DELETE("core/subscription/{id}/")
+    fun cancelEvent(@Path ("id") id: Int?): Call<CommonResponse>
 
     @GET("/core/notification/")
     fun getNotification(): Call<NotificationResponse>

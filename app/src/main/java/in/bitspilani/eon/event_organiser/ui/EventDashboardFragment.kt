@@ -106,7 +106,10 @@ class HomeFragment : Fragment() {
                             false).build())
             else
                 //TODO change this to builder pattern
-                findNavController().navigate(R.id.eventDetails)
+                findNavController().navigate(
+                    R.id.eventDetails,
+                    bundleOf(Constants.EVENT_ID to it)
+                )
         })
 
         eventDashboardViewModel.progressLiveData.observe(viewLifecycleOwner, Observer {

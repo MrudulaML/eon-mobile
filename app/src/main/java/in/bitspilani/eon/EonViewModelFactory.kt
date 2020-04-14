@@ -3,6 +3,11 @@ package `in`.bitspilani.eon
 import `in`.bitspilani.eon.api.ApiService
 import `in`.bitspilani.eon.event_organiser.viewmodel.*
 import `in`.bitspilani.eon.event_subscriber.subscriber.detail.EventDetailsViewModel
+import `in`.bitspilani.eon.event_organiser.viewmodel.EventDashboardViewModel
+import `in`.bitspilani.eon.event_organiser.viewmodel.EventDetailOrganiserViewModel
+import `in`.bitspilani.eon.event_organiser.viewmodel.EventFilterViewModel
+import `in`.bitspilani.eon.event_subscriber.subscriber.payments.PaymentViewModel
+import `in`.bitspilani.eon.event_subscriber.subscriber.summary.EventSummaryViewModel
 import `in`.bitspilani.eon.login.ui.AuthViewModel
 import `in`.bitspilani.eon.login.ui.ChangePwViewModel
 import android.os.Bundle
@@ -31,7 +36,8 @@ class EonViewModelFactory(
             isAssignableFrom(EventDetailOrganiserViewModel::class.java) -> EventDetailOrganiserViewModel(apiService)
             isAssignableFrom(AddInviteeViewModel::class.java) -> AddInviteeViewModel(apiService)
             isAssignableFrom(NotificationViewModel::class.java) -> NotificationViewModel(apiService)
-
+            isAssignableFrom(PaymentViewModel::class.java) -> PaymentViewModel(apiService)
+            isAssignableFrom(EventSummaryViewModel::class.java) -> EventSummaryViewModel(apiService)
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

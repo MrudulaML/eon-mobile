@@ -43,8 +43,6 @@ class ProfileBasicDetailFragment(private val callbackListener: CallbackListener)
         populateCheckBox()
 
 
-
-
     }
 
     fun populateCheckBox(){
