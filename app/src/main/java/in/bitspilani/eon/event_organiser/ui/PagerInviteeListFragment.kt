@@ -2,7 +2,6 @@ package `in`.bitspilani.eon.event_organiser.ui
 
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.event_organiser.models.DetailResponseOrganiser
-import `in`.bitspilani.eon.event_organiser.models.Invitee
 import `in`.bitspilani.eon.event_organiser.ui.adapter.InviteesAdapter
 import `in`.bitspilani.eon.utils.MarginItemDecoration
 import `in`.bitspilani.eon.utils.clickWithDebounce
@@ -14,7 +13,6 @@ import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.fragment_invitee.*
 
 
@@ -23,6 +21,9 @@ import kotlinx.android.synthetic.main.fragment_invitee.*
  *
  */
 class PagerInviteeListFragment(val detailResponseOrganiser: DetailResponseOrganiser) : Fragment(),CallbackListener {
+
+    private lateinit var  layoutManager: LinearLayoutManager
+
 
     // tab titles
     private val titles =
@@ -64,19 +65,14 @@ class PagerInviteeListFragment(val detailResponseOrganiser: DetailResponseOrgani
     var inviteesAdapter =  InviteesAdapter(arrayListOf())
     private fun setRecyclerview(detailResponseOrganiser: DetailResponseOrganiser) {
 
-        rv_invitee_list.layoutManager = LinearLayoutManager(activity)
-        rv_invitee_list.addItemDecoration(MarginItemDecoration(
-                resources.getDimension(R.dimen._16sdp).toInt()) )
-        inviteesAdapter=
-            InviteesAdapter(
-                detailResponseOrganiser.data[0].invitee_list
-            )
-        rv_invitee_list.adapter = inviteesAdapter
+        layoutManager = LinearLayoutManager(activity)
+        rv_invitee_list.layoutManager = layoutManager
+        rv_invitee_list.adapter = InviteesAdapter(detailResponseOrganiser.data[0].invitee_list)
 
     }
 
     private fun showDialog() {
-        val dialogFragment = AddInviteeFragment()
+        val dialogFragment = AddInviteeFragment(detailResponseOrganiser.data[0])
         dialogFragment.show(childFragmentManager, "AaddInviteeDialog")
     }
     override fun onDataReceived(data: String) {

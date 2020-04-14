@@ -33,6 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:textColor="@color/green"
         android:text="Reminder sent successfully"
         app:layout_constraintEnd_toEndOf="@+id/appCompatImageView4"
         app:layout_constraintStart_toStartOf="@+id/appCompatImageView4"

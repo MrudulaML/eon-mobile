@@ -9,6 +9,8 @@ import `in`.bitspilani.eon.event_organiser.models.EventResponse
 
 import `in`.bitspilani.eon.utils.ApiCallback
 import `in`.bitspilani.eon.utils.SingleLiveEvent
+import androidx.lifecycle.MutableLiveData
+import timber.log.Timber
 
 /**
  * This is a shared view model, all the shared view model will have zero con arguments.
@@ -17,8 +19,8 @@ import `in`.bitspilani.eon.utils.SingleLiveEvent
 
 class EventDashboardViewModel : BaseViewModel() {
 
-    val eventDetailsObservables: SingleLiveEvent<EventList> =
-        SingleLiveEvent()
+    val eventDetailsObservables: MutableLiveData<EventList> =
+        MutableLiveData()
 
     private val restClient: RestClient = RestClient()
 
@@ -52,7 +54,7 @@ class EventDashboardViewModel : BaseViewModel() {
 
 
     fun onEventClick(eventId: Int) {
-
+        Timber.e("event clicked id$eventId")
         eventClickObservable.postValue(eventId)
     }
 

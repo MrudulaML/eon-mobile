@@ -40,7 +40,7 @@ class AuthViewModel : BaseViewModel() {
 
     val progress: SingleLiveEvent<Boolean> = SingleLiveEvent()
 
-    val errorView: SingleLiveEvent<String> = SingleLiveEvent()
+
     var registerCurrentStep: OrganiserDetailsSteps =
         OrganiserDetailsSteps.BASIC_DETAILS
 
@@ -73,7 +73,7 @@ class AuthViewModel : BaseViewModel() {
 
                 override fun onApiError(errorType: ApiError, error: String?) {
                     showProgress(false)
-                    //errorView.postValue(error)
+                    errorView.postValue(error)
                 }
             })
 

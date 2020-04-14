@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -33,21 +34,36 @@
 
     </RelativeLayout>
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/edt_updated_fees"
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/appCompatTextView22"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
-        android:inputType="number"
-        android:background="@drawable/rounded_corner_grey_4"
+        android:text="Updated fees"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView21" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_updated_fees"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/rounded_corner_grey_4_solid_light_grey"
+        android:backgroundTint="@color/lightGrey"
         android:hint="Updated Subscription Fee"
+        android:inputType="number"
         android:padding="@dimen/_8sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView22"
+        tools:text="2500" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/edt_discount"
@@ -56,44 +72,63 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
+        android:drawableRight="@drawable/ic_location_on_black_24dp"
         android:inputType="number"
         android:background="@drawable/rounded_corner_grey_4"
         android:hint="Discount"
         android:padding="@dimen/_8sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_updated_fees" />
+        app:layout_constraintTop_toBottomOf="@+id/text_updated_fees" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/txt_invitee_email_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
         android:text="Enter Invitee's Email Address"
-        app:layout_constraintStart_toStartOf="@+id/edt_discount"
-        app:layout_constraintTop_toBottomOf="@+id/edt_discount" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/edt_email_addresses"
+
+    <com.hootsuite.nachos.NachoTextView
+        android:id="@+id/nacho_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="24dp"
         android:background="@drawable/rounded_corner_grey_4"
+        android:gravity="top"
+        android:hint="Enter emails here"
+        android:minLines="4"
+        android:paddingHorizontal="@dimen/_8sdp"
+        android:textSize="12sp"
+        app:chipBackground="@color/lightGrey"
+        app:chipHeight="@dimen/_20sdp"
+        app:chipSpacing="8dp"
+        app:chipTextColor="@color/white"
+        app:chipTextSize="16dp"
+        app:chipVerticalSpacing="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_invitee_email_title" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/appCompatTextView21"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
-        android:padding="@dimen/_4sdp"
-        android:autofillHints="Organisation Address"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
-        android:lines="8"
-        android:minLines="3"
-        android:scrollbars="vertical"
-        android:singleLine="false"
+        android:text="Max 10 email ids at a time.\nPlease hit enter to add the email to the invitee list."
+        android:textColor="@color/red"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_invitee_email_title"/>
-
-
+        app:layout_constraintTop_toBottomOf="@+id/nacho_text_view" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_invitee_confirm"

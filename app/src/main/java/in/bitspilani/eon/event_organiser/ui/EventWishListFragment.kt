@@ -4,15 +4,15 @@ package `in`.bitspilani.eon.event_organiser.ui
 import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.event_organiser.models.EventList
+import `in`.bitspilani.eon.event_organiser.models.MonoEvent
 import `in`.bitspilani.eon.event_organiser.ui.adapter.EventAdapter
 import `in`.bitspilani.eon.event_organiser.viewmodel.EventDashboardViewModel
 import `in`.bitspilani.eon.login.ui.ActionbarHost
 import `in`.bitspilani.eon.utils.*
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -30,8 +30,8 @@ import timber.log.Timber
  * A simple [Fragment] subclass.
  *
  */
-class HomeFragment : Fragment() {
-   // private val dashboardViewModel by viewModels<EventDashboardViewModel> { getViewModelFactory() }
+class EventWishListFragment : Fragment() {
+    // private val dashboardViewModel by viewModels<EventDashboardViewModel> { getViewModelFactory() }
     private var actionbarHost: ActionbarHost? = null
     private var isWishListed : Boolean =false
     private lateinit var layoutManager: RecyclerView.LayoutManager
@@ -39,9 +39,13 @@ class HomeFragment : Fragment() {
     private lateinit var eventDashboardViewModel: EventDashboardViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+        (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+
         eventDashboardViewModel = activity?.run {
             ViewModelProviders.of(this).get(EventDashboardViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
+
 
         eventDashboardViewModel.getEvents()
     }
@@ -54,6 +58,18 @@ class HomeFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_dashboard, container, false)
 
     }
+
+    override fun onResume() {
+        super.onResume()
+        actionbarHost?.showToolbar(showToolbar = true,title = "WishList",showBottomNav = false)
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        menu.clear()
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -105,11 +121,8 @@ class HomeFragment : Fragment() {
                         .setPopUpTo(R.id.homeFragment,
                             false).build())
             else
-                //TODO change this to builder pattern
-                findNavController().navigate(
-                    R.id.eventDetails,
-                    bundleOf(Constants.EVENT_ID to it)
-                )
+            //TODO change this to builder pattern
+                findNavController().navigate(R.id.eventDetails)
         })
 
         eventDashboardViewModel.progressLiveData.observe(viewLifecycleOwner, Observer {
@@ -123,35 +136,40 @@ class HomeFragment : Fragment() {
 
         val isSubscriber :  Boolean = ModelPreferencesManager.getInt(Constants.USER_ROLE)==2
         Timber.e("is subcriber$isSubscriber")
+        Timber.e("is from wish list$isSubscriber")
+        //if from wishlist
+        arguments?.getInt("id")?.let { isWishListed=true }
         layoutManager = LinearLayoutManager(activity)
         //TODO fix this hack
         if (eventList.fromFilter) {
             btn_filter_clear.visibility=View.VISIBLE
-            bindList(eventList, isSubscriber)
+            bindList(eventList, isSubscriber,isWishListed)
         }
         else
-            bindList(eventList, isSubscriber)
+            bindList(eventList, isSubscriber,isWishListed)
 
     }
 
     private fun bindList(
         eventList: EventList,
-        isSubscriber: Boolean = false
+        isSubscriber: Boolean = false,
+        wishListed: Boolean
     ) {
+        eventAdapter = if(wishListed){
+            val filteredList =eventList.eventList.filter {
+                it.is_wishlisted!!
+            } as ArrayList<MonoEvent>
+            EventAdapter(filteredList, eventDashboardViewModel, isSubscriber)
+
+        }else{
+
+            EventAdapter(eventList.eventList, eventDashboardViewModel, isSubscriber)
+
+        }
         rv_event_list.layoutManager = layoutManager
-        eventAdapter = EventAdapter(eventList.eventList, eventDashboardViewModel, isSubscriber)
         rv_event_list.adapter = eventAdapter
     }
 
-
-    override fun onResume() {
-        super.onResume()
-
-        if(ModelPreferencesManager.getInt(Constants.USER_ROLE)==UserType.SUBSCRIBER.ordinal)
-            actionbarHost?.showToolbar(showToolbar = true,title = "Event Management",showBottomNav = true)
-        else
-            actionbarHost?.showToolbar(showToolbar = true,title = "Event Management",showBottomNav = false)
-    }
 
 
     /**

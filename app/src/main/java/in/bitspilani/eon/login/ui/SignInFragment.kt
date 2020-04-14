@@ -2,7 +2,6 @@ package `in`.bitspilani.eon.login.ui
 
 
 import `in`.bitspilani.eon.BitsEonActivity
-import `in`.bitspilani.eon.BitsEonApp
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.utils.*
 import android.content.Context
@@ -16,7 +15,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
-import kotlinx.android.synthetic.main.activity_bits_eon.*
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 
 
@@ -41,7 +39,7 @@ class SignInFragment : Fragment() {
             ModelPreferencesManager.putString(Constants.REFRESH_TOKEN, it.data.refresh)
             ModelPreferencesManager.putInt(Constants.USER_ROLE, it.data.user.role.id)
             ModelPreferencesManager.put(it.data, Constants.CURRENT_USER)
-            showUserMsg("Login Successful")
+            view?.showSnackbar("Login Successful")
             findNavController().navigate(
                 R.id.action_signInFragment_to_homeFragment,
                 null,
@@ -56,13 +54,14 @@ class SignInFragment : Fragment() {
 
         authViewModel.errorView.observe(viewLifecycleOwner, Observer {
 
-            showUserMsg(it)
+            view?.showSnackbar(it,0)
 
         })
         authViewModel.progressLiveData.observe(viewLifecycleOwner, Observer {
 
             (activity as BitsEonActivity).showProgress(it)
         })
+
 
 
     }
@@ -84,7 +83,7 @@ class SignInFragment : Fragment() {
             if (Validator.isValidEmail(etEmailAddress, true)) {
                 authViewModel.login(etEmailAddress.text.toString(), etPassword.text.toString())
             } else {
-                showUserMsg("Please select user role")
+                view?.showSnackbar("Please select user role")
             }
         }
 

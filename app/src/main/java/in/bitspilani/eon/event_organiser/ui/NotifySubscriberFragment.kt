@@ -6,6 +6,7 @@ import `in`.bitspilani.eon.event_organiser.viewmodel.EventDetailOrganiserViewMod
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import `in`.bitspilani.eon.utils.getViewModelFactory
 import `in`.bitspilani.eon.utils.hideKeyboard
+import `in`.bitspilani.eon.utils.showSnackbar
 import android.os.Bundle
 import android.os.Message
 import android.text.TextUtils
@@ -55,8 +56,12 @@ class NotifySubscriberFragment(var notifySubscriberCallback: NotifySubscriberCal
     private fun setUpClickListeners() {
         btn_close.clickWithDebounce { dismiss() }
         btn_notify_confirm.clickWithDebounce {
-            edt_notify_message.text?.let {
+            if(!edt_notify_message.text.isNullOrEmpty())
+            {
                 notifySubscriberCallback.onUpdate(edt_notify_message.text.toString())
+            }else{
+
+                view?.showSnackbar("Message can not be empty",0)
             }
             hideKeyboard(activity)
             dismiss()
