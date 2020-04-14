@@ -22,7 +22,6 @@ class EventDetailOrganiserViewModel(private val apiService: ApiService) : BaseVi
 
     var notifyLiveData: SingleLiveEvent<CommonResponse> = SingleLiveEvent()
 
-    var errorView: SingleLiveEvent<String> = SingleLiveEvent()
 
 
     fun getEventDetails(id: Int) {

@@ -1,8 +1,6 @@
 package `in`.bitspilani.eon.utils
 
 
-import `in`.bitspilani.eon.event_organiser.models.EventResponse
-import `in`.bitspilani.eon.event_organiser.models.EventType
 import `in`.bitspilani.eon.event_organiser.models.FilterResponse
 import android.content.Context
 import android.os.SystemClock
@@ -11,8 +9,10 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.StringRes
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter
+import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 
 
@@ -123,6 +123,18 @@ fun View.hideKeyboard(): Boolean {
         return inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
     } catch (ignored: RuntimeException) { }
     return false
+}
+
+/**
+ * Shows the Snackbar inside an Activity or Fragment
+ *
+ * @param messageRes Text to be shown inside the Snackbar
+ * @param length Duration of the Snackbar
+ * @param f Action of the Snackbar
+ */
+fun View.showSnackbar(messageRes: String, length: Int = Snackbar.LENGTH_LONG) {
+    val snackBar = Snackbar.make(this, messageRes, length)
+    snackBar.show()
 }
 
 

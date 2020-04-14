@@ -5,6 +5,7 @@ import `in`.bitspilani.eon.event_organiser.models.Data
 import `in`.bitspilani.eon.event_organiser.viewmodel.AddInviteeViewModel
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import `in`.bitspilani.eon.utils.getViewModelFactory
+import `in`.bitspilani.eon.utils.showSnackbar
 import android.app.AlertDialog
 import android.os.Bundle
 import android.text.TextUtils
@@ -58,8 +59,8 @@ class AddInviteeFragment(private val eventData: Data) : DialogFragment() {
         addInviteeViewModel.addInviteeLiveData.observe(viewLifecycleOwner, Observer {
 
             dismiss()
-
-            Toast.makeText(activity, "Invitees added successfully.", Toast.LENGTH_LONG).show()
+            view?.showSnackbar(it.message,0)
+            //Toast.makeText(activity, "Invitees added successfully.", Toast.LENGTH_LONG).show()
         })
         nacho_text_view.addChipTerminator('\n', ChipTerminatorHandler.BEHAVIOR_CHIPIFY_ALL);
 
