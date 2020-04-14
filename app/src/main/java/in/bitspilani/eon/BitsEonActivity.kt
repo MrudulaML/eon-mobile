@@ -119,7 +119,7 @@ class BitsEonActivity : AppCompatActivity(),ActionbarHost {
         return when (item.itemId) {
             R.id.userProfileFragment -> {
 
-                navController.navigate(R.id.userProfileFragment)
+                navController.navigate(R.id.nav_user_profile)
 
                 true
             }

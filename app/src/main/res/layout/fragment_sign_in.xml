@@ -136,7 +136,7 @@
                     android:layout_below="@id/emailAddressWrapper"
                     android:layout_marginTop="@dimen/_10dp"
                     android:background="@drawable/bg_edit_text"
-
+                    app:passwordToggleEnabled="true"
                     android:theme="@style/TextLabel">
 
                     <androidx.appcompat.widget.AppCompatEditText
