@@ -45,6 +45,7 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
     }
 
     override fun onCreateView(
+
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {

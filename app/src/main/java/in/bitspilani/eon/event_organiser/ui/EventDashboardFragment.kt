@@ -59,7 +59,7 @@ class HomeFragment : Fragment() {
 
         findNavController().navigate(
             R.id.eventDetails,
-            bundleOf(Constants.EVENT_ID to 8)
+            bundleOf(Constants.EVENT_ID to 11)
         )
     }
 
