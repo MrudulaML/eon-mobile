@@ -14,11 +14,11 @@ import kotlin.collections.ArrayList
 
 class EventAdapter(
     private val eventList: ArrayList<MonoEvent>,
-    val eventDashboardViewModel: EventDashboardViewModel
+    val eventDashboardViewModel: EventDashboardViewModel,val isSubscriber: Boolean
 ) : RecyclerView.Adapter<EventAdapter.EventViewHolder>(), Filterable {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = EventItemRowBinding.inflate(inflater)
+        val binding = EventItemRowBinding.inflate(inflater,parent,false)
         return EventViewHolder(binding)
     }
 
@@ -38,6 +38,7 @@ class EventAdapter(
         fun bind(item: MonoEvent) {
 
             binding.event = item
+            binding.isSubscriber= isSubscriber
             binding.dashboardViewmodel = eventDashboardViewModel
             binding.executePendingBindings()
         }

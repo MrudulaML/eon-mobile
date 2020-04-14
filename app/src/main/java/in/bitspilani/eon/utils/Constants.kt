@@ -6,6 +6,7 @@ object Constants {
 
     //pref keys
     const val CURRENT_USER = "user_data"
+    const val EVENT_TYPES = "event_types"
     const val ACCESS_TOKEN = "access_token"
     const val REFRESH_TOKEN = "refresh_token"
     //1 for organiser and 1 for subscriber
@@ -16,5 +17,5 @@ object Constants {
 
 enum class UserType(val type: Int) {
     ORGANISER(1),
-    SUBSCRIBER(0)
+    SUBSCRIBER(2)
 }

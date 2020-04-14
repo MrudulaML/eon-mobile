@@ -1,12 +1,16 @@
 package `in`.bitspilani.eon.utils
 
 
+import `in`.bitspilani.eon.event_organiser.models.EventResponse
+import `in`.bitspilani.eon.event_organiser.models.EventType
+import `in`.bitspilani.eon.event_organiser.models.FilterResponse
 import android.content.Context
 import android.os.SystemClock
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter
 import com.squareup.picasso.Picasso
@@ -68,7 +72,24 @@ fun AppCompatImageView.isSelected(isSelected: Boolean) {
 
 @BindingAdapter("imageUrl")
 fun loadImage(view: ImageView, imageUrl: String) {
-    Picasso.get().load(imageUrl).into(view)
+    Picasso.get().load(imageUrl).centerCrop().resize(300,200) .into(view)
+}
+
+//TODO optimise this hacky thing
+@BindingAdapter("eventType")
+fun getType(view: TextView,id: String) {
+    val eventTypeCached = ModelPreferencesManager.get<FilterResponse>(Constants.EVENT_TYPES)
+    val eventType = eventTypeCached?.data?.filter {
+
+        it.id ==id.toInt()
+    }
+    view.text=eventType?.get(0)?.type
+}
+
+
+@BindingAdapter("visibility")
+fun setVisibility(view: View, value: Boolean) {
+    view.visibility = if (value) View.VISIBLE else View.GONE
 }
 
 fun View.clickWithDebounce(debounceTime: Long = 1000L, action: () -> Unit) {

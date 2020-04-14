@@ -26,6 +26,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 
 /**
@@ -36,6 +37,13 @@ class HomeFragment : Fragment() {
    // private val dashboardViewModel by viewModels<EventDashboardViewModel> { getViewModelFactory() }
     private var actionbarHost: ActionbarHost? = null
     private lateinit var eventDashboardViewModel: EventDashboardViewModel
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        eventDashboardViewModel = activity?.run {
+            ViewModelProviders.of(this).get(EventDashboardViewModel::class.java)
+        } ?: throw Exception("Invalid Activity")
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,17 +56,10 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        eventDashboardViewModel = activity?.run {
-            ViewModelProviders.of(this).get(EventDashboardViewModel::class.java)
-        } ?: throw Exception("Invalid Activity")
-
-        eventDashboardViewModel.getEvents()
-
-
         setUpObservables()
         setUpClickListeners()
         setUpSearch()
+        eventDashboardViewModel.getEvents()
     }
 
 
@@ -84,6 +85,11 @@ class HomeFragment : Fragment() {
             //TODO move it to nav graph please
             val dialogFragment = FilterDialogFragment()
             dialogFragment.show(childFragmentManager, "filterDialog")
+
+        }
+        btn_filter_clear.clickWithDebounce {
+            btn_filter_clear.visibility=View.GONE
+            eventDashboardViewModel.getEvents()
         }
     }
 
@@ -91,7 +97,7 @@ class HomeFragment : Fragment() {
         eventDashboardViewModel.eventDetailsObservables.observe(viewLifecycleOwner, Observer {
             setEventRecyclerView(it)
         })
-        var bundle =
+
         eventDashboardViewModel.eventClickObservable.observe(viewLifecycleOwner, Observer {
             if (ModelPreferencesManager.getInt(Constants.USER_ROLE)==1)
                 findNavController().navigate(R.id.action_homeFragment_to_organiser_eventDetailsFragment,
@@ -113,23 +119,21 @@ class HomeFragment : Fragment() {
     private lateinit var eventListAdapter : EventAdapter
     private fun setEventRecyclerView(eventList: EventList) {
 
+        val isSubscriber :  Boolean = ModelPreferencesManager.getInt(Constants.USER_ROLE)==2
+        Timber.e("is subcriber$isSubscriber")
         //TODO fix this hack
         if (eventList.fromFilter) {
+            btn_filter_clear.visibility=View.VISIBLE
             rv_event_list.invalidateItemDecorations()
             rv_event_list.invalidate()
-            eventListAdapter = EventAdapter(eventList.eventList, eventDashboardViewModel)
+            eventListAdapter = EventAdapter(eventList.eventList, eventDashboardViewModel,isSubscriber)
             rv_event_list.adapter = eventListAdapter
 
         }
         else {
 
             rv_event_list.layoutManager = LinearLayoutManager(activity)
-            rv_event_list.addItemDecoration(
-                MarginItemDecoration(
-                    resources.getDimension(R.dimen._16sdp).toInt()
-                )
-            )
-            eventListAdapter = EventAdapter(eventList.eventList, eventDashboardViewModel)
+            eventListAdapter = EventAdapter(eventList.eventList, eventDashboardViewModel,isSubscriber)
             rv_event_list.adapter = eventListAdapter
         }
     }
