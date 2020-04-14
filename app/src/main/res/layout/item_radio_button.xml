@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.AppCompatRadioButton
-    android:id="@+id/rb_item"
+<RadioButton android:id="@+id/rb_item"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    tools:text="filter type"
+    android:button="@android:color/transparent"
+    android:padding="@dimen/_8sdp"
+    android:layout_margin="@dimen/_2sdp"
+    android:foreground="?android:attr/actionBarItemBackground"
+    android:textColor="@color/radio_button_states"
     android:background="@drawable/custom_btn_radio"
-    xmlns:android="http://schemas.android.com/apk/res/android" />
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" />

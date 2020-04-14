@@ -85,6 +85,11 @@ class HomeFragment : Fragment() {
             //TODO move it to nav graph please
             val dialogFragment = FilterDialogFragment()
             dialogFragment.show(childFragmentManager, "filterDialog")
+
+        }
+        btn_filter_clear.clickWithDebounce {
+            btn_filter_clear.visibility=View.GONE
+            eventDashboardViewModel.getEvents()
         }
     }
 
@@ -118,6 +123,7 @@ class HomeFragment : Fragment() {
         Timber.e("is subcriber$isSubscriber")
         //TODO fix this hack
         if (eventList.fromFilter) {
+            btn_filter_clear.visibility=View.VISIBLE
             rv_event_list.invalidateItemDecorations()
             rv_event_list.invalidate()
             eventListAdapter = EventAdapter(eventList.eventList, eventDashboardViewModel,isSubscriber)

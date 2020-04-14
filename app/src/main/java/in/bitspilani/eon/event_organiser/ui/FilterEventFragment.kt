@@ -3,20 +3,24 @@ package `in`.bitspilani.eon.event_organiser.ui
 import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.event_organiser.models.EventType
+import `in`.bitspilani.eon.event_organiser.models.FilterResponse
 import `in`.bitspilani.eon.event_organiser.viewmodel.EventFilterViewModel
+import `in`.bitspilani.eon.utils.Constants
+import `in`.bitspilani.eon.utils.ModelPreferencesManager
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import `in`.bitspilani.eon.utils.getViewModelFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.RadioButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.fragment_filter_event.*
+import kotlinx.android.synthetic.main.item_radio_button.*
 import timber.log.Timber
 
 
@@ -38,8 +42,13 @@ class FilterEventFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val eventTypeCached = ModelPreferencesManager.get<FilterResponse>(Constants.EVENT_TYPES)
+        if(eventTypeCached!=null)
+            populateFilters(eventTypeCached.data)
+        else
+            eventFilterViewModel.getFilter()
 
-        eventFilterViewModel.getFilter()
+
 
         setObservables()
         setUpClickListeners()
@@ -69,17 +78,16 @@ class FilterEventFragment(
     }
 
     private fun populateFilters(eventTypeList: List<EventType>) {
-
         for (i in eventTypeList) {
-            val rbn = RadioButton(activity)
-            rbn.id = i.id
-            rbn.text = i.type
-            radio_group_filter.addView(rbn)
-            rbn.setOnClickListener {
+            val radioButton = layoutInflater.inflate(R.layout.item_radio_button, radio_group_filter, false)
+            val radio = radioButton.findViewById(R.id.rb_item) as RadioButton
+            radio.id = i.id
+            radio.text = i.type
+            radio_group_filter.addView(radioButton)
+            radio.setOnClickListener {
 
                 filterType = it.id
-                Toast.makeText(activity, "" + filterType, Toast.LENGTH_SHORT)
-                    .show()
+
             }
         }
 

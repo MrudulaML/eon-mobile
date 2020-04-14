@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_checked="true" android:state_window_focused="false"
-        android:drawable="@drawable/rounded_corner_grey_4" />
 
-
-    <item android:state_checked="true" android:state_focused="true"
-        android:drawable="@drawable/rounded_corner_grey_25" />
-    <item android:state_checked="false" android:state_focused="true"
-        android:drawable="@drawable/rounded_corner_grey_25" />
+    <item android:drawable="@drawable/rounded_corner_solid_navy_20" android:state_checked="true"/>
+    <item android:drawable="@drawable/rounded_corner_solid_grey_20"    android:state_checked="false"/>
 
 </selector>
