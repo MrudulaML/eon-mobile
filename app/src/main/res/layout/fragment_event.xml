@@ -48,13 +48,15 @@
         android:id="@+id/appCompatTextView15"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginTop="4dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="4dp"
         android:drawableLeft="@drawable/ic_location_on_black_24dp"
+        android:drawablePadding="0dp"
         android:text="@{eventDetail.data.get(0).location}"
         android:textAlignment="center"
         android:textColor="@color/grey"
-        app:layout_constraintStart_toStartOf="@+id/appCompatTextView4"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appCompatTextView16"
         tools:text="Location" />
 
@@ -64,6 +66,8 @@
         android:layout_height="0dp"
         android:layout_marginTop="4dp"
         android:autoLink="web"
+        android:background="@drawable/rounded_corner_grey_4_solid_light_grey"
+        android:padding="@dimen/_4sdp"
         android:text="@{eventDetail.data.get(0).external_links}"
         android:textAlignment="center"
         android:textColor="@color/grey"
@@ -75,9 +79,11 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/appCompatTextView5"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:padding="@dimen/_16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:text="@{eventDetail.data.get(0).description}"
         android:textColor="@color/grey"
         app:layout_constraintEnd_toEndOf="parent"
@@ -108,6 +114,7 @@
         app:eventType="@{eventDetail.data.get(0).event_type}"
         android:textColor="@color/grey"
         android:textSize="15sp"
+        tools:text="ashajsa"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/appCompatTextView7"
         app:layout_constraintTop_toBottomOf="@+id/appCompatTextView7" />
@@ -142,7 +149,7 @@
         android:id="@+id/appCompatTextView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:text="Event date and time"
         android:textColor="@color/grey"
         android:textSize="15sp"
@@ -169,7 +176,7 @@
         android:id="@+id/appCompatTextView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:text="Subscription fees"
         android:textColor="@color/grey"
         android:textSize="15sp"
@@ -194,6 +201,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
         android:orientation="horizontal"
         android:weightSum="2"
         app:layout_constraintStart_toStartOf="@+id/appCompatTextView8"
@@ -225,12 +233,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_8sdp"
-                    tools:text="0"
                     android:text="@{Integer.toString(eventDetail.data.get(0).sold_tickets)}"
-
                     android:textColor="@color/colorPrimary"
+
                     android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="0" />
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -261,7 +269,7 @@
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_icon_feedback_line_green"/>
+                    android:src="@drawable/ic_icon_feedback" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"

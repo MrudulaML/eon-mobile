@@ -9,6 +9,7 @@ import `in`.bitspilani.eon.event_organiser.models.EventResponse
 
 import `in`.bitspilani.eon.utils.ApiCallback
 import `in`.bitspilani.eon.utils.SingleLiveEvent
+import timber.log.Timber
 
 /**
  * This is a shared view model, all the shared view model will have zero con arguments.
@@ -52,7 +53,7 @@ class EventDashboardViewModel : BaseViewModel() {
 
 
     fun onEventClick(eventId: Int) {
-
+        Timber.e("event clicked id$eventId")
         eventClickObservable.postValue(eventId)
     }
 

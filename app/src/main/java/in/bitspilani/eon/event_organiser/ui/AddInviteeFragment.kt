@@ -1,9 +1,11 @@
 package `in`.bitspilani.eon.event_organiser.ui
 
 import `in`.bitspilani.eon.R
+import `in`.bitspilani.eon.event_organiser.models.Data
 import `in`.bitspilani.eon.event_organiser.viewmodel.AddInviteeViewModel
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import `in`.bitspilani.eon.utils.getViewModelFactory
+import android.app.AlertDialog
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -15,8 +17,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.google.gson.JsonArray
-import com.google.gson.JsonObject
+import com.hootsuite.nachos.terminator.ChipTerminatorHandler
+import kotlinx.android.synthetic.main.dialog_email_update.view.*
 import kotlinx.android.synthetic.main.fragment_add_invitee.*
+import kotlinx.android.synthetic.main.layout_dialog_payment_success.view.*
 import timber.log.Timber
 
 
@@ -24,7 +28,7 @@ import timber.log.Timber
  * A simple [Fragment] subclass.
  *
  */
-class AddInviteeFragment() : DialogFragment() {
+class AddInviteeFragment(private val eventData: Data) : DialogFragment() {
 
     private val addInviteeViewModel by viewModels<AddInviteeViewModel> { getViewModelFactory() }
 
@@ -36,13 +40,15 @@ class AddInviteeFragment() : DialogFragment() {
         isCancelable = false
         return inflater.inflate(R.layout.fragment_add_invitee, container, false)
     }
+
     override fun getTheme(): Int {
         return R.style.DialogTheme
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        text_updated_fees.text=eventData.subscription_fee.toString()
         setUpClickListeners()
         setObservables()
     }
@@ -55,41 +61,56 @@ class AddInviteeFragment() : DialogFragment() {
 
             Toast.makeText(activity, "Invitees added successfully.", Toast.LENGTH_LONG).show()
         })
+        nacho_text_view.addChipTerminator('\n', ChipTerminatorHandler.BEHAVIOR_CHIPIFY_ALL);
 
 
     }
 
     private fun setUpClickListeners() {
         btn_close.clickWithDebounce { dismiss() }
-        btn_invitee_cancel.clickWithDebounce {    dismiss() }
+        btn_invitee_cancel.clickWithDebounce { dismiss() }
         btn_invitee_confirm.clickWithDebounce {
-            if(!TextUtils.isEmpty(edt_updated_fees.text) && !TextUtils.isEmpty(edt_email_addresses.text)
-                && !TextUtils.isEmpty(edt_discount.text))
+            if (!TextUtils.isEmpty(edt_discount.text))
             {
-
-                //TODO add actual mapping with emails
                 val listOfEmail = ArrayList<String>()
-                listOfEmail.add("ashutosh@gmail.com")
-                listOfEmail.add("milind@gmail.com")
-                val body = JsonObject()
-                body.addProperty("event",3)
-                body.addProperty("discount_percentage",25)
-                val array =JsonArray()
-                for(each in listOfEmail){
+                //get emails from chips
+                for (chip in nacho_text_view.allChips) {
 
+                    listOfEmail.add(chip.text.toString())
+
+                }
+                val array = JsonArray()
+                for (each in listOfEmail) {
                     array.add(each)
                 }
+                Timber.e("invitee_list$array")
+               addInviteeViewModel.adInvitee(eventData.id, edt_discount.text.toString().toInt(), array)
 
-                body.add("invitee_list",array)
-                Timber.e("list$body")
-                addInviteeViewModel.adInvitee(3,25, array )
-
-            }else{
+            } else {
 
                 Toast.makeText(activity, "Please enter valid details", Toast.LENGTH_LONG).show()
 
             }
         }
+
+
+    }
+
+    fun showSuccessDialog() {
+        //Inflate the dialog with custom view
+        val mDialogView =
+            LayoutInflater.from(activity).inflate(R.layout.dialog_email_update, null)
+        //AlertDialogBuilder
+        val mBuilder = AlertDialog.Builder(activity)
+            .setView(mDialogView)
+        //show dialog
+        val mAlertDialog = mBuilder.show()
+
+        mDialogView.btn_email_add.btn_okay.clickWithDebounce {
+
+            mAlertDialog.dismiss()
+        }
+
 
     }
 

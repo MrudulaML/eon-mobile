@@ -2,7 +2,6 @@ package `in`.bitspilani.eon.event_organiser.ui
 
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.event_organiser.models.DetailResponseOrganiser
-import `in`.bitspilani.eon.event_organiser.models.Invitee
 import `in`.bitspilani.eon.event_organiser.ui.adapter.InviteesAdapter
 import `in`.bitspilani.eon.utils.MarginItemDecoration
 import `in`.bitspilani.eon.utils.clickWithDebounce
@@ -14,7 +13,6 @@ import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.fragment_invitee.*
 
 
@@ -76,7 +74,7 @@ class PagerInviteeListFragment(val detailResponseOrganiser: DetailResponseOrgani
     }
 
     private fun showDialog() {
-        val dialogFragment = AddInviteeFragment()
+        val dialogFragment = AddInviteeFragment(detailResponseOrganiser.data[0])
         dialogFragment.show(childFragmentManager, "AaddInviteeDialog")
     }
     override fun onDataReceived(data: String) {
