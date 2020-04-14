@@ -205,7 +205,11 @@
         <fragment
             android:id="@+id/eventWishListFragment"
             android:name="in.bitspilani.eon.event_organiser.ui.EventWishListFragment"
-            android:label="EventWishListFragment" />
+            android:label="EventWishListFragment" >
+            <action
+                android:id="@+id/action_eventWishListFragment_to_userProfileFragment"
+                app:destination="@id/userProfileFragment" />
+        </fragment>
     </navigation>
 
 </navigation>

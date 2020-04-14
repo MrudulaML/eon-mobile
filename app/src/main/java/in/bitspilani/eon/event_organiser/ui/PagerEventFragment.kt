@@ -8,6 +8,9 @@ import `in`.bitspilani.eon.event_organiser.models.DetailResponseOrganiser
 import `in`.bitspilani.eon.event_organiser.viewmodel.EventDetailOrganiserViewModel
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import `in`.bitspilani.eon.utils.getViewModelFactory
+import `in`.bitspilani.eon.utils.showSnackbar
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,8 +22,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import kotlinx.android.synthetic.main.dialog_success_reminder.view.*
 import kotlinx.android.synthetic.main.fragment_event.*
 import timber.log.Timber
+import java.lang.Exception
 
 
 /**
@@ -61,8 +66,12 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
     private fun setUpObservables() {
         eventDetailOrganiserViewModel.notifyLiveData.observe(viewLifecycleOwner, Observer {
 
-            if(!isFromUpdate)
+            if(!isFromUpdate){
+                isFromUpdate=true
                 openReminderDialog(it.message)
+            }
+            else
+                view?.showSnackbar(it.message,0)
         })
         eventDetailOrganiserViewModel.progressLiveData.observe(viewLifecycleOwner, Observer {
 
@@ -81,6 +90,10 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
         val alertDialog = builder.create()
         alertDialog.show()
 
+        view2.btn_send_reminder.clickWithDebounce {
+            alertDialog.dismiss()
+        }
+
     }
 
 
@@ -88,6 +101,15 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
         share_fb.clickWithDebounce {
 
 
+        }
+
+        //TODO handle thi elegently
+        text_url.clickWithDebounce {
+            try{
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(eventDetailResponse.data[0].external_links))
+            startActivity(browserIntent)}catch (e:Exception){
+
+            }
         }
         send_updates.clickWithDebounce {
 

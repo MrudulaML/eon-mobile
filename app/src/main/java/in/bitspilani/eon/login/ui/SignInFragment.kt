@@ -83,7 +83,7 @@ class SignInFragment : Fragment() {
             if (Validator.isValidEmail(etEmailAddress, true)) {
                 authViewModel.login(etEmailAddress.text.toString(), etPassword.text.toString())
             } else {
-                showUserMsg("Please select user role")
+                view?.showSnackbar("Please select user role")
             }
         }
 

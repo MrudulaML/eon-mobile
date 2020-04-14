@@ -39,13 +39,14 @@ class EventWishListFragment : Fragment() {
     private lateinit var eventDashboardViewModel: EventDashboardViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+        (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+
         eventDashboardViewModel = activity?.run {
             ViewModelProviders.of(this).get(EventDashboardViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
 
-        setHasOptionsMenu(true)
-        (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        (activity as AppCompatActivity?)!!.supportActionBar!!.setHomeButtonEnabled(true)
+
         eventDashboardViewModel.getEvents()
     }
 
@@ -58,10 +59,17 @@ class EventWishListFragment : Fragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        actionbarHost?.showToolbar(showToolbar = true,title = "WishList",showBottomNav = false)
+
+    }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         menu.clear()
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -162,16 +170,6 @@ class EventWishListFragment : Fragment() {
         rv_event_list.adapter = eventAdapter
     }
 
-
-    override fun onResume() {
-        super.onResume()
-
-        when {
-            ModelPreferencesManager.getInt(Constants.USER_ROLE)==UserType.SUBSCRIBER.ordinal -> actionbarHost?.showToolbar(showToolbar = true,title = "Event Management",showBottomNav = true)
-            isWishListed -> actionbarHost?.showToolbar(showToolbar = true,title = "Wish List",showBottomNav = false)
-            else -> actionbarHost?.showToolbar(showToolbar = true,title = "Event Management",showBottomNav = false)
-        }
-    }
 
 
     /**

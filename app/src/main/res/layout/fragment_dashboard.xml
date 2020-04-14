@@ -73,6 +73,7 @@
         android:id="@+id/rv_event_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:nestedScrollingEnabled="false"
         app:layout_constraintTop_toBottomOf="@+id/appCompatTextView2"
         tools:listitem="@layout/event_item_row" />
 
