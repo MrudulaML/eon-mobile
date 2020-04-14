@@ -15,6 +15,7 @@ class SplashScreen : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        //TODO check this and remove from all the fragments if not necessary
         activity?.actionBar?.setDisplayHomeAsUpEnabled(false)
         activity?.actionBar?.setDisplayShowTitleEnabled(false)
         return inflater.inflate(R.layout.fragment_splash_screen, container, false)

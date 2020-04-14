@@ -1,7 +1,7 @@
 package `in`.bitspilani.eon
 
 import `in`.bitspilani.eon.api.ApiService
-import `in`.bitspilani.eon.event_organiser.viewmodel.AddInviteeViewModel
+import `in`.bitspilani.eon.event_organiser.viewmodel.*
 import `in`.bitspilani.eon.event_subscriber.subscriber.detail.EventDetailsViewModel
 import `in`.bitspilani.eon.event_organiser.viewmodel.EventDashboardViewModel
 import `in`.bitspilani.eon.event_organiser.viewmodel.EventDetailOrganiserViewModel
@@ -33,10 +33,9 @@ class EonViewModelFactory(
             isAssignableFrom(ChangePwViewModel::class.java) -> ChangePwViewModel(apiService)
             isAssignableFrom(EventDetailsViewModel::class.java) -> EventDetailsViewModel(apiService)
             isAssignableFrom(EventFilterViewModel::class.java) -> EventFilterViewModel(apiService)
-            isAssignableFrom(EventDetailOrganiserViewModel::class.java) -> EventDetailOrganiserViewModel(
-                apiService
-            )
+            isAssignableFrom(EventDetailOrganiserViewModel::class.java) -> EventDetailOrganiserViewModel(apiService)
             isAssignableFrom(AddInviteeViewModel::class.java) -> AddInviteeViewModel(apiService)
+            isAssignableFrom(NotificationViewModel::class.java) -> NotificationViewModel(apiService)
             isAssignableFrom(PaymentViewModel::class.java) -> PaymentViewModel(apiService)
             isAssignableFrom(EventSummaryViewModel::class.java) -> EventSummaryViewModel(apiService)
             else ->

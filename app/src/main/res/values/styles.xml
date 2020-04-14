@@ -29,9 +29,6 @@
         <item name="colorControlActivated">@color/grey</item>
     </style>
 
-    <style name="ChipCustomStyle" parent="Widget.MaterialComponents.Chip.Action">
-        <item name="checkedIconEnabled">false</item>
-        <item name="checkedIcon">@null</item>
-    </style>
+
 
 </resources>

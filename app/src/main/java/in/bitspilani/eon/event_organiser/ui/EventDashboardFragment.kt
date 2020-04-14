@@ -19,10 +19,14 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_dashboard.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import timber.log.Timber
 
 
 /**
@@ -30,9 +34,16 @@ import kotlinx.android.synthetic.main.fragment_dashboard.*
  *
  */
 class HomeFragment : Fragment() {
-    // private val dashboardViewModel by viewModels<EventDashboardViewModel> { getViewModelFactory() }
+   // private val dashboardViewModel by viewModels<EventDashboardViewModel> { getViewModelFactory() }
     private var actionbarHost: ActionbarHost? = null
     private lateinit var eventDashboardViewModel: EventDashboardViewModel
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        eventDashboardViewModel = activity?.run {
+            ViewModelProviders.of(this).get(EventDashboardViewModel::class.java)
+        } ?: throw Exception("Invalid Activity")
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,33 +56,24 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        eventDashboardViewModel = activity?.run {
-            ViewModelProviders.of(this).get(EventDashboardViewModel::class.java)
-        } ?: throw Exception("Invalid Activity")
-
-        eventDashboardViewModel.getEvents()
-
-
         setUpObservables()
         setUpClickListeners()
         setUpSearch()
-
-//        findNavController().navigate(
-//            R.id.eventDetails,
-//            bundleOf(Constants.EVENT_ID to 11)
-//        )
-   }
+        eventDashboardViewModel.getEvents()
+    }
 
 
     private fun setUpSearch() {
-        event_search_view.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        event_search_view.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                eventListAdapter.filter.filter(newText)
+                lifecycleScope.launch {
+                    delay(200)
+                    eventListAdapter.filter.filter(newText)
+                }
                 return false
             }
 
@@ -83,6 +85,11 @@ class HomeFragment : Fragment() {
             //TODO move it to nav graph please
             val dialogFragment = FilterDialogFragment()
             dialogFragment.show(childFragmentManager, "filterDialog")
+
+        }
+        btn_filter_clear.clickWithDebounce {
+            btn_filter_clear.visibility=View.GONE
+            eventDashboardViewModel.getEvents()
         }
     }
 
@@ -90,25 +97,21 @@ class HomeFragment : Fragment() {
         eventDashboardViewModel.eventDetailsObservables.observe(viewLifecycleOwner, Observer {
             setEventRecyclerView(it)
         })
-        var bundle =
-            eventDashboardViewModel.eventClickObservable.observe(viewLifecycleOwner, Observer {
-                if (ModelPreferencesManager.getInt(Constants.USER_ROLE) == 1)
-                    findNavController().navigate(
-                        R.id.action_homeFragment_to_organiser_eventDetailsFragment,
-                        bundleOf("id" to it),
-                        NavOptions.Builder()
-                            .setPopUpTo(
-                                R.id.homeFragment,
-                                false
-                            ).build()
-                    )
-                else
+
+        eventDashboardViewModel.eventClickObservable.observe(viewLifecycleOwner, Observer {
+            if (ModelPreferencesManager.getInt(Constants.USER_ROLE)==1)
+                findNavController().navigate(R.id.action_homeFragment_to_organiser_eventDetailsFragment,
+                    bundleOf("id" to it),
+                    NavOptions.Builder()
+                        .setPopUpTo(R.id.homeFragment,
+                            false).build())
+            else
                 //TODO change this to builder pattern
-                    findNavController().navigate(
-                        R.id.eventDetails,
-                        bundleOf(Constants.EVENT_ID to it)
-                    )
-            })
+                findNavController().navigate(
+                    R.id.eventDetails,
+                    bundleOf(Constants.EVENT_ID to it)
+                )
+        })
 
         eventDashboardViewModel.progressLiveData.observe(viewLifecycleOwner, Observer {
 
@@ -116,26 +119,24 @@ class HomeFragment : Fragment() {
         })
 
     }
-
-    private lateinit var eventListAdapter: EventAdapter
+    private lateinit var eventListAdapter : EventAdapter
     private fun setEventRecyclerView(eventList: EventList) {
 
+        val isSubscriber :  Boolean = ModelPreferencesManager.getInt(Constants.USER_ROLE)==2
+        Timber.e("is subcriber$isSubscriber")
         //TODO fix this hack
         if (eventList.fromFilter) {
+            btn_filter_clear.visibility=View.VISIBLE
             rv_event_list.invalidateItemDecorations()
             rv_event_list.invalidate()
-            eventListAdapter = EventAdapter(eventList.eventList, eventDashboardViewModel)
+            eventListAdapter = EventAdapter(eventList.eventList, eventDashboardViewModel,isSubscriber)
             rv_event_list.adapter = eventListAdapter
 
-        } else {
+        }
+        else {
 
             rv_event_list.layoutManager = LinearLayoutManager(activity)
-            rv_event_list.addItemDecoration(
-                MarginItemDecoration(
-                    resources.getDimension(R.dimen._16sdp).toInt()
-                )
-            )
-            eventListAdapter = EventAdapter(eventList.eventList, eventDashboardViewModel)
+            eventListAdapter = EventAdapter(eventList.eventList, eventDashboardViewModel,isSubscriber)
             rv_event_list.adapter = eventListAdapter
         }
     }
@@ -144,18 +145,10 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        if (ModelPreferencesManager.getInt(Constants.USER_ROLE) == UserType.SUBSCRIBER.ordinal)
-            actionbarHost?.showToolbar(
-                showToolbar = true,
-                title = "Event Management",
-                showBottomNav = true
-            )
+        if(ModelPreferencesManager.getInt(Constants.USER_ROLE)==UserType.SUBSCRIBER.ordinal)
+            actionbarHost?.showToolbar(showToolbar = true,title = "Event Management",showBottomNav = true)
         else
-            actionbarHost?.showToolbar(
-                showToolbar = true,
-                title = "Event Management",
-                showBottomNav = false
-            )
+            actionbarHost?.showToolbar(showToolbar = true,title = "Event Management",showBottomNav = false)
     }
 
 

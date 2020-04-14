@@ -21,7 +21,7 @@
         <activity
                 android:name=".BitsEonActivity"
                 android:screenOrientation="portrait"
-                android:windowSoftInputMode="adjustPan|adjustResize|stateHidden">
+                android:windowSoftInputMode="adjustPan|adjustResize|stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

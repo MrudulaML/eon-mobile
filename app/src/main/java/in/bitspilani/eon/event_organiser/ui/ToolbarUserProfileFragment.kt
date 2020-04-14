@@ -86,7 +86,7 @@ class ToolbarUserProfileFragment : Fragment(),CallbackListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         onItemClick()
-        if(ModelPreferencesManager.getInt(Constants.USER_ROLE)==UserType.ORGANISER.ordinal)
+        if(ModelPreferencesManager.getInt(Constants.USER_ROLE)==UserType.SUBSCRIBER.ordinal)
             profile_wish_list.visibility=View.GONE
     }
 
@@ -107,15 +107,17 @@ class ToolbarUserProfileFragment : Fragment(),CallbackListener {
 
              ModelPreferencesManager.clearCache()
              Timber.d("Cached cleared")
-             //heavy task delay
+             (activity as BitsEonActivity).showProgress(true)
              lifecycleScope.launch {
-                 delay(200)
+                 delay(400)
+
                  findNavController().navigate(R.id.signInFragment,
                      null,
                      NavOptions.Builder()
                          .setPopUpTo(R.id.app_nav,
                              true)
                          .build())
+                 (activity as BitsEonActivity).showProgress(false)
              }
 
          }

@@ -1,5 +1,6 @@
 package `in`.bitspilani.eon.login.ui
 
+import `in`.bitspilani.eon.BaseViewModel
 import `in`.bitspilani.eon.api.ApiService
 import `in`.bitspilani.eon.api.RestClient
 import `in`.bitspilani.eon.login.data.*
@@ -35,7 +36,7 @@ enum class USER_TYPE(val desc: String) {
     SUBSCRIBER("Event Subscriber"),
 }
 
-class AuthViewModel : ViewModel() {
+class AuthViewModel : BaseViewModel() {
 
     val progress: SingleLiveEvent<Boolean> = SingleLiveEvent()
 
@@ -62,16 +63,17 @@ class AuthViewModel : ViewModel() {
         val body = JsonObject()
         body.addProperty("email",username)
         body.addProperty("password",password)
-        progress.value = true
+        showProgress(true)
         restClient.authClient.create(ApiService::class.java).login(body)
             .enqueue(object : ApiCallback<LoginResponse>(){
                 override fun onSuccessResponse(responseBody: LoginResponse) {
                     loginLiveData.postValue(responseBody)
+                    showProgress(false)
                 }
 
                 override fun onApiError(errorType: ApiError, error: String?) {
-                    progress.value=false
-                    errorView.postValue(error)
+                    showProgress(false)
+                    //errorView.postValue(error)
                 }
             })
 

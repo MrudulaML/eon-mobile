@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/_16sdp"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".event_organiser.ui.ToolbarUserProfileFragment">
@@ -19,14 +18,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:padding="@dimen/_4sdp"
-        android:layout_marginTop="@dimen/_8sdp"
+        android:padding="@dimen/_16sdp"
         android:focusable="true"
         android:background="?attr/selectableItemBackground"
-        android:layout_margin="@dimen/_4sdp"
         android:orientation="horizontal">
         <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_24sdp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
             app:srcCompat="@drawable/ic_user"/>
@@ -46,13 +43,11 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="true"
-        android:padding="@dimen/_4sdp"
-        android:layout_marginTop="@dimen/_8sdp"
+        android:padding="@dimen/_16sdp"
         android:background="?attr/selectableItemBackground"
-       android:layout_marginHorizontal="@dimen/_4sdp"
         android:orientation="horizontal">
         <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_24sdp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
             app:srcCompat="@drawable/ic_icon_lock_password_grey"/>
@@ -71,14 +66,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:padding="@dimen/_4sdp"
-        android:layout_marginTop="@dimen/_8sdp"
+        android:padding="@dimen/_16sdp"
         android:focusable="true"
         android:background="?attr/selectableItemBackground"
-        android:layout_marginHorizontal="@dimen/_4sdp"
         android:orientation="horizontal">
         <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_24sdp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
             app:srcCompat="@drawable/ic_icon_wishlist"/>
@@ -97,15 +90,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:padding="@dimen/_4sdp"
-        android:layout_marginTop="@dimen/_8sdp"
+        android:padding="@dimen/_16sdp"
         android:background="?attr/selectableItemBackground"
         android:focusable="true"
-
-        android:layout_marginHorizontal="@dimen/_4sdp"
         android:orientation="horizontal">
         <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_24sdp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
             app:srcCompat="@drawable/ic_icon_logout"/>

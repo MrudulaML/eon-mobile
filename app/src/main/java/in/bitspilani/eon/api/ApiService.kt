@@ -1,7 +1,6 @@
 package `in`.bitspilani.eon.api
 
-import `in`.bitspilani.eon.event_organiser.models.AddInviteeResponse
-import `in`.bitspilani.eon.event_organiser.models.DetailResponseOrganiser
+import `in`.bitspilani.eon.event_organiser.models.*
 import `in`.bitspilani.eon.event_subscriber.models.EventDetailResponse
 import `in`.bitspilani.eon.event_organiser.models.EventResponse
 import `in`.bitspilani.eon.event_organiser.models.FilterResponse
@@ -84,5 +83,9 @@ interface ApiService {
     @DELETE("core/subscription/{id}/")
     fun cancelEvent(@Path ("id") id: Int?): Call<CommonResponse>
 
+    @GET("/core/notification/")
+    fun getNotification(): Call<NotificationResponse>
 
+    @PATCH("/core/notification/")
+    fun getNotificationRead(): Call<NotificationResponse>
 }

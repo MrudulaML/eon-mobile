@@ -161,5 +161,8 @@ dependencies {
         exclude group: "com.android.support"
     }
 
+    //jwt
+    implementation 'com.auth0.android:jwtdecode:2.0.0'
+
 
 }
