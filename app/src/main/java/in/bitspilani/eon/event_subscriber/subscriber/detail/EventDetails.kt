@@ -33,6 +33,11 @@ import kotlinx.android.synthetic.main.layout_seat_booking.*
 import android.graphics.pdf.PdfDocument
 import android.os.Build
 import android.os.Environment
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.MultiFormatWriter
+import com.google.zxing.WriterException
+import com.google.zxing.common.BitMatrix
+import com.journeyapps.barcodescanner.BarcodeEncoder
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -44,6 +49,7 @@ import kotlin.collections.HashMap
 class EventDetails : Fragment() {
 
     private val STORAGE_PERMISSION_CODE: Int = 1000
+    private var bitmap :Bitmap? = null
 
     private val eventDetailsViewModel by viewModels<EventDetailsViewModel> { getViewModelFactory() }
 
@@ -70,6 +76,8 @@ class EventDetails : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setDummyCounterLogic()
+
+        getEventQRCode(data.event_id) // to do with subscription id
 
         eventDetailsFragmentBinding.viewmodel = eventDetailsViewModel
         setObservables()
@@ -372,5 +380,23 @@ class EventDetails : Fragment() {
     fun toSimpleString(date: Date) : String {
         val format = SimpleDateFormat("dd/MM/yyy")
         return format.format(date)
+    }
+
+    private fun getEventQRCode(event_id: Int){
+
+        val event_id = Integer.toString(event_id) // event id
+        val multiFormatWriter = MultiFormatWriter()
+        var barcodeEncoder = BarcodeEncoder()
+        var bitMatrix: BitMatrix? = null
+
+        try {
+            bitMatrix = multiFormatWriter.encode(event_id, BarcodeFormat.QR_CODE, 200,200)
+            bitmap = barcodeEncoder.createBitmap(bitMatrix)
+            // to do
+            //iv_bar_code.setImageBitmap(bitmap)
+        }catch (e: WriterException){
+            Log.e("QRCode", "Error: "+e.toString());
+            showUserMsg("Error!")
+        }
     }
 }
