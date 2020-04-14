@@ -177,6 +177,13 @@
                 app:enterAnim="@anim/fade_in"
                 app:exitAnim="@anim/fade_out"
                 app:destination="@id/signInFragment"/>
+            <action
+                android:id="@+id/action_profile_to_sub_wish_list"
+                app:enterAnim="@anim/fade_in"
+                app:destination="@id/eventWishListFragment"
+                app:exitAnim="@anim/fade_out"/>
+
+
 
         </fragment>
         <fragment
@@ -189,6 +196,16 @@
             app:popUpToInclusive="true"
             app:destination="@id/homeFragment"/>
         </fragment>
+
+       <!-- global actions for nav bar-->
+        <action android:id="@+id/nav_user_profile"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="false"
+            app:destination="@id/userProfileFragment"/>
+        <fragment
+            android:id="@+id/eventWishListFragment"
+            android:name="in.bitspilani.eon.event_organiser.ui.EventWishListFragment"
+            android:label="EventWishListFragment" />
     </navigation>
 
 </navigation>
