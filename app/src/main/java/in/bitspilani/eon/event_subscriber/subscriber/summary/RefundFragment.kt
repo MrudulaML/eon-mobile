@@ -7,6 +7,7 @@ import `in`.bitspilani.eon.utils.ModelPreferencesManager
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import `in`.bitspilani.eon.utils.getViewModelFactory
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,13 +50,19 @@ class RefundFragment : Fragment() {
 
         noOfTickets = arguments!!.getInt(Constants.NUMBER_OF_TICKETS_BOUGHT, 0)
 
+        Log.e("xoxo", "noOfTickets in args: " + noOfTickets)
+
         attendees = arguments!!.getInt(Constants.ATTENDEES, 0)
 
+        Log.e("xoxo", "attendees in args: " + attendees)
+
         amount = arguments!!.getInt(Constants.AMOUNT, 0)
+        Log.e("xoxo", "amount in args: " + amount)
         discountAmount = arguments!!.getInt(Constants.DISCOUNT_AMOUNT, 0)
         eventId = arguments!!.getInt(Constants.EVENT_ID, 0)
 
-        tv_attendees_value.text = attendees.toString()
+        tv_attendees_value.text = (noOfTickets - attendees).toString()
+
         tv_amount_value.text = calculateFinalAmount().toString()
 
         tv_decreasing_attendees.text = "No. of Attendees have been updated to " + attendees

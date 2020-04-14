@@ -57,11 +57,11 @@ class HomeFragment : Fragment() {
         setUpClickListeners()
         setUpSearch()
 
-        findNavController().navigate(
-            R.id.eventDetails,
-            bundleOf(Constants.EVENT_ID to 11)
-        )
-    }
+//        findNavController().navigate(
+//            R.id.eventDetails,
+//            bundleOf(Constants.EVENT_ID to 11)
+//        )
+   }
 
 
     private fun setUpSearch() {

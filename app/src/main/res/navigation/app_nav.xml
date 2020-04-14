@@ -164,7 +164,7 @@
                 android:defaultValue="0"
                 app:argType="integer" />
             <argument
-                android:name="disc_amount"
+                android:name="discount_amount"
                 android:defaultValue="0"
                 app:argType="integer" />
 
@@ -195,7 +195,7 @@
 
                 app:argType="integer" />
             <argument
-                android:name="disc_amount"
+                android:name="discount_amount"
                 android:defaultValue="0"
                 app:argType="integer" />
 
@@ -267,7 +267,7 @@
                 android:defaultValue="0"
                 app:argType="integer" />
             <argument
-                android:name="disc_amount"
+                android:name="discount_amount"
                 android:defaultValue="0"
                 app:argType="integer" />
 

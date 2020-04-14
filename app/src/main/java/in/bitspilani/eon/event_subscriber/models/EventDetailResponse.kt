@@ -1,6 +1,7 @@
 package `in`.bitspilani.eon.event_subscriber.models
 
 import com.google.gson.annotations.SerializedName
+import java.util.function.BinaryOperator
 
 
 data class EventDetailResponse(
@@ -20,11 +21,13 @@ data class Data(
     @SerializedName("location") val location: String,
     @SerializedName("event_type") val event_type: String,
     @SerializedName("description") val description: String,
+    @SerializedName("is_subscribed") val is_subscribed: Boolean = false,
+    @SerializedName("is_wishlisted") val is_wishlisted: Boolean = false,
     @SerializedName("subscription_fee") val subscription_fee: Int,
     @SerializedName("images") val images: String,
     @SerializedName("external_links") val external_links: String,
     @SerializedName("invitee_list") val invitee_list: List<Invitee_list>,
-    @SerializedName("subscription_details") val subscription_details: Subscription_details?=null
+    @SerializedName("subscription_details") val subscription_details: Subscription_details? = null
 )
 
 data class Invitee_list(
@@ -43,9 +46,9 @@ data class Event(
 
 data class Subscription_details(
 
-    @SerializedName("is_subscribed") val is_subscribed: Boolean=false,
-    @SerializedName("id") val id: Int=0,
-    @SerializedName("no_of_tickets_bought") val no_of_tickets_bought: Int=0,
+
+    @SerializedName("id") val id: Int = 0,
+    @SerializedName("no_of_tickets_bought") val no_of_tickets_bought: Int = 0,
     @SerializedName("amount_paid") val amount_paid: Int,
     @SerializedName("discount_given") val discount_given: Int
 )

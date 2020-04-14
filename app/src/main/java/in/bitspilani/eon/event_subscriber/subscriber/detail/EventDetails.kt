@@ -92,15 +92,21 @@ class EventDetails : Fragment() {
         }
     }
 
+    var noOfTickets: Int = 0
+
     fun setClicks() {
 
 
         btn_price.clickWithDebounce {
 
-            var noOfTickets = data.subscription_details!!.no_of_tickets_bought
+            noOfTickets = data.subscription_details!!.no_of_tickets_bought
             if (count == noOfTickets) {
 
                 showUserMsg("Please change your current seats")
+
+            } else if (data.subscription_fee == 0) {
+
+                subscribeToFreeEvent()
 
             } else {
                 var bundle =
@@ -122,6 +128,8 @@ class EventDetails : Fragment() {
                         data.subscription_details!!.no_of_tickets_bought
                     )
 
+                    Log.e("xoxo", "bundle sent to payments" + bundle)
+
                     findNavController().navigate(R.id.refundFragment, bundle)
 
                 } else {
@@ -130,11 +138,14 @@ class EventDetails : Fragment() {
                         bundle.putInt(Constants.ATTENDEES, count - noOfTickets)
                         bundle.putInt(Constants.AMOUNT, amount)
 
-                    } else if (data.subscription_fee == 0) {
-
-                        subscribeToFreeEvent()
-                    } else
                         findNavController().navigate(R.id.eventSummaryFrag, bundle)
+
+                    } else {
+
+                        findNavController().navigate(R.id.eventSummaryFrag, bundle)
+                    }
+
+
                 }
 
                 Log.e("xoxo", "bundle from eventdetails " + bundle)
@@ -156,13 +167,16 @@ class EventDetails : Fragment() {
 
         // button download
         btn_download.clickWithDebounce {
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ){
-                if (activity?.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
-                    requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),STORAGE_PERMISSION_CODE)
-                }else{
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (activity?.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+                    requestPermissions(
+                        arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                        STORAGE_PERMISSION_CODE
+                    )
+                } else {
                     createPdf()
                 }
-            }else{
+            } else {
 
             }
         }
@@ -173,11 +187,11 @@ class EventDetails : Fragment() {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        when(requestCode){
-            STORAGE_PERMISSION_CODE ->{
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        when (requestCode) {
+            STORAGE_PERMISSION_CODE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     createPdf()
-                }else{
+                } else {
                     showUserMsg("Permission denied")
                 }
             }
@@ -202,8 +216,15 @@ class EventDetails : Fragment() {
         map.put(Constants.EVENT_ID, data.event_id)
         val userData =
             ModelPreferencesManager.get<`in`.bitspilani.eon.login.data.Data>(Constants.CURRENT_USER)
+
         map.put(Constants.USER_ID, userData!!.user.user_id)
-        map.put(Constants.NUMBER_OF_TICKETS, count)
+
+
+        if (noOfTickets == 0)
+            map.put(Constants.NUMBER_OF_TICKETS, count)
+        else
+            map.put(Constants.NUMBER_OF_TICKETS, count - noOfTickets)
+
 
         eventDetailsViewModel.subscribeToFreeEvent(map)
 
@@ -215,13 +236,13 @@ class EventDetails : Fragment() {
 
         iv_increment.setOnClickListener {
 
-            seatCount.postValue(count++)
+            seatCount.postValue(++count)
 
         }
 
         iv_decrement.setOnClickListener {
 
-            if (count > 0) seatCount.postValue(count--)
+            if (count > 0) seatCount.postValue(--count)
 
         }
 
@@ -253,18 +274,18 @@ class EventDetails : Fragment() {
             btn_price.text = "₹ $amount"
 
 
+            if (data.is_subscribed) {
+                isSubscribed = true
+                tv_subscribed_event_text.visibility = View.VISIBLE
+                download_cancel_view.visibility = View.VISIBLE
+                btn_price.text = "Update"
 
-            it.data.subscription_details.let {
+                it.data.subscription_details.let {
 
-                if (it!!.is_subscribed) {
-                    tv_subscribed_event_text.visibility = View.VISIBLE
-                    download_cancel_view.visibility = View.VISIBLE
-                    isSubscribed = true
-                    btn_price.text = "Update"
-                    count = it.no_of_tickets_bought
+                    count = it!!.no_of_tickets_bought
                     seatCount.postValue(count)
-                }
 
+                }
             }
 
             showUserMsg(it.message)
@@ -303,6 +324,12 @@ class EventDetails : Fragment() {
         })
 
         eventDetailsViewModel.errorView.observe(viewLifecycleOwner, Observer {
+
+            showUserMsg(it)
+
+        })
+
+        eventDetailsViewModel.shareEmailError.observe(viewLifecycleOwner, Observer {
 
             showUserMsg(it)
             if (mAlertDialog != null) {
@@ -364,7 +391,7 @@ class EventDetails : Fragment() {
     }
 
     // create pdf and save external directory
-    private fun createPdf(){
+    private fun createPdf() {
 
         val eventName = tv_event_name.text.toString()
         val eventDateTime = tv_event_date.text.toString()
@@ -384,17 +411,17 @@ class EventDetails : Fragment() {
         titlePaint.textAlign = Paint.Align.CENTER
         titlePaint.textSize = resources.getDimension(R.dimen._20fs)
         titlePaint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
-        canvas.drawText(eventName,1200/2F, 200F, titlePaint )
+        canvas.drawText(eventName, 1200 / 2F, 200F, titlePaint)
 
         // tickets info right side
         paint.textAlign = Paint.Align.RIGHT
         paint.textSize = resources.getDimension(R.dimen._16fs)
         paint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)
-        canvas.drawText("Event Name: "+eventName, 1200-40F, 250F, paint);
-        canvas.drawText("Number of seats: "+eventSeatCounter, 1200F-80F, 300F, paint);
-        canvas.drawText("Amount: "+eventAmount, 1200-40F, 350F, paint);
-        canvas.drawText("Event Date: "+eventDateTime, 1200-40F, 400F, paint);
-        canvas.drawText("Location: "+eventLocation, 1200-40F, 450F, paint);
+        canvas.drawText("Event Name: " + eventName, 1200 - 40F, 250F, paint);
+        canvas.drawText("Number of seats: " + eventSeatCounter, 1200F - 80F, 300F, paint);
+        canvas.drawText("Amount: " + eventAmount, 1200 - 40F, 350F, paint);
+        canvas.drawText("Event Date: " + eventDateTime, 1200 - 40F, 400F, paint);
+        canvas.drawText("Location: " + eventLocation, 1200 - 40F, 450F, paint);
 
         document.finishPage(page)
 
@@ -417,9 +444,9 @@ class EventDetails : Fragment() {
         try {
             document.writeTo(FileOutputStream(filePath))
             showUserMsg("Invoice downloaded")
-            Log.e("Invoice","Tickets"+filePath)
-        }catch (e : IOException) {
-            Log.e("Invoice", "Error: "+e.toString());
+            Log.e("Invoice", "Tickets" + filePath)
+        } catch (e: IOException) {
+            Log.e("Invoice", "Error: " + e.toString());
             showUserMsg("Error!")
         }
 

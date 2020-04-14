@@ -16,6 +16,8 @@ class EventDetailsViewModel(private val apiService: ApiService) : ViewModel() {
 
     var errorView: MutableLiveData<String> = MutableLiveData()
 
+    var shareEmailError: MutableLiveData<String> = MutableLiveData()
+
     var wishlistData: MutableLiveData<String> = MutableLiveData()
 
     var emailApiData: MutableLiveData<String> = MutableLiveData()
@@ -43,6 +45,7 @@ class EventDetailsViewModel(private val apiService: ApiService) : ViewModel() {
             }
 
             override fun onFailure(call: Call<EventDetailResponse>, t: Throwable) {
+
 
                 errorView.postValue(t.message)
             }
@@ -81,6 +84,11 @@ class EventDetailsViewModel(private val apiService: ApiService) : ViewModel() {
 
                     wishlist = false
                     wishlistData.postValue(response.body()?.message)
+                } else {
+
+                    if (response.body()?.message != null)
+                        errorView.postValue(response.body()?.message)
+
                 }
 
             }
@@ -107,7 +115,8 @@ class EventDetailsViewModel(private val apiService: ApiService) : ViewModel() {
                     wishlistData.postValue(response.body()?.message)
                 } else {
 
-                    errorView.postValue(response.message())
+                    if (response.body()?.message != null)
+                        errorView.postValue(response.body()?.message)
                 }
 
             }
@@ -135,14 +144,15 @@ class EventDetailsViewModel(private val apiService: ApiService) : ViewModel() {
                     emailApiData.postValue(response.body()?.message)
                 } else {
 
-                    errorView.postValue(response.message())
+                    if (response.body()?.message != null)
+                    shareEmailError.postValue(response.message())
                 }
 
             }
 
             override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
 
-                errorView.postValue(t.message)
+                shareEmailError.postValue(t.message)
             }
         })
     }
@@ -164,6 +174,9 @@ class EventDetailsViewModel(private val apiService: ApiService) : ViewModel() {
                         freeEventLiveData.postValue(response.body())
 
                     } else {
+
+                        if (response.body()?.message != null)
+                            errorView.postValue(response.body()?.message)
 
                     }
 
@@ -192,6 +205,8 @@ class EventDetailsViewModel(private val apiService: ApiService) : ViewModel() {
 
                     } else {
 
+                        if (response.body()?.message != null)
+                            errorView.postValue(response.body()?.message)
                     }
 
                 }

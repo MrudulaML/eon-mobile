@@ -12,17 +12,17 @@ object Constants {
     const val USER_ROLE = "user_role"
 
     const val EVENT_ID = "event_id"
-    const val AMOUNT = "Amount"
-    const val DISCOUNT_AMOUNT = "disc_amount"
+    const val AMOUNT = "amount"
+    const val DISCOUNT_AMOUNT = "discount_amount"
     const val DISCOUNT_PERCENTAGE = "disc_percentage"
     const val IS_UPDATE = "is_update"
     const val UPDATED_ATTENDEES = "updated_attendees"
     const val ATTENDEES = "attendees"
-    const val PROMOCODE="promocode"
-   const val NUMBER_OF_TICKETS_BOUGHT="no_of_tickets_bought"
-    const val NUMBER_OF_TICKETS="no_of_tickets"
+    const val PROMOCODE = "promocode"
+    const val NUMBER_OF_TICKETS_BOUGHT = "no_of_tickets_bought"
+    const val NUMBER_OF_TICKETS = "no_of_tickets"
 
-    const val USER_ID="user_id"
+    const val USER_ID = "user_id"
 }
 
 enum class UserType(val type: Int) {
