@@ -37,13 +37,13 @@
             android:paddingBottom="@dimen/_8sdp"
             android:layout_height="wrap_content">
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/appCompatImageView"
                 android:layout_width="0dp"
                 android:minWidth="@dimen/_200sdp"
                 android:layout_height="@dimen/_160sdp"
-                android:scaleType="fitXY"
-                app:imageUrl="@{`https://dummyimage.com/qvga`}"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{event.images}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

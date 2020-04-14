@@ -22,6 +22,9 @@ import kotlinx.android.synthetic.main.fragment_invitee.*
  */
 class PagerInviteeListFragment(val detailResponseOrganiser: DetailResponseOrganiser) : Fragment(),CallbackListener {
 
+    private lateinit var  layoutManager: LinearLayoutManager
+
+
     // tab titles
     private val titles =
         arrayOf("Movies", "Events")
@@ -62,14 +65,9 @@ class PagerInviteeListFragment(val detailResponseOrganiser: DetailResponseOrgani
     var inviteesAdapter =  InviteesAdapter(arrayListOf())
     private fun setRecyclerview(detailResponseOrganiser: DetailResponseOrganiser) {
 
-        rv_invitee_list.layoutManager = LinearLayoutManager(activity)
-        rv_invitee_list.addItemDecoration(MarginItemDecoration(
-                resources.getDimension(R.dimen._16sdp).toInt()) )
-        inviteesAdapter=
-            InviteesAdapter(
-                detailResponseOrganiser.data[0].invitee_list
-            )
-        rv_invitee_list.adapter = inviteesAdapter
+        layoutManager = LinearLayoutManager(activity)
+        rv_invitee_list.layoutManager = layoutManager
+        rv_invitee_list.adapter = InviteesAdapter(detailResponseOrganiser.data[0].invitee_list)
 
     }
 

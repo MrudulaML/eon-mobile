@@ -9,6 +9,7 @@ import `in`.bitspilani.eon.event_organiser.models.EventResponse
 
 import `in`.bitspilani.eon.utils.ApiCallback
 import `in`.bitspilani.eon.utils.SingleLiveEvent
+import androidx.lifecycle.MutableLiveData
 import timber.log.Timber
 
 /**
@@ -18,8 +19,8 @@ import timber.log.Timber
 
 class EventDashboardViewModel : BaseViewModel() {
 
-    val eventDetailsObservables: SingleLiveEvent<EventList> =
-        SingleLiveEvent()
+    val eventDetailsObservables: MutableLiveData<EventList> =
+        MutableLiveData()
 
     private val restClient: RestClient = RestClient()
 

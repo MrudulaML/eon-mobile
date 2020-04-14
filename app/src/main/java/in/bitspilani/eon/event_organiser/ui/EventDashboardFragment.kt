@@ -23,6 +23,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -36,6 +37,8 @@ import timber.log.Timber
 class HomeFragment : Fragment() {
    // private val dashboardViewModel by viewModels<EventDashboardViewModel> { getViewModelFactory() }
     private var actionbarHost: ActionbarHost? = null
+    private lateinit var layoutManager: RecyclerView.LayoutManager
+    private lateinit var eventAdapter: EventAdapter
     private lateinit var eventDashboardViewModel: EventDashboardViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +46,7 @@ class HomeFragment : Fragment() {
             ViewModelProviders.of(this).get(EventDashboardViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
 
+        eventDashboardViewModel.getEvents()
     }
 
     override fun onCreateView(
@@ -59,7 +63,7 @@ class HomeFragment : Fragment() {
         setUpObservables()
         setUpClickListeners()
         setUpSearch()
-        eventDashboardViewModel.getEvents()
+
     }
 
 
@@ -72,7 +76,7 @@ class HomeFragment : Fragment() {
             override fun onQueryTextChange(newText: String?): Boolean {
                 lifecycleScope.launch {
                     delay(200)
-                    eventListAdapter.filter.filter(newText)
+                    eventAdapter.filter.filter(newText)
                 }
                 return false
             }
@@ -116,26 +120,29 @@ class HomeFragment : Fragment() {
         })
 
     }
-    private lateinit var eventListAdapter : EventAdapter
+
     private fun setEventRecyclerView(eventList: EventList) {
 
         val isSubscriber :  Boolean = ModelPreferencesManager.getInt(Constants.USER_ROLE)==2
         Timber.e("is subcriber$isSubscriber")
+        layoutManager = LinearLayoutManager(activity)
         //TODO fix this hack
         if (eventList.fromFilter) {
             btn_filter_clear.visibility=View.VISIBLE
-            rv_event_list.invalidateItemDecorations()
-            rv_event_list.invalidate()
-            eventListAdapter = EventAdapter(eventList.eventList, eventDashboardViewModel,isSubscriber)
-            rv_event_list.adapter = eventListAdapter
-
+            bindList(eventList, isSubscriber)
         }
-        else {
+        else
+            bindList(eventList, isSubscriber)
 
-            rv_event_list.layoutManager = LinearLayoutManager(activity)
-            eventListAdapter = EventAdapter(eventList.eventList, eventDashboardViewModel,isSubscriber)
-            rv_event_list.adapter = eventListAdapter
-        }
+    }
+
+    private fun bindList(
+        eventList: EventList,
+        isSubscriber: Boolean = false
+    ) {
+        rv_event_list.layoutManager = layoutManager
+        eventAdapter = EventAdapter(eventList.eventList, eventDashboardViewModel, isSubscriber)
+        rv_event_list.adapter = eventAdapter
     }
 
 

@@ -20,12 +20,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/appCompatImageView2"
         android:layout_width="0dp"
         android:layout_height="@dimen/_200dp"
         android:scaleType="centerCrop"
-        app:imageUrl="@{`https://dummyimage.com/qvga`}"
+        app:imageUrl="@{eventDetail.data.get(0).images}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -72,7 +72,7 @@ fun AppCompatImageView.isSelected(isSelected: Boolean) {
 
 @BindingAdapter("imageUrl")
 fun loadImage(view: ImageView, imageUrl: String) {
-    Picasso.get().load(imageUrl).centerCrop().resize(300,200) .into(view)
+    Picasso.get().load(imageUrl).into(view)
 }
 
 //TODO optimise this hacky thing

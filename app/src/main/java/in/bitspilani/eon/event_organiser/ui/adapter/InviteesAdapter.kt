@@ -16,7 +16,7 @@ class InviteesAdapter(private val inviteeList: ArrayList<Invitee>) :
     Filterable {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InviteesViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = InviteeItemRowBinding.inflate(inflater)
+        val binding = InviteeItemRowBinding.inflate(inflater,parent,false)
         return InviteesViewHolder(binding)
     }
 
