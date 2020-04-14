@@ -11,6 +11,7 @@ import android.Manifest
 import android.app.AlertDialog
 import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.*
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
@@ -30,14 +31,14 @@ import kotlinx.android.synthetic.main.layout_dialog_payment_success.view.*
 import kotlinx.android.synthetic.main.layout_email_share_to_friend.view.*
 import kotlinx.android.synthetic.main.layout_seat_booking.*
 import android.graphics.pdf.PdfDocument
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Typeface
 import android.os.Build
 import android.os.Environment
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.HashMap
 
 
 class EventDetails : Fragment() {
@@ -281,29 +282,61 @@ class EventDetails : Fragment() {
         val eventSeatCounter = tv_seat_counter.text.toString()
         val eventAmount = btn_price.text.toString()
 
-        val document = PdfDocument()
+        val subscriberName = "Jhon@hashedin.com" // to do
+        val bookingNotes = "It's non-transferable ticket" // to do
+        val bookingDate = "Wednesday 14th April 20" // to do
 
+        val logoBitmap = BitmapFactory.decodeResource(resources,R.drawable.logo_bits)
+        val qrCodeBitmap = BitmapFactory.decodeResource(resources,R.drawable.ic_qr_code)
+
+        // resize logo
+        val resizedLogoBitmap = Bitmap.createScaledBitmap(
+            logoBitmap, 128, 128, false
+        )
+        // resize QR code
+        val resizedQRCodeBitmap = Bitmap.createScaledBitmap(
+            qrCodeBitmap, 220, 220, false
+        )
+
+        val document = PdfDocument()
         val pageInfo = PdfDocument.PageInfo.Builder(1200, 2010, 1).create()
         val page = document.startPage(pageInfo)
         val canvas = page.canvas
-        val paint = Paint()
+
+        val bitmapPaint = Paint()
         val titlePaint = Paint()
+        val linePaint = Paint()
+        val textPaint = Paint()
 
-        // header title
-        titlePaint.textAlign = Paint.Align.CENTER
-        titlePaint.textSize = resources.getDimension(R.dimen._20fs)
+        // logo
+        canvas.drawBitmap(resizedLogoBitmap, 40F,80F, bitmapPaint)
+
+        // header
+        titlePaint.textSize = resources.getDimension(R.dimen._24fs)
         titlePaint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
-        canvas.drawText(eventName,1200/2F, 200F, titlePaint )
+        canvas.drawText(eventName,220F, 180F, titlePaint )
 
-        // tickets info right side
-        paint.textAlign = Paint.Align.RIGHT
-        paint.textSize = resources.getDimension(R.dimen._16fs)
-        paint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)
-        canvas.drawText("Event Name: "+eventName, 1200-40F, 250F, paint);
-        canvas.drawText("Number of seats: "+eventSeatCounter, 1200F-80F, 300F, paint);
-        canvas.drawText("Amount: "+eventAmount, 1200-40F, 350F, paint);
-        canvas.drawText("Event Date: "+eventDateTime, 1200-40F, 400F, paint);
-        canvas.drawText("Location: "+eventLocation, 1200-40F, 450F, paint);
+        // divider
+        canvas.drawLine(40F, 248F, 1200-40F, 248F, linePaint)
+
+        // dummy QR Code
+        canvas.drawBitmap(resizedQRCodeBitmap, 40F,290F, bitmapPaint)
+
+        // Event info
+        textPaint.textSize = resources.getDimension(R.dimen._16fs)
+        textPaint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)
+        canvas.drawText("Event Name: "+eventName, 300F, 350F, textPaint);
+        canvas.drawText("Number of seats: "+eventSeatCounter, 300F, 410F, textPaint);
+        canvas.drawText("Amount: "+eventAmount, 300F, 470F, textPaint);
+        canvas.drawText("Event Date: "+eventDateTime, 300F, 530F, textPaint);
+        canvas.drawText("Location: "+eventLocation, 300F, 590F, textPaint);
+        canvas.drawText("Subscriber Name: "+subscriberName, 300F, 650F, textPaint);
+        canvas.drawText("Booking Date: "+bookingDate, 300F, 710F, textPaint);
+
+        // Note
+        textPaint.textSize = resources.getDimension(R.dimen._16fs)
+        textPaint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+        canvas.drawText("*Note: "+bookingNotes, 40F, 800F, textPaint);
 
         document.finishPage(page)
 
@@ -334,5 +367,10 @@ class EventDetails : Fragment() {
 
         document.writeTo(FileOutputStream(filePath));
         document.close();
+    }
+
+    fun toSimpleString(date: Date) : String {
+        val format = SimpleDateFormat("dd/MM/yyy")
+        return format.format(date)
     }
 }

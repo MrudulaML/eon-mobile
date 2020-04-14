@@ -57,6 +57,7 @@
     <dimen name="_16fs">16sp</dimen>
     <dimen name="_18fs">18sp</dimen>
     <dimen name="_20fs">20sp</dimen>
+    <dimen name="_24fs">24sp</dimen>
     <dimen name="_335dp">335dp</dimen>
     <dimen name="_47dp">47dp</dimen>
     <dimen name="_110dp">110dp</dimen>
