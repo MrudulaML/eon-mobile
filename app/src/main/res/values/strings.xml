@@ -53,7 +53,7 @@
 
     <string name="share_event_text">Share this event with your friend</string>
 
-    <string name="subscribed_event_text"> You have subscribed for this \n event successfully     \n \n * If you have to Add/Remove invitees,click on Modify  \n * click on "Download" for event details and QR code </string>
+    <string name="subscribed_event_text"> You have subscribed for this event \n successfully     \n \n * If you have to Add/Remove invitees,click on Modify  \n * click on "Download" for event details and QR code </string>
     <string name="decreasing_attendees">No. of attendees has been updated to  </string>
     <string name="decreasing_total_amount">Total amount paid for 4 tickets is Rs.</string>
     <string name="decreasing_refund_text">Total amount refundable to you Rs.1450 </string>

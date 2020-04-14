@@ -1,26 +1,24 @@
 package `in`.bitspilani.eon.event_subscriber.subscriber.payments
 
-import androidx.lifecycle.ViewModelProviders
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import `in`.bitspilani.eon.R
-import `in`.bitspilani.eon.event_subscriber.subscriber.detail.EventDetailsViewModel
 import `in`.bitspilani.eon.login.data.Data
 import `in`.bitspilani.eon.utils.*
 import android.app.AlertDialog
+import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.layout_dialog_payment_success.view.*
 import kotlinx.android.synthetic.main.payment_fragment.*
+
 
 class PaymentFrag : Fragment() {
 
@@ -47,6 +45,45 @@ class PaymentFrag : Fragment() {
         setObservables()
         getDataFromArgs()
         setClicks()
+
+        val textCount: Int = 0
+
+        et_expiry_date.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable) {
+
+
+                val source = s.toString()
+                val length = source.length
+
+                val stringBuilder = StringBuilder()
+
+                stringBuilder.append(source)
+
+                if (length == 4 && !stringBuilder.contains("/")) {
+
+                    // stringBuilder.deleteCharAt(length-1);
+
+                        stringBuilder.insert(stringBuilder.length-2, "/")
+                        et_expiry_date.setText(stringBuilder);
+
+                }
+
+
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int,
+                count: Int, after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence, start: Int,
+                before: Int, count: Int
+            ) {
+            }
+        })
 
     }
 

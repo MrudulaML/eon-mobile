@@ -67,7 +67,6 @@ class EventSummaryFrag : Fragment() {
         tv_total_amount.text = "Total Amount    ₹ " + amount
         tv_payable_amount.text = "Payable Amount    ₹  " + amount
 
-
     }
 
 

@@ -106,7 +106,6 @@
                             android:id="@+id/tv_event_name"
                             android:layout_width="wrap_content"
                             android:layout_height="30dp"
-
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="10dp"
                             android:text="@{eventData.event_name}"
@@ -116,29 +115,43 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/iv_event" />
 
+
                         <TextView
-                            android:textColor="@color/colorPrimary"
+
                             android:id="@+id/tv_event_date"
                             android:layout_width="wrap_content"
                             android:layout_height="25dp"
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="5dp"
-                            android:text="@{eventData.date+` `+eventData.time }"
+                            android:drawableStart="@drawable/ic_icon_calendar_gray"
+                            android:drawablePadding="10dp"
+                            android:textColor="@color/colorPrimary"
                             android:textSize="15sp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/tv_event_name" />
 
                         <TextView
-                            android:textColor="@color/colorPrimary"
                             android:id="@+id/tv_event_location"
                             android:layout_width="wrap_content"
                             android:layout_height="25dp"
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="5dp"
+                            android:drawableStart="@drawable/ic_icon_map"
+                            android:drawablePadding="10dp"
                             android:text="@{eventData.location}"
+                            android:textColor="@color/colorPrimary"
                             android:textSize="15sp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/tv_event_date" />
+
+                        <ImageView
+                            android:id="@+id/iv_external_share"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="5dp"
+                            android:src="@drawable/ic_icon_minus_circle" />
 
                         <View
                             android:id="@+id/divider"
@@ -157,6 +170,8 @@
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="10dp"
                             android:text="Type of event"
+                            android:textStyle="bold"
+                            android:textColor="@color/dark_grey2"
                             android:textSize="15sp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/divider" />
@@ -167,12 +182,19 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="10dp"
+                            android:background="@drawable/rounded_bg_grey"
+                            android:paddingStart="10dp"
+                            android:paddingTop="5dp"
+                            android:paddingEnd="10dp"
+                            android:paddingBottom="5dp"
                             android:text="Technology"
+                            android:textColor="@color/dark_grey2"
                             android:textSize="16sp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/tv_type_of_event" />
 
                         <TextView
+                            android:fontFamily="sans-serif"
                             android:id="@+id/tv_event_detail_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -182,6 +204,7 @@
                             android:paddingEnd="20dp"
                             android:text="@{eventData.description}"
                             android:textAlignment="textStart"
+                            android:textColor="@color/dark_grey2"
                             android:textSize="15sp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -193,22 +216,22 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="10dp"
-                            android:visibility="gone"
                             android:layout_marginEnd="20dp"
                             android:background="@drawable/bg_subscribed_rectangle"
                             android:padding="10dp"
                             android:text="@string/subscribed_event_text"
                             android:textColor="@color/subscribed_text_color"
                             android:textSize="16sp"
+                            android:visibility="gone"
                             app:layout_constraintTop_toBottomOf="@id/tv_event_detail_text" />
 
                         <include
-                            android:visibility="gone"
                             android:id="@+id/download_cancel_view"
                             layout="@layout/layout_download_cancel_button"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="15dp"
+                            android:visibility="gone"
                             app:layout_constraintBottom_toBottomOf="parent" />
                     </LinearLayout>
                 </androidx.core.widget.NestedScrollView>

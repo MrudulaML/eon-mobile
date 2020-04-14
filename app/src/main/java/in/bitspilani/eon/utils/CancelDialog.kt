@@ -28,6 +28,10 @@ class CancelDialog {
                 mAlertDialog.dismiss()
             }
 
+            mDialogView.iv_close.clickWithDebounce {
+                mAlertDialog.dismiss()
+            }
+
         }
 
     }

@@ -7,10 +7,16 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter
 import com.squareup.picasso.Picasso
 
+@BindingAdapter("app:`in`.bitspilani.eon.utils.formatDate")
+fun TextView.formatDate( dateString: String, time : String) {
+
+    text=CommonUtil.formatDate(dateString,time).toString()
+}
 
 @BindingAdapter("app:`in`.bitspilani.eon.utils.goneUnless")
 fun View.goneUnless(visible: Boolean) {

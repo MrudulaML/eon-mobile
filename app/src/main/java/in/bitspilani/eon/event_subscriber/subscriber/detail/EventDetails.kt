@@ -193,6 +193,11 @@ class EventDetails : Fragment() {
 
             }
         }
+
+        iv_external_share.clickWithDebounce {
+
+            CommonUtil.openLinkBrowser(activity!!, data.external_links)
+        }
     }
 
     override fun onRequestPermissionsResult(
@@ -288,6 +293,7 @@ class EventDetails : Fragment() {
             data = it.data
             btn_price.text = "₹ $amount"
 
+            tv_event_date.formatDate(data.date, data.time)
 
             if (data.is_subscribed) {
                 isSubscribed = true
@@ -318,6 +324,7 @@ class EventDetails : Fragment() {
 
         //counter observer
         seatCount.observe(this, Observer {
+
 
             tv_seat_counter.text = it.toString()
             if (!isSubscribed) {
