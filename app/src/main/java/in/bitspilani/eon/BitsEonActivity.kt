@@ -32,23 +32,24 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
-class BitsEonActivity : AppCompatActivity(), ActionbarHost {
+class BitsEonActivity : AppCompatActivity(),ActionbarHost {
     lateinit var navController: NavController
-    lateinit var bottomNavigation: BottomNavigationView
+    lateinit var bottomNavigation : BottomNavigationView
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bits_eon)
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
-        bottomNavigation = findViewById(R.id.bottom_navigation)
+        bottomNavigation= findViewById(R.id.bottom_navigation)
         setSupportActionBar(toolbar)
         supportActionBar!!.hide()
-        bottom_navigation.visibility = View.GONE
+        bottom_navigation.visibility=View.GONE
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
         setupEventTypes()
         checkIfAuthenticated()
-        NavigationUI.setupWithNavController(bottomNavigation, navController)
+        NavigationUI.setupWithNavController(bottomNavigation,navController)
 
     }
 
@@ -75,93 +76,80 @@ class BitsEonActivity : AppCompatActivity(), ActionbarHost {
     }
 
 
-    private fun checkIfAuthenticated() {
+    private fun checkIfAuthenticated(){
         lifecycleScope.launch {
             val userData = ModelPreferencesManager.get<Data>(Constants.CURRENT_USER)
             when {
                 userData?.access.isNullOrEmpty() -> {
                     delay(400)
-                    navController.navigate(
-                        R.id.action_splashScreen_to_signInFragment,
+                    navController.navigate(R.id.action_splashScreen_to_signInFragment,
                         null,
                         NavOptions.Builder()
-                            .setPopUpTo(
-                                R.id.splashScreen,
-                                true
-                            ).build()
-                    )
+                            .setPopUpTo(R.id.splashScreen,
+                                true).build())
 
                     //TODO fix this hack put null safety prone to crash
                 }
                 JWT(userData!!.access).isExpired(10) -> {
                     delay(400)
                     ModelPreferencesManager.clearCache()
-                    Toast.makeText(this@BitsEonActivity, "Session expired", Toast.LENGTH_LONG)
-                        .show()
-                    navController.navigate(
-                        R.id.action_splashScreen_to_signInFragment,
+                    Toast.makeText(this@BitsEonActivity, "Session expired", Toast.LENGTH_LONG).show()
+                    navController.navigate(R.id.action_splashScreen_to_signInFragment,
                         null,
                         NavOptions.Builder()
-                            .setPopUpTo(
-                                R.id.splashScreen,
-                                true
-                            ).build()
-                    )
+                            .setPopUpTo(R.id.splashScreen,
+                                true).build())
 
                 }
                 else -> {
-                    delay(2400)
-                    navController.navigate(
-                        R.id.action_splashScreen_to_HomeFragment,
+                    delay(400)
+                    navController.navigate(R.id.action_splashScreen_to_HomeFragment,
                         null,
                         NavOptions.Builder()
-                            .setPopUpTo(
-                                R.id.app_nav,
-                                true
-                            ).build()
-                    )
+                            .setPopUpTo(R.id.app_nav,
+                                true).build())
 
                 }
             }
+        }
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.userProfileFragment -> {
+
+                navController.navigate(R.id.nav_user_profile)
+
+                true
+            }
+            R.id.notificationFragment ->{
+                navController.navigate(R.id.notificationFragment)
+
+                return true
+            }
+
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
-            override fun onOptionsItemSelected(item: MenuItem): Boolean {
-                return when (item.itemId) {
-                    R.id.userProfileFragment -> {
-
-                        navController.navigate(R.id.userProfileFragment)
-
-                        true
-                    }
-                    R.id.notificationFragment -> {
-                        navController.navigate(R.id.notificationFragment)
-
-                        return true
-                    }
-
-                    else -> super.onOptionsItemSelected(item)
-                }
+    override fun showToolbar(showToolbar: Boolean, title: String?,showBottomNav : Boolean) {
+        if (supportActionBar != null) {
+            if (showToolbar) {
+                supportActionBar!!.show()
+            } else {
+                supportActionBar!!.hide()
             }
-
-            override fun showToolbar(showToolbar: Boolean, title: String?, showBottomNav: Boolean) {
-                if (supportActionBar != null) {
-                    if (showToolbar) {
-                        supportActionBar!!.show()
-                    } else {
-                        supportActionBar!!.hide()
-                    }
-                }
-                title?.let {
-                    supportActionBar!!.title = title
-                }
-
-                bottom_navigation.goneUnless(showBottomNav)
-
-            }
-
-            fun showProgress(show: Boolean) = progress.goneUnless(visible = show)
-
-
+        }
+        title?.let {
+            supportActionBar!!.title = title
         }
 
+        bottom_navigation.goneUnless(showBottomNav)
+
+    }
+
+    fun showProgress(show: Boolean) = progress.goneUnless(visible = show)
+
+
+}
