@@ -25,8 +25,9 @@ data class Data(
 data class Invitee(
     var discount_percentage: Int,
     var email: String,
-    var event: Event,
-    var invitation_id: Int
+    var invitation_id: Int,
+    var event: Event ? =null,
+    var user: User? =null
 )
 
 data class Event(
@@ -35,3 +36,9 @@ data class Event(
 )
 
 
+
+data class User(
+    var contact_number: String,
+    var name: Any,
+    var user_id: Int
+)

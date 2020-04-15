@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.fragment_profile_basic_detail.*
 /**
  * A simple [Fragment] subclass.
  */
-class ProfileBasicDetailFragment(private val callbackListener: CallbackListener) : DialogFragment() {
+class ProfileBasicDetailFragment() : DialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

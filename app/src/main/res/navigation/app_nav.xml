@@ -114,23 +114,9 @@
             android:name="in.bitspilani.eon.event_organiser.ui.EventDetailsOrganiserFragment"
             tools:layout="@layout/fragment_event_detail_organiser">
 
-            <action android:id="@+id/action_event_details_to_dashboardFragment"
+            <action android:id="@+id/action_event_details_organiser_to_dashboardFragment"
                 app:popUpTo="@id/homeFragment"
                 app:popUpToInclusive="false"/>
-
-        </fragment>
-
-        <!--vent details fragme-->
-        <fragment
-            android:id="@+id/eventDetailsFragment"
-            android:name="in.bitspilani.eon.event_organiser.ui.EventDetailsFragment"
-            tools:layout="@layout/fragment_event_detail">
-
-            <action
-                android:id="@+id/action_event_details_to_dashboardFragment"
-                app:destination="@id/home_nav"
-                app:popUpTo="@id/homeFragment"
-                app:popUpToInclusive="true" />
 
         </fragment>
 

@@ -72,6 +72,10 @@ class BitsEonActivity : AppCompatActivity(),ActionbarHost {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.top_navigation, menu)
+        if (ModelPreferencesManager.getInt(Constants.USER_ROLE) == 1) {
+            val itemToHide = menu.findItem(R.id.notificationFragment)
+            itemToHide.isVisible = false
+        }
         return true
     }
 
@@ -107,7 +111,7 @@ class BitsEonActivity : AppCompatActivity(),ActionbarHost {
                         null,
                         NavOptions.Builder()
                             .setPopUpTo(R.id.app_nav,
-                                true).build())
+                                false).build())
 
                 }
             }
@@ -125,7 +129,6 @@ class BitsEonActivity : AppCompatActivity(),ActionbarHost {
             }
             R.id.notificationFragment ->{
                 navController.navigate(R.id.notificationFragment)
-
                 return true
             }
 

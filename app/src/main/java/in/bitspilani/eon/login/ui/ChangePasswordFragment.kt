@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.fragment_change_password.*
  * A simple [Fragment] subclass.
  *
  */
-class ChangePasswordFragment(private val callbackListener: CallbackListener) : DialogFragment() {
+class ChangePasswordFragment() : DialogFragment() {
 
     private val changePwViewmodel by viewModels<ChangePwViewModel> { getViewModelFactory() }
 

@@ -85,7 +85,7 @@ class EventDetailsOrganiserFragment : Fragment(),InviteeCallbackListener,EventDe
 
         toolbar_fragment.setNavigationOnClickListener {
 
-            findNavController().navigate(R.id.action_event_details_to_dashboardFragment)
+            findNavController().navigate(R.id.action_event_details_organiser_to_dashboardFragment)
         }
     }
 

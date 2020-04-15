@@ -7,12 +7,13 @@ import android.view.*
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
+import timber.log.Timber
 import java.util.*
 import kotlin.collections.ArrayList
 
 
 class InviteesAdapter(private val inviteeList: ArrayList<Invitee>) :
-    RecyclerView.Adapter<InviteesAdapter.InviteesViewHolder>(), View.OnCreateContextMenuListener,
+    RecyclerView.Adapter<InviteesAdapter.InviteesViewHolder>(),
     Filterable {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InviteesViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -27,8 +28,15 @@ class InviteesAdapter(private val inviteeList: ArrayList<Invitee>) :
     }
     override fun getItemCount(): Int = inviteeList.size
 
-    override fun onBindViewHolder(holder: InviteesViewHolder, position: Int) =
+    override fun onBindViewHolder(holder: InviteesViewHolder, position: Int) {
         holder.bind(inviteeList[position])
+
+    }
+
+    fun removeAt(position: Int) {
+        inviteeFilteredList.removeAt(position)
+        notifyItemRemoved(position)
+    }
 
     inner class InviteesViewHolder(private val binding: InviteeItemRowBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -41,18 +49,33 @@ class InviteesAdapter(private val inviteeList: ArrayList<Invitee>) :
         }
 
 
+
+
     }
 
-    override fun onCreateContextMenu(
-        menu: ContextMenu?,
-        v: View?,
-        menuInfo: ContextMenu.ContextMenuInfo?
-    ) {
-        menu?.setHeaderTitle("Select The Action!");
-        menu?.add(0, v!!.id, 0, "City");
-        menu?.add(0, v!!.id, 0, "Lga");
-    }
 
+
+    fun filter(query: String) {
+
+        if (query.isBlank()) {
+            Timber.e("filter is empty")
+
+            inviteeFilteredList= inviteeList
+
+            Timber.e("filter is empty${inviteeList.size}")
+
+        } else {
+            val result: ArrayList<Invitee> = ArrayList()
+            for (item in inviteeFilteredList) {
+                if (item.email.toLowerCase(Locale.ROOT).contains(query.toLowerCase(Locale.ROOT))) {
+                    result.add(item)
+                }
+            }
+            inviteeFilteredList.clear()
+            inviteeFilteredList.addAll(result)
+        }
+        notifyDataSetChanged()
+    }
 
     override fun getFilter(): Filter {
         return object : Filter() {
