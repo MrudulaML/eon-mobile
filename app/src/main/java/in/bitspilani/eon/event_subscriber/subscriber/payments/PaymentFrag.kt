@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -24,6 +25,7 @@ class PaymentFrag : Fragment() {
 
     private val paymentViewModel by viewModels<PaymentViewModel> { getViewModelFactory() }
 
+    var eventId: Int = 0
 
     var hashMap: HashMap<String, Any> = HashMap()
 
@@ -64,8 +66,8 @@ class PaymentFrag : Fragment() {
 
                     // stringBuilder.deleteCharAt(length-1);
 
-                        stringBuilder.insert(stringBuilder.length-2, "/")
-                        et_expiry_date.setText(stringBuilder);
+                    stringBuilder.insert(stringBuilder.length - 2, "/")
+                    et_expiry_date.setText(stringBuilder);
 
                 }
 
@@ -104,7 +106,8 @@ class PaymentFrag : Fragment() {
 
     fun getDataFromArgs() {
 
-        hashMap.put("event_id", arguments!!.getInt(Constants.EVENT_ID, 0))
+        eventId = arguments!!.getInt(Constants.EVENT_ID, 0)
+        hashMap.put("event_id", eventId)
 
 
         val userData = ModelPreferencesManager.get<Data>(Constants.CURRENT_USER)
@@ -123,7 +126,9 @@ class PaymentFrag : Fragment() {
                 showUserMsg("Please enter Card owner's name")
             else if (et_card_number.text.isEmpty())
                 showUserMsg("Please enter Card number")
-            else if (!Validator.isCardValid(et_card_number.text.toString()))
+            else if (et_card_number.text.toString().length < 16)
+                showUserMsg("please enter valid card number")
+            else if (et_card_number.text.toString().length > 16)
                 showUserMsg("please enter valid card number")
             else if (et_expiry_date.text.isEmpty()) {
                 showUserMsg("Please enter expiry date")
@@ -139,6 +144,9 @@ class PaymentFrag : Fragment() {
             }
 
         }
+
+        iv_back.clickWithDebounce { findNavController().popBackStack() }
+
     }
 
     fun showSuccessDialog() {
@@ -153,14 +161,12 @@ class PaymentFrag : Fragment() {
 
         mDialogView.btn_okay.clickWithDebounce {
 
+            findNavController().popBackStack(R.id.eventDetails, false)
+
             findNavController().navigate(
-                R.id.action_payment_to_homeFragment,
-                null,
-                NavOptions.Builder()
-                    .setPopUpTo(
-                        R.id.homeFragment,
-                        true
-                    ).build()
+                R.id.action_payment_to_eventDetail,
+                bundleOf(Constants.EVENT_ID to eventId),
+                NavOptions.Builder().setPopUpTo(R.id.homeFragment, false).build()
             )
 
             mAlertDialog.dismiss()

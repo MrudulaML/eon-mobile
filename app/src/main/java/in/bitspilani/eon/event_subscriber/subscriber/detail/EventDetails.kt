@@ -36,6 +36,7 @@ import android.graphics.Paint
 import android.graphics.Typeface
 import android.os.Build
 import android.os.Environment
+import androidx.navigation.NavOptions
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -178,6 +179,7 @@ class EventDetails : Fragment() {
             }
         }
 
+        iv_back.clickWithDebounce { findNavController().popBackStack() }
         // button download
         btn_download.clickWithDebounce {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -291,13 +293,25 @@ class EventDetails : Fragment() {
             eventDetailsFragmentBinding.eventData = it.data
             amount = it.data.subscription_fee
             data = it.data
-            btn_price.text = "₹ $amount"
 
+           if(amount>0) btn_price.text = "₹ $amount" else btn_price.text="confirm"
+
+            if (data.is_wishlisted) {
+                eventDetailsViewModel.wishlist = false
+                iv_wishlist.src(R.drawable.ic_wishlist_fill)
+            }
             tv_event_date.formatDate(data.date, data.time)
 
             if (data.is_subscribed) {
                 isSubscribed = true
-                tv_subscribed_event_text.visibility = View.VISIBLE
+                ll_paid_event_info.visibility = View.VISIBLE
+                tv_seats_info.text = "You have already bought " + data.subscription_details!!.no_of_tickets_bought + " seats for this event"
+
+                if(data.subscription_details!!.amount_paid>0)
+                tv_total_amount_paid.text = "Total amount paid: ₹" + data.subscription_details!!.amount_paid
+
+                tv_total_amount_paid.goneUnless(data.subscription_details!!.amount_paid>0)
+
                 download_cancel_view.visibility = View.VISIBLE
                 btn_price.text = "Update"
 
@@ -319,6 +333,11 @@ class EventDetails : Fragment() {
 
             showUserMsg(it)
 
+            if (!eventDetailsViewModel.wishlist)
+                iv_wishlist.src(R.drawable.ic_wishlist_fill)
+            else
+                iv_wishlist.src(R.drawable.ic_wishlist_line)
+
         })
 
 
@@ -328,6 +347,7 @@ class EventDetails : Fragment() {
 
             tv_seat_counter.text = it.toString()
             if (!isSubscribed) {
+                if(amount>0)
                 btn_price.text = "₹ " + (it * amount)
 
             }
@@ -339,7 +359,9 @@ class EventDetails : Fragment() {
 
             showUserMsg(it)
 
+
             SendEmailDialog.dismissDialog()
+
 
         })
 
@@ -354,14 +376,17 @@ class EventDetails : Fragment() {
             showUserMsg(it)
             SendEmailDialog.dismissDialog()
 
-
         })
 
         eventDetailsViewModel.freeEventLiveData.observe(viewLifecycleOwner, Observer {
 
             SuccessDialog.openDialog(activity!!) {
 
-                findNavController().navigate(R.id.action_eventDetails_to_Homefragment)
+                findNavController().navigate(
+                    R.id.action_eventDetails_to_eventDetails,
+                    bundleOf(Constants.EVENT_ID to data.event_id),
+                    NavOptions.Builder().setPopUpTo(R.id.eventDetails, true).build()
+                )
             }
 
         })

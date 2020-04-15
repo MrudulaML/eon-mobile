@@ -145,6 +145,10 @@
                 app:popUpToInclusive="true" />
 
             <action
+                android:id="@+id/action_payment_to_eventDetail"
+                app:destination="@id/eventDetails"
+               />
+            <action
                 android:id="@+id/action_payment_to_homeFragment"
                 app:destination="@id/homeFragment"
                 app:popUpTo="@id/homeFragment"
@@ -225,6 +229,12 @@
                 app:popUpTo="@id/homeFragment" />
 
             <action
+                android:id="@+id/action_eventDetails_to_eventDetails"
+                app:destination="@id/eventDetails"
+                app:popUpTo="@id/eventDetails"
+                app:popUpToInclusive="true" />
+
+            <action
                 android:id="@+id/action_eventDetails_to_Homefragment"
                 app:destination="@id/homeFragment"
                 app:popUpTo="@id/homeFragment"
@@ -247,6 +257,10 @@
                 app:destination="@id/eventSummaryFrag"
                 app:popUpTo="@id/homeFragment" />
 
+            <action
+                android:id="@+id/action_refund_to_eventDetail"
+                app:destination="@id/eventDetails"
+                />
             <action
                 android:id="@+id/action_refundFrag_to_homefrag"
                 app:destination="@id/homeFragment"

@@ -59,13 +59,13 @@ class AuthViewModel : BaseViewModel() {
     val resetPasswordLiveData: SingleLiveEvent<ResetPasswordResponse> = SingleLiveEvent()
 
 
-    fun login(username:String, password:String){
+    fun login(username: String, password: String) {
         val body = JsonObject()
-        body.addProperty("email",username)
-        body.addProperty("password",password)
+        body.addProperty("email", username)
+        body.addProperty("password", password)
         showProgress(true)
         restClient.authClient.create(ApiService::class.java).login(body)
-            .enqueue(object : ApiCallback<LoginResponse>(){
+            .enqueue(object : ApiCallback<LoginResponse>() {
                 override fun onSuccessResponse(responseBody: LoginResponse) {
                     loginLiveData.postValue(responseBody)
                     showProgress(false)
@@ -79,13 +79,12 @@ class AuthViewModel : BaseViewModel() {
 
     }
 
-    fun generateCode(email:String)
-    {
+    fun generateCode(email: String) {
         val body = JsonObject()
-        body.addProperty("email",email)
+        body.addProperty("email", email)
         progress.value = true
         restClient.authClient.create(ApiService::class.java).generateCode(body)
-            .enqueue(object : ApiCallback<GenerateCodeResponse>(){
+            .enqueue(object : ApiCallback<GenerateCodeResponse>() {
                 override fun onSuccessResponse(generateCodeResponse: GenerateCodeResponse) {
                     generateCodeLiveData.postValue(generateCodeResponse)
                 }
@@ -97,15 +96,14 @@ class AuthViewModel : BaseViewModel() {
 
     }
 
-    fun resetPassword(email:String,code:String,password:String)
-    {
+    fun resetPassword(email: String, code: String, password: String) {
         val body = JsonObject()
-        body.addProperty("email",email)
-        body.addProperty("code",code)
-        body.addProperty("password",password)
+        body.addProperty("email", email)
+        body.addProperty("code", code)
+        body.addProperty("password", password)
         progress.value = true
         restClient.authClient.create(ApiService::class.java).resetPassword(body)
-            .enqueue(object : ApiCallback<ResetPasswordResponse>(){
+            .enqueue(object : ApiCallback<ResetPasswordResponse>() {
                 override fun onSuccessResponse(resetPasswordResponse: ResetPasswordResponse) {
                     resetPasswordLiveData.postValue(resetPasswordResponse)
                 }
@@ -127,14 +125,20 @@ class AuthViewModel : BaseViewModel() {
                         response: Response<SignUpResponse>
                     ) {
 
-                        if(response.isSuccessful)
-                        registerData.postValue(response.body()?.data)
+                        if (response.isSuccessful)
+                            registerData.postValue(response.body()?.data)
+                        else {
+                            if (response.body()?.message!=null) {
 
-                        Log.e("xoxo", "register success")
+                                registerError.postValue(response.body()!!.message)
+                            }
+
+                        }
+
+
                     }
 
                     override fun onFailure(call: Call<SignUpResponse>, t: Throwable) {
-                        Log.e("xoxo", "register error: " + t.toString())
                         registerError.postValue(t.toString())
                     }
                 })
@@ -144,8 +148,6 @@ class AuthViewModel : BaseViewModel() {
 
         }
     }
-
-
 
 
 }

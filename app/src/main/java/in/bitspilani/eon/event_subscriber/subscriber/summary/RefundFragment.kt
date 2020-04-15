@@ -19,6 +19,7 @@ import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.event_summary_fragment.*
 import kotlinx.android.synthetic.main.fragment_redund.*
 import kotlinx.android.synthetic.main.layout_attendees_amount.*
+import kotlinx.android.synthetic.main.payment_fragment.*
 
 class RefundFragment : Fragment() {
 
@@ -80,19 +81,27 @@ class RefundFragment : Fragment() {
         val userData = ModelPreferencesManager.get<Data>(Constants.CURRENT_USER)
 
         var hashMap: HashMap<String, Any> = HashMap()
-        hashMap.put(Constants.AMOUNT, (amount * (noOfTickets - attendees)))
+        hashMap.put(Constants.AMOUNT, (amount/noOfTickets) * (noOfTickets - attendees))
         hashMap.put(Constants.EVENT_ID, eventId)
         hashMap.put(Constants.USER_ID, userData!!.user.user_id)
         if (discountAmount == 0)
             hashMap.put(Constants.DISCOUNT_AMOUNT, discountAmount)
         else
-            hashMap.put(Constants.DISCOUNT_AMOUNT, (discountAmount / noOfTickets) - (noOfTickets - attendees))
+            hashMap.put(
+                Constants.DISCOUNT_AMOUNT,
+                (discountAmount / noOfTickets) - (noOfTickets - attendees)
+            )
 
         hashMap.put(Constants.NUMBER_OF_TICKETS, attendees - noOfTickets)
+
+        Log.e("xoxo","refund map: "+hashMap)
 
         btn_confirm.clickWithDebounce {
             eventSummaryViewModel.reduceTickets(hashMap)
         }
+
+        iv_back_refund.clickWithDebounce { findNavController().popBackStack() }
+
     }
 
     fun calculateFinalAmount(): Int {
@@ -105,7 +114,8 @@ class RefundFragment : Fragment() {
         eventSummaryViewModel.subcriptionData.observe(viewLifecycleOwner, Observer {
 
             showUserMsg(it.message)
-            findNavController().navigate(R.id.homeFragment)
+            //  findNavController().navigate(R.id.homeFragment)
+            findNavController().popBackStack()
         })
 
     }

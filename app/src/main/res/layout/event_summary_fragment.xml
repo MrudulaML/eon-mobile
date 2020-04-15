@@ -50,6 +50,11 @@
         android:visibility="visible"
         app:layout_constraintTop_toBottomOf="@+id/layout_attendees_and_amount">
 
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/promo_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="tv_promocode,et_promocode,iv_cancel_promo,tv_apply" />
         <TextView
             android:id="@+id/tv_promocode"
             android:layout_width="wrap_content"
@@ -107,6 +112,7 @@
             android:layout_marginTop="20dp"
             android:text="Details"
             android:textSize="18sp"
+            app:layout_goneMarginTop="20dp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_promocode" />
