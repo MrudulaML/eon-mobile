@@ -36,6 +36,7 @@ import android.graphics.Paint
 import android.graphics.Typeface
 import android.os.Build
 import android.os.Environment
+import androidx.navigation.NavOptions
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -293,6 +294,10 @@ class EventDetails : Fragment() {
             data = it.data
             btn_price.text = "₹ $amount"
 
+            if (data.is_wishlisted) {
+                eventDetailsViewModel.wishlist = false
+                iv_wishlist.src(R.drawable.ic_wishlist_fill)
+            }
             tv_event_date.formatDate(data.date, data.time)
 
             if (data.is_subscribed) {
@@ -319,6 +324,11 @@ class EventDetails : Fragment() {
 
             showUserMsg(it)
 
+            if (!eventDetailsViewModel.wishlist)
+                iv_wishlist.src(R.drawable.ic_wishlist_fill)
+            else
+                iv_wishlist.src(R.drawable.ic_wishlist_line)
+
         })
 
 
@@ -339,7 +349,9 @@ class EventDetails : Fragment() {
 
             showUserMsg(it)
 
+
             SendEmailDialog.dismissDialog()
+
 
         })
 
@@ -354,14 +366,17 @@ class EventDetails : Fragment() {
             showUserMsg(it)
             SendEmailDialog.dismissDialog()
 
-
         })
 
         eventDetailsViewModel.freeEventLiveData.observe(viewLifecycleOwner, Observer {
 
             SuccessDialog.openDialog(activity!!) {
 
-                findNavController().navigate(R.id.action_eventDetails_to_Homefragment)
+                findNavController().navigate(
+                    R.id.action_eventDetails_to_eventDetails,
+                    bundleOf(Constants.EVENT_ID to data.event_id),
+                    NavOptions.Builder().setPopUpTo(R.id.eventDetails, true).build()
+                )
             }
 
         })

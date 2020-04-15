@@ -80,15 +80,20 @@ class RefundFragment : Fragment() {
         val userData = ModelPreferencesManager.get<Data>(Constants.CURRENT_USER)
 
         var hashMap: HashMap<String, Any> = HashMap()
-        hashMap.put(Constants.AMOUNT, (amount * (noOfTickets - attendees)))
+        hashMap.put(Constants.AMOUNT, (amount/noOfTickets) * (noOfTickets - attendees))
         hashMap.put(Constants.EVENT_ID, eventId)
         hashMap.put(Constants.USER_ID, userData!!.user.user_id)
         if (discountAmount == 0)
             hashMap.put(Constants.DISCOUNT_AMOUNT, discountAmount)
         else
-            hashMap.put(Constants.DISCOUNT_AMOUNT, (discountAmount / noOfTickets) - (noOfTickets - attendees))
+            hashMap.put(
+                Constants.DISCOUNT_AMOUNT,
+                (discountAmount / noOfTickets) - (noOfTickets - attendees)
+            )
 
         hashMap.put(Constants.NUMBER_OF_TICKETS, attendees - noOfTickets)
+
+        Log.e("xoxo","refund map: "+hashMap)
 
         btn_confirm.clickWithDebounce {
             eventSummaryViewModel.reduceTickets(hashMap)
@@ -105,7 +110,8 @@ class RefundFragment : Fragment() {
         eventSummaryViewModel.subcriptionData.observe(viewLifecycleOwner, Observer {
 
             showUserMsg(it.message)
-            findNavController().navigate(R.id.homeFragment)
+            //  findNavController().navigate(R.id.homeFragment)
+            findNavController().popBackStack()
         })
 
     }

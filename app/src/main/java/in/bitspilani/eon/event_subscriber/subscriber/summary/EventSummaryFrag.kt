@@ -5,6 +5,7 @@ import `in`.bitspilani.eon.event_subscriber.subscriber.detail.EventDetailsViewMo
 import `in`.bitspilani.eon.utils.Constants
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import `in`.bitspilani.eon.utils.getViewModelFactory
+import `in`.bitspilani.eon.utils.goneUnless
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
@@ -62,6 +63,8 @@ class EventSummaryFrag : Fragment() {
         isUpdate = arguments!!.getBoolean(Constants.IS_UPDATE, false)
 
 
+        promo_group.goneUnless(discountPercentage > 0)
+
         cl_normal_summary.visibility = View.VISIBLE
 
         tv_total_amount.text = "Total Amount    ₹ " + amount
@@ -77,7 +80,7 @@ class EventSummaryFrag : Fragment() {
             var bundle = bundleOf(
                 Constants.EVENT_ID to arguments?.getInt("event_id", 0),
                 "no_of_tickets" to totalAttendees,
-                Constants.AMOUNT to (amount-discountAmount),
+                Constants.AMOUNT to (amount - discountAmount),
                 Constants.DISCOUNT_AMOUNT to discountAmount
             )
 
