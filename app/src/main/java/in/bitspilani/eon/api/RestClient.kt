@@ -82,6 +82,7 @@ class AuthInterceptor: Interceptor {
         val original = chain.request()
         val request = original.newBuilder()
             .header("Authorization", "Bearer $token")
+            .header("Content-Type","application/json")
             .method(original.method(), original.body())
             .build()
         return chain.proceed(request)

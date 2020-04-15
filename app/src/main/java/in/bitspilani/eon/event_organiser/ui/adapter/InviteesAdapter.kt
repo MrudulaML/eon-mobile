@@ -12,7 +12,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class InviteesAdapter(private val inviteeList: ArrayList<Invitee>) :
+class InviteesAdapter(private val inviteeList: ArrayList<Invitee>, var itemClickListener: (a:Int) -> Unit) :
     RecyclerView.Adapter<InviteesAdapter.InviteesViewHolder>(),
     Filterable {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InviteesViewHolder {
@@ -30,6 +30,14 @@ class InviteesAdapter(private val inviteeList: ArrayList<Invitee>) :
 
     override fun onBindViewHolder(holder: InviteesViewHolder, position: Int) {
         holder.bind(inviteeList[position])
+        holder.itemView.setOnTouchListener { v, event ->
+
+            itemClickListener(position)
+            true
+        }
+
+
+
 
     }
 

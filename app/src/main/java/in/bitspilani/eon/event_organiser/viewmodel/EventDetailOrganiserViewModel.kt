@@ -11,6 +11,7 @@ import `in`.bitspilani.eon.utils.ApiCallback
 import `in`.bitspilani.eon.utils.SingleLiveEvent
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -22,6 +23,8 @@ class EventDetailOrganiserViewModel(private val apiService: ApiService) : BaseVi
 
     var notifyLiveData: SingleLiveEvent<CommonResponse> = SingleLiveEvent()
 
+    var deleteInvitee: SingleLiveEvent<CommonResponse> = SingleLiveEvent()
+
 
 
     fun getEventDetails(id: Int) {
@@ -30,6 +33,31 @@ class EventDetailOrganiserViewModel(private val apiService: ApiService) : BaseVi
             .enqueue(object : ApiCallback<DetailResponseOrganiser>() {
                 override fun onSuccessResponse(responseBody: DetailResponseOrganiser) {
                     eventData.postValue(responseBody)
+                    showProgress(false)
+                }
+
+                override fun onApiError(errorType: ApiError, error: String?) {
+                    /*progress.value=false
+                    errorView.postValue(error)*/
+                    showProgress(false)
+                }
+            })
+
+    }
+
+    fun deleteInvitee(invitationId:List<Int>,eventId:Int) {
+        val body = JsonObject()
+        body.addProperty("event_id",eventId)
+        val array = JsonArray()
+        for (each in invitationId) {
+            array.add(each)
+        }
+        body.add("invitation_ids",array)
+        showProgress(true)
+        apiService.deleteInvitee(body)
+            .enqueue(object : ApiCallback<CommonResponse>() {
+                override fun onSuccessResponse(responseBody: CommonResponse) {
+                    deleteInvitee.postValue(responseBody)
                     showProgress(false)
                 }
 
