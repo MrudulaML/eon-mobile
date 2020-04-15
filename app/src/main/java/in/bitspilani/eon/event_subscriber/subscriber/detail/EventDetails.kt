@@ -292,7 +292,8 @@ class EventDetails : Fragment() {
             eventDetailsFragmentBinding.eventData = it.data
             amount = it.data.subscription_fee
             data = it.data
-            btn_price.text = "₹ $amount"
+
+           if(amount>0) btn_price.text = "₹ $amount" else btn_price.text="confirm"
 
             if (data.is_wishlisted) {
                 eventDetailsViewModel.wishlist = false
@@ -302,7 +303,14 @@ class EventDetails : Fragment() {
 
             if (data.is_subscribed) {
                 isSubscribed = true
-                tv_subscribed_event_text.visibility = View.VISIBLE
+                ll_paid_event_info.visibility = View.VISIBLE
+                tv_seats_info.text = "You already bought " + data.subscription_details!!.no_of_tickets_bought + "tickets for this event"
+
+                if(data.subscription_details!!.amount_paid>0)
+                tv_total_amount_paid.text = "Total amount paid: ₹" + data.subscription_details!!.amount_paid
+
+                tv_total_amount_paid.goneUnless(data.subscription_details!!.amount_paid>0)
+
                 download_cancel_view.visibility = View.VISIBLE
                 btn_price.text = "Update"
 
@@ -338,6 +346,7 @@ class EventDetails : Fragment() {
 
             tv_seat_counter.text = it.toString()
             if (!isSubscribed) {
+                if(amount>0)
                 btn_price.text = "₹ " + (it * amount)
 
             }
