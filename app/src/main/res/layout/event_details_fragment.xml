@@ -222,34 +222,34 @@
                             app:layout_constraintTop_toBottomOf="@id/tv_type_of_event_value" />
 
                         <LinearLayout
-                            android:visibility="gone"
                             android:id="@+id/ll_paid_event_info"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginEnd="20dp"
                             android:background="@drawable/bg_subscribed_rectangle"
+                            android:orientation="vertical"
+                            android:visibility="gone"
                             app:layout_constraintTop_toBottomOf="@id/tv_event_detail_text">
 
                             <TextView
                                 android:id="@+id/tv_seats_info"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
                                 android:padding="10dp"
                                 android:text="@string/subscribed_event_text"
                                 android:textColor="@color/subscribed_text_color"
-                                android:textSize="16sp"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"/>
+                                android:textSize="16sp" />
 
                             <TextView
                                 android:id="@+id/tv_total_amount_paid"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
                                 android:padding="10dp"
                                 android:text="@string/subscribed_event_text"
                                 android:textColor="@color/subscribed_text_color"
-                                android:textSize="16sp"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"/>
+                                android:textSize="16sp" />
 
                             <TextView
                                 android:id="@+id/tv_subscribed_event_text"
@@ -272,6 +272,11 @@
                             android:layout_marginTop="15dp"
                             android:visibility="gone"
                             app:layout_constraintBottom_toBottomOf="parent" />
+
+                        <View
+                            android:id="@+id/space_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp" />
                     </LinearLayout>
                 </androidx.core.widget.NestedScrollView>
 

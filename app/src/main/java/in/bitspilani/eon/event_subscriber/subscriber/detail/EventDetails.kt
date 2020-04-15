@@ -305,7 +305,7 @@ class EventDetails : Fragment() {
             if (data.is_subscribed) {
                 isSubscribed = true
                 ll_paid_event_info.visibility = View.VISIBLE
-                tv_seats_info.text = "You already bought " + data.subscription_details!!.no_of_tickets_bought + "tickets for this event"
+                tv_seats_info.text = "You have already bought " + data.subscription_details!!.no_of_tickets_bought + " seats for this event"
 
                 if(data.subscription_details!!.amount_paid>0)
                 tv_total_amount_paid.text = "Total amount paid: ₹" + data.subscription_details!!.amount_paid

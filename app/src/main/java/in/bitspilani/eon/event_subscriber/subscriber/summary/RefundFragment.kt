@@ -19,6 +19,7 @@ import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.event_summary_fragment.*
 import kotlinx.android.synthetic.main.fragment_redund.*
 import kotlinx.android.synthetic.main.layout_attendees_amount.*
+import kotlinx.android.synthetic.main.payment_fragment.*
 
 class RefundFragment : Fragment() {
 
@@ -98,6 +99,9 @@ class RefundFragment : Fragment() {
         btn_confirm.clickWithDebounce {
             eventSummaryViewModel.reduceTickets(hashMap)
         }
+
+        iv_back_refund.clickWithDebounce { findNavController().popBackStack() }
+
     }
 
     fun calculateFinalAmount(): Int {
