@@ -75,6 +75,8 @@ class EventSummaryFrag : Fragment() {
 
     fun setClicks() {
 
+        iv_back.clickWithDebounce { findNavController().popBackStack() }
+
         btn_pay.clickWithDebounce {
 
             var bundle = bundleOf(

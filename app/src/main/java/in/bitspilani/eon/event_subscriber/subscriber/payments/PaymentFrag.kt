@@ -126,9 +126,9 @@ class PaymentFrag : Fragment() {
                 showUserMsg("Please enter Card owner's name")
             else if (et_card_number.text.isEmpty())
                 showUserMsg("Please enter Card number")
-            else if (et_card_number.text.toString().length<16)
+            else if (et_card_number.text.toString().length < 16)
                 showUserMsg("please enter valid card number")
-            else if (et_card_number.text.toString().length>16)
+            else if (et_card_number.text.toString().length > 16)
                 showUserMsg("please enter valid card number")
             else if (et_expiry_date.text.isEmpty()) {
                 showUserMsg("Please enter expiry date")
@@ -144,6 +144,9 @@ class PaymentFrag : Fragment() {
             }
 
         }
+
+        iv_back.clickWithDebounce { findNavController().popBackStack() }
+
     }
 
     fun showSuccessDialog() {
@@ -158,7 +161,7 @@ class PaymentFrag : Fragment() {
 
         mDialogView.btn_okay.clickWithDebounce {
 
-            findNavController().popBackStack(R.id.eventDetails,false)
+            findNavController().popBackStack(R.id.eventDetails, false)
 
             findNavController().navigate(
                 R.id.action_payment_to_eventDetail,

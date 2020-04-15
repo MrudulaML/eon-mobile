@@ -179,6 +179,7 @@ class EventDetails : Fragment() {
             }
         }
 
+        iv_back.clickWithDebounce { findNavController().popBackStack() }
         // button download
         btn_download.clickWithDebounce {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
