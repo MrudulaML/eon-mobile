@@ -60,8 +60,8 @@
                     android:id="@+id/text_discount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{invitee.email}"
-                    tools:text="abc@gmail.com" />
+                    android:text="@{Integer.toString(invitee.discount_percentage)}"
+                    tools:text="500" />
             </LinearLayout>
         </LinearLayout>
 
@@ -69,6 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/_4sdp"
+            android:visibility="visible"
             android:weightSum="2"
             android:orientation="horizontal">
 
@@ -88,7 +89,6 @@
                     android:id="@+id/text_contact"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{invitee.email}"
                     tools:text="9999999999" />
 
             </LinearLayout>
@@ -110,13 +110,9 @@
                     android:id="@+id/text_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{invitee.email}"
                     tools:text="Anshuman" />
             </LinearLayout>
         </LinearLayout>
-
-
-
 
     </LinearLayout>
 </layout>

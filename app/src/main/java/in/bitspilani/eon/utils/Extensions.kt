@@ -82,11 +82,11 @@ fun loadImage(view: ImageView, imageUrl: String) {
 
 //TODO optimise this hacky thing
 @BindingAdapter("eventType")
-fun getType(view: TextView,id: String) {
+fun getType(view: TextView,id: Int) {
     val eventTypeCached = ModelPreferencesManager.get<FilterResponse>(Constants.EVENT_TYPES)
     val eventType = eventTypeCached?.data?.filter {
 
-        it.id ==id.toInt()
+        it.id ==id
     }
     view.text=eventType?.get(0)?.type
 }

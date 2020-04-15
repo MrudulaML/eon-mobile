@@ -26,6 +26,6 @@ class EventDetailPagerAdapter(
     }
 
     override fun getItemCount(): Int {
-        return 2
+        return if(eventDetailResponse.data.self_organised) 2 else 1
     }
 }

@@ -108,7 +108,7 @@ class Validator {
 
             // to do
             val str = getText(data)
-            val valid = str.trim().length >= 6
+            val valid = str.trim().length >= 4
             if (updateUI) {
                 val error: String? = if (valid) null else NAME_VALIDATION_MSG
                 setError(data, error)

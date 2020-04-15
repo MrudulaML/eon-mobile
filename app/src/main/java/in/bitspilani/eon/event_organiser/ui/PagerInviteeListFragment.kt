@@ -67,12 +67,12 @@ class PagerInviteeListFragment(val detailResponseOrganiser: DetailResponseOrgani
 
         layoutManager = LinearLayoutManager(activity)
         rv_invitee_list.layoutManager = layoutManager
-        rv_invitee_list.adapter = InviteesAdapter(detailResponseOrganiser.data[0].invitee_list)
+        rv_invitee_list.adapter = InviteesAdapter(detailResponseOrganiser.data.invitee_list)
 
     }
 
     private fun showDialog() {
-        val dialogFragment = AddInviteeFragment(detailResponseOrganiser.data[0])
+        val dialogFragment = AddInviteeFragment(detailResponseOrganiser.data)
         dialogFragment.show(childFragmentManager, "AaddInviteeDialog")
     }
     override fun onDataReceived(data: String) {

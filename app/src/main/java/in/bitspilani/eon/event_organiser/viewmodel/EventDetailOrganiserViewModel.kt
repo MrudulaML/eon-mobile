@@ -49,18 +49,18 @@ class EventDetailOrganiserViewModel(private val apiService: ApiService) : BaseVi
         body.addProperty("message",message)
         body.addProperty("type",type)
         apiService.notifySubscriber(body)
-//            .enqueue(object : ApiCallback<CommonResponse>() {
-//                override fun onSuccessResponse(responseBody: CommonResponse) {
-//                    notifyLiveData.postValue(responseBody)
-//                    showProgress(false)
-//                }
-//
-//                override fun onApiError(errorType: ApiError, error: String?) {
-//                    /*progress.value=false
-//                    errorView.postValue(error)*/
-//                    showProgress(false)
-//                }
-//            })
+            .enqueue(object : ApiCallback<CommonResponse>() {
+                override fun onSuccessResponse(responseBody: CommonResponse) {
+                    notifyLiveData.postValue(responseBody)
+                    showProgress(false)
+               }
+
+                override fun onApiError(errorType: ApiError, error: String?) {
+
+                    errorView.postValue(error)
+                    showProgress(false)
+                }
+            })
 
     }
 

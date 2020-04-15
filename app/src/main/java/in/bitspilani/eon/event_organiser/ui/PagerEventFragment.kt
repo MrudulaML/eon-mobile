@@ -78,6 +78,11 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
 
             (activity as BitsEonActivity).showProgress(it)
         })
+        eventDetailOrganiserViewModel.errorView.observe(viewLifecycleOwner, Observer {
+
+            view?.showSnackbar(it, 0)
+
+        })
     }
     //TODO fix this use appcompat
     private fun openReminderDialog(message: String) {
@@ -107,46 +112,35 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
         //TODO handle thi elegently
         text_url.clickWithDebounce {
             try{
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(eventDetailResponse.data[0].external_links))
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(eventDetailResponse.data.external_links))
             startActivity(browserIntent)}catch (e:Exception){
 
             }
         }
         send_updates.clickWithDebounce {
-
-            val dialogFragment = NotifySubscriberFragment(this)
-            dialogFragment.show(childFragmentManager, "AaddInviteeDialog")
-
-
+            onReminder("")
         }
         send_reminder.clickWithDebounce {
-            onReminder("")
-
-
+            val dialogFragment = NotifySubscriberFragment(this)
+            dialogFragment.show(childFragmentManager, "AaddInviteeDialog")
         }
     }
-
-    private fun showUserMsg(msg: String) {
-        Toast.makeText(activity, msg, Toast.LENGTH_LONG).show()
-    }
-
-
-
 
     override fun onUpdate(message: String) {
         Timber.e("on notify confirm")
         eventDetailOrganiserViewModel.notifySubscriber(
             type = "updates",
-            event_id =  eventDetailResponse.data[0].id,
+            event_id =  eventDetailResponse.data.id,
             message = message
         )
     }
 
     override fun onReminder(message: String) {
+        Timber.e("reminder")
         isFromUpdate = false
         eventDetailOrganiserViewModel.notifySubscriber(
             type = "reminder",
-            event_id =  eventDetailResponse.data[0].id,
+            event_id =  eventDetailResponse.data.id,
             message = message
         )
     }

@@ -63,6 +63,7 @@ class EventDetailsOrganiserFragment : Fragment(),InviteeCallbackListener,EventDe
 
         eventDetailOrganiserViewModel.eventData.observe(viewLifecycleOwner, Observer {
 
+            if(!it.data.self_organised ) tab_layout.visibility=View.GONE
             event_detail_view_pager.adapter=
                 EventDetailPagerAdapter(
                     activity!!,it

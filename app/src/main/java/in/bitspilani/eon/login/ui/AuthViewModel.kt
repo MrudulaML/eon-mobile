@@ -27,8 +27,6 @@ enum class OrganiserDetailsSteps(val desc: String) {
 enum class ForgotPasswordSteps(val desc: String) {
     ENTER_DETAILS("Enter Details"),
     VERIFICATION_CODE("Verification Code"),
-    PASSWORD("Password"),
-    SUCCESS("Success"),
 }
 
 enum class USER_TYPE(val desc: String) {
@@ -47,13 +45,8 @@ class AuthViewModel : BaseViewModel() {
     var forgotPasswordSteps: ForgotPasswordSteps = ForgotPasswordSteps.ENTER_DETAILS
     var userType: USER_TYPE? = null
     private val restClient: RestClient = RestClient()
-
     var registerData: SingleLiveEvent<Data> = SingleLiveEvent()
     var registerError: MutableLiveData<String> = MutableLiveData()
-
-    var fcmToken: String? = null
-
-    lateinit var generatedCode: String
     val loginLiveData: SingleLiveEvent<LoginResponse> = SingleLiveEvent()
     val generateCodeLiveData: SingleLiveEvent<GenerateCodeResponse> = SingleLiveEvent()
     val resetPasswordLiveData: SingleLiveEvent<ResetPasswordResponse> = SingleLiveEvent()
@@ -83,15 +76,17 @@ class AuthViewModel : BaseViewModel() {
     {
         val body = JsonObject()
         body.addProperty("email",email)
-        progress.value = true
+        showProgress(true)
         restClient.authClient.create(ApiService::class.java).generateCode(body)
             .enqueue(object : ApiCallback<GenerateCodeResponse>(){
                 override fun onSuccessResponse(generateCodeResponse: GenerateCodeResponse) {
                     generateCodeLiveData.postValue(generateCodeResponse)
+                    showProgress(false)
                 }
 
                 override fun onApiError(errorType: ApiError, error: String?) {
-                    //handle errors
+                    showProgress(false)
+                    errorView.postValue(error)
                 }
             })
 
@@ -103,15 +98,17 @@ class AuthViewModel : BaseViewModel() {
         body.addProperty("email",email)
         body.addProperty("code",code)
         body.addProperty("password",password)
-        progress.value = true
+        showProgress(true)
         restClient.authClient.create(ApiService::class.java).resetPassword(body)
             .enqueue(object : ApiCallback<ResetPasswordResponse>(){
                 override fun onSuccessResponse(resetPasswordResponse: ResetPasswordResponse) {
                     resetPasswordLiveData.postValue(resetPasswordResponse)
+                    showProgress(false)
                 }
 
                 override fun onApiError(errorType: ApiError, error: String?) {
-                    //handle errors
+                    showProgress(false)
+                    errorView.postValue(error)
                 }
             })
     }
