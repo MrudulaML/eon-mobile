@@ -77,8 +77,6 @@ class EventDetails : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setDummyCounterLogic()
 
-        getEventQRCode(data.event_id) // to do with subscription id
-
         eventDetailsFragmentBinding.viewmodel = eventDetailsViewModel
         setObservables()
 
@@ -121,7 +119,7 @@ class EventDetails : Fragment() {
                 if (activity?.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED){
                     requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),STORAGE_PERMISSION_CODE)
                 }else{
-                    createPdf()
+                    createPdf(data.event_id)
                 }
             }else{
 
@@ -137,7 +135,7 @@ class EventDetails : Fragment() {
         when(requestCode){
             STORAGE_PERMISSION_CODE ->{
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    createPdf()
+                    createPdf(data.event_id)
                 }else{
                     showUserMsg("Permission denied")
                 }
@@ -282,7 +280,13 @@ class EventDetails : Fragment() {
     }
 
     // create pdf and save external directory
-    private fun createPdf(){
+    private fun createPdf(event_id: Int){
+
+        val eventId = Integer.toString(event_id) // event id
+
+        val multiFormatWriter = MultiFormatWriter()
+        var barcodeEncoder = BarcodeEncoder()
+        var bitMatrix: BitMatrix? = null
 
         val eventName = tv_event_name.text.toString()
         val eventDateTime = tv_event_date.text.toString()
@@ -290,20 +294,17 @@ class EventDetails : Fragment() {
         val eventSeatCounter = tv_seat_counter.text.toString()
         val eventAmount = btn_price.text.toString()
 
-        val subscriberName = "Jhon@hashedin.com" // to do
         val bookingNotes = "It's non-transferable ticket" // to do
         val bookingDate = "Wednesday 14th April 20" // to do
+        val subscriberEmailId = "Jhon@hashedin.com" // to do
+        val subscriberName = "Jhon" // to do
+        val subscriberContact = "8829548707" // to
 
         val logoBitmap = BitmapFactory.decodeResource(resources,R.drawable.logo_bits)
-        val qrCodeBitmap = BitmapFactory.decodeResource(resources,R.drawable.ic_qr_code)
 
         // resize logo
         val resizedLogoBitmap = Bitmap.createScaledBitmap(
             logoBitmap, 128, 128, false
-        )
-        // resize QR code
-        val resizedQRCodeBitmap = Bitmap.createScaledBitmap(
-            qrCodeBitmap, 220, 220, false
         )
 
         val document = PdfDocument()
@@ -320,18 +321,25 @@ class EventDetails : Fragment() {
         canvas.drawBitmap(resizedLogoBitmap, 40F,80F, bitmapPaint)
 
         // header
-        titlePaint.textSize = resources.getDimension(R.dimen._24fs)
+        titlePaint.textSize = resources.getDimension(R.dimen._18fs)
         titlePaint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
         canvas.drawText(eventName,220F, 180F, titlePaint )
 
         // divider
         canvas.drawLine(40F, 248F, 1200-40F, 248F, linePaint)
 
-        // dummy QR Code
-        canvas.drawBitmap(resizedQRCodeBitmap, 40F,290F, bitmapPaint)
+        // QR Code
+        try {
+            bitMatrix = multiFormatWriter.encode(eventId, BarcodeFormat.QR_CODE, 240,240)
+            val myBitmap: Bitmap = barcodeEncoder.createBitmap(bitMatrix)
+            canvas.drawBitmap(myBitmap, 40F,290F, bitmapPaint)
+        }catch (e: WriterException){
+            Log.e("QRCode", "Error: "+e.toString());
+            showUserMsg("Error!")
+        }
 
         // Event info
-        textPaint.textSize = resources.getDimension(R.dimen._16fs)
+        textPaint.textSize = resources.getDimension(R.dimen._14fs)
         textPaint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)
         canvas.drawText("Event Name: "+eventName, 300F, 350F, textPaint);
         canvas.drawText("Number of seats: "+eventSeatCounter, 300F, 410F, textPaint);
@@ -339,12 +347,14 @@ class EventDetails : Fragment() {
         canvas.drawText("Event Date: "+eventDateTime, 300F, 530F, textPaint);
         canvas.drawText("Location: "+eventLocation, 300F, 590F, textPaint);
         canvas.drawText("Subscriber Name: "+subscriberName, 300F, 650F, textPaint);
-        canvas.drawText("Booking Date: "+bookingDate, 300F, 710F, textPaint);
+        canvas.drawText("Email Id: "+subscriberEmailId, 300F, 710F, textPaint);
+        canvas.drawText("Contact: "+subscriberContact, 300F, 770F, textPaint);
+        canvas.drawText("Booking Date: "+bookingDate, 300F, 830F, textPaint);
 
         // Note
-        textPaint.textSize = resources.getDimension(R.dimen._16fs)
+        textPaint.textSize = resources.getDimension(R.dimen._14fs)
         textPaint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
-        canvas.drawText("*Note: "+bookingNotes, 40F, 800F, textPaint);
+        canvas.drawText("*Note: "+bookingNotes, 40F, 920F, textPaint);
 
         document.finishPage(page)
 
