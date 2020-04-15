@@ -73,6 +73,7 @@ class BasicDetailsFragment : Fragment() {
         })
         authViewModel.registerError.observe(this, Observer {
 
+            showUserMsg(it)
         })
     }
 

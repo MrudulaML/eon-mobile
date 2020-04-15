@@ -27,6 +27,8 @@ enum class OrganiserDetailsSteps(val desc: String) {
 enum class ForgotPasswordSteps(val desc: String) {
     ENTER_DETAILS("Enter Details"),
     VERIFICATION_CODE("Verification Code"),
+    PASSWORD("Password"),
+    SUCCESS("Success"),
 }
 
 enum class USER_TYPE(val desc: String) {
@@ -124,14 +126,20 @@ class AuthViewModel : BaseViewModel() {
                         response: Response<SignUpResponse>
                     ) {
 
-                        if(response.isSuccessful)
-                        registerData.postValue(response.body()?.data)
+                        if (response.isSuccessful)
+                            registerData.postValue(response.body()?.data)
+                        else {
+                            if (response.body()?.message!=null) {
 
-                        Log.e("xoxo", "register success")
+                                registerError.postValue(response.body()!!.message)
+                            }
+
+                        }
+
+
                     }
 
                     override fun onFailure(call: Call<SignUpResponse>, t: Throwable) {
-                        Log.e("xoxo", "register error: " + t.toString())
                         registerError.postValue(t.toString())
                     }
                 })
@@ -141,8 +149,6 @@ class AuthViewModel : BaseViewModel() {
 
         }
     }
-
-
 
 
 }
