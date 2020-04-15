@@ -90,7 +90,10 @@ class ChangePasswordFragment(private val callbackListener: CallbackListener) : D
         btn_password_cancel.clickWithDebounce { dismiss() }
 
         btn_password_confirm.clickWithDebounce {
-            if (Validator.isValidPassword(edt_create_password)) {
+            if (Validator.isValidPassword(edt_current_password, true) &&
+                Validator.isValidPassword(edt_create_password, true) &&
+                Validator.isValidPassword(edt_confirm_password, true)
+            ) {
                 if (TextUtils.equals(edt_create_password.text, edt_confirm_password.text)) {
 
                     var hashMap = HashMap<String, Any>()
@@ -102,8 +105,12 @@ class ChangePasswordFragment(private val callbackListener: CallbackListener) : D
                     hashMap.put("new_password", edt_create_password.text.toString())
 
                     changePwViewmodel.changePassword(hashMap)
+                }else{
+                    showUserMsg("Password not matched")
                 }
 
+            }else{
+                showUserMsg("Please enter valid password")
             }
         }
     }
