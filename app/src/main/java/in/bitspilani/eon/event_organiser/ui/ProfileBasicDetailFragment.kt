@@ -2,6 +2,7 @@ import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.event_organiser.models.EventType
 import `in`.bitspilani.eon.event_organiser.models.FilterResponse
 import `in`.bitspilani.eon.event_organiser.ui.CallbackListener
+import `in`.bitspilani.eon.login.data.Data
 import `in`.bitspilani.eon.utils.Constants
 import `in`.bitspilani.eon.utils.ModelPreferencesManager
 import `in`.bitspilani.eon.utils.clickWithDebounce
@@ -9,6 +10,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.CheckBox
 import android.widget.RadioButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -51,10 +53,14 @@ class ProfileBasicDetailFragment() : DialogFragment() {
 
         }
 
+        setdata()
 
+    }
 
-
-
+    private fun setdata() {
+        val userData = ModelPreferencesManager.get<Data>(Constants.CURRENT_USER)
+        rdt_basic_name.setText(userData?.user?.name, TextView.BufferType.EDITABLE)
+        rdt_basic_email.setText(userData?.user?.email, TextView.BufferType.EDITABLE)
     }
 
     private fun populateFilters(eventTypeList: List<EventType>) {
@@ -66,6 +72,7 @@ class ProfileBasicDetailFragment() : DialogFragment() {
             checkbox_layout.addView(radioButton)
 
         }
+        interest.visibility=View.VISIBLE
 
     }
 
