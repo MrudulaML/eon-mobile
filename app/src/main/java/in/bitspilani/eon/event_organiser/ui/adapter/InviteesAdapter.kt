@@ -53,8 +53,10 @@ class InviteesAdapter(private val inviteeList: ArrayList<Invitee>, var deleteIte
             }
             itemView.button_delete.setOnClickListener {
 
-                if(itemView.chb_invitee.isChecked)
+                if(itemView.chb_invitee.isChecked){
                     deleteItemCallback(item)
+                    itemView.chb_invitee.isChecked=false
+                }
             }
             binding.executePendingBindings()
         }

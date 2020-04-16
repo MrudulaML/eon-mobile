@@ -110,7 +110,11 @@ class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganis
     override fun onDataReceived(inviteeLis: ArrayList<Invitee>) {
 
         inviteeList.addAll(inviteeLis)
-        inviteesAdapter= InviteesAdapter(inviteeList,{})
+        inviteesAdapter= InviteesAdapter(inviteeList) {
+            Timber.e("invitee id${it.invitation_id}")
+            eventDetailOrganiserViewModel.deleteInvitee(listOf(it.invitation_id),detailResponse.data.id)
+            inviteeList.remove(it)
+        }
         rv_invitee_list.adapter = inviteesAdapter
         inviteesAdapter.notifyDataSetChanged()
         view?.showSnackbar("it.message",0)

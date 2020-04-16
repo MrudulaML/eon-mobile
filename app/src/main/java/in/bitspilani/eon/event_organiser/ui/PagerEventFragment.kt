@@ -15,7 +15,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -120,10 +119,13 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
             }
         }
         send_updates.clickWithDebounce {
-            onReminder("")
+            isFromUpdate=false
+            val dialogFragment = NotifySubscriberFragment(this,isFromUpdate)
+            dialogFragment.show(childFragmentManager, "AaddInviteeDialog")
         }
         send_reminder.clickWithDebounce {
-            val dialogFragment = NotifySubscriberFragment(this)
+            isFromUpdate=true
+            val dialogFragment = NotifySubscriberFragment(this,isFromUpdate)
             dialogFragment.show(childFragmentManager, "AaddInviteeDialog")
         }
     }
