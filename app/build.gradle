@@ -157,9 +157,12 @@ dependencies {
     //rx
     implementation("io.reactivex.rxjava3:rxkotlin:3.0.0")
 
-    implementation("com.github.bumptech.glide:glide:4.9.0") {
+    implementation ("com.github.bumptech.glide:glide:4.9.0") {
         exclude group: "com.android.support"
     }
+
+    implementation 'com.google.zxing:core:3.2.1'
+    implementation 'com.journeyapps:zxing-android-embedded:3.2.0@aar'
 
     //jwt
     implementation 'com.auth0.android:jwtdecode:2.0.0'

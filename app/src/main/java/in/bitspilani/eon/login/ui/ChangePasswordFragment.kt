@@ -1,5 +1,6 @@
 package `in`.bitspilani.eon.login.ui
 
+import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.event_organiser.ui.CallbackListener
 
@@ -12,12 +13,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_add_invitee.btn_close
 import kotlinx.android.synthetic.main.fragment_change_password.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import timber.log.Timber
 
 
 /**
@@ -67,18 +76,56 @@ class ChangePasswordFragment() : DialogFragment() {
                  // Now dismiss the fragment
                  dismiss()*/
 
-
         buttonClick()
-
         setObservables()
+
     }
 
     fun setObservables() {
 
         changePwViewmodel.changePasswordMsg.observe(this, Observer {
-            showUserMsg(it)
+            if (it != null) {
+
+                showUserMsg(it)
+
+//                findNavController().popBackStack(R.id.changePasswordFragment,true)
+//
+//                findNavController().navigate(R.id.signInFragment)
+
+                ModelPreferencesManager.clearCache()
+                Timber.d("Cached cleared")
+                (activity as BitsEonActivity).showProgress(true)
+                lifecycleScope.launch {
+                    delay(400)
+
+                    findNavController().navigate(R.id.signInFragment,
+                        null,
+                        NavOptions.Builder()
+                            .setPopUpTo(R.id.app_nav,
+                                true)
+                            .build())
+                    (activity as BitsEonActivity).showProgress(false)
+                }
+
+
+            }
         })
+
+        changePwViewmodel.errorToast.observe(viewLifecycleOwner, Observer {
+
+            if (it != null) {
+
+                showUserMsg(it)
+            }
+        })
+
+        changePwViewmodel.progressLiveData.observe(viewLifecycleOwner, Observer {
+
+            (activity as BitsEonActivity).showProgress(it)
+        })
+
     }
+
 
     fun showUserMsg(msg: String) {
         Toast.makeText(activity, msg, Toast.LENGTH_LONG).show()
@@ -90,7 +137,10 @@ class ChangePasswordFragment() : DialogFragment() {
         btn_password_cancel.clickWithDebounce { dismiss() }
 
         btn_password_confirm.clickWithDebounce {
-            if (Validator.isValidPassword(edt_create_password)) {
+            if (Validator.isValidPassword(edt_current_password, true) &&
+                Validator.isValidPassword(edt_create_password, true) &&
+                Validator.isValidPassword(edt_confirm_password, true)
+            ) {
                 if (TextUtils.equals(edt_create_password.text, edt_confirm_password.text)) {
 
                     var hashMap = HashMap<String, Any>()
@@ -102,8 +152,12 @@ class ChangePasswordFragment() : DialogFragment() {
                     hashMap.put("new_password", edt_create_password.text.toString())
 
                     changePwViewmodel.changePassword(hashMap)
+                } else {
+                    showUserMsg("Password not matched")
                 }
 
+            } else {
+                showUserMsg("Please enter valid password")
             }
         }
     }

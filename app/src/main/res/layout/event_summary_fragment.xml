@@ -9,7 +9,7 @@
     <LinearLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent">
@@ -20,7 +20,7 @@
             android:layout_height="30dp"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="15dp"
-            android:src="@drawable/ic_icon_arrow_white"
+            android:src="@drawable/ic_arrow_back"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
