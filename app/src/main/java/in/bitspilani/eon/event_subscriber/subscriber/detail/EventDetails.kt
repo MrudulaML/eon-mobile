@@ -187,7 +187,11 @@ class EventDetails : Fragment() {
             }
         }
 
-        iv_back.clickWithDebounce { findNavController().popBackStack() }
+        iv_back.clickWithDebounce {
+            actionbarHost?.showToolbar(showToolbar = true, showBottomNav = false)
+            findNavController().popBackStack()
+        }
+
         // button download
         btn_download.clickWithDebounce {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -287,8 +291,11 @@ class EventDetails : Fragment() {
 
     override fun onDetach() {
         super.onDetach()
-        actionbarHost?.showToolbar(showToolbar = true, showBottomNav = false)
+        actionbarHost?.showToolbar(showToolbar = false, showBottomNav = false)
     }
+
+
+
 
     var isSubscribed: Boolean = false
 

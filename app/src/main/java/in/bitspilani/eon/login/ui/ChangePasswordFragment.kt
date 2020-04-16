@@ -1,5 +1,6 @@
 package `in`.bitspilani.eon.login.ui
 
+import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.event_organiser.ui.CallbackListener
 
@@ -12,14 +13,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_add_invitee.btn_close
 import kotlinx.android.synthetic.main.fragment_change_password.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import timber.log.Timber
 
 
 /**
@@ -69,20 +76,56 @@ class ChangePasswordFragment(private val callbackListener: CallbackListener) : D
                  // Now dismiss the fragment
                  dismiss()*/
 
-
         buttonClick()
-
         setObservables()
+
     }
 
     fun setObservables() {
 
         changePwViewmodel.changePasswordMsg.observe(this, Observer {
-            showUserMsg(it)
+            if (it != null) {
 
-            findNavController().navigate(R.id.action_changePasswordFragment_to_signinfragment)
+                showUserMsg(it)
+
+//                findNavController().popBackStack(R.id.changePasswordFragment,true)
+//
+//                findNavController().navigate(R.id.signInFragment)
+
+                ModelPreferencesManager.clearCache()
+                Timber.d("Cached cleared")
+                (activity as BitsEonActivity).showProgress(true)
+                lifecycleScope.launch {
+                    delay(400)
+
+                    findNavController().navigate(R.id.signInFragment,
+                        null,
+                        NavOptions.Builder()
+                            .setPopUpTo(R.id.app_nav,
+                                true)
+                            .build())
+                    (activity as BitsEonActivity).showProgress(false)
+                }
+
+
+            }
         })
+
+        changePwViewmodel.errorToast.observe(viewLifecycleOwner, Observer {
+
+            if (it != null) {
+
+                showUserMsg(it)
+            }
+        })
+
+        changePwViewmodel.progressLiveData.observe(viewLifecycleOwner, Observer {
+
+            (activity as BitsEonActivity).showProgress(it)
+        })
+
     }
+
 
     fun showUserMsg(msg: String) {
         Toast.makeText(activity, msg, Toast.LENGTH_LONG).show()

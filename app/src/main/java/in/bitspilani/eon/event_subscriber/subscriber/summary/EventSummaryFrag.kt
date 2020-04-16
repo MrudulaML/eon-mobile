@@ -2,10 +2,12 @@ package `in`.bitspilani.eon.event_subscriber.subscriber.summary
 
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.event_subscriber.subscriber.detail.EventDetailsViewModel
+import `in`.bitspilani.eon.login.ui.ActionbarHost
 import `in`.bitspilani.eon.utils.Constants
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import `in`.bitspilani.eon.utils.getViewModelFactory
 import `in`.bitspilani.eon.utils.goneUnless
+import android.content.Context
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
@@ -24,6 +26,7 @@ import kotlinx.android.synthetic.main.layout_attendees_amount.*
 class EventSummaryFrag : Fragment() {
 
     private val eventSummaryViewModel by viewModels<EventSummaryViewModel> { getViewModelFactory() }
+    private var actionbarHost: ActionbarHost? = null
 
     var amount: Int = 0
     var discountPercentage: Int = 0
@@ -46,6 +49,8 @@ class EventSummaryFrag : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        actionbarHost?.showToolbar(showToolbar = false, showBottomNav = false)
 
         setClicks()
 
@@ -128,4 +133,18 @@ class EventSummaryFrag : Fragment() {
     fun showUserMsg(msg: String) {
         Toast.makeText(activity, msg, Toast.LENGTH_LONG).show()
     }
+
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is ActionbarHost) {
+            actionbarHost = context
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        actionbarHost?.showToolbar(showToolbar = false, showBottomNav = false)
+    }
+
 }

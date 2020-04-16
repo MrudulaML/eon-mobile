@@ -108,6 +108,7 @@
                 app:destination="@id/signInFragment"
                 app:popUpTo="@id/signInFragment"
                 app:popUpToInclusive="true" />
+
         </fragment>
 
         <action
