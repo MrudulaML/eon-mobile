@@ -124,13 +124,13 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
         shareIntent.type = "text/plain"
         shareIntent.putExtra(
             Intent.EXTRA_SUBJECT,
-            "Type of Events"
+            "Bits EOn"
         )
-        shareIntent.putExtra(Intent.EXTRA_TEXT, "Seminar event with time 9:00pm 14 March20")
+        shareIntent.putExtra(Intent.EXTRA_TEXT, eventDetailResponse.data.name)
         activity.startActivity(
             Intent.createChooser(
                 shareIntent,
-                "Type of Events"
+                "Bits EOn"
             )
         )
     }

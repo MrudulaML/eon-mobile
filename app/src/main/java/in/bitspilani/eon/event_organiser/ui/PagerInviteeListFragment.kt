@@ -80,7 +80,7 @@ class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganis
             override fun onQueryTextChange(newText: String?): Boolean {
                 //TODO dont do this chaos fix this on time Ashutosh
                 if(newText.isNullOrEmpty()){
-
+                    inviteeList.addAll(detailResponse.data.invitee_list)
                 }
                 inviteesAdapter.filter(newText.toString())
                 return false
@@ -117,7 +117,7 @@ class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganis
         }
         rv_invitee_list.adapter = inviteesAdapter
         inviteesAdapter.notifyDataSetChanged()
-        view?.showSnackbar("it.message",0)
+        view?.showSnackbar("Invitee added successfully",0)
 
     }
 

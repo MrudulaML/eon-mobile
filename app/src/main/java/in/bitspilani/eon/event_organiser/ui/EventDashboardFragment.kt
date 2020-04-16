@@ -67,17 +67,24 @@ class HomeFragment : Fragment() {
     private fun setUpSearch() {
         event_search_view.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
+                defocusAndHideKeyboard(activity)
                 return false
             }
+
 
             override fun onQueryTextChange(newText: String?): Boolean {
 
-                if(newText.isNullOrEmpty())
+                if(newText.isNullOrEmpty()){
                     eventDashboardViewModel.getEvents()
+                    defocusAndHideKeyboard(activity)
+                }
                 else
-                    eventAdapter.filter.filter(newText.toString())
+                    eventAdapter.filter(newText.toString())
+
                 return false
             }
+
+
         })
     }
 

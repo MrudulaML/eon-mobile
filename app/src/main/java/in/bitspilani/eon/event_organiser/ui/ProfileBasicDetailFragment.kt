@@ -40,7 +40,7 @@ class ProfileBasicDetailFragment() : DialogFragment() {
         //callbackListener.onDataReceived(editText.text.toString())
         val eventTypeCached = ModelPreferencesManager.get<FilterResponse>(Constants.EVENT_TYPES)
 
-        if(eventTypeCached!=null && ModelPreferencesManager.getInt(Constants.USER_ROLE)==0)
+        if(eventTypeCached!=null && ModelPreferencesManager.getInt(Constants.USER_ROLE)==2)
             populateFilters(eventTypeCached.data)
         btn_close.clickWithDebounce { dismiss() }
         btn_basic_cancel.clickWithDebounce {   dismiss() }
@@ -61,14 +61,16 @@ class ProfileBasicDetailFragment() : DialogFragment() {
         val userData = ModelPreferencesManager.get<Data>(Constants.CURRENT_USER)
         rdt_basic_name.setText(userData?.user?.name, TextView.BufferType.EDITABLE)
         rdt_basic_email.setText(userData?.user?.email, TextView.BufferType.EDITABLE)
+        edt_basic_address.setText(userData?.user?.address, TextView.BufferType.EDITABLE)
+        rdt_basic_contact.setText(userData?.user?.contact_number.toString(), TextView.BufferType.EDITABLE)
     }
 
     private fun populateFilters(eventTypeList: List<EventType>) {
-        for (i in 0..4) {
+        for (i in eventTypeList) {
             val radioButton = layoutInflater.inflate(R.layout.item_radio_button, checkbox_layout, false)
             val radio = radioButton.findViewById(R.id.rb_item) as RadioButton
 
-            radio.text = eventTypeList[i].type
+            radio.text = i.type
             checkbox_layout.addView(radioButton)
 
         }

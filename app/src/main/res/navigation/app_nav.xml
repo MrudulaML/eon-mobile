@@ -105,8 +105,8 @@
 
             <action
                 android:id="@+id/action_changePasswordFragment_to_signinfragment"
-                app:destination="@id/signInFragment"
-                app:popUpTo="@id/signInFragment"
+                app:destination="@id/app_nav"
+                app:popUpTo="@id/app_nav"
                 app:popUpToInclusive="true" />
 
         </fragment>

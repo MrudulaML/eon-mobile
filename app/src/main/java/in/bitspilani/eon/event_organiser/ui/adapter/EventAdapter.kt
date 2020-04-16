@@ -59,8 +59,8 @@ class EventAdapter(
         } else {
             val result: ArrayList<MonoEvent> = ArrayList()
             for (item in eventFilteredList) {
-                if (item.name.toLowerCase(Locale.ROOT).contains(query.toLowerCase(Locale.ROOT)) ||
-                    item.location.toLowerCase(Locale.ROOT).contains(query.toLowerCase(Locale.ROOT))   ) {
+                if (item.name.toLowerCase(Locale.ROOT).contains(query.toLowerCase(Locale.ROOT))||
+                    item.location.toLowerCase(Locale.ROOT).contains(query.toLowerCase(Locale.ROOT))) {
                     result.add(item)
                 }
             }

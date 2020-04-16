@@ -173,6 +173,7 @@ class EventDetails : Fragment() {
                 var hashMap: HashMap<String, Any> = HashMap()
                 hashMap.put("email_id", emailId)
                 hashMap.put("message", message)
+                hashMap.put("event_id", data.event_id)
 
                 eventDetailsViewModel.sendEmail(hashMap)
 
