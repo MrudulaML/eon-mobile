@@ -1,5 +1,6 @@
 package `in`.bitspilani.eon.event_subscriber.subscriber.detail
 
+import `in`.bitspilani.eon.BaseViewModel
 import `in`.bitspilani.eon.api.ApiService
 import `in`.bitspilani.eon.event_subscriber.models.EventDetailResponse
 import `in`.bitspilani.eon.event_subscriber.models.PaymentResponse
@@ -10,11 +11,11 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class EventDetailsViewModel(private val apiService: ApiService) : ViewModel() {
+class EventDetailsViewModel(private val apiService: ApiService) : BaseViewModel() {
 
     var eventData: MutableLiveData<EventDetailResponse> = MutableLiveData()
 
-    var errorView: MutableLiveData<String> = MutableLiveData()
+    var errorToast: MutableLiveData<String> = MutableLiveData()
 
     var shareEmailError: MutableLiveData<String> = MutableLiveData()
 
@@ -28,6 +29,8 @@ class EventDetailsViewModel(private val apiService: ApiService) : ViewModel() {
 
     fun getEventDetails(id: Int) {
 
+        showProgress(true)
+
         apiService.getEventDetails(id).enqueue(object : Callback<EventDetailResponse> {
 
             override fun onResponse(
@@ -35,6 +38,8 @@ class EventDetailsViewModel(private val apiService: ApiService) : ViewModel() {
                 response: Response<EventDetailResponse>
             ) {
 
+
+                showProgress(false)
                 if (response.isSuccessful) {
 
 
@@ -47,7 +52,8 @@ class EventDetailsViewModel(private val apiService: ApiService) : ViewModel() {
             override fun onFailure(call: Call<EventDetailResponse>, t: Throwable) {
 
 
-                errorView.postValue(t.message)
+                showProgress(false)
+                errorToast.postValue(t.message)
             }
         })
     }
@@ -87,7 +93,7 @@ class EventDetailsViewModel(private val apiService: ApiService) : ViewModel() {
                 } else {
 
                     if (response.body()?.message != null)
-                        errorView.postValue(response.body()?.message)
+                        errorToast.postValue(response.body()?.message)
 
                 }
 
@@ -95,7 +101,7 @@ class EventDetailsViewModel(private val apiService: ApiService) : ViewModel() {
 
             override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
 
-                errorView.postValue(t.message)
+                errorToast.postValue(t.message)
             }
         })
     }
@@ -116,14 +122,14 @@ class EventDetailsViewModel(private val apiService: ApiService) : ViewModel() {
                 } else {
 
                     if (response.body()?.message != null)
-                        errorView.postValue(response.body()?.message)
+                        errorToast.postValue(response.body()?.message)
                 }
 
             }
 
             override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
 
-                errorView.postValue(t.message)
+                errorToast.postValue(t.message)
             }
         })
 
@@ -176,7 +182,7 @@ class EventDetailsViewModel(private val apiService: ApiService) : ViewModel() {
                     } else {
 
                         if (response.body()?.message != null)
-                            errorView.postValue(response.body()?.message)
+                            errorToast.postValue(response.body()?.message)
 
                     }
 
@@ -184,7 +190,7 @@ class EventDetailsViewModel(private val apiService: ApiService) : ViewModel() {
 
                 override fun onFailure(call: Call<PaymentResponse>, t: Throwable) {
 
-                    errorView.postValue(t.message)
+                    errorToast.postValue(t.message)
                 }
             })
     }
@@ -206,14 +212,14 @@ class EventDetailsViewModel(private val apiService: ApiService) : ViewModel() {
                     } else {
 
                         if (response.body()?.message != null)
-                            errorView.postValue(response.body()?.message)
+                            errorToast.postValue(response.body()?.message)
                     }
 
                 }
 
                 override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
 
-                    errorView.postValue(t.message)
+                    errorToast.postValue(t.message)
                 }
             })
     }

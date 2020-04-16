@@ -103,28 +103,45 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <TextView
+                    android:id="@+id/tv_event_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@{eventData.event_name}"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_event" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/iv_external_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintBaseline_toBaselineOf="@id/tv_event_name"
+                    android:drawableLeft="@drawable/ic_url"
+                    android:drawablePadding="@dimen/_8sdp"
+                    android:gravity="center"
+                    android:padding="@dimen/_4sdp"
+                    android:textAlignment="center"
+                    android:textColor="@color/grey"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_event"
+                    tools:text="Link" />
+
                 <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/iv_event">
+                    app:layout_constraintTop_toBottomOf="@id/tv_event_name">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/tv_event_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="10dp"
-                            android:text="@{eventData.event_name}"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="20sp"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/iv_event" />
 
 
                         <TextView
@@ -155,14 +172,7 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/tv_event_date" />
 
-                        <ImageView
-                            android:id="@+id/iv_external_share"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="5dp"
-                            android:src="@drawable/ic_icon_minus_circle" />
+
 
                         <View
                             android:id="@+id/divider"

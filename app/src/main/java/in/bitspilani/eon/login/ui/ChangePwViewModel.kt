@@ -24,14 +24,14 @@ class ChangePwViewModel(private val apiService: ApiService) : ViewModel() {
 
                     changePasswordMsg.postValue(response.body()?.message)
 
-                    Log.e("xoxo", "register success")
+
                 }
 
                 override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
 
                     changePasswordMsg.postValue(t.message)
 
-                    Log.e("xoxo", "register error: " + t.toString())
+
 
                 }
             })
