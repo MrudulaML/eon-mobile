@@ -37,6 +37,8 @@
             android:paddingBottom="@dimen/_8sdp"
             android:layout_height="wrap_content">
 
+
+
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/appCompatImageView"
                 android:layout_width="0dp"
@@ -73,7 +75,7 @@
                 android:layout_centerHorizontal="true"
                 android:drawableLeft="@drawable/ic_calender_black_24dp"
                 android:drawablePadding="@dimen/_4sdp"
-                android:text="@{event.date}"
+                date="@{event.date}"
                 android:textColor="@color/dark_grey"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -141,7 +143,7 @@
                 android:drawableLeft="@drawable/ic_calender_black_24dp"
                 android:gravity="center"
                 visibility="@{isSubscriber ? View.GONE : View.VISIBLE}"
-                android:text="@{event.date}"
+                date="@{event.date}"
                 android:textColor="@color/black"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"

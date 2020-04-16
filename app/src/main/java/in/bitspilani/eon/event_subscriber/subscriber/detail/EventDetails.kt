@@ -41,6 +41,7 @@ import com.google.zxing.WriterException
 import com.google.zxing.common.BitMatrix
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import androidx.navigation.NavOptions
+import com.squareup.picasso.Picasso
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -173,6 +174,7 @@ class EventDetails : Fragment() {
                 var hashMap: HashMap<String, Any> = HashMap()
                 hashMap.put("email_id", emailId)
                 hashMap.put("message", message)
+                hashMap.put("event_id", data.event_id)
 
                 eventDetailsViewModel.sendEmail(hashMap)
 
@@ -188,7 +190,7 @@ class EventDetails : Fragment() {
         }
 
         iv_back.clickWithDebounce {
-            actionbarHost?.showToolbar(showToolbar = true, showBottomNav = false)
+
             findNavController().popBackStack()
         }
 
@@ -289,14 +291,6 @@ class EventDetails : Fragment() {
         }
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        actionbarHost?.showToolbar(showToolbar = false, showBottomNav = false)
-    }
-
-
-
-
     var isSubscribed: Boolean = false
 
     fun setObservables() {
@@ -308,6 +302,10 @@ class EventDetails : Fragment() {
             eventDetailsFragmentBinding.eventData = it.data
             amount = it.data.subscription_fee
             data = it.data
+            it.data.images?.let{
+
+                loadImage(iv_event,it)
+            }
 
             if (amount > 0) btn_price.text = "₹ $amount" else btn_price.text = "confirm"
 
@@ -332,6 +330,7 @@ class EventDetails : Fragment() {
                 download_cancel_view.visibility = View.VISIBLE
                 btn_price.text = "Update"
 
+
                 it.data.subscription_details.let {
 
                     count = it!!.no_of_tickets_bought
@@ -340,7 +339,7 @@ class EventDetails : Fragment() {
                 }
             }
 
-            showUserMsg(it.message)
+            //showUserMsg(it.message)
 
         })
 

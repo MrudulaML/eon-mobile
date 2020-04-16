@@ -33,7 +33,7 @@ import timber.log.Timber
  * A simple [Fragment] subclass.
  *
  */
-class ChangePasswordFragment(private val callbackListener: CallbackListener) : DialogFragment() {
+class ChangePasswordFragment() : DialogFragment() {
 
     private val changePwViewmodel by viewModels<ChangePwViewModel> { getViewModelFactory() }
 
@@ -83,7 +83,7 @@ class ChangePasswordFragment(private val callbackListener: CallbackListener) : D
 
     fun setObservables() {
 
-        changePwViewmodel.changePasswordMsg.observe(this, Observer {
+        changePwViewmodel.changePasswordMsg.observe(viewLifecycleOwner, Observer {
             if (it != null) {
 
                 showUserMsg(it)
@@ -97,17 +97,25 @@ class ChangePasswordFragment(private val callbackListener: CallbackListener) : D
                 (activity as BitsEonActivity).showProgress(true)
                 lifecycleScope.launch {
                     delay(400)
+                    ModelPreferencesManager.clearCache()
+                    Timber.d("Cached cleared")
+                    (activity as BitsEonActivity).showProgress(true)
+                    lifecycleScope.launch {
+                        delay(400)
 
-                    findNavController().navigate(R.id.signInFragment,
-                        null,
-                        NavOptions.Builder()
-                            .setPopUpTo(R.id.app_nav,
-                                true)
-                            .build())
-                    (activity as BitsEonActivity).showProgress(false)
+                        findNavController().navigate(R.id.signInFragment,
+                            null,
+                            NavOptions.Builder()
+                                .setPopUpTo(R.id.app_nav,
+                                    true)
+                                .build())
+                        actionbarHost?.showToolbar(showToolbar = false, showBottomNav = false)
+                        (activity as BitsEonActivity).showProgress(false)
+
                 }
 
 
+            }
             }
         })
 

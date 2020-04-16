@@ -14,6 +14,9 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 @BindingAdapter("app:`in`.bitspilani.eon.utils.formatDate")
 fun TextView.formatDate( dateString: String, time : String) {
@@ -29,6 +32,15 @@ fun View.goneUnless(visible: Boolean) {
 @BindingAdapter("app:`in`.bitspilani.eon.utils.invisibleUnless")
 fun View.invisibleUnless(visible: Boolean) {
     visibility = if (visible) View.VISIBLE else View.INVISIBLE
+}
+@BindingAdapter("date")
+fun formatDate(view:TextView,datestring: String) {
+
+    var dateFormat: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd");
+    var date: Date = dateFormat.parse(datestring);
+    val formatter: DateFormat = SimpleDateFormat("EEEEEEEEE, dd MMM yyyy ")
+    val today = formatter.format(date)
+    view.text= today
 }
 
 var EditText.value
@@ -77,16 +89,17 @@ fun AppCompatImageView.isSelected(isSelected: Boolean) {
 
 @BindingAdapter("imageUrl")
 fun loadImage(view: ImageView, imageUrl: String) {
+
     Picasso.get().load(imageUrl).into(view)
 }
 
 //TODO optimise this hacky thing
 @BindingAdapter("eventType")
-fun getType(view: TextView,id: String) {
+fun getType(view: TextView,id: Int) {
     val eventTypeCached = ModelPreferencesManager.get<FilterResponse>(Constants.EVENT_TYPES)
     val eventType = eventTypeCached?.data?.filter {
 
-        it.id ==id.toInt()
+        it.id ==id
     }
     view.text=eventType?.get(0)?.type
 }

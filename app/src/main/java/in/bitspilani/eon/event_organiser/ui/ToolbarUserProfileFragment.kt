@@ -27,7 +27,7 @@ import timber.log.Timber
 /**
  * A simple [Fragment] subclass.
  */
-class ToolbarUserProfileFragment : Fragment(),CallbackListener {
+class ToolbarUserProfileFragment : Fragment() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -95,7 +95,7 @@ class ToolbarUserProfileFragment : Fragment(),CallbackListener {
      private fun onItemClick() {
          profile_basic_details.clickWithDebounce {
 
-             val dialogFragment = ProfileBasicDetailFragment(this)
+             val dialogFragment = ProfileBasicDetailFragment()
              dialogFragment.show(childFragmentManager, "profileBasicDetail")
 
          }
@@ -108,7 +108,7 @@ class ToolbarUserProfileFragment : Fragment(),CallbackListener {
 
          }
          profile_change_password.clickWithDebounce {
-             val dialogFragment = ChangePasswordFragment(this)
+             val dialogFragment = ChangePasswordFragment()
              dialogFragment.show(childFragmentManager, "changePassword")
          }
          profile_logout.clickWithDebounce {
@@ -131,12 +131,7 @@ class ToolbarUserProfileFragment : Fragment(),CallbackListener {
          }
 
      }
-    /**
-     * get data from callback
-     */
-    override fun onDataReceived(data: String) {
 
-    }
 
 
 }

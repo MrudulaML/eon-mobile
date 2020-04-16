@@ -2,6 +2,7 @@ package `in`.bitspilani.eon.event_organiser.ui
 
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.event_organiser.models.Data
+import `in`.bitspilani.eon.event_organiser.models.Invitee
 import `in`.bitspilani.eon.event_organiser.viewmodel.AddInviteeViewModel
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import `in`.bitspilani.eon.utils.getViewModelFactory
@@ -29,7 +30,7 @@ import timber.log.Timber
  * A simple [Fragment] subclass.
  *
  */
-class AddInviteeFragment(private val eventData: Data) : DialogFragment() {
+class AddInviteeFragment(private val eventData: Data, private val callbackListener: CallbackListener) : DialogFragment() {
 
     private val addInviteeViewModel by viewModels<AddInviteeViewModel> { getViewModelFactory() }
 
@@ -49,7 +50,7 @@ class AddInviteeFragment(private val eventData: Data) : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        text_updated_fees.text=eventData.subscription_fee.toString()
+        text_updated_fees.text= eventData.subscription_fee.toString()
         setUpClickListeners()
         setObservables()
     }
@@ -59,10 +60,12 @@ class AddInviteeFragment(private val eventData: Data) : DialogFragment() {
         addInviteeViewModel.addInviteeLiveData.observe(viewLifecycleOwner, Observer {
 
             dismiss()
-            view?.showSnackbar(it.message,0)
+
+            callbackListener.onDataReceived(it.data.invitee_list)
             //Toast.makeText(activity, "Invitees added successfully.", Toast.LENGTH_LONG).show()
         })
-        nacho_text_view.addChipTerminator('\n', ChipTerminatorHandler.BEHAVIOR_CHIPIFY_ALL);
+
+        nacho_text_view.addChipTerminator(',', ChipTerminatorHandler.BEHAVIOR_CHIPIFY_ALL);
 
 
     }
@@ -97,27 +100,11 @@ class AddInviteeFragment(private val eventData: Data) : DialogFragment() {
 
     }
 
-    fun showSuccessDialog() {
-        //Inflate the dialog with custom view
-        val mDialogView =
-            LayoutInflater.from(activity).inflate(R.layout.dialog_email_update, null)
-        //AlertDialogBuilder
-        val mBuilder = AlertDialog.Builder(activity)
-            .setView(mDialogView)
-        //show dialog
-        val mAlertDialog = mBuilder.show()
 
-        mDialogView.btn_email_add.btn_okay.clickWithDebounce {
-
-            mAlertDialog.dismiss()
-        }
-
-
-    }
 
 
 }
 
 interface CallbackListener {
-    fun onDataReceived(data: String)
+    fun onDataReceived(inviteeList: ArrayList<Invitee>)
 }

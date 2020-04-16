@@ -60,7 +60,7 @@ class BasicDetailsFragment : Fragment() {
 
     fun setObservers() {
 
-        authViewModel.registerData.observe(this, Observer {
+        authViewModel.registerData.observe(viewLifecycleOwner, Observer {
 
             showUserMsg("Registration Successful")
 
@@ -68,10 +68,15 @@ class BasicDetailsFragment : Fragment() {
 
             ModelPreferencesManager.putString(Constants.ACCESS_TOKEN, it.access)
 
+            ModelPreferencesManager.putString(Constants.ACCESS_TOKEN, it.access)
+            ModelPreferencesManager.putString(Constants.REFRESH_TOKEN, it.refresh)
+            ModelPreferencesManager.putInt(Constants.USER_ROLE, it.user.role.id)
+            ModelPreferencesManager.put(it, Constants.CURRENT_USER)
+
             findNavController().navigate(R.id.action_BasicInfoFragment_to_homeFragment)
 
         })
-        authViewModel.registerError.observe(this, Observer {
+        authViewModel.registerError.observe(viewLifecycleOwner, Observer {
 
             showUserMsg(it)
         })

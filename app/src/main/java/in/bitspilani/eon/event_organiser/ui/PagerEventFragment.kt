@@ -9,6 +9,7 @@ import `in`.bitspilani.eon.event_organiser.viewmodel.EventDetailOrganiserViewMod
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import `in`.bitspilani.eon.utils.getViewModelFactory
 import `in`.bitspilani.eon.utils.showSnackbar
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -66,18 +67,25 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
 
     private fun setUpObservables() {
         eventDetailOrganiserViewModel.notifyLiveData.observe(viewLifecycleOwner, Observer {
-
-            if(!isFromUpdate){
-                isFromUpdate=true
-                openReminderDialog(it.message)
+            it?.let {
+                if (!isFromUpdate) {
+                    isFromUpdate = true
+                    openReminderDialog(it.message)
+                } else
+                    view?.showSnackbar(it.message, 0)
             }
-            else
-                view?.showSnackbar(it.message,0)
         })
         eventDetailOrganiserViewModel.progressLiveData.observe(viewLifecycleOwner, Observer {
 
             (activity as BitsEonActivity).showProgress(it)
         })
+        eventDetailOrganiserViewModel.errorView.observe(viewLifecycleOwner, Observer {
+            it?.let {
+            view?.showSnackbar(it, 0)}
+
+        })
+
+
     }
     //TODO fix this use appcompat
     private fun openReminderDialog(message: String) {
@@ -97,56 +105,75 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
 
     }
 
-
+    private fun setupListeners() {
+        share_fb.clickWithDebounce {
+            invokeFacebookShare(activity!!,"","")
+        }
+        send_reminder.clickWithDebounce { showUserMsg("Send reminders successfully") }
+        send_updates.clickWithDebounce { showUserMsg("Send updates successfully") }
+    }
+    private fun showUserMsg(msg:String){
+        Toast.makeText(activity,msg, Toast.LENGTH_LONG).show()
+    }
+    private fun invokeFacebookShare(
+        activity: Activity,
+        quote: String?,
+        credit: String?
+    ) {
+        val shareIntent = Intent(Intent.ACTION_SEND)
+        shareIntent.type = "text/plain"
+        shareIntent.putExtra(
+            Intent.EXTRA_SUBJECT,
+            "Bits EOn"
+        )
+        shareIntent.putExtra(Intent.EXTRA_TEXT, eventDetailResponse.data.name)
+        activity.startActivity(
+            Intent.createChooser(
+                shareIntent,
+                "Bits EOn"
+            )
+        )
+    }
     private fun setUpClickListeners() {
         share_fb.clickWithDebounce {
-
-
+            invokeFacebookShare(activity!!,"","")
         }
 
         //TODO handle thi elegently
         text_url.clickWithDebounce {
             try{
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(eventDetailResponse.data[0].external_links))
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(eventDetailResponse.data.external_links))
             startActivity(browserIntent)}catch (e:Exception){
 
             }
         }
         send_updates.clickWithDebounce {
-
-            val dialogFragment = NotifySubscriberFragment(this)
+            isFromUpdate=false
+            val dialogFragment = NotifySubscriberFragment(this,isFromUpdate)
             dialogFragment.show(childFragmentManager, "AaddInviteeDialog")
-
-
         }
         send_reminder.clickWithDebounce {
-            onReminder("")
-
-
+            isFromUpdate=true
+            val dialogFragment = NotifySubscriberFragment(this,isFromUpdate)
+            dialogFragment.show(childFragmentManager, "AaddInviteeDialog")
         }
     }
-
-    private fun showUserMsg(msg: String) {
-        Toast.makeText(activity, msg, Toast.LENGTH_LONG).show()
-    }
-
-
-
 
     override fun onUpdate(message: String) {
         Timber.e("on notify confirm")
         eventDetailOrganiserViewModel.notifySubscriber(
             type = "updates",
-            event_id =  eventDetailResponse.data[0].id,
+            event_id =  eventDetailResponse.data.id,
             message = message
         )
     }
 
     override fun onReminder(message: String) {
+        Timber.e("reminder")
         isFromUpdate = false
         eventDetailOrganiserViewModel.notifySubscriber(
             type = "reminder",
-            event_id =  eventDetailResponse.data[0].id,
+            event_id =  eventDetailResponse.data.id,
             message = message
         )
     }

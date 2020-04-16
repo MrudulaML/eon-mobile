@@ -105,8 +105,8 @@
 
             <action
                 android:id="@+id/action_changePasswordFragment_to_signinfragment"
-                app:destination="@id/signInFragment"
-                app:popUpTo="@id/signInFragment"
+                app:destination="@id/app_nav"
+                app:popUpTo="@id/app_nav"
                 app:popUpToInclusive="true" />
 
         </fragment>
@@ -121,24 +121,9 @@
             android:name="in.bitspilani.eon.event_organiser.ui.EventDetailsOrganiserFragment"
             tools:layout="@layout/fragment_event_detail_organiser">
 
-            <action
-                android:id="@+id/action_event_details_to_dashboardFragment"
+            <action android:id="@+id/action_event_details_organiser_to_dashboardFragment"
                 app:popUpTo="@id/homeFragment"
-                app:popUpToInclusive="false" />
-
-        </fragment>
-
-        <!--vent details fragme-->
-        <fragment
-            android:id="@+id/eventDetailsFragment"
-            android:name="in.bitspilani.eon.event_organiser.ui.EventDetailsFragment"
-            tools:layout="@layout/fragment_event_detail">
-
-            <action
-                android:id="@+id/action_event_details_to_dashboardFragment"
-                app:destination="@id/home_nav"
-                app:popUpTo="@id/homeFragment"
-                app:popUpToInclusive="true" />
+                app:popUpToInclusive="false"/>
 
         </fragment>
 
@@ -330,6 +315,7 @@
                 app:destination="@id/eventWishListFragment"
                 app:enterAnim="@anim/fade_in"
                 app:exitAnim="@anim/fade_out" />
+
 
 
         </fragment>

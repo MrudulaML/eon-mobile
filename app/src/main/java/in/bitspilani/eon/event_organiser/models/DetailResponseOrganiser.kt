@@ -1,14 +1,14 @@
 package `in`.bitspilani.eon.event_organiser.models
 
 data class DetailResponseOrganiser(
-    var `data`: List<Data>,
+    var `data`: Data,
     var message: String
 )
 
 data class Data(
     var date: String,
     var description: String,
-    var event_type: String,
+    var event_type: Int,
     var external_links: String,
     var id: Int,
     var images: String,
@@ -16,6 +16,7 @@ data class Data(
     var location: String,
     var name: String,
     var no_of_tickets: Int,
+    var self_organised: Boolean,
     var sold_tickets: Int,
     var subscription_fee: Int,
     var time: String
@@ -24,8 +25,9 @@ data class Data(
 data class Invitee(
     var discount_percentage: Int,
     var email: String,
-    var event: Event,
-    var invitation_id: Int
+    var invitation_id: Int,
+    var event: Event ? =null,
+    var user: User? =null
 )
 
 data class Event(
@@ -34,3 +36,9 @@ data class Event(
 )
 
 
+
+data class User(
+    var contact_number: String,
+    var name: Any,
+    var user_id: Int
+)

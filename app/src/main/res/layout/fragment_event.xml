@@ -25,7 +25,7 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/_200dp"
         android:scaleType="centerCrop"
-        app:imageUrl="@{eventDetail.data.get(0).images}"
+        app:imageUrl="@{eventDetail.data.images}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="@{eventDetail.data.get(0).name}"
+        android:text="@{eventDetail.data.name}"
         android:textColor="@color/navy"
         android:textSize="25sp"
         android:textStyle="bold"
@@ -54,7 +54,7 @@
         android:layout_marginTop="8dp"
         android:drawableLeft="@drawable/ic_location_on_black_24dp"
         android:drawablePadding="0dp"
-        android:text="@{eventDetail.data.get(0).location}"
+        android:text="@{eventDetail.data.location}"
         android:textAlignment="center"
         android:textColor="@color/grey"
         app:layout_constraintStart_toStartOf="parent"
@@ -87,7 +87,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:text="@{eventDetail.data.get(0).description}"
+        android:text="@{eventDetail.data.description}"
         android:textColor="@color/grey"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.052"
@@ -114,7 +114,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        app:eventType="@{eventDetail.data.get(0).event_type}"
+        app:eventType="@{eventDetail.data.event_type}"
         android:textColor="@color/grey"
         android:textSize="15sp"
         tools:text="ashajsa"
@@ -140,7 +140,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         tools:text="1000"
-        android:text="@{Integer.toString(eventDetail.data.get(0).no_of_tickets)}"
+        android:text="@{Integer.toString(eventDetail.data.no_of_tickets)}"
         android:textColor="@color/grey"
         android:textSize="15sp"
         android:textStyle="bold"
@@ -165,7 +165,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         tools:text="9:00 PM 12 Mar'20"
-        android:text="@{eventDetail.data.get(0).date}"
+        date="@{eventDetail.data.date}"
         android:textColor="@color/grey"
         android:textSize="15sp"
         android:textStyle="bold"
@@ -192,7 +192,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         tools:text="2000"
-        android:text="@{Integer.toString(eventDetail.data.get(0).subscription_fee)}"
+        android:text="@{Integer.toString(eventDetail.data.subscription_fee)}"
         android:textColor="@color/grey"
         android:textSize="15sp"
         android:textStyle="bold"
@@ -236,7 +236,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_8sdp"
-                    android:text="@{Integer.toString(eventDetail.data.get(0).sold_tickets)}"
+                    android:text="@{Integer.toString(eventDetail.data.sold_tickets)}"
                     android:textColor="@color/colorPrimary"
 
                     android:textSize="16sp"
@@ -362,7 +362,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_6sdp"
-                android:text="@string/send_updates"
+                android:text="@string/send_reminder"
                 android:textSize="10sp" />
 
         </LinearLayout>
@@ -403,7 +403,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_6sdp"
-                android:text="@string/send_reminder"
+                android:text="@string/send_updates"
                 android:textSize="10sp" />
 
         </LinearLayout>

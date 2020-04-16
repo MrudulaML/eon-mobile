@@ -77,6 +77,9 @@ class SignInFragment : Fragment() {
     }
 
     private fun setUpClickListeners() {
+
+        organiser.isChecked = true
+        authViewModel.userType = USER_TYPE.ORGANISER
         btn_login.clickWithDebounce {
 
             //local validation for password email

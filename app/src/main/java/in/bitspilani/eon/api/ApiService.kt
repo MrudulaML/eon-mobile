@@ -2,12 +2,7 @@ package `in`.bitspilani.eon.api
 
 import `in`.bitspilani.eon.event_organiser.models.*
 import `in`.bitspilani.eon.event_subscriber.models.EventDetailResponse
-import `in`.bitspilani.eon.event_organiser.models.EventResponse
-import `in`.bitspilani.eon.event_organiser.models.FilterResponse
 import `in`.bitspilani.eon.event_subscriber.models.PaymentResponse
-import `in`.bitspilani.eon.login.data.GenerateCodeResponse
-import `in`.bitspilani.eon.login.data.LoginResponse
-import `in`.bitspilani.eon.login.data.ResetPasswordResponse
 import `in`.bitspilani.eon.login.data.*
 import com.google.gson.JsonObject
 import retrofit2.Call
@@ -62,7 +57,7 @@ interface ApiService {
     fun addInvitees(@Body body: JsonObject): Call<AddInviteeResponse>
 
     @POST("/core/notify-subscriber")
-    fun notifySubscriber(@Body body: JsonObject): Call<JsonObject>
+    fun notifySubscriber(@Body body: JsonObject): Call<CommonResponse>
 
     //to wishlist an event
     @POST("core/wishlist/")
@@ -85,6 +80,9 @@ interface ApiService {
 
     @GET("/core/notification/")
     fun getNotification(): Call<NotificationResponse>
+
+    @HTTP(method = "DELETE", path = "/core/invite/", hasBody = true)
+    fun deleteInvitee(@Body body:JsonObject): Call<CommonResponse>
 
     @PATCH("/core/notification/")
     fun getNotificationRead(): Call<NotificationResponse>

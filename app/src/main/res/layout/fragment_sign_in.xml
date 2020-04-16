@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Eon"
+            android:text="EOn"
             android:textColor="@color/navy"
             android:textSize="40sp"
             android:textStyle="bold"
@@ -63,6 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_24dp"
             android:orientation="vertical"
+            android:animateLayoutChanges="true"
             android:paddingBottom="@dimen/_20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -80,9 +81,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:allowUndo="false"
+                    app:chipBackgroundColor="@color/chip_states"
                     android:checkable="true"
                     android:text="@string/organiser"
-                    android:textColor="@color/grey"
+                    app:checkedIconEnabled="false"
+                    android:textColor="@color/chip_text_states"
                     android:theme="@style/Theme.MaterialComponents.Light" />
 
                 <com.google.android.material.chip.Chip
@@ -91,9 +94,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_32dp"
                     android:allowUndo="false"
+                    app:chipBackgroundColor="@color/chip_states"
                     android:checkable="true"
+                    app:checkedIconEnabled="false"
                     android:text="@string/subscriber"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/chip_text_states"
                     android:theme="@style/Theme.MaterialComponents.Light" />
             </com.google.android.material.chip.ChipGroup>
 
@@ -101,6 +106,7 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:background="@drawable/custom_shape"
                 android:orientation="vertical"
                 android:padding="@dimen/_20dp">
@@ -111,21 +117,23 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/emailAddressWrapper"
                     android:background="@drawable/bg_edit_text"
+                    android:paddingBottom="@dimen/_4sdp"
                     android:theme="@style/TextLabel">
 
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/etEmailAddress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:background="@android:color/transparent"
                         android:drawableStart="@drawable/ic_user"
                         android:drawableLeft="@drawable/ic_user"
-                        android:drawablePadding="@dimen/_20dp"
+                        android:drawablePadding="@dimen/_4sdp"
                         android:hint="Email"
                         android:inputType="textEmailAddress"
                         android:padding="@dimen/_8dp"
                         android:textColorHint="@color/grey"
-                        android:textSize="@dimen/_16dp" />
+                        android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -133,8 +141,8 @@
                     android:id="@+id/passwordWrapper"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:layout_below="@id/emailAddressWrapper"
-                    android:layout_marginTop="@dimen/_10dp"
                     android:background="@drawable/bg_edit_text"
                     app:passwordToggleEnabled="true"
                     android:theme="@style/TextLabel">
@@ -144,14 +152,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
+                        android:layout_gravity="center"
                         android:drawableStart="@drawable/ic_icon_lock_password_grey"
                         android:drawableLeft="@drawable/ic_icon_lock_password_grey"
-                        android:drawablePadding="@dimen/_20dp"
+                        android:drawablePadding="@dimen/_4sdp"
                         android:hint="@string/password_hint"
                         android:inputType="textPassword"
                         android:padding="@dimen/_8dp"
                         android:textColorHint="@color/grey"
-                        android:textSize="@dimen/_16dp" />
+                        android:textSize="14sp" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 

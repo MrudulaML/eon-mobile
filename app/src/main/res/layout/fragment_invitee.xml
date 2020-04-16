@@ -37,5 +37,17 @@
         android:src="@android:drawable/ic_input_add"
         android:tint="@color/white" />
 
+    <ProgressBar
+        android:id="@+id/prog"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
+        android:elevation="5dp"
+        android:layout_above="@id/rv_invitee_list"
+        android:theme="@style/CircularProgress"
+        android:visibility="gone" />
+
 </RelativeLayout>
 
