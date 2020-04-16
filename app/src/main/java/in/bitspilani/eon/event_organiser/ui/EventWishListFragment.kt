@@ -33,7 +33,7 @@ import timber.log.Timber
 class EventWishListFragment : Fragment() {
     // private val dashboardViewModel by viewModels<EventDashboardViewModel> { getViewModelFactory() }
     private var actionbarHost: ActionbarHost? = null
-    private var isWishListed : Boolean =false
+    private var isWishListed: Boolean = false
     private lateinit var layoutManager: RecyclerView.LayoutManager
     private lateinit var eventAdapter: EventAdapter
     private lateinit var eventDashboardViewModel: EventDashboardViewModel
@@ -61,7 +61,7 @@ class EventWishListFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        actionbarHost?.showToolbar(showToolbar = true,title = "WishList",showBottomNav = false)
+        actionbarHost?.showToolbar(showToolbar = true, title = "WishList", showBottomNav = false)
 
     }
 
@@ -81,7 +81,7 @@ class EventWishListFragment : Fragment() {
 
 
     private fun setUpSearch() {
-        event_search_view.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+        event_search_view.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
@@ -103,7 +103,7 @@ class EventWishListFragment : Fragment() {
 
         }
         btn_filter_clear.clickWithDebounce {
-            btn_filter_clear.visibility=View.GONE
+            btn_filter_clear.visibility = View.GONE
             eventDashboardViewModel.getEvents()
         }
     }
@@ -114,15 +114,27 @@ class EventWishListFragment : Fragment() {
         })
 
         eventDashboardViewModel.eventClickObservable.observe(viewLifecycleOwner, Observer {
-            if (ModelPreferencesManager.getInt(Constants.USER_ROLE)==1)
-                findNavController().navigate(R.id.action_homeFragment_to_organiser_eventDetailsFragment,
+            if (ModelPreferencesManager.getInt(Constants.USER_ROLE) == 1)
+                findNavController().navigate(
+                    R.id.action_homeFragment_to_organiser_eventDetailsFragment,
                     bundleOf("id" to it),
                     NavOptions.Builder()
-                        .setPopUpTo(R.id.homeFragment,
-                            false).build())
+                        .setPopUpTo(
+                            R.id.homeFragment,
+                            false
+                        ).build()
+                )
             else
             //TODO change this to builder pattern
-                findNavController().navigate(R.id.eventDetails)
+                findNavController().navigate(
+                    R.id.action_wishlist_to_subscriber_eventDetails,
+                    bundleOf(Constants.EVENT_ID to it),
+                    NavOptions.Builder()
+                        .setPopUpTo(
+                            R.id.homeFragment,
+                            false
+                        ).build()
+                )
         })
 
         eventDashboardViewModel.progressLiveData.observe(viewLifecycleOwner, Observer {
@@ -134,19 +146,18 @@ class EventWishListFragment : Fragment() {
 
     private fun setEventRecyclerView(eventList: EventList) {
 
-        val isSubscriber :  Boolean = ModelPreferencesManager.getInt(Constants.USER_ROLE)==2
+        val isSubscriber: Boolean = ModelPreferencesManager.getInt(Constants.USER_ROLE) == 2
         Timber.e("is subcriber$isSubscriber")
         Timber.e("is from wish list$isSubscriber")
         //if from wishlist
-        arguments?.getInt("id")?.let { isWishListed=true }
+        arguments?.getInt("id")?.let { isWishListed = true }
         layoutManager = LinearLayoutManager(activity)
         //TODO fix this hack
         if (eventList.fromFilter) {
-            btn_filter_clear.visibility=View.VISIBLE
-            bindList(eventList, isSubscriber,isWishListed)
-        }
-        else
-            bindList(eventList, isSubscriber,isWishListed)
+            btn_filter_clear.visibility = View.VISIBLE
+            bindList(eventList, isSubscriber, isWishListed)
+        } else
+            bindList(eventList, isSubscriber, isWishListed)
 
     }
 
@@ -155,13 +166,13 @@ class EventWishListFragment : Fragment() {
         isSubscriber: Boolean = false,
         wishListed: Boolean
     ) {
-        eventAdapter = if(wishListed){
-            val filteredList =eventList.eventList.filter {
+        eventAdapter = if (wishListed) {
+            val filteredList = eventList.eventList.filter {
                 it.is_wishlisted!!
             } as ArrayList<MonoEvent>
             EventAdapter(filteredList, eventDashboardViewModel, isSubscriber)
 
-        }else{
+        } else {
 
             EventAdapter(eventList.eventList, eventDashboardViewModel, isSubscriber)
 
@@ -169,7 +180,6 @@ class EventWishListFragment : Fragment() {
         rv_event_list.layoutManager = layoutManager
         rv_event_list.adapter = eventAdapter
     }
-
 
 
     /**

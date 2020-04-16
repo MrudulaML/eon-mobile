@@ -87,26 +87,28 @@ class ResetPasswordFragment : Fragment() {
                 if (Validator.isValidEmail(edit_user_email, true)){
                     authViewModel.forgotPasswordSteps = ForgotPasswordSteps.VERIFICATION_CODE
                     authViewModel.generateCode(edit_user_email.text.toString())
+                }else{
+                    showUserMsg("Please enter valid email")
                 }
             }
 
             ForgotPasswordSteps.VERIFICATION_CODE->{
-                if (Validator.isValidVerificationCode(edit_verification_code)){
+                if (Validator.isValidVerificationCode(edit_verification_code,true)){
                     authViewModel.forgotPasswordSteps = ForgotPasswordSteps.PASSWORD
                     binding.step = ForgotPasswordSteps.PASSWORD
                     binding.stepView.go(2,true)
+                }else{
+                    showUserMsg("Please enter valid verification code")
                 }
             }
 
             ForgotPasswordSteps.PASSWORD->{
-                if (Validator.isValidPassword(edt_create_new_password)){
-                    if(TextUtils.equals(edt_create_new_password.text,edt_re_enter_password.text)) {
+                if (Validator.isValidPassword(edt_create_new_password, true)){
                         resetCode?.let {
                             authViewModel.resetPassword(it,edit_verification_code.text.toString(),edt_create_new_password.text.toString())
                         }
-                    }else{
-                        showUserMsg("Password does not match")
-                    }
+                }else{
+                    showUserMsg("Please enter valid password")
                 }
             }
             ForgotPasswordSteps.SUCCESS -> {

@@ -2,8 +2,10 @@ package `in`.bitspilani.eon.event_subscriber.subscriber.payments
 
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.login.data.Data
+import `in`.bitspilani.eon.login.ui.ActionbarHost
 import `in`.bitspilani.eon.utils.*
 import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -24,6 +26,7 @@ import kotlinx.android.synthetic.main.payment_fragment.*
 class PaymentFrag : Fragment() {
 
     private val paymentViewModel by viewModels<PaymentViewModel> { getViewModelFactory() }
+    private var actionbarHost: ActionbarHost? = null
 
     var eventId: Int = 0
 
@@ -47,6 +50,7 @@ class PaymentFrag : Fragment() {
         setObservables()
         getDataFromArgs()
         setClicks()
+        actionbarHost?.showToolbar(showToolbar = false, showBottomNav = false)
 
         val textCount: Int = 0
 
@@ -145,7 +149,7 @@ class PaymentFrag : Fragment() {
 
         }
 
-        iv_back.clickWithDebounce { findNavController().popBackStack() }
+        iv_back_payment.clickWithDebounce { findNavController().popBackStack() }
 
     }
 
@@ -179,5 +183,16 @@ class PaymentFrag : Fragment() {
             .show()
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is ActionbarHost) {
+            actionbarHost = context
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        actionbarHost?.showToolbar(showToolbar = false, showBottomNav = false)
+    }
 
 }

@@ -1,5 +1,6 @@
 package `in`.bitspilani.eon.event_subscriber.subscriber.detail
 
+import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.databinding.EventDetailsFragmentBinding
 import `in`.bitspilani.eon.event_subscriber.models.Data
@@ -9,6 +10,7 @@ import android.Manifest
 import android.app.AlertDialog
 import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.*
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
@@ -31,21 +33,27 @@ import kotlinx.android.synthetic.main.layout_download_cancel_button.*
 import kotlinx.android.synthetic.main.layout_email_share_to_friend.view.*
 import kotlinx.android.synthetic.main.layout_seat_booking.*
 import android.graphics.pdf.PdfDocument
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Typeface
 import android.os.Build
 import android.os.Environment
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.MultiFormatWriter
+import com.google.zxing.WriterException
+import com.google.zxing.common.BitMatrix
+import com.journeyapps.barcodescanner.BarcodeEncoder
 import androidx.navigation.NavOptions
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.HashMap
 import java.lang.Exception
 
 
 class EventDetails : Fragment() {
 
     private val STORAGE_PERMISSION_CODE: Int = 1000
+    private var bitmap: Bitmap? = null
 
     private val eventDetailsViewModel by viewModels<EventDetailsViewModel> { getViewModelFactory() }
 
@@ -179,7 +187,11 @@ class EventDetails : Fragment() {
             }
         }
 
-        iv_back.clickWithDebounce { findNavController().popBackStack() }
+        iv_back.clickWithDebounce {
+            actionbarHost?.showToolbar(showToolbar = true, showBottomNav = false)
+            findNavController().popBackStack()
+        }
+
         // button download
         btn_download.clickWithDebounce {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -189,7 +201,7 @@ class EventDetails : Fragment() {
                         STORAGE_PERMISSION_CODE
                     )
                 } else {
-                    createPdf()
+                    createPdf(data.event_id)
                 }
             } else {
 
@@ -210,7 +222,7 @@ class EventDetails : Fragment() {
         when (requestCode) {
             STORAGE_PERMISSION_CODE -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    createPdf()
+                    createPdf(data.event_id)
                 } else {
                     showUserMsg("Permission denied")
                 }
@@ -282,6 +294,9 @@ class EventDetails : Fragment() {
         actionbarHost?.showToolbar(showToolbar = false, showBottomNav = false)
     }
 
+
+
+
     var isSubscribed: Boolean = false
 
     fun setObservables() {
@@ -294,7 +309,7 @@ class EventDetails : Fragment() {
             amount = it.data.subscription_fee
             data = it.data
 
-           if(amount>0) btn_price.text = "₹ $amount" else btn_price.text="confirm"
+            if (amount > 0) btn_price.text = "₹ $amount" else btn_price.text = "confirm"
 
             if (data.is_wishlisted) {
                 eventDetailsViewModel.wishlist = false
@@ -305,12 +320,14 @@ class EventDetails : Fragment() {
             if (data.is_subscribed) {
                 isSubscribed = true
                 ll_paid_event_info.visibility = View.VISIBLE
-                tv_seats_info.text = "You have already bought " + data.subscription_details!!.no_of_tickets_bought + " seats for this event"
+                tv_seats_info.text =
+                    "You have already bought " + data.subscription_details!!.no_of_tickets_bought + " seats for this event"
 
-                if(data.subscription_details!!.amount_paid>0)
-                tv_total_amount_paid.text = "Total amount paid: ₹" + data.subscription_details!!.amount_paid
+                if (data.subscription_details!!.amount_paid > 0)
+                    tv_total_amount_paid.text =
+                        "Total amount paid: ₹" + data.subscription_details!!.amount_paid
 
-                tv_total_amount_paid.goneUnless(data.subscription_details!!.amount_paid>0)
+                tv_total_amount_paid.goneUnless(data.subscription_details!!.amount_paid > 0)
 
                 download_cancel_view.visibility = View.VISIBLE
                 btn_price.text = "Update"
@@ -347,8 +364,8 @@ class EventDetails : Fragment() {
 
             tv_seat_counter.text = it.toString()
             if (!isSubscribed) {
-                if(amount>0)
-                btn_price.text = "₹ " + (it * amount)
+                if (amount > 0)
+                    btn_price.text = "₹ " + (it * amount)
 
             }
         })
@@ -365,7 +382,12 @@ class EventDetails : Fragment() {
 
         })
 
-        eventDetailsViewModel.errorView.observe(viewLifecycleOwner, Observer {
+        eventDetailsViewModel.progressLiveData.observe(viewLifecycleOwner, Observer {
+
+            (activity as BitsEonActivity).showProgress(it)
+        })
+
+        eventDetailsViewModel.errorToast.observe(viewLifecycleOwner, Observer {
 
             showUserMsg(it)
 
@@ -405,7 +427,13 @@ class EventDetails : Fragment() {
     }
 
     // create pdf and save external directory
-    private fun createPdf() {
+    private fun createPdf(event_id: Int) {
+
+        val eventId = Integer.toString(event_id) // event id
+
+        val multiFormatWriter = MultiFormatWriter()
+        var barcodeEncoder = BarcodeEncoder()
+        var bitMatrix: BitMatrix? = null
 
         val eventName = tv_event_name.text.toString()
         val eventDateTime = tv_event_date.text.toString()
@@ -413,29 +441,65 @@ class EventDetails : Fragment() {
         val eventSeatCounter = tv_seat_counter.text.toString()
         val eventAmount = btn_price.text.toString()
 
-        val document = PdfDocument()
+        val bookingNotes = "It's non-transferable ticket" // to do
+        val bookingDate = "Wednesday 14th April 20" // to do
+        val subscriberEmailId = "Jhon@hashedin.com" // to do
+        val subscriberName = "Jhon" // to do
+        val subscriberContact = "8829548707" // to
 
+        val logoBitmap = BitmapFactory.decodeResource(resources, R.drawable.logo_bits)
+
+        // resize logo
+        val resizedLogoBitmap = Bitmap.createScaledBitmap(
+            logoBitmap, 128, 128, false
+        )
+
+        val document = PdfDocument()
         val pageInfo = PdfDocument.PageInfo.Builder(1200, 2010, 1).create()
         val page = document.startPage(pageInfo)
         val canvas = page.canvas
-        val paint = Paint()
+
+        val bitmapPaint = Paint()
         val titlePaint = Paint()
+        val linePaint = Paint()
+        val textPaint = Paint()
 
-        // header title
-        titlePaint.textAlign = Paint.Align.CENTER
-        titlePaint.textSize = resources.getDimension(R.dimen._20fs)
+        // logo
+        canvas.drawBitmap(resizedLogoBitmap, 40F, 80F, bitmapPaint)
+
+        // header
+        titlePaint.textSize = resources.getDimension(R.dimen._18fs)
         titlePaint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
-        canvas.drawText(eventName, 1200 / 2F, 200F, titlePaint)
+        canvas.drawText(eventName, 220F, 180F, titlePaint)// divider
+        canvas.drawLine(40F, 248F, 1200 - 40F, 248F, linePaint)
 
-        // tickets info right side
-        paint.textAlign = Paint.Align.RIGHT
-        paint.textSize = resources.getDimension(R.dimen._16fs)
-        paint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)
-        canvas.drawText("Event Name: " + eventName, 1200 - 40F, 250F, paint);
-        canvas.drawText("Number of seats: " + eventSeatCounter, 1200F - 80F, 300F, paint);
-        canvas.drawText("Amount: " + eventAmount, 1200 - 40F, 350F, paint);
-        canvas.drawText("Event Date: " + eventDateTime, 1200 - 40F, 400F, paint);
-        canvas.drawText("Location: " + eventLocation, 1200 - 40F, 450F, paint);
+        // QR Code
+        try {
+            bitMatrix = multiFormatWriter.encode(eventId, BarcodeFormat.QR_CODE, 240, 240)
+            val myBitmap: Bitmap = barcodeEncoder.createBitmap(bitMatrix)
+            canvas.drawBitmap(myBitmap, 40F, 290F, bitmapPaint)
+        } catch (e: WriterException) {
+            Log.e("QRCode", "Error: " + e.toString());
+            showUserMsg("Error!")
+        }
+
+        // Event info
+        textPaint.textSize = resources.getDimension(R.dimen._14fs)
+        textPaint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)
+        canvas.drawText("Event Name: " + eventName, 300F, 350F, textPaint);
+        canvas.drawText("Number of seats: " + eventSeatCounter, 300F, 410F, textPaint);
+        canvas.drawText("Amount: " + eventAmount, 300F, 470F, textPaint);
+        canvas.drawText("Event Date: " + eventDateTime, 300F, 530F, textPaint);
+        canvas.drawText("Location: " + eventLocation, 300F, 590F, textPaint);
+        canvas.drawText("Subscriber Name: " + subscriberName, 300F, 650F, textPaint);
+        canvas.drawText("Email Id: " + subscriberEmailId, 300F, 710F, textPaint);
+        canvas.drawText("Contact: " + subscriberContact, 300F, 770F, textPaint);
+        canvas.drawText("Booking Date: " + bookingDate, 300F, 830F, textPaint);
+
+        // Note
+        textPaint.textSize = resources.getDimension(R.dimen._14fs)
+        textPaint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+        canvas.drawText("*Note: " + bookingNotes, 40F, 920F, textPaint);
 
         document.finishPage(page)
 
@@ -467,6 +531,29 @@ class EventDetails : Fragment() {
         document.writeTo(FileOutputStream(filePath));
         document.close();
 
+    }
+
+    fun toSimpleString(date: Date): String {
+        val format = SimpleDateFormat("dd/MM/yyy")
+        return format.format(date)
+    }
+
+    private fun getEventQRCode(event_id: Int) {
+
+        val event_id = Integer.toString(event_id) // event id
+        val multiFormatWriter = MultiFormatWriter()
+        var barcodeEncoder = BarcodeEncoder()
+        var bitMatrix: BitMatrix? = null
+
+        try {
+            bitMatrix = multiFormatWriter.encode(event_id, BarcodeFormat.QR_CODE, 200, 200)
+            bitmap = barcodeEncoder.createBitmap(bitMatrix)
+            // to do
+            //iv_bar_code.setImageBitmap(bitmap)
+        } catch (e: WriterException) {
+            Log.e("QRCode", "Error: " + e.toString());
+            showUserMsg("Error!")
+        }
     }
 
 
