@@ -73,13 +73,11 @@ class HomeFragment : Fragment() {
             override fun onQueryTextChange(newText: String?): Boolean {
 
                 if(newText.isNullOrEmpty())
-                    //eventDashboardViewModel.getEvents()
+                    eventDashboardViewModel.getEvents()
                 else
-                    eventAdapter.filter.filter(newText!!.toString())
+                    eventAdapter.filter.filter(newText.toString())
                 return false
             }
-
-
         })
     }
 

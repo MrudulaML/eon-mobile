@@ -30,7 +30,7 @@ import timber.log.Timber
  * A simple [Fragment] subclass.
  *
  */
-class AddInviteeFragment(private val eventData: Data,val callbackListener: CallbackListener) : DialogFragment() {
+class AddInviteeFragment(private val eventData: Data, private val callbackListener: CallbackListener) : DialogFragment() {
 
     private val addInviteeViewModel by viewModels<AddInviteeViewModel> { getViewModelFactory() }
 
@@ -64,6 +64,7 @@ class AddInviteeFragment(private val eventData: Data,val callbackListener: Callb
             callbackListener.onDataReceived(it.data.invitee_list)
             //Toast.makeText(activity, "Invitees added successfully.", Toast.LENGTH_LONG).show()
         })
+
         nacho_text_view.addChipTerminator(',', ChipTerminatorHandler.BEHAVIOR_CHIPIFY_ALL);
 
 
@@ -99,23 +100,7 @@ class AddInviteeFragment(private val eventData: Data,val callbackListener: Callb
 
     }
 
-    fun showSuccessDialog() {
-        //Inflate the dialog with custom view
-        val mDialogView =
-            LayoutInflater.from(activity).inflate(R.layout.dialog_email_update, null)
-        //AlertDialogBuilder
-        val mBuilder = AlertDialog.Builder(activity)
-            .setView(mDialogView)
-        //show dialog
-        val mAlertDialog = mBuilder.show()
 
-        mDialogView.btn_email_add.btn_okay.clickWithDebounce {
-
-            mAlertDialog.dismiss()
-        }
-
-
-    }
 
 
 }

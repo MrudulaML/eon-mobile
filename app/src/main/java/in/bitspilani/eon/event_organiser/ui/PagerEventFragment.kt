@@ -66,23 +66,25 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
 
     private fun setUpObservables() {
         eventDetailOrganiserViewModel.notifyLiveData.observe(viewLifecycleOwner, Observer {
-
-            if(!isFromUpdate){
-                isFromUpdate=true
-                openReminderDialog(it.message)
+            it?.let {
+                if (!isFromUpdate) {
+                    isFromUpdate = true
+                    openReminderDialog(it.message)
+                } else
+                    view?.showSnackbar(it.message, 0)
             }
-            else
-                view?.showSnackbar(it.message,0)
         })
         eventDetailOrganiserViewModel.progressLiveData.observe(viewLifecycleOwner, Observer {
 
             (activity as BitsEonActivity).showProgress(it)
         })
         eventDetailOrganiserViewModel.errorView.observe(viewLifecycleOwner, Observer {
-
-            view?.showSnackbar(it, 0)
+            it?.let {
+            view?.showSnackbar(it, 0)}
 
         })
+
+
     }
     //TODO fix this use appcompat
     private fun openReminderDialog(message: String) {

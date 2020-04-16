@@ -8,6 +8,7 @@ import `in`.bitspilani.eon.event_organiser.ui.adapter.EventDetailPagerAdapter
 import `in`.bitspilani.eon.event_organiser.viewmodel.EventDetailOrganiserViewModel
 import `in`.bitspilani.eon.login.ui.ActionbarHost
 import `in`.bitspilani.eon.utils.getViewModelFactory
+import `in`.bitspilani.eon.utils.goneUnless
 import android.content.Context
 import android.os.Bundle
 import android.view.*
@@ -18,6 +19,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.fragment_event_detail_organiser.*
+import kotlinx.android.synthetic.main.fragment_invitee.*
 import timber.log.Timber
 
 
@@ -73,10 +75,13 @@ class EventDetailsOrganiserFragment : Fragment(),InviteeCallbackListener,EventDe
                 tab.text = titles[position]
             }.attach()
         })
+
         eventDetailOrganiserViewModel.progressLiveData.observe(viewLifecycleOwner, Observer {
 
             (activity as BitsEonActivity).showProgress(it)
         })
+
+
     }
 
 

@@ -25,7 +25,7 @@ class EventDetailOrganiserViewModel(private val apiService: ApiService) : BaseVi
 
     var deleteInvitee: SingleLiveEvent<CommonResponse> = SingleLiveEvent()
 
-
+    var deleteProgress: MutableLiveData<Boolean> = SingleLiveEvent()
 
     fun getEventDetails(id: Int) {
         showProgress(true)
@@ -53,18 +53,18 @@ class EventDetailOrganiserViewModel(private val apiService: ApiService) : BaseVi
             array.add(each)
         }
         body.add("invitation_ids",array)
-        showProgress(true)
+        deleteProgress.postValue(true)
         apiService.deleteInvitee(body)
             .enqueue(object : ApiCallback<CommonResponse>() {
                 override fun onSuccessResponse(responseBody: CommonResponse) {
                     deleteInvitee.postValue(responseBody)
-                    showProgress(false)
+                    deleteProgress.postValue(false)
                 }
 
                 override fun onApiError(errorType: ApiError, error: String?) {
                     /*progress.value=false
                     errorView.postValue(error)*/
-                    showProgress(false)
+                    deleteProgress.postValue(false)
                 }
             })
 

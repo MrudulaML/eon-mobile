@@ -19,7 +19,7 @@ class AddInviteeViewModel(private val apiService: ApiService): BaseViewModel() {
         body.addProperty("event",event_id)
         body.addProperty("discount_percentage",discount)
         body.add("invitee_list",emailList)
-       // progress.value = true
+        showProgress(true)
         apiService.addInvitees(body)
             .enqueue(object : ApiCallback<AddInviteeResponse>(){
                 override fun onSuccessResponse(responseBody: AddInviteeResponse) {
@@ -35,4 +35,6 @@ class AddInviteeViewModel(private val apiService: ApiService): BaseViewModel() {
             })
 
     }
+
+
 }
