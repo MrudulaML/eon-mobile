@@ -165,7 +165,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         tools:text="9:00 PM 12 Mar'20"
-        android:text="@{eventDetail.data.date}"
+        date="@{eventDetail.data.date}"
         android:textColor="@color/grey"
         android:textSize="15sp"
         android:textStyle="bold"

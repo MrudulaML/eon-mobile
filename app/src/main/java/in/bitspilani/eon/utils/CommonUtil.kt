@@ -30,7 +30,7 @@ class CommonUtil {
 
             var date: Date = dateFormat.parse(datestring);
 
-            val formatter: DateFormat = SimpleDateFormat("EEEEEEEEE, dd MMM ")
+            val formatter: DateFormat = SimpleDateFormat("EEEEEEEEE, dd MMM yyyy ")
             val today = formatter.format(date)+" "+time
 
 
