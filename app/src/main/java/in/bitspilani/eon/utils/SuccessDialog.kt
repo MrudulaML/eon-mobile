@@ -4,8 +4,6 @@ import `in`.bitspilani.eon.R
 import android.app.Activity
 import android.app.AlertDialog
 import android.view.LayoutInflater
-import androidx.navigation.NavOptions
-import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.layout_dialog_payment_success.view.*
 
 class SuccessDialog {

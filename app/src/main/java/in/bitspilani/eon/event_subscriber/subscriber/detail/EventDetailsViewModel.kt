@@ -6,7 +6,6 @@ import `in`.bitspilani.eon.event_subscriber.models.EventDetailResponse
 import `in`.bitspilani.eon.event_subscriber.models.PaymentResponse
 import `in`.bitspilani.eon.login.data.CommonResponse
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

@@ -16,10 +16,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import kotlinx.android.synthetic.main.event_summary_fragment.*
 import kotlinx.android.synthetic.main.fragment_redund.*
 import kotlinx.android.synthetic.main.layout_attendees_amount.*
-import kotlinx.android.synthetic.main.payment_fragment.*
 
 class RefundFragment : Fragment() {
 

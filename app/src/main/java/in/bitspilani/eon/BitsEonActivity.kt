@@ -5,10 +5,7 @@ import `in`.bitspilani.eon.api.ApiService
 import `in`.bitspilani.eon.api.RestClient
 import `in`.bitspilani.eon.event_organiser.models.FilterResponse
 import `in`.bitspilani.eon.login.data.Data
-import `in`.bitspilani.eon.login.data.LoginResponse
-import `in`.bitspilani.eon.login.data.User
 import `in`.bitspilani.eon.login.ui.ActionbarHost
-import `in`.bitspilani.eon.login.ui.AuthViewModel
 import `in`.bitspilani.eon.utils.ApiCallback
 import `in`.bitspilani.eon.utils.Constants
 import `in`.bitspilani.eon.utils.ModelPreferencesManager
@@ -19,7 +16,6 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions

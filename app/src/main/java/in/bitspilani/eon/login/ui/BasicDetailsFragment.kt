@@ -1,6 +1,5 @@
 package `in`.bitspilani.eon.login.ui
 
-import `in`.bitspilani.eon.BitsEonApp
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.databinding.FragmentBasicDetailsBinding
 import `in`.bitspilani.eon.utils.Constants
@@ -17,7 +16,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_basic_details.*
 

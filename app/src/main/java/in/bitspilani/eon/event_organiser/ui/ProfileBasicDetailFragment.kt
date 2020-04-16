@@ -1,20 +1,19 @@
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.event_organiser.models.EventType
 import `in`.bitspilani.eon.event_organiser.models.FilterResponse
-import `in`.bitspilani.eon.event_organiser.ui.CallbackListener
 import `in`.bitspilani.eon.login.data.Data
 import `in`.bitspilani.eon.utils.Constants
 import `in`.bitspilani.eon.utils.ModelPreferencesManager
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import android.os.Bundle
-import android.view.*
-import android.widget.CheckBox
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.fragment_filter_event.*
 import kotlinx.android.synthetic.main.fragment_profile_basic_detail.*
 
 /**

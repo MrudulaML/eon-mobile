@@ -1,11 +1,11 @@
 package `in`.bitspilani.eon.login.ui
 
 import `in`.bitspilani.eon.BitsEonActivity
-import `in`.bitspilani.eon.BitsEonApp
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.databinding.FragmentCreatePasswordBinding
-import `in`.bitspilani.eon.login.data.User
-import `in`.bitspilani.eon.utils.*
+import `in`.bitspilani.eon.utils.Validator
+import `in`.bitspilani.eon.utils.clickWithDebounce
+import `in`.bitspilani.eon.utils.showSnackbar
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -18,7 +18,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
-import kotlinx.android.synthetic.main.fragment_basic_details.*
 import kotlinx.android.synthetic.main.fragment_create_password.*
 
 

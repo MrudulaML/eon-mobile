@@ -1,7 +1,6 @@
 package `in`.bitspilani.eon.event_subscriber.models
 
 import com.google.gson.annotations.SerializedName
-import java.util.function.BinaryOperator
 
 
 data class EventDetailResponse(

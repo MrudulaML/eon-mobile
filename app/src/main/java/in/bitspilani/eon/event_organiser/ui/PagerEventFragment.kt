@@ -26,7 +26,6 @@ import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.dialog_success_reminder.view.*
 import kotlinx.android.synthetic.main.fragment_event.*
 import timber.log.Timber
-import java.lang.Exception
 
 
 /**
