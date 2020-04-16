@@ -9,12 +9,14 @@ import `in`.bitspilani.eon.event_organiser.viewmodel.EventDetailOrganiserViewMod
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import `in`.bitspilani.eon.utils.getViewModelFactory
 import `in`.bitspilani.eon.utils.showSnackbar
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -103,11 +105,38 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
 
     }
 
-
+    private fun setupListeners() {
+        share_fb.clickWithDebounce {
+            invokeFacebookShare(activity!!,"","")
+        }
+        send_reminder.clickWithDebounce { showUserMsg("Send reminders successfully") }
+        send_updates.clickWithDebounce { showUserMsg("Send updates successfully") }
+    }
+    private fun showUserMsg(msg:String){
+        Toast.makeText(activity,msg, Toast.LENGTH_LONG).show()
+    }
+    private fun invokeFacebookShare(
+        activity: Activity,
+        quote: String?,
+        credit: String?
+    ) {
+        val shareIntent = Intent(Intent.ACTION_SEND)
+        shareIntent.type = "text/plain"
+        shareIntent.putExtra(
+            Intent.EXTRA_SUBJECT,
+            "Type of Events"
+        )
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "Seminar event with time 9:00pm 14 March20")
+        activity.startActivity(
+            Intent.createChooser(
+                shareIntent,
+                "Type of Events"
+            )
+        )
+    }
     private fun setUpClickListeners() {
         share_fb.clickWithDebounce {
-
-
+            invokeFacebookShare(activity!!,"","")
         }
 
         //TODO handle thi elegently
