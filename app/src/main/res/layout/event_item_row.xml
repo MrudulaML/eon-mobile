@@ -6,14 +6,17 @@
     <data>
 
         <import type="android.view.View" />
+        <variable
+            name="isSubscriber"
+            type="java.lang.Boolean"/>
 
         <variable
             name="event"
-            type="in.bitspilani.eon.eventOrganiser.data.IndividualEvent"/>
+            type="in.bitspilani.eon.event_organiser.models.MonoEvent"/>
 
         <variable
             name="dashboardViewmodel"
-            type="in.bitspilani.eon.eventOrganiser.ui.EventDashboardViewModel" />
+            type="in.bitspilani.eon.event_organiser.viewmodel.EventDashboardViewModel" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -22,47 +25,113 @@
         android:foreground="?android:attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
+        android:layout_marginHorizontal="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_4sdp"
         android:layout_marginBottom="@dimen/_4sdp"
         app:cardElevation="@dimen/_2dp"
-        android:onClick="@{() -> dashboardViewmodel.onEventClick(event.eventId)}"
+        android:onClick="@{() -> dashboardViewmodel.onEventClick(event.id)}"
         app:cardCornerRadius="@dimen/_4sdp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:paddingBottom="@dimen/_8sdp"
+            android:layout_height="wrap_content">
+
+
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/appCompatImageView"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:minWidth="@dimen/_200sdp"
                 android:layout_height="@dimen/_160sdp"
                 android:scaleType="centerCrop"
+                app:imageUrl="@{event.images}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/dummy_image" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/appCompatTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:text="@{event.eventName}"
-                tools:text="Event Nmae"
-                android:textColor="@color/black"
+                android:text="@{event.name}"
+                android:textColor="@color/dark_grey"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/appCompatImageView" />
+                app:layout_constraintTop_toBottomOf="@+id/appCompatImageView"
+                tools:text="Event Nmae" />
+            <!--subscriber exclusive date-->
+            <androidx.appcompat.widget.AppCompatTextView
+
+                android:id="@+id/appCompatTextView17"
+                visibility="@{isSubscriber ? View.VISIBLE : View.GONE}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="8dp"
+                android:layout_centerHorizontal="true"
+                android:drawableLeft="@drawable/ic_calender_black_24dp"
+                android:drawablePadding="@dimen/_4sdp"
+                android:text="@{event.date}"
+                android:textColor="@color/dark_grey"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/appCompatTextView14"
+                tools:text="Event Date subscription" />
+
+            <!--subscriber exclusive fees-->
+
+            <!--subscriber exclusive date-->
 
             <androidx.appcompat.widget.AppCompatTextView
+
+                visibility="@{isSubscriber ? View.VISIBLE : View.GONE}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:textAlignment="center"
+                android:minWidth="@dimen/_40sdp"
+                android:background="@drawable/rounded_corner_solid_yellow_4"
+                android:backgroundTint="@color/yellow"
+                android:padding="@dimen/_2sdp"
+                android:text="@{event.subscription_fee>0?Integer.toString(event.subscription_fee):`Free` }"
+                android:textColor="@color/dark_grey"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/appCompatImageView"
+                tools:text="500" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+
+                visibility="@{isSubscriber ? View.VISIBLE : View.GONE}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:drawableLeft="@drawable/ic_location_on_black_24dp"
+                android:drawablePadding="@dimen/_4sdp"
+                android:text="@{event.location}"
+                android:textAlignment="center"
+                android:textColor="@color/dark_grey"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@+id/appCompatTextView17"
+                app:layout_constraintTop_toBottomOf="@+id/appCompatTextView17"
+                tools:text="Event Date subscription" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/appCompatTextView14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="@{event.attendees}"
-                tools:text="290 Attendeees"
-                android:textColor="@color/black"
-                android:textSize="10sp"
-                android:paddingBottom="@dimen/_8sdp"
+                android:text="@{Integer.toString(event.sold_tickets)+` Attendees`}"
+                android:textColor="@color/grey"
+                android:textStyle="bold"
+                tools:text="Attendees"
                 app:layout_constraintStart_toStartOf="@+id/appCompatTextView"
                 app:layout_constraintTop_toBottomOf="@+id/appCompatTextView" />
 
@@ -71,14 +140,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:paddingBottom="@dimen/_8sdp"
-                android:text="@{event.attendees}"
+                android:drawableLeft="@drawable/ic_calender_black_24dp"
+                android:gravity="center"
+                visibility="@{isSubscriber ? View.GONE : View.VISIBLE}"
+                android:text="@{event.date}"
                 android:textColor="@color/black"
-                android:textSize="10sp"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/appCompatImageView"
+                app:layout_constraintVertical_bias="1.0"
                 tools:text="12 Apr 2020" />
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

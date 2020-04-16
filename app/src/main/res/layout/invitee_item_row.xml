@@ -3,24 +3,31 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <import type="android.view.View" />
-
         <variable
             name="invitee"
-            type="in.bitspilani.eon.eventOrganiser.data.Invitee" />
+            type="in.bitspilani.eon.event_organiser.models.Invitee" />
 
+        <variable
+            name="viewmodel"
+            type="in.bitspilani.eon.event_organiser.viewmodel.EventDetailOrganiserViewModel" />
     </data>
-
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_8sdp"
-        android:background="@drawable/rounded_corner_grey_8">
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/chb_invitee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_4sdp"
+        android:padding="@dimen/_8sdp"
+        android:background="@drawable/rounded_corner_grey_8"
         android:orientation="vertical">
 
         <LinearLayout
@@ -46,7 +53,7 @@
                     android:id="@+id/text_email_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{invitee.emailAddress}"
+                    android:text="@{invitee.email}"
                     tools:text="abc@gmail.com" />
             </LinearLayout>
 
@@ -66,8 +73,8 @@
                     android:id="@+id/text_discount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{invitee.discount}"
-                    tools:text="abc@gmail.com" />
+                    android:text="@{Integer.toString(invitee.discount_percentage)}"
+                    tools:text="500" />
             </LinearLayout>
         </LinearLayout>
 
@@ -75,6 +82,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/_4sdp"
+            android:visibility="visible"
             android:weightSum="2"
             android:orientation="horizontal">
 
@@ -94,7 +102,6 @@
                     android:id="@+id/text_contact"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{invitee.contact}"
                     tools:text="9999999999" />
 
             </LinearLayout>
@@ -116,28 +123,23 @@
                     android:id="@+id/text_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{invitee.name}"
                     tools:text="Anshuman" />
             </LinearLayout>
         </LinearLayout>
 
-
-
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_4sdp"
+            android:visibility="gone"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="Delete"
+            android:textColor="@color/grey" />
 
     </LinearLayout>
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textViewOptions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:paddingLeft="@dimen/_8sdp"
-            android:paddingRight="@dimen/_8sdp"
-            android:text="&#8942;"
-            android:textAppearance="?android:textAppearanceLarge"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </RelativeLayout>
-
+    </LinearLayout>
 
 </layout>

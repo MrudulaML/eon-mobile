@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="eventData"
+            type="in.bitspilani.eon.event_subscriber.models.Data" />
+
+        <variable
+            name="viewmodel"
+            type="in.bitspilani.eon.event_subscriber.subscriber.detail.EventDetailsViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".event_subscriber.subscriber.detail.EventDetails">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_arrow_back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:text="Event Details"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_back"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_wishlist"
+                android:layout_width="40dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:onClick="@{() -> viewmodel.addOrRemovetoWishlist()}"
+                android:src="@drawable/ic_wishlist_line"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/iv_share"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_share"
+                android:layout_width="40dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_icon_share_white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="24dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toTopOf="@+id/included_seat_counter"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/iv_event"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/dummy_image"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_event_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@{eventData.event_name}"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_event" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/iv_external_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintBaseline_toBaselineOf="@id/tv_event_name"
+                    android:drawableLeft="@drawable/ic_url"
+                    android:drawablePadding="@dimen/_8sdp"
+                    android:gravity="center"
+                    android:padding="@dimen/_4sdp"
+                    android:textAlignment="center"
+                    android:textColor="@color/grey"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_event"
+                    tools:text="Link" />
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/tv_event_name">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <TextView
+
+                            android:id="@+id/tv_event_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="5dp"
+                            android:drawableStart="@drawable/ic_icon_calendar_gray"
+                            android:drawablePadding="10dp"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="15sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_event_name" />
+
+                        <TextView
+                            android:id="@+id/tv_event_location"
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="5dp"
+                            android:drawableStart="@drawable/ic_icon_map"
+                            android:drawablePadding="10dp"
+                            android:text="@{eventData.location}"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="15sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_event_date" />
+
+
+
+                        <View
+                            android:id="@+id/divider"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="20dp"
+                            android:background="@color/grey"
+                            app:layout_constraintTop_toBottomOf="@id/tv_event_location" />
+
+                        <TextView
+                            android:id="@+id/tv_type_of_event"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="10dp"
+                            android:text="Type of event"
+                            android:textColor="@color/dark_grey2"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/divider" />
+
+                        <TextView
+                            android:id="@+id/tv_type_of_event_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/rounded_bg_grey"
+                            android:paddingStart="10dp"
+                            android:paddingTop="5dp"
+                            android:paddingEnd="10dp"
+                            android:paddingBottom="5dp"
+                            android:text="Technology"
+                            android:textColor="@color/dark_grey2"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_type_of_event" />
+
+                        <TextView
+                            android:id="@+id/tv_event_detail_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="20dp"
+                            android:fontFamily="sans-serif"
+                            android:paddingEnd="20dp"
+                            android:text="@{eventData.description}"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/dark_grey2"
+                            android:textSize="15sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tv_type_of_event_value" />
+
+                        <LinearLayout
+                            android:id="@+id/ll_paid_event_info"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="20dp"
+                            android:background="@drawable/bg_subscribed_rectangle"
+                            android:orientation="vertical"
+                            android:visibility="gone"
+                            app:layout_constraintTop_toBottomOf="@id/tv_event_detail_text">
+
+                            <TextView
+                                android:id="@+id/tv_seats_info"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="10dp"
+                                android:text="@string/subscribed_event_text"
+                                android:textColor="@color/subscribed_text_color"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/tv_total_amount_paid"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="10dp"
+                                android:text="@string/subscribed_event_text"
+                                android:textColor="@color/subscribed_text_color"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/tv_subscribed_event_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="10dp"
+                                android:text="@string/subscribed_event_text"
+                                android:textColor="@color/subscribed_text_color"
+                                android:textSize="16sp"
+                                android:visibility="visible" />
+
+                        </LinearLayout>
+
+
+                        <include
+                            android:id="@+id/download_cancel_view"
+                            layout="@layout/layout_download_cancel_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="parent" />
+
+                        <View
+                            android:id="@+id/space_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp" />
+                    </LinearLayout>
+                </androidx.core.widget.NestedScrollView>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+        <include
+            android:id="@+id/included_seat_counter"
+            layout="@layout/layout_seat_booking"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -1,27 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/invitee_search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="2dp"
+        app:queryHint="search by email/contact"
+        android:layout_margin="@dimen/_2sdp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_filter"
+        app:layout_constraintEnd_toStartOf="@+id/btn_filter"
+        app:layout_constraintTop_toTopOf="@+id/btn_filter" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_invitee_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/invitee_search_view"
         tools:listitem="@layout/invitee_item_row" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_16sdp"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:tint="@color/white"
-        android:src="@android:drawable/ic_input_add" />
+        android:layout_alignParentBottom="true"
+        app:useCompatPadding="true"
+        android:layout_marginBottom="@dimen/_16sdp"
+        android:background="@color/navy"
+        android:src="@android:drawable/ic_input_add"
+        android:tint="@color/white" />
+
+    <ProgressBar
+        android:id="@+id/prog"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
+        android:elevation="5dp"
+        android:layout_above="@id/rv_invitee_list"
+        android:theme="@style/CircularProgress"
+        android:visibility="gone" />
 
 </RelativeLayout>
 

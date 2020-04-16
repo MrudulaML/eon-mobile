@@ -14,7 +14,7 @@ class Validator {
     companion object {
 
         // Default validation messages
-        private val PASSWORD_POLICY = "Password doesnt match requirements"
+        private const val PASSWORD_POLICY = "Password doesnt match requirements"
 
         private const val NAME_VALIDATION_MSG = "Enter a valid name"
         private const val EMAIL_VALIDATION_MSG = "Enter a valid email address"
@@ -108,7 +108,7 @@ class Validator {
 
             // to do
             val str = getText(data)
-            val valid = str.trim().length >= 6
+            val valid = str.trim().length >= 4
             if (updateUI) {
                 val error: String? = if (valid) null else NAME_VALIDATION_MSG
                 setError(data, error)
@@ -205,6 +205,19 @@ class Validator {
             }
         }
 
+
+        @JvmStatic
+        val CREDIT_CARD_REGEX = "^(?:(?<visa>4[0-9]{12}(?:[0-9]{3})?)|" +
+                "(?<mastercard>5[1-5][0-9]{14})|" +
+                "(?<discover>6(?:011|5[0-9]{2})[0-9]{12})|" +
+                "(?<amex>3[47][0-9]{13})|" +
+                "(?<diners>3(?:0[0-5]|[68][0-9])?[0-9]{11})|" +
+                "(?<jcb>(?:2131|1800|35[0-9]{3})[0-9]{11}))$"
+
+        fun isCardValid(number: String): Boolean {
+            return CREDIT_CARD_REGEX.toRegex().matches(number);
+        }
     }
+
 
 }

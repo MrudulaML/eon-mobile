@@ -9,6 +9,7 @@
     <color name="textDark">#f5484747</color>
     <color name="red">#d50000</color>
     <color name="black">#000</color>
+    <color name="dark_grey">#F52B2B2B</color>
     <color name="chip_bg">#535970</color>
     <color name="appColor">#42D1E4</color>
     <color name="grey">#808080</color>
@@ -16,7 +17,11 @@
     <color name="appHeaderTextColor">#9369DE</color>
     <color name="blue">#6111EE</color>
     <color name="navy">#2A046F</color>
-
+    <color name="transparent_grey">#489A9A9A</color>
     <color name="green">#25AC2B</color>
     <color name="yellow">#FFC400</color>
+
+    <color name="subscribed_text_color">#64c1b8</color>
+    <color name="subscribed_bg_color">#e5f4f3</color>
+    <color name="dark_grey2">#514e5e</color>
 </resources>

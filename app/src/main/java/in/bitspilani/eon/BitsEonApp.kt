@@ -1,19 +1,23 @@
 package `in`.bitspilani.eon
 
-import `in`.bitspilani.eon.utils.PrefHandler
+import `in`.bitspilani.eon.utils.ModelPreferencesManager
 import android.app.Application
 import com.facebook.stetho.Stetho
+import timber.log.Timber
+import timber.log.Timber.DebugTree
+
 
 class BitsEonApp: Application() {
 
-    companion object{
-        var localStorageHandler: PrefHandler? = null
-    }
-
     override fun onCreate() {
         super.onCreate()
-        localStorageHandler = PrefHandler(this)
+        //Preference Handler
+        ModelPreferencesManager.with(this)
         Stetho.initializeWithDefaults(this)
+        //Timber setup
+        if (BuildConfig.DEBUG) {
+            Timber.plant(DebugTree())
+        }
     }
 
 }

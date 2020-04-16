@@ -1,11 +1,25 @@
 package `in`.bitspilani.eon.utils
 
+
+import `in`.bitspilani.eon.event_organiser.models.FilterResponse
+import android.content.Context
 import android.os.SystemClock
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
+import androidx.annotation.StringRes
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter
+import com.google.android.material.snackbar.Snackbar
+import com.squareup.picasso.Picasso
 
+@BindingAdapter("app:`in`.bitspilani.eon.utils.formatDate")
+fun TextView.formatDate( dateString: String, time : String) {
+
+    text=CommonUtil.formatDate(dateString,time).toString()
+}
 
 @BindingAdapter("app:`in`.bitspilani.eon.utils.goneUnless")
 fun View.goneUnless(visible: Boolean) {
@@ -16,6 +30,13 @@ fun View.goneUnless(visible: Boolean) {
 fun View.invisibleUnless(visible: Boolean) {
     visibility = if (visible) View.VISIBLE else View.INVISIBLE
 }
+
+var EditText.value
+    get() = this.text.toString()
+    set(value) {
+        this.setText(value)
+    }
+
 
 @BindingAdapter("app:`in`.bitspilani.eon.utils.visibleUnless")
 fun View.visibleUnless(hide: Boolean) {
@@ -54,6 +75,28 @@ fun AppCompatImageView.isSelected(isSelected: Boolean) {
     setSelected(isSelected)
 }
 
+@BindingAdapter("imageUrl")
+fun loadImage(view: ImageView, imageUrl: String) {
+    Picasso.get().load(imageUrl).into(view)
+}
+
+//TODO optimise this hacky thing
+@BindingAdapter("eventType")
+fun getType(view: TextView,id: Int) {
+    val eventTypeCached = ModelPreferencesManager.get<FilterResponse>(Constants.EVENT_TYPES)
+    val eventType = eventTypeCached?.data?.filter {
+
+        it.id ==id
+    }
+    view.text=eventType?.get(0)?.type
+}
+
+
+@BindingAdapter("visibility")
+fun setVisibility(view: View, value: Boolean) {
+    view.visibility = if (value) View.VISIBLE else View.GONE
+}
+
 fun View.clickWithDebounce(debounceTime: Long = 1000L, action: () -> Unit) {
     this.setOnClickListener(object : View.OnClickListener {
         private var lastClickTime = 0.toLong()
@@ -66,6 +109,40 @@ fun View.clickWithDebounce(debounceTime: Long = 1000L, action: () -> Unit) {
 
     })
 }
+
+/**
+ * Extension method to show a keyboard for View.
+ */
+fun View.showKeyboard() {
+    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    this.requestFocus()
+    imm.showSoftInput(this, 0)
+}
+/**
+ * Try to hide the keyboard and returns whether it worked
+ * https://stackoverflow.com/questions/1109022/close-hide-the-android-soft-keyboard
+ */
+fun View.hideKeyboard(): Boolean {
+    try {
+        val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        return inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
+    } catch (ignored: RuntimeException) { }
+    return false
+}
+
+/**
+ * Shows the Snackbar inside an Activity or Fragment
+ *
+ * @param messageRes Text to be shown inside the Snackbar
+ * @param length Duration of the Snackbar
+ * @param f Action of the Snackbar
+ */
+fun View.showSnackbar(messageRes: String, length: Int = Snackbar.LENGTH_LONG) {
+    val snackBar = Snackbar.make(this, messageRes, length)
+    snackBar.show()
+}
+
+
 
 
 

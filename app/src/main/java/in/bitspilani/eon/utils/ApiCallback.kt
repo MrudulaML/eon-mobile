@@ -7,6 +7,7 @@ import android.text.TextUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import timber.log.Timber
 import java.net.SocketException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
@@ -30,15 +31,17 @@ abstract class ApiCallback<T> : Callback<T> {
             try {
                 val errors = converter.convert(response.errorBody())
                 var errorMessage = errors!!.message
-                if (TextUtils.isEmpty(errorMessage))
-                    errorMessage = errors.detail
+                if (TextUtils.isEmpty(errorMessage)){
+                    errorMessage = errors.message
+                    Timber.e("Error$errorMessage")
+                }
                 if (response.code()<500){
                     onApiError(ApiError.REQUEST_ERROR,errorMessage)
                 }else{
                     onApiError(ApiError.SERVER_ERROR,errorMessage)
                 }
             } catch (e: Exception) {
-                onApiError(ApiError.SERVER_ERROR,null)
+                onApiError(ApiError.SERVER_ERROR,"Something went wrong")
 
             }
 
