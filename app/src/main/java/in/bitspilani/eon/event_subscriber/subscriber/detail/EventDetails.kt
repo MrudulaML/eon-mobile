@@ -425,21 +425,31 @@ class EventDetails : Fragment() {
 
         val eventId = Integer.toString(event_id) // event id
 
+        val userData =
+            ModelPreferencesManager.get<`in`.bitspilani.eon.login.data.Data>(Constants.CURRENT_USER)
+
         val multiFormatWriter = MultiFormatWriter()
         var barcodeEncoder = BarcodeEncoder()
         var bitMatrix: BitMatrix? = null
 
-        val eventName = tv_event_name.text.toString()
+        val eventName = data.event_name
         val eventDateTime = tv_event_date.text.toString()
-        val eventLocation = tv_event_location.text.toString()
-        val eventSeatCounter = tv_seat_counter.text.toString()
-        val eventAmount = btn_price.text.toString()
+        val eventLocation = data.location
+        val eventSeatCounter = data.subscription_details?.no_of_tickets_bought
+        val eventAmount = data.subscription_details?.amount_paid.toString()
 
-        val bookingNotes = "It's non-transferable ticket" // to do
-        val bookingDate = "Wednesday 14th April 20" // to do
-        val subscriberEmailId = "Jhon@hashedin.com" // to do
-        val subscriberName = "Jhon" // to do
-        val subscriberContact = "8829548707" // to
+        val bookingNotes = "It's non-transferable ticket"
+        val bookingDate = data.time
+        var userEmailId = userData!!.user.email
+        var userName = ""
+
+        if (userData!!.user.name == null){
+            userName = userEmailId.substring(0, userEmailId.indexOf("@"));
+        }else{
+            userName = userData!!.user.name
+        }
+
+        val userContact = userData!!.user.contact_number
 
         val logoBitmap = BitmapFactory.decodeResource(resources, R.drawable.logo_bits)
 
@@ -485,9 +495,9 @@ class EventDetails : Fragment() {
         canvas.drawText("Amount: " + eventAmount, 300F, 470F, textPaint);
         canvas.drawText("Event Date: " + eventDateTime, 300F, 530F, textPaint);
         canvas.drawText("Location: " + eventLocation, 300F, 590F, textPaint);
-        canvas.drawText("Subscriber Name: " + subscriberName, 300F, 650F, textPaint);
-        canvas.drawText("Email Id: " + subscriberEmailId, 300F, 710F, textPaint);
-        canvas.drawText("Contact: " + subscriberContact, 300F, 770F, textPaint);
+        canvas.drawText("Subscriber Name: " + userName, 300F, 650F, textPaint);
+        canvas.drawText("Email Id: " + userEmailId, 300F, 710F, textPaint);
+        canvas.drawText("Contact: " + userContact, 300F, 770F, textPaint);
         canvas.drawText("Booking Date: " + bookingDate, 300F, 830F, textPaint);
 
         // Note
@@ -504,7 +514,8 @@ class EventDetails : Fragment() {
         if (!dir.exists())
             dir.mkdirs()
         val filePath: File
-        filePath = File(directoryPath, "tickets.pdf")
+
+        filePath = File(directoryPath, eventId+"_"+eventName+"_tickets.pdf")
 
         if (filePath.exists()) {
             filePath.delete()
@@ -515,7 +526,7 @@ class EventDetails : Fragment() {
 
         try {
             document.writeTo(FileOutputStream(filePath))
-            showUserMsg("Invoice downloaded")
+            showUserMsg("Successfully downloaded")
             Log.e("Invoice", "Tickets" + filePath)
         } catch (e: IOException) {
             Log.e("Invoice", "Error: " + e.toString());
@@ -549,6 +560,7 @@ class EventDetails : Fragment() {
             showUserMsg("Error!")
         }
     }
+
 
 
 }
