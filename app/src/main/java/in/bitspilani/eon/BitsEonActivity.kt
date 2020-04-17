@@ -29,48 +29,29 @@ import kotlinx.coroutines.launch
 
 
 class BitsEonActivity : AppCompatActivity(),ActionbarHost {
-    lateinit var navController: NavController
-    lateinit var bottomNavigation : BottomNavigationView
 
-
-
+    private lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bits_eon)
+
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
-        bottomNavigation= findViewById(R.id.bottom_navigation)
+
         setSupportActionBar(toolbar)
-        supportActionBar!!.hide()
-        bottom_navigation.visibility=View.GONE
-        supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        setupEventTypes()
+        showToolbar(showToolbar = false,showBottomNav = false)
+
+
         checkIfAuthenticated()
-        NavigationUI.setupWithNavController(bottomNavigation,navController)
+        NavigationUI.setupWithNavController(bottom_navigation,navController)
 
-    }
-
-    //TODO fix this hack replace this with rx
-    private fun setupEventTypes() {
-       RestClient().authClient.create(ApiService::class.java).getFilter()
-            .enqueue(object : ApiCallback<FilterResponse>(){
-                override fun onSuccessResponse(responseBody: FilterResponse) {
-
-                    ModelPreferencesManager.put(responseBody, Constants.EVENT_TYPES)
-
-                }
-
-                override fun onApiError(errorType: ApiError, error: String?) {
-
-                }
-            })
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.top_navigation, menu)
-        if (ModelPreferencesManager.getInt(Constants.USER_ROLE) == 1) {
+        if (ModelPreferencesManager.getInt(Constants.USER_ROLE) == 2) {
             val itemToHide = menu.findItem(R.id.notificationFragment)
-            itemToHide.isVisible = false
+            itemToHide.isVisible = true
         }
         return true
     }
@@ -82,11 +63,7 @@ class BitsEonActivity : AppCompatActivity(),ActionbarHost {
             when {
                 userData?.access.isNullOrEmpty() -> {
                     delay(400)
-                    navController.navigate(R.id.action_splashScreen_to_signInFragment,
-                        null,
-                        NavOptions.Builder()
-                            .setPopUpTo(R.id.splashScreen,
-                                true).build())
+                    navController.navigate(R.id.action_splashScreen_to_signInFragment)
 
                     //TODO fix this hack put null safety prone to crash
                 }
@@ -103,11 +80,7 @@ class BitsEonActivity : AppCompatActivity(),ActionbarHost {
                 }
                 else -> {
                     delay(400)
-                    navController.navigate(R.id.action_splashScreen_to_HomeFragment,
-                        null,
-                        NavOptions.Builder()
-                            .setPopUpTo(R.id.app_nav,
-                                false).build())
+                    navController.navigate(R.id.action_splashScreen_to_HomeFragment)
 
                 }
             }
