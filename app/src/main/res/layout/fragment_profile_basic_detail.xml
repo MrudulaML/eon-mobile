@@ -116,10 +116,10 @@
         android:textSize="15sp"
         android:text="Select Interests"/>
 
-    <GridLayout
-        android:id="@+id/checkbox_layout"
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/radio_group_user"
         android:layout_width="match_parent"
-        android:columnCount="2"
+        app:singleSelection="true"
         android:padding="@dimen/_24sdp"
         android:layout_height="wrap_content"/>
 

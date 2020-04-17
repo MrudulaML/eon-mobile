@@ -14,6 +14,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import com.google.android.material.chip.Chip
+import kotlinx.android.synthetic.main.fragment_filter_event.*
 import kotlinx.android.synthetic.main.fragment_profile_basic_detail.*
 
 /**
@@ -39,7 +41,7 @@ class ProfileBasicDetailFragment() : DialogFragment() {
         //callbackListener.onDataReceived(editText.text.toString())
         val eventTypeCached = ModelPreferencesManager.get<FilterResponse>(Constants.EVENT_TYPES)
 
-        if(eventTypeCached!=null && ModelPreferencesManager.getInt(Constants.USER_ROLE)==2)
+        if(eventTypeCached!=null && ModelPreferencesManager.getInt(Constants.USER_ROLE)==1)
             populateFilters(eventTypeCached.data)
         btn_close.clickWithDebounce { dismiss() }
         btn_basic_cancel.clickWithDebounce {   dismiss() }
@@ -66,14 +68,16 @@ class ProfileBasicDetailFragment() : DialogFragment() {
 
     private fun populateFilters(eventTypeList: List<EventType>) {
         for (i in eventTypeList) {
-            val radioButton = layoutInflater.inflate(R.layout.item_radio_button, checkbox_layout, false)
-            val radio = radioButton.findViewById(R.id.rb_item) as RadioButton
+            val radioButton = layoutInflater.inflate(R.layout.item_radio_button, radio_group_user, false) as Chip
+            radioButton.id = i.id
+            radioButton.text = i.type
+            radio_group_user.addView(radioButton)
+            radioButton.setOnClickListener {
 
-            radio.text = i.type
-            checkbox_layout.addView(radioButton)
+                filterType = it.id
 
+            }
         }
-        interest.visibility=View.VISIBLE
 
     }
 

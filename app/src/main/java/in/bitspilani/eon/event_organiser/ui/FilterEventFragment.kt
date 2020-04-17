@@ -17,6 +17,7 @@ import android.widget.RadioButton
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.fragment_filter_event.*
 import timber.log.Timber
 
@@ -76,12 +77,11 @@ class FilterEventFragment(
 
     private fun populateFilters(eventTypeList: List<EventType>) {
         for (i in eventTypeList) {
-            val radioButton = layoutInflater.inflate(R.layout.item_radio_button, radio_group_filter, false)
-            val radio = radioButton.findViewById(R.id.rb_item) as RadioButton
-            radio.id = i.id
-            radio.text = i.type
+            val radioButton = layoutInflater.inflate(R.layout.item_radio_button, radio_group_filter, false) as Chip
+            radioButton.id = i.id
+            radioButton.text = i.type
             radio_group_filter.addView(radioButton)
-            radio.setOnClickListener {
+            radioButton.setOnClickListener {
 
                 filterType = it.id
 

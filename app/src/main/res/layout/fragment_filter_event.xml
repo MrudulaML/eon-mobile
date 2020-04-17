@@ -6,14 +6,14 @@
     android:gravity="center"
     android:layout_height="wrap_content">
 
-    <GridLayout
+    <com.google.android.material.chip.ChipGroup
         android:id="@+id/radio_group_filter"
         android:layout_width="wrap_content"
         android:layout_gravity="center"
+        app:singleSelection="true"
         android:layout_marginTop="@dimen/_8sdp"
-        android:columnCount="2"
         android:layout_height="wrap_content">
-    </GridLayout>
+    </com.google.android.material.chip.ChipGroup>
 
 
     <androidx.appcompat.widget.AppCompatButton
