@@ -1,10 +1,7 @@
 package `in`.bitspilani.eon
 
 import `in`.bitspilani.eon.api.ApiService
-import `in`.bitspilani.eon.event_organiser.viewmodel.AddInviteeViewModel
-import `in`.bitspilani.eon.event_organiser.viewmodel.EventDetailOrganiserViewModel
-import `in`.bitspilani.eon.event_organiser.viewmodel.EventFilterViewModel
-import `in`.bitspilani.eon.event_organiser.viewmodel.NotificationViewModel
+import `in`.bitspilani.eon.event_organiser.viewmodel.*
 import `in`.bitspilani.eon.event_subscriber.subscriber.detail.EventDetailsViewModel
 import `in`.bitspilani.eon.event_subscriber.subscriber.payments.PaymentViewModel
 import `in`.bitspilani.eon.event_subscriber.subscriber.summary.EventSummaryViewModel
@@ -37,6 +34,8 @@ class EonViewModelFactory(
             isAssignableFrom(NotificationViewModel::class.java) -> NotificationViewModel(apiService)
             isAssignableFrom(PaymentViewModel::class.java) -> PaymentViewModel(apiService)
             isAssignableFrom(EventSummaryViewModel::class.java) -> EventSummaryViewModel(apiService)
+            isAssignableFrom(UserProfileViewModel::class.java) -> UserProfileViewModel(apiService)
+
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

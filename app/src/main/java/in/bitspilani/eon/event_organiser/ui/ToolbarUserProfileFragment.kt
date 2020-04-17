@@ -3,18 +3,18 @@ package `in`.bitspilani.eon.event_organiser.ui
 import ProfileBasicDetailFragment
 import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
+import `in`.bitspilani.eon.event_organiser.viewmodel.EventDetailOrganiserViewModel
+import `in`.bitspilani.eon.event_organiser.viewmodel.UserProfileViewModel
 import `in`.bitspilani.eon.login.ui.ActionbarHost
 import `in`.bitspilani.eon.login.ui.ChangePasswordFragment
-import `in`.bitspilani.eon.utils.Constants
-import `in`.bitspilani.eon.utils.ModelPreferencesManager
-import `in`.bitspilani.eon.utils.UserType
-import `in`.bitspilani.eon.utils.clickWithDebounce
+import `in`.bitspilani.eon.utils.*
 import android.content.Context
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -27,7 +27,7 @@ import timber.log.Timber
 /**
  * A simple [Fragment] subclass.
  */
-class ToolbarUserProfileFragment : Fragment() {
+class ToolbarUserProfileFragment : Fragment(),UserProfileCallBack {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,8 +71,6 @@ class ToolbarUserProfileFragment : Fragment() {
         (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(false)
     }
 
-
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val activity = activity as? BitsEonActivity
         return when (item.itemId) {
@@ -95,7 +93,7 @@ class ToolbarUserProfileFragment : Fragment() {
      private fun onItemClick() {
          profile_basic_details.clickWithDebounce {
 
-             val dialogFragment = ProfileBasicDetailFragment()
+             val dialogFragment = ProfileBasicDetailFragment(this)
              dialogFragment.show(childFragmentManager, "profileBasicDetail")
 
          }
@@ -132,9 +130,22 @@ class ToolbarUserProfileFragment : Fragment() {
 
      }
 
+    override fun UpdateBasicDetails() {
+        TODO("Not yet implemented")
+    }
 
+    override fun Logout() {
+        TODO("Not yet implemented")
+    }
 
+    override fun WishListClicked() {
+        TODO("Not yet implemented")
+    }
 }
 
 
-/*data class NavOptionItem(val key: String, val title: String, val icon: Int)*/
+interface UserProfileCallBack {
+    fun UpdateBasicDetails()
+    fun Logout()
+    fun WishListClicked()
+}
