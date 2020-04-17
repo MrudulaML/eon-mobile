@@ -52,9 +52,9 @@ abstract class ApiCallback<T> : Callback<T> {
             t.printStackTrace()
         }
         if(t is SocketTimeoutException || t is SocketException){
-            onApiError(ApiError.TIMEOUT_ERROR,null)
+            onApiError(ApiError.TIMEOUT_ERROR,"Connection timed out")
         }else if(t is UnknownHostException){
-            onApiError(ApiError.NETWORK_ERROR,null)
+            onApiError(ApiError.NETWORK_ERROR,"Please check your network connection.")
         }
     }
 
