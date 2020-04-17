@@ -71,11 +71,7 @@ class BitsEonActivity : AppCompatActivity(),ActionbarHost {
                     delay(400)
                     ModelPreferencesManager.clearCache()
                     Toast.makeText(this@BitsEonActivity, "Session expired", Toast.LENGTH_LONG).show()
-                    navController.navigate(R.id.action_splashScreen_to_signInFragment,
-                        null,
-                        NavOptions.Builder()
-                            .setPopUpTo(R.id.splashScreen,
-                                true).build())
+                    navController.navigate(R.id.action_splashScreen_to_signInFragment)
 
                 }
                 else -> {
