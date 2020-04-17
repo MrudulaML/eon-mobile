@@ -41,7 +41,7 @@ class ProfileBasicDetailFragment() : DialogFragment() {
         //callbackListener.onDataReceived(editText.text.toString())
         val eventTypeCached = ModelPreferencesManager.get<FilterResponse>(Constants.EVENT_TYPES)
 
-        if(eventTypeCached!=null && ModelPreferencesManager.getInt(Constants.USER_ROLE)==1)
+        if(eventTypeCached!=null && ModelPreferencesManager.getInt(Constants.USER_ROLE)==2)
             populateFilters(eventTypeCached.data)
         btn_close.clickWithDebounce { dismiss() }
         btn_basic_cancel.clickWithDebounce {   dismiss() }
