@@ -45,6 +45,7 @@ class HomeFragment : Fragment() {
 
         eventDashboardViewModel.getEvents()
         
+
     }
 
     override fun onCreateView(
