@@ -44,6 +44,7 @@ class HomeFragment : Fragment() {
         } ?: throw Exception("Invalid Activity")
 
         eventDashboardViewModel.getEvents()
+        
     }
 
     override fun onCreateView(
