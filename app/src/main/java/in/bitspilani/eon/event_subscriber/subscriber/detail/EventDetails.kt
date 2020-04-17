@@ -7,47 +7,43 @@ import `in`.bitspilani.eon.event_subscriber.models.Data
 import `in`.bitspilani.eon.login.ui.ActionbarHost
 import `in`.bitspilani.eon.utils.*
 import android.Manifest
-import android.app.AlertDialog
 import android.content.Context
 import android.content.pm.PackageManager
-import android.graphics.*
-import androidx.lifecycle.ViewModelProviders
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Paint
+import android.graphics.Typeface
+import android.graphics.pdf.PdfDocument
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.appbar.AppBarLayout
-import kotlinx.android.synthetic.main.event_details_fragment.*
-import kotlinx.android.synthetic.main.layout_cancel_event.view.*
-import kotlinx.android.synthetic.main.layout_dialog_payment_success.view.*
-import kotlinx.android.synthetic.main.layout_download_cancel_button.*
-import kotlinx.android.synthetic.main.layout_email_share_to_friend.view.*
-import kotlinx.android.synthetic.main.layout_seat_booking.*
-import android.graphics.pdf.PdfDocument
-import android.os.Build
-import android.os.Environment
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
 import com.google.zxing.common.BitMatrix
 import com.journeyapps.barcodescanner.BarcodeEncoder
-import androidx.navigation.NavOptions
+import kotlinx.android.synthetic.main.event_details_fragment.*
+import kotlinx.android.synthetic.main.layout_download_cancel_button.*
+import kotlinx.android.synthetic.main.layout_seat_booking.*
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
-import java.lang.Exception
 
 
 class EventDetails : Fragment() {
@@ -173,6 +169,7 @@ class EventDetails : Fragment() {
                 var hashMap: HashMap<String, Any> = HashMap()
                 hashMap.put("email_id", emailId)
                 hashMap.put("message", message)
+                hashMap.put("event_id", data.event_id)
 
                 eventDetailsViewModel.sendEmail(hashMap)
 
@@ -188,7 +185,7 @@ class EventDetails : Fragment() {
         }
 
         iv_back.clickWithDebounce {
-            actionbarHost?.showToolbar(showToolbar = true, showBottomNav = false)
+
             findNavController().popBackStack()
         }
 
@@ -289,14 +286,6 @@ class EventDetails : Fragment() {
         }
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        actionbarHost?.showToolbar(showToolbar = false, showBottomNav = false)
-    }
-
-
-
-
     var isSubscribed: Boolean = false
 
     fun setObservables() {
@@ -308,6 +297,10 @@ class EventDetails : Fragment() {
             eventDetailsFragmentBinding.eventData = it.data
             amount = it.data.subscription_fee
             data = it.data
+            it.data.images?.let{
+
+                loadImage(iv_event,it)
+            }
 
             if (amount > 0) btn_price.text = "₹ $amount" else btn_price.text = "confirm"
 
@@ -332,6 +325,7 @@ class EventDetails : Fragment() {
                 download_cancel_view.visibility = View.VISIBLE
                 btn_price.text = "Update"
 
+
                 it.data.subscription_details.let {
 
                     count = it!!.no_of_tickets_bought
@@ -340,7 +334,7 @@ class EventDetails : Fragment() {
                 }
             }
 
-            showUserMsg(it.message)
+            //showUserMsg(it.message)
 
         })
 
@@ -431,21 +425,31 @@ class EventDetails : Fragment() {
 
         val eventId = Integer.toString(event_id) // event id
 
+        val userData =
+            ModelPreferencesManager.get<`in`.bitspilani.eon.login.data.Data>(Constants.CURRENT_USER)
+
         val multiFormatWriter = MultiFormatWriter()
         var barcodeEncoder = BarcodeEncoder()
         var bitMatrix: BitMatrix? = null
 
-        val eventName = tv_event_name.text.toString()
+        val eventName = data.event_name
         val eventDateTime = tv_event_date.text.toString()
-        val eventLocation = tv_event_location.text.toString()
-        val eventSeatCounter = tv_seat_counter.text.toString()
-        val eventAmount = btn_price.text.toString()
+        val eventLocation = data.location
+        val eventSeatCounter = data.subscription_details?.no_of_tickets_bought
+        val eventAmount = data.subscription_details?.amount_paid.toString()
 
-        val bookingNotes = "It's non-transferable ticket" // to do
-        val bookingDate = "Wednesday 14th April 20" // to do
-        val subscriberEmailId = "Jhon@hashedin.com" // to do
-        val subscriberName = "Jhon" // to do
-        val subscriberContact = "8829548707" // to
+        val bookingNotes = "It's non-transferable ticket"
+        val bookingDate = data.time
+        var userEmailId = userData!!.user.email
+        var userName = ""
+
+        if (userData!!.user.name == null){
+            userName = userEmailId.substring(0, userEmailId.indexOf("@"));
+        }else{
+            userName = userData!!.user.name
+        }
+
+        val userContact = userData!!.user.contact_number
 
         val logoBitmap = BitmapFactory.decodeResource(resources, R.drawable.logo_bits)
 
@@ -491,9 +495,9 @@ class EventDetails : Fragment() {
         canvas.drawText("Amount: " + eventAmount, 300F, 470F, textPaint);
         canvas.drawText("Event Date: " + eventDateTime, 300F, 530F, textPaint);
         canvas.drawText("Location: " + eventLocation, 300F, 590F, textPaint);
-        canvas.drawText("Subscriber Name: " + subscriberName, 300F, 650F, textPaint);
-        canvas.drawText("Email Id: " + subscriberEmailId, 300F, 710F, textPaint);
-        canvas.drawText("Contact: " + subscriberContact, 300F, 770F, textPaint);
+        canvas.drawText("Subscriber Name: " + userName, 300F, 650F, textPaint);
+        canvas.drawText("Email Id: " + userEmailId, 300F, 710F, textPaint);
+        canvas.drawText("Contact: " + userContact, 300F, 770F, textPaint);
         canvas.drawText("Booking Date: " + bookingDate, 300F, 830F, textPaint);
 
         // Note
@@ -510,7 +514,8 @@ class EventDetails : Fragment() {
         if (!dir.exists())
             dir.mkdirs()
         val filePath: File
-        filePath = File(directoryPath, "tickets.pdf")
+
+        filePath = File(directoryPath, eventId+"_"+eventName+"_tickets.pdf")
 
         if (filePath.exists()) {
             filePath.delete()
@@ -521,7 +526,7 @@ class EventDetails : Fragment() {
 
         try {
             document.writeTo(FileOutputStream(filePath))
-            showUserMsg("Invoice downloaded")
+            showUserMsg("Successfully downloaded")
             Log.e("Invoice", "Tickets" + filePath)
         } catch (e: IOException) {
             Log.e("Invoice", "Error: " + e.toString());
@@ -555,6 +560,7 @@ class EventDetails : Fragment() {
             showUserMsg("Error!")
         }
     }
+
 
 
 }

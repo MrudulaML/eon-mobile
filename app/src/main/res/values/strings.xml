@@ -9,7 +9,6 @@
     <string name="username">Username</string>
     <string name="password_hint">Password</string>
     <string name="organiser">Organiser</string>
-    <string name="guest">Subscriber</string>
     <string name="bank_acc_no">Bank Acc No</string>
     <string name="ifsc_code">IFSC Code</string>
     <string name="bank_name">Bank Name</string>
@@ -17,20 +16,16 @@
     <string name="password_restriction_hint">Password must contain at least a Lower case, Upper case, Numbers and
         Special,8-16 characters
     </string>
-    <string name="lorem_ipsum">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
 
     <string name="subscriber">Subscriber</string>
     <string name="register">Register</string>
     <string name="details">Please provide the following details</string>
-    <string name="register_event_organiser">Registration - Event Organiser</string>
     <string name="organisation_name">Enter Organisation Name</string>
     <string name="email_id">Enter Email Id</string>
     <string name="contact_details">Enter Contact Details</string>
     <string name="address_detail">Enter Address Details</string>
     <string name="address">Address</string>
-    <string name="create_password">Create Password</string>
     <string name="confirm_password">Confirm Password</string>
-    <string name="confirm_password_details">Lower case, Uppercase, Numbers, 8-16 characters</string>
 
     <string name="reset_password">Reset Password</string>
     <string name="verification_code">Enter the Verification code</string>
@@ -38,18 +33,14 @@
     <string name="re_enter_password">Re-enter Password</string>
     <string name="create_new_password">Create New Password</string>
     <string name="password_set_message">Your Password has been updated successfully</string>
-    <string name="change_password">Change password</string>
 
     <string name="share_intent_title">Whatsapp</string>
     <string name="share_whatsapp_not_installed">Whatsapp not installed</string>
 
     <string name="facebook_app_id">676731286488616</string>
-    <string name="facebook_login_protocol_scheme">fb676731286488616</string>
 
     <string name="send_updates">Send Updates</string>
     <string name="send_reminder">Send Reminders</string>
-    <string name="share_with_social_media">Share with Social Media</string>
-    <string name="view_feedback">View Feedback</string>
 
     <string name="share_event_text">Share this event with your friend</string>
 

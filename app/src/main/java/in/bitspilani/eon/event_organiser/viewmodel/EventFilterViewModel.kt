@@ -8,8 +8,6 @@ import `in`.bitspilani.eon.utils.ApiCallback
 import `in`.bitspilani.eon.utils.Constants
 import `in`.bitspilani.eon.utils.ModelPreferencesManager
 import `in`.bitspilani.eon.utils.SingleLiveEvent
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 
 class EventFilterViewModel(private val apiService: ApiService) : BaseViewModel(){
 

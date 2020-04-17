@@ -13,14 +13,22 @@
         tools:layout="@layout/fragment_splash_screen">
         <action
             android:id="@+id/action_splashScreen_to_signInFragment"
-            app:destination="@id/signInFragment"
-            app:enterAnim="@anim/fade_in"
-            app:exitAnim="@anim/fade_out" />
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left"
+            app:popUpTo="@id/splashScreen"
+            app:popUpToInclusive="true"
+            app:destination="@id/signInFragment" />
         <action
             android:id="@+id/action_splashScreen_to_HomeFragment"
-            app:destination="@id/home_nav"
-            app:enterAnim="@anim/fade_in"
-            app:exitAnim="@anim/fade_out" />
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left"
+            app:popUpTo="@id/app_nav"
+            app:popUpToInclusive="false"
+            app:destination="@id/home_nav" />
 
     </fragment>
 
@@ -105,8 +113,8 @@
 
             <action
                 android:id="@+id/action_changePasswordFragment_to_signinfragment"
-                app:destination="@id/signInFragment"
-                app:popUpTo="@id/signInFragment"
+                app:destination="@id/app_nav"
+                app:popUpTo="@id/app_nav"
                 app:popUpToInclusive="true" />
 
         </fragment>
@@ -307,14 +315,10 @@
             <!-- action to popup back-stack-->
             <action
                 android:id="@+id/action_to_sign_in"
-                app:destination="@id/signInFragment"
-                app:enterAnim="@anim/fade_in"
-                app:exitAnim="@anim/fade_out" />
+                app:destination="@id/signInFragment"/>
             <action
                 android:id="@+id/action_profile_to_sub_wish_list"
-                app:destination="@id/eventWishListFragment"
-                app:enterAnim="@anim/fade_in"
-                app:exitAnim="@anim/fade_out" />
+                app:destination="@id/eventWishListFragment" />
 
 
 
@@ -336,6 +340,10 @@
             android:id="@+id/nav_user_profile"
             app:destination="@id/userProfileFragment"
             app:popUpTo="@id/homeFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left"
             app:popUpToInclusive="false" />
         <fragment
             android:id="@+id/eventWishListFragment"

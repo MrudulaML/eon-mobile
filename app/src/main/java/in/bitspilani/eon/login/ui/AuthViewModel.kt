@@ -8,15 +8,10 @@ import `in`.bitspilani.eon.utils.ApiCallback
 import `in`.bitspilani.eon.utils.SingleLiveEvent
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.google.gson.JsonObject
-import io.reactivex.schedulers.Schedulers
-import org.jetbrains.anko.custom.asyncResult
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.lang.Exception
-import timber.log.Timber
 
 enum class OrganiserDetailsSteps(val desc: String) {
     BASIC_DETAILS("Basic Details"),
@@ -74,6 +69,7 @@ class AuthViewModel : BaseViewModel() {
 
     }
 
+    //TODO replace all the apis with no auth client wherever token is not required
     fun generateCode(email:String)
     {
         val body = JsonObject()

@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout android:layout_width="match_parent"
     android:orientation="vertical"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
@@ -33,6 +37,15 @@
             android:src="@android:drawable/ic_menu_close_clear_cancel" />
 
     </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/zxing_transparent"
+        android:theme="@style/CircularProgress"
+        android:visibility="gone"/>
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/rdt_basic_name"
@@ -65,6 +78,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
+        android:inputType="numberDecimal"
         android:drawableLeft="@drawable/ic_icon_phone_grey"
         android:drawablePadding="@dimen/_2sdp"
         android:background="@drawable/rounded_corner_grey_4"
@@ -110,8 +124,8 @@
         android:textSize="15sp"
         android:text="Select Interests"/>
 
-    <GridLayout
-        android:id="@+id/checkbox_layout"
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/radio_group_user"
         android:layout_width="match_parent"
         android:padding="@dimen/_24sdp"
         android:layout_height="wrap_content"/>
@@ -121,6 +135,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_32sdp"
         android:gravity="center"
+        android:layout_marginBottom="@dimen/_32sdp"
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatButton
@@ -148,5 +163,5 @@
     </LinearLayout>
 
 
-
 </LinearLayout>
+</ScrollView>

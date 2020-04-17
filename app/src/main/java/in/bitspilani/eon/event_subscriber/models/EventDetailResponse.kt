@@ -1,7 +1,6 @@
 package `in`.bitspilani.eon.event_subscriber.models
 
 import com.google.gson.annotations.SerializedName
-import java.util.function.BinaryOperator
 
 
 data class EventDetailResponse(
@@ -19,7 +18,7 @@ data class Data(
     @SerializedName("time") val time: String,
     @SerializedName("discount_percentage") val discountPercentage: Int,
     @SerializedName("location") val location: String,
-    @SerializedName("event_type") val event_type: String,
+    @SerializedName("event_type") val event_type: Int,
     @SerializedName("description") val description: String,
     @SerializedName("is_subscribed") val is_subscribed: Boolean = false,
     @SerializedName("is_wishlisted") val is_wishlisted: Boolean = false,

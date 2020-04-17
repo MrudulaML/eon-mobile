@@ -1,6 +1,5 @@
 package `in`.bitspilani.eon.api
 
-import `in`.bitspilani.eon.BitsEonApp
 import `in`.bitspilani.eon.BuildConfig
 import `in`.bitspilani.eon.utils.Constants
 import `in`.bitspilani.eon.utils.ModelPreferencesManager
@@ -26,9 +25,9 @@ class RestClient{
                 .followRedirects(true)
                 .followSslRedirects(true)
                 .retryOnConnectionFailure(true)
-                .connectTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(30, TimeUnit.SECONDS)
-                .writeTimeout(30, TimeUnit.SECONDS)
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(20, TimeUnit.SECONDS)
+                .writeTimeout(20, TimeUnit.SECONDS)
                 .cache(null)
                 .addInterceptor(AuthInterceptor())
                 .addNetworkInterceptor(StethoInterceptor())

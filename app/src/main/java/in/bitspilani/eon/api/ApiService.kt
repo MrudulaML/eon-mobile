@@ -38,9 +38,6 @@ interface ApiService {
         @Query("end_date") endDate: String? = null
     ): Call<EventResponse>
 
-    @GET("/core/event")
-    fun getEventFilter(): Call<FilterResponse>
-
     @POST("/authentication/change-password")
     fun changePassword(@Body map: HashMap<String, Any>): Call<CommonResponse>
 
@@ -86,4 +83,7 @@ interface ApiService {
 
     @PATCH("/core/notification/")
     fun getNotificationRead(): Call<NotificationResponse>
+
+    @PATCH("core/user/{user_id}/")
+    fun updateBasicDetails(@Path ("user_id") user_id:Int ,@Body jsonObject: JsonObject): Call<CommonResponse>
 }

@@ -127,18 +127,6 @@
             </LinearLayout>
         </LinearLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_delete"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_4sdp"
-            android:visibility="gone"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:backgroundTint="@color/colorPrimary"
-            android:text="Delete"
-            android:textColor="@color/grey" />
-
     </LinearLayout>
     </LinearLayout>
 

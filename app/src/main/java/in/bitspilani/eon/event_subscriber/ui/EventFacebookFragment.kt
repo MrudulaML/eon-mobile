@@ -2,10 +2,10 @@ package `in`.bitspilani.eon.event_subscriber.ui
 
 import `in`.bitspilani.eon.R
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 
 
 class EventFacebookFragment : Fragment() {

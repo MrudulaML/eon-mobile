@@ -2,11 +2,11 @@ package `in`.bitspilani.eon.event_organiser.ui.adapter
 
 import `in`.bitspilani.eon.databinding.InviteeItemRowBinding
 import `in`.bitspilani.eon.event_organiser.models.Invitee
-import `in`.bitspilani.eon.event_organiser.viewmodel.EventDetailOrganiserViewModel
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
-import androidx.core.os.persistableBundleOf
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.invitee_item_row.view.*
 import timber.log.Timber
@@ -46,18 +46,15 @@ class InviteesAdapter(private val inviteeList: ArrayList<Invitee>, var deleteIte
 
             itemView.chb_invitee.setOnCheckedChangeListener { buttonView, isChecked ->
 
-                if(isChecked)
-                    itemView.button_delete.visibility=View.VISIBLE
-                else
-                    itemView.button_delete.visibility=View.GONE
+
             }
-            itemView.button_delete.setOnClickListener {
+           /* itemView.button_delete.setOnClickListener {
 
                 if(itemView.chb_invitee.isChecked){
                     deleteItemCallback(item)
                     itemView.chb_invitee.isChecked=false
                 }
-            }
+            }*/
             binding.executePendingBindings()
         }
 

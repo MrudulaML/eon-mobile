@@ -1,14 +1,12 @@
 package `in`.bitspilani.eon.event_subscriber.subscriber.payments
 
 import `in`.bitspilani.eon.api.ApiService
-import `in`.bitspilani.eon.event_subscriber.models.EventDetailResponse
 import `in`.bitspilani.eon.event_subscriber.models.PaymentResponse
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.lang.Error
 
 class PaymentViewModel(private val apiService: ApiService) : ViewModel() {
 

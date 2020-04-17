@@ -6,15 +6,15 @@ import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.databinding.FragmentEventBinding
 import `in`.bitspilani.eon.event_organiser.models.DetailResponseOrganiser
 import `in`.bitspilani.eon.event_organiser.viewmodel.EventDetailOrganiserViewModel
-import `in`.bitspilani.eon.utils.clickWithDebounce
-import `in`.bitspilani.eon.utils.getViewModelFactory
-import `in`.bitspilani.eon.utils.showSnackbar
+import `in`.bitspilani.eon.utils.*
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -24,7 +24,6 @@ import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.dialog_success_reminder.view.*
 import kotlinx.android.synthetic.main.fragment_event.*
 import timber.log.Timber
-import java.lang.Exception
 
 
 /**
@@ -61,6 +60,14 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
         super.onViewCreated(view, savedInstanceState)
         setUpClickListeners()
         setUpObservables()
+        setOffEventsForOrganiser()
+
+    }
+
+    private fun setOffEventsForOrganiser() {
+
+        linearLayout2.goneUnless(eventDetailResponse.data.self_organised)
+        linearLayout3.goneUnless(eventDetailResponse.data.self_organised)
     }
 
     private fun setUpObservables() {
@@ -103,18 +110,18 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
 
     }
 
-
     private fun setUpClickListeners() {
         share_fb.clickWithDebounce {
-
 
         }
 
         //TODO handle thi elegently
         text_url.clickWithDebounce {
-            try{
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(eventDetailResponse.data.external_links))
-            startActivity(browserIntent)}catch (e:Exception){
+            try {
+                val browserIntent =
+                    Intent(Intent.ACTION_VIEW, Uri.parse(eventDetailResponse.data.external_links))
+                startActivity(browserIntent)
+            } catch (e: Exception) {
 
             }
         }

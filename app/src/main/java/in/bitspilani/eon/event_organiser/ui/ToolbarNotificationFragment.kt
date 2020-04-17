@@ -2,9 +2,7 @@ package `in`.bitspilani.eon.event_organiser.ui
 
 import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
-import `in`.bitspilani.eon.event_organiser.models.Notification
 import `in`.bitspilani.eon.event_organiser.ui.adapter.NotificationAdapter
-import `in`.bitspilani.eon.event_organiser.viewmodel.AddInviteeViewModel
 import `in`.bitspilani.eon.event_organiser.viewmodel.NotificationViewModel
 import `in`.bitspilani.eon.login.ui.ActionbarHost
 import `in`.bitspilani.eon.utils.MarginItemDecoration

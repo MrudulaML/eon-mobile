@@ -1,6 +1,5 @@
 package `in`.bitspilani.eon.event_organiser.ui
 
-import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.event_organiser.models.DetailResponseOrganiser
 import `in`.bitspilani.eon.event_organiser.models.Invitee
@@ -31,13 +30,9 @@ class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganis
 
     private lateinit var  layoutManager: LinearLayoutManager
     private lateinit var inviteeList: ArrayList<Invitee>
-    private var  positionInvitee: Int = 0
 
     private val eventDetailOrganiserViewModel by viewModels<EventDetailOrganiserViewModel> { getViewModelFactory() }
 
-    // tab titles
-    private val titles =
-        arrayOf("Movies", "Events")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,7 +62,7 @@ class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganis
 
         eventDetailOrganiserViewModel.deleteProgress.observe(viewLifecycleOwner, Observer {
 
-            prog.goneUnless(it)
+            progress_bar.goneUnless(it)
         })
     }
 
@@ -80,7 +75,7 @@ class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganis
             override fun onQueryTextChange(newText: String?): Boolean {
                 //TODO dont do this chaos fix this on time Ashutosh
                 if(newText.isNullOrEmpty()){
-
+                    inviteeList.addAll(detailResponse.data.invitee_list)
                 }
                 inviteesAdapter.filter(newText.toString())
                 return false
@@ -117,7 +112,7 @@ class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganis
         }
         rv_invitee_list.adapter = inviteesAdapter
         inviteesAdapter.notifyDataSetChanged()
-        view?.showSnackbar("it.message",0)
+        view?.showSnackbar("Invitee added successfully",0)
 
     }
 

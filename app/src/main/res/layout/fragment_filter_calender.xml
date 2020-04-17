@@ -1,50 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:padding="@dimen/_24sdp"
-    android:layout_height="match_parent">
+    android:layout_height="@dimen/_300sdp">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:text="Start Date"
+        android:textColor="@color/navy"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/edt_end_date"
+        app:layout_constraintStart_toStartOf="@+id/edt_end_date" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/edt_start_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Select Start date"
-        android:layout_centerHorizontal="true"
-        android:focusable="false"
         android:background="@android:color/transparent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:drawableLeft="@drawable/ic_icon_event_calendar_on"
+        android:focusable="false"
+        android:hint="YYYY-MM-DD"
+        android:drawablePadding="@dimen/_8sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/edt_end_date"
+        app:layout_constraintTop_toBottomOf="@+id/edt_end_date"
+        app:layout_constraintVertical_bias="0.25"
+        app:layout_constraintVertical_chainStyle="packed" />
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:text="End Data"
+        android:textColor="@color/navy"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/edt_start_date"
+        app:layout_constraintStart_toStartOf="@+id/edt_start_date" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/edt_end_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:hint="Select End date"
-        android:layout_centerHorizontal="true"
-        android:focusable="false"
+        android:layout_marginBottom="32dp"
         android:background="@android:color/transparent"
-        app:layout_constraintEnd_toEndOf="@+id/edt_start_date"
-        app:layout_constraintStart_toStartOf="@+id/edt_start_date"
-        app:layout_constraintTop_toBottomOf="@+id/edt_start_date" />
+        android:drawableLeft="@drawable/ic_icon_event_calendar_on"
+        android:drawablePadding="@dimen/_8sdp"
+        android:focusable="false"
+        android:hint="YYYY-MM-DD"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.39" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_filter"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:layout_gravity="center"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/bg_button_rounded_corners"
         android:backgroundTint="@color/colorPrimary"
-        android:padding="@dimen/_4sdp"
-        android:paddingBottom="@dimen/_32sdp"
         android:text="Filter"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
