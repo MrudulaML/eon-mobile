@@ -8,6 +8,7 @@ import `in`.bitspilani.eon.event_organiser.models.DetailResponseOrganiser
 import `in`.bitspilani.eon.event_organiser.viewmodel.EventDetailOrganiserViewModel
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import `in`.bitspilani.eon.utils.getViewModelFactory
+import `in`.bitspilani.eon.utils.goneUnless
 import `in`.bitspilani.eon.utils.showSnackbar
 import android.app.Activity
 import android.content.Intent
@@ -62,6 +63,13 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
         super.onViewCreated(view, savedInstanceState)
         setUpClickListeners()
         setUpObservables()
+        setOffEventsForOrganiser()
+
+    }
+
+    private fun setOffEventsForOrganiser() {
+        send_reminder.goneUnless(eventDetailResponse.data.self_organised)
+        send_updates.goneUnless(eventDetailResponse.data.self_organised)
     }
 
     private fun setUpObservables() {

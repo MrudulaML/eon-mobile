@@ -342,6 +342,7 @@
             android:layout_height="@dimen/_100dp"
             android:layout_margin="@dimen/_8sdp"
             android:layout_weight="1"
+            android:visibility="invisible"
             android:background="@drawable/rounded_corner_grey_25"
             android:gravity="center"
             android:orientation="vertical">
@@ -384,6 +385,7 @@
             android:layout_margin="@dimen/_8sdp"
             android:foreground="?android:attr/selectableItemBackground"
             android:layout_weight="1"
+            android:visibility="invisible"
             android:background="@drawable/rounded_corner_grey_25"
             android:gravity="center"
             android:orientation="vertical">
