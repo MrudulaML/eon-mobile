@@ -6,12 +6,14 @@ import `in`.bitspilani.eon.event_organiser.models.Invitee
 import `in`.bitspilani.eon.event_organiser.viewmodel.AddInviteeViewModel
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import `in`.bitspilani.eon.utils.getViewModelFactory
+import `in`.bitspilani.eon.utils.onChange
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.doBeforeTextChanged
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -20,6 +22,7 @@ import com.google.gson.JsonArray
 import com.hootsuite.nachos.terminator.ChipTerminatorHandler
 import kotlinx.android.synthetic.main.fragment_add_invitee.*
 import timber.log.Timber
+import kotlin.math.roundToInt
 
 
 /**
@@ -46,9 +49,9 @@ class AddInviteeFragment(private val eventData: Data, private val callbackListen
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        text_updated_fees.text= eventData.subscription_fee.toString()
         setUpClickListeners()
         setObservables()
+
     }
 
     private fun setObservables() {
@@ -67,6 +70,7 @@ class AddInviteeFragment(private val eventData: Data, private val callbackListen
     }
 
     private fun setUpClickListeners() {
+        text_updated_fees.text = eventData.subscription_fee.toString()
         btn_close.clickWithDebounce { dismiss() }
         btn_invitee_cancel.clickWithDebounce { dismiss() }
         btn_invitee_confirm.clickWithDebounce {
@@ -86,10 +90,22 @@ class AddInviteeFragment(private val eventData: Data, private val callbackListen
                 Timber.e("invitee_list$array")
                addInviteeViewModel.adInvitee(eventData.id, edt_discount.text.toString().toInt(), array)
 
+
             } else {
 
                 Toast.makeText(activity, "Please enter valid details", Toast.LENGTH_LONG).show()
 
+            }
+        }
+
+        edt_discount.onChange {
+            if (it.isNotEmpty()) {
+
+                val fees =eventData.subscription_fee- (it.toDouble().roundToInt()* (eventData.subscription_fee/100))
+                text_updated_fees.text = fees.toString()
+            }else{
+
+                text_updated_fees.text = eventData.subscription_fee.toString()
             }
         }
 

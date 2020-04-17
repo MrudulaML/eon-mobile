@@ -69,6 +69,7 @@ class AuthViewModel : BaseViewModel() {
 
     }
 
+    //TODO replace all the apis with no auth client wherever token is not required
     fun generateCode(email:String)
     {
         val body = JsonObject()

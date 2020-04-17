@@ -6,8 +6,11 @@ import `in`.bitspilani.eon.api.ApiService
 import `in`.bitspilani.eon.api.RestClient
 import `in`.bitspilani.eon.event_organiser.models.EventList
 import `in`.bitspilani.eon.event_organiser.models.EventResponse
+import `in`.bitspilani.eon.event_organiser.models.FilterResponse
 
 import `in`.bitspilani.eon.utils.ApiCallback
+import `in`.bitspilani.eon.utils.Constants
+import `in`.bitspilani.eon.utils.ModelPreferencesManager
 import `in`.bitspilani.eon.utils.SingleLiveEvent
 import androidx.lifecycle.MutableLiveData
 import timber.log.Timber
@@ -33,6 +36,7 @@ class EventDashboardViewModel : BaseViewModel() {
         fromFilter: Boolean = false
     ) {
         showProgress(true)
+        setupEventTypes()
         restClient.authClient.create(ApiService::class.java).getEvents(eventType, eventLocation, startDate, endDate)
             .enqueue(object : ApiCallback<EventResponse>() {
                 override fun onSuccessResponse(responseBody: EventResponse) {
@@ -51,7 +55,20 @@ class EventDashboardViewModel : BaseViewModel() {
 
     }
 
+    fun setupEventTypes() {
+        RestClient().authClient.create(ApiService::class.java).getFilter()
+            .enqueue(object : ApiCallback<FilterResponse>(){
+                override fun onSuccessResponse(responseBody: FilterResponse) {
 
+                    ModelPreferencesManager.put(responseBody, Constants.EVENT_TYPES)
+
+                }
+
+                override fun onApiError(errorType: ApiError, error: String?) {
+
+                }
+            })
+    }
 
     fun onEventClick(eventId: Int) {
         Timber.e("event clicked id$eventId")

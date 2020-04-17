@@ -6,9 +6,7 @@ import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.databinding.FragmentEventBinding
 import `in`.bitspilani.eon.event_organiser.models.DetailResponseOrganiser
 import `in`.bitspilani.eon.event_organiser.viewmodel.EventDetailOrganiserViewModel
-import `in`.bitspilani.eon.utils.clickWithDebounce
-import `in`.bitspilani.eon.utils.getViewModelFactory
-import `in`.bitspilani.eon.utils.showSnackbar
+import `in`.bitspilani.eon.utils.*
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -62,6 +60,14 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
         super.onViewCreated(view, savedInstanceState)
         setUpClickListeners()
         setUpObservables()
+        setOffEventsForOrganiser()
+
+    }
+
+    private fun setOffEventsForOrganiser() {
+
+        linearLayout2.goneUnless(eventDetailResponse.data.self_organised)
+        linearLayout3.goneUnless(eventDetailResponse.data.self_organised)
     }
 
     private fun setUpObservables() {
@@ -104,45 +110,18 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
 
     }
 
-    private fun setupListeners() {
-        share_fb.clickWithDebounce {
-            invokeFacebookShare(activity!!,"","")
-        }
-        send_reminder.clickWithDebounce { showUserMsg("Send reminders successfully") }
-        send_updates.clickWithDebounce { showUserMsg("Send updates successfully") }
-    }
-    private fun showUserMsg(msg:String){
-        Toast.makeText(activity,msg, Toast.LENGTH_LONG).show()
-    }
-    private fun invokeFacebookShare(
-        activity: Activity,
-        quote: String?,
-        credit: String?
-    ) {
-        val shareIntent = Intent(Intent.ACTION_SEND)
-        shareIntent.type = "text/plain"
-        shareIntent.putExtra(
-            Intent.EXTRA_SUBJECT,
-            "Bits EOn"
-        )
-        shareIntent.putExtra(Intent.EXTRA_TEXT, eventDetailResponse.data.name)
-        activity.startActivity(
-            Intent.createChooser(
-                shareIntent,
-                "Bits EOn"
-            )
-        )
-    }
     private fun setUpClickListeners() {
         share_fb.clickWithDebounce {
-            invokeFacebookShare(activity!!,"","")
+
         }
 
         //TODO handle thi elegently
         text_url.clickWithDebounce {
-            try{
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(eventDetailResponse.data.external_links))
-            startActivity(browserIntent)}catch (e:Exception){
+            try {
+                val browserIntent =
+                    Intent(Intent.ACTION_VIEW, Uri.parse(eventDetailResponse.data.external_links))
+                startActivity(browserIntent)
+            } catch (e: Exception) {
 
             }
         }

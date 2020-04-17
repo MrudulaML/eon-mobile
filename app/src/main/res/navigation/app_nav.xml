@@ -13,9 +13,21 @@
         tools:layout="@layout/fragment_splash_screen">
         <action
             android:id="@+id/action_splashScreen_to_signInFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left"
+            app:popUpTo="@id/splashScreen"
+            app:popUpToInclusive="true"
             app:destination="@id/signInFragment" />
         <action
             android:id="@+id/action_splashScreen_to_HomeFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left"
+            app:popUpTo="@id/app_nav"
+            app:popUpToInclusive="false"
             app:destination="@id/home_nav" />
 
     </fragment>
@@ -328,6 +340,10 @@
             android:id="@+id/nav_user_profile"
             app:destination="@id/userProfileFragment"
             app:popUpTo="@id/homeFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left"
             app:popUpToInclusive="false" />
         <fragment
             android:id="@+id/eventWishListFragment"
