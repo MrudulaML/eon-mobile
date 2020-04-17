@@ -54,7 +54,7 @@ class ProfileBasicDetailFragment(val userProfileCallBack: UserProfileCallBack) :
         userProfileViewModel.basicDetailLiveData.observe(viewLifecycleOwner, Observer {
 
             progress_bar.visibility=View.GONE
-            view?.showSnackbar("User details updated successfully",0)
+            Toast.makeText(activity, "User details updated successfully", Toast.LENGTH_LONG).show()
             dismiss()
         })
     }

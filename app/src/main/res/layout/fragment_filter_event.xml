@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="center"
+    android:layout_margin="@dimen/_16sdp"
     android:layout_height="wrap_content">
 
     <com.google.android.material.chip.ChipGroup
