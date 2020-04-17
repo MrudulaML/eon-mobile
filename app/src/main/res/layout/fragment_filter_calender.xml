@@ -24,6 +24,7 @@
         android:drawableLeft="@drawable/ic_icon_event_calendar_on"
         android:focusable="false"
         android:hint="YYYY-MM-DD"
+        
         android:drawablePadding="@dimen/_8sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/edt_end_date"
