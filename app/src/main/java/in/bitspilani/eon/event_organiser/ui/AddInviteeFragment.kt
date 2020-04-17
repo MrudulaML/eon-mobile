@@ -90,6 +90,7 @@ class AddInviteeFragment(private val eventData: Data, private val callbackListen
                 Timber.e("invitee_list$array")
                addInviteeViewModel.adInvitee(eventData.id, edt_discount.text.toString().toInt(), array)
 
+
             } else {
 
                 Toast.makeText(activity, "Please enter valid details", Toast.LENGTH_LONG).show()

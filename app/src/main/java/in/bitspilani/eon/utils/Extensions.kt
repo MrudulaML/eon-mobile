@@ -68,7 +68,7 @@ fun View.invisibleIf(invisible: Boolean) {
 
 @BindingAdapter("app:`in`.bitspilani.eon.utils.visibleIf")
 fun View.visibleIf(visible: Boolean) {
-    visibility = if (visible) View.VISIBLE else View.GONE
+    visibility = if (visible) View.VISIBLE else View.INVISIBLE
 }
 
 
