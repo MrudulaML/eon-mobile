@@ -39,6 +39,14 @@
             android:src="@android:drawable/ic_menu_close_clear_cancel" />
 
     </RelativeLayout>
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/zxing_transparent"
+        android:theme="@style/CircularProgress"
+        android:visibility="gone"/>
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/rdt_basic_name"
@@ -71,6 +79,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
+        android:inputType="numberDecimal"
         android:drawableLeft="@drawable/ic_icon_phone_grey"
         android:drawablePadding="@dimen/_2sdp"
         android:background="@drawable/rounded_corner_grey_4"
