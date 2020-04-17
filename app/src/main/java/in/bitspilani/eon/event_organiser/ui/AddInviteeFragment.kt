@@ -6,8 +6,6 @@ import `in`.bitspilani.eon.event_organiser.models.Invitee
 import `in`.bitspilani.eon.event_organiser.viewmodel.AddInviteeViewModel
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import `in`.bitspilani.eon.utils.getViewModelFactory
-import `in`.bitspilani.eon.utils.showSnackbar
-import android.app.AlertDialog
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -20,9 +18,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.google.gson.JsonArray
 import com.hootsuite.nachos.terminator.ChipTerminatorHandler
-import kotlinx.android.synthetic.main.dialog_email_update.view.*
 import kotlinx.android.synthetic.main.fragment_add_invitee.*
-import kotlinx.android.synthetic.main.layout_dialog_payment_success.view.*
 import timber.log.Timber
 
 

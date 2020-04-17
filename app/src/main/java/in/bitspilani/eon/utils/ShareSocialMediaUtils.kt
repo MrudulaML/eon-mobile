@@ -1,14 +1,14 @@
 package `in`.bitspilani.eon.utils
 
 import `in`.bitspilani.eon.R
-import android.content.Intent
-import android.content.ComponentName
-import android.content.pm.PackageManager
 import android.app.Activity
+import android.content.ComponentName
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.text.TextUtils
-import android.widget.Toast
 import android.util.Log
+import android.widget.Toast
 import java.io.UnsupportedEncodingException
 import java.net.URLEncoder
 

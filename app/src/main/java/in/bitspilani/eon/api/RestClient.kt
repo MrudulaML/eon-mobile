@@ -1,6 +1,5 @@
 package `in`.bitspilani.eon.api
 
-import `in`.bitspilani.eon.BitsEonApp
 import `in`.bitspilani.eon.BuildConfig
 import `in`.bitspilani.eon.utils.Constants
 import `in`.bitspilani.eon.utils.ModelPreferencesManager

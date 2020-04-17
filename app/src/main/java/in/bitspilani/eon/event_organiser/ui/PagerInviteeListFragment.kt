@@ -1,6 +1,5 @@
 package `in`.bitspilani.eon.event_organiser.ui
 
-import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.event_organiser.models.DetailResponseOrganiser
 import `in`.bitspilani.eon.event_organiser.models.Invitee

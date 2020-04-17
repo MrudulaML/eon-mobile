@@ -2,8 +2,6 @@ package `in`.bitspilani.eon.login.ui
 
 import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
-import `in`.bitspilani.eon.event_organiser.ui.CallbackListener
-
 import `in`.bitspilani.eon.login.data.Data
 import `in`.bitspilani.eon.utils.*
 import android.content.Context
@@ -13,13 +11,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.fragment_add_invitee.btn_close

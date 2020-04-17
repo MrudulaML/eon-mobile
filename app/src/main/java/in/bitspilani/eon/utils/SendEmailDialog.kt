@@ -5,7 +5,6 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.widget.Toast
-import kotlinx.android.synthetic.main.layout_dialog_payment_success.view.*
 import kotlinx.android.synthetic.main.layout_email_share_to_friend.view.*
 
 class SendEmailDialog {

@@ -5,7 +5,6 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.view.LayoutInflater
 import kotlinx.android.synthetic.main.layout_cancel_event.view.*
-import kotlinx.android.synthetic.main.layout_dialog_payment_success.view.*
 
 class CancelDialog {
 

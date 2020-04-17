@@ -5,7 +5,6 @@ import `in`.bitspilani.eon.api.ApiService
 import `in`.bitspilani.eon.event_organiser.models.AddInviteeResponse
 import `in`.bitspilani.eon.utils.ApiCallback
 import `in`.bitspilani.eon.utils.SingleLiveEvent
-import androidx.lifecycle.ViewModel
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 
