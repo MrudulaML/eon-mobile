@@ -10,7 +10,10 @@ import `in`.bitspilani.eon.utils.ApiCallback
 import `in`.bitspilani.eon.utils.Constants
 import `in`.bitspilani.eon.utils.ModelPreferencesManager
 import `in`.bitspilani.eon.utils.goneUnless
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Base64
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -22,10 +25,13 @@ import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.auth0.android.jwt.JWT
+import com.facebook.FacebookSdk
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_bits_eon.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 
 
 class BitsEonActivity : AppCompatActivity(),ActionbarHost {
@@ -33,16 +39,19 @@ class BitsEonActivity : AppCompatActivity(),ActionbarHost {
     private lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        FacebookSdk.sdkInitialize(this.applicationContext)
         setContentView(R.layout.activity_bits_eon)
 
-        navController = Navigation.findNavController(this, R.id.nav_host_fragment)
+        printKeyHash()
 
-        setSupportActionBar(toolbar)
-        showToolbar(showToolbar = false,showBottomNav = false)
-
-
-        checkIfAuthenticated()
-        NavigationUI.setupWithNavController(bottom_navigation,navController)
+//        navController = Navigation.findNavController(this, R.id.nav_host_fragment)
+//
+//        setSupportActionBar(toolbar)
+//        showToolbar(showToolbar = false,showBottomNav = false)
+//
+//
+//        checkIfAuthenticated()
+//        NavigationUI.setupWithNavController(bottom_navigation,navController)
 
     }
 
@@ -119,5 +128,22 @@ class BitsEonActivity : AppCompatActivity(),ActionbarHost {
 
     fun showProgress(show: Boolean) = progress.goneUnless(visible = show)
 
+    private fun printKeyHash(){
+        try {
+            val packageInfo = packageManager.getPackageInfo(
+                "in.bitspilani.eon",
+                PackageManager.GET_SIGNATURES
+            )
 
+            for (signature in packageInfo.signatures) {
+                val md = MessageDigest.getInstance("SHA")
+                md.update(signature.toByteArray())
+                Log.d("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT))
+            }
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        } catch (e: NoSuchAlgorithmException) {
+            e.printStackTrace()
+        }
+    }
 }
