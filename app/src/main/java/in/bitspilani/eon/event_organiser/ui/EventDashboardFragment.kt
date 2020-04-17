@@ -85,7 +85,7 @@ class HomeFragment : Fragment() {
             override fun onQueryTextChange(newText: String?): Boolean {
 
                 if(newText.isNullOrEmpty()){
-                    eventDashboardViewModel.getEvents()
+                    //eventDashboardViewModel.getEvents()
                     defocusAndHideKeyboard(activity)
                 }
                 else
