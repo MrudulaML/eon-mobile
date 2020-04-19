@@ -50,21 +50,6 @@ class EventFacebookFragment : Fragment() {
                 shareDialog?.show(shareLinkContent)
             }
         })
-        setImageShare(view)
-    }
-
-    private fun setImageShare(view: View) {
-        val image = BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher)
-        val photo = SharePhoto.Builder()
-            .setBitmap(image)
-            .setCaption("Bits Pilani")
-            .build()
-        val content = SharePhotoContent.Builder()
-            .addPhoto(photo)
-            .build()
-
-        val shareButton = view.findViewById<View>(R.id.fb_share_button) as ShareButton
-        shareButton.shareContent = content
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

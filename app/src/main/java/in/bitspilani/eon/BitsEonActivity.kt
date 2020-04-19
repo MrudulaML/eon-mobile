@@ -42,16 +42,16 @@ class BitsEonActivity : AppCompatActivity(),ActionbarHost {
         FacebookSdk.sdkInitialize(this.applicationContext)
         setContentView(R.layout.activity_bits_eon)
 
-        printKeyHash()
+        printKeyHash() // getting hashkey
 
-//        navController = Navigation.findNavController(this, R.id.nav_host_fragment)
-//
-//        setSupportActionBar(toolbar)
-//        showToolbar(showToolbar = false,showBottomNav = false)
-//
-//
-//        checkIfAuthenticated()
-//        NavigationUI.setupWithNavController(bottom_navigation,navController)
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment)
+
+        setSupportActionBar(toolbar)
+        showToolbar(showToolbar = false,showBottomNav = false)
+
+
+        checkIfAuthenticated()
+        NavigationUI.setupWithNavController(bottom_navigation,navController)
 
     }
 

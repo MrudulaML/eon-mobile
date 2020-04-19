@@ -21,6 +21,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import com.facebook.CallbackManager
+import com.facebook.share.model.ShareLinkContent
+import com.facebook.share.widget.ShareDialog
 import kotlinx.android.synthetic.main.dialog_success_reminder.view.*
 import kotlinx.android.synthetic.main.fragment_event.*
 import timber.log.Timber
@@ -36,6 +39,9 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
     private val eventDetailOrganiserViewModel by viewModels<EventDetailOrganiserViewModel> { getViewModelFactory() }
 
     lateinit var binding: FragmentEventBinding
+    var shareDialog: ShareDialog? = null
+    var callbackManager: CallbackManager? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -61,6 +67,8 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
         setUpClickListeners()
         setUpObservables()
         setOffEventsForOrganiser()
+        callbackManager = CallbackManager.Factory.create()
+        shareDialog = ShareDialog(this)
 
     }
 
@@ -112,7 +120,7 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
 
     private fun setUpClickListeners() {
         share_fb.clickWithDebounce {
-
+            shareFacebook() // to do
         }
 
         //TODO handle thi elegently
@@ -154,5 +162,23 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
             event_id =  eventDetailResponse.data.id,
             message = message
         )
+    }
+
+    fun shareFacebook(){
+
+        if (ShareDialog.canShow(ShareLinkContent::class.java)){
+
+            val shareLinkContent = ShareLinkContent.Builder()
+                .setContentTitle("Share text on facebook")
+                .setQuote("This is useful link")
+                .setContentUrl(Uri.parse("https://developers.facebook.com"))
+                .build()
+            shareDialog?.show(shareLinkContent)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        callbackManager?.onActivityResult(requestCode, resultCode, data);
     }
 }

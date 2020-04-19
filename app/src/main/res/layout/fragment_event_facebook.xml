@@ -34,11 +34,6 @@ tools:context=".event_subscriber.ui.EventFacebookFragment">
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="Share Content" />
-    />
-    <com.facebook.share.widget.ShareButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/fb_share_button"/>
 </LinearLayout>
 
 </FrameLayout>
