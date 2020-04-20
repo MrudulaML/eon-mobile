@@ -68,7 +68,8 @@ class BasicDetailsFragment : Fragment() {
             ModelPreferencesManager.putInt(Constants.USER_ROLE, it.user.role.id)
             ModelPreferencesManager.put(it, Constants.CURRENT_USER)
 
-            findNavController().navigate(R.id.action_BasicInfoFragment_to_homeFragment)
+          //  findNavController().navigate(R.id.action_BasicInfoFragment_to_homeFragment)
+
 
         })
         authViewModel.registerError.observe(viewLifecycleOwner, Observer {
