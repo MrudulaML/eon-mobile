@@ -52,6 +52,7 @@ class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganis
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         setRecyclerview(detailResponse)
         setUpSearch()
 
@@ -88,7 +89,6 @@ class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganis
 
         btn_delete_all.clickWithDebounce {
 
-            inviteeList.clear()
             if (!deleteAll) {
                 val invitationIds: ArrayList<Int> = arrayListOf()
                 for (item in inviteeListDeleted)
@@ -101,12 +101,15 @@ class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganis
             } else {
 
                 val invitationIds: ArrayList<Int> = arrayListOf()
-                for (item in inviteeList)
-                    invitationIds.add(item.invitation_id)
+                for (i in detailResponse.data.invitee_list) {
+                    invitationIds.add(i.invitation_id)
+                }
                 eventDetailOrganiserViewModel.deleteInvitee(
                     invitationIds,
                     detailResponse.data.id
                 )
+
+                eventDetailOrganiserViewModel.getEventDetails(detailResponse.data.id)
             }
         }
 
@@ -139,6 +142,7 @@ class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganis
     private fun showDeleteOption(show: Boolean) {
 
         btn_delete_all.goneUnless(show)
+
     }
 
 
