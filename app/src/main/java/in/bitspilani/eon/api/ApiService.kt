@@ -84,7 +84,7 @@ interface ApiService {
     @PATCH("/core/notification/")
     fun getNotificationRead(@Body body: HashMap<String, Any>): Call<CommonResponse>
 
-//    @PATCH("core/user/{user_id}/")
-//    fun updateBasicDetails(@Path ("user_id") user_id:
 
+    @PATCH("core/user/{user_id}/")
+    fun updateBasicDetails(@Path("user_id") user_id: Int, @Body jsonObject: JsonObject): Call<CommonResponse>
 }
