@@ -32,6 +32,13 @@
 
     </fragment>
 
+    <fragment
+        android:id="@+id/shareFacebook"
+        android:name="in.bitspilani.eon.event_subscriber.ui.EventFacebookFragment"
+        android:label="fragment_event_facebook"
+        tools:layout="@layout/fragment_event_facebook">
+
+    </fragment>
 
     <!--sign in fragment-->
     <fragment
