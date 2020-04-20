@@ -35,8 +35,8 @@ class FilterCalenderFragment(private val filterCallbackListener: FilterCallbackL
 
         btn_filter.clickWithDebounce {
             Timber.e("Filter data calender $startDate")
-            startDate=edt_start_date.text.toString()
-            endDate=edt_end_date.text.toString()
+            endDate=edt_start_date.text.toString()
+            startDate=edt_end_date.text.toString()
             filterCallbackListener.onApplyFilter(startDate =startDate, endDate =endDate ,fromFilter = true )
         }
     }
