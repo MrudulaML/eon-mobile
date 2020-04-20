@@ -20,6 +20,7 @@
         <androidx.appcompat.widget.AppCompatCheckBox
             android:id="@+id/chb_invitee"
             android:layout_width="wrap_content"
+            android:checked="@{invitee.selectAll}"
             android:layout_height="wrap_content"/>
 
     <LinearLayout

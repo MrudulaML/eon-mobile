@@ -42,8 +42,6 @@ class BitsEonActivity : AppCompatActivity(),ActionbarHost {
         FacebookSdk.sdkInitialize(this.applicationContext)
         setContentView(R.layout.activity_bits_eon)
 
-        printKeyHash() // getting hashkey
-
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
 
         setSupportActionBar(toolbar)
@@ -128,22 +126,4 @@ class BitsEonActivity : AppCompatActivity(),ActionbarHost {
 
     fun showProgress(show: Boolean) = progress.goneUnless(visible = show)
 
-    private fun printKeyHash(){
-        try {
-            val packageInfo = packageManager.getPackageInfo(
-                "in.bitspilani.eon",
-                PackageManager.GET_SIGNATURES
-            )
-
-            for (signature in packageInfo.signatures) {
-                val md = MessageDigest.getInstance("SHA")
-                md.update(signature.toByteArray())
-                Log.d("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT))
-            }
-        } catch (e: PackageManager.NameNotFoundException) {
-            e.printStackTrace()
-        } catch (e: NoSuchAlgorithmException) {
-            e.printStackTrace()
-        }
-    }
 }
