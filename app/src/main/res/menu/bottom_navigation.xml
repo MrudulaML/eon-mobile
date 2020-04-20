@@ -2,7 +2,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/action_one"
+        android:id="@+id/analyticsDashboardFragment"
         android:orderInCategory="100"
         android:title=""
         android:iconTint="@color/grey"

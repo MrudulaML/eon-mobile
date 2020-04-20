@@ -27,7 +27,8 @@ data class Invitee(
     var email: String,
     var invitation_id: Int,
     var event: Event ? =null,
-    var user: User? =null
+    var user: User? =null,
+    var selectAll : Boolean? = false
 )
 
 data class Event(
