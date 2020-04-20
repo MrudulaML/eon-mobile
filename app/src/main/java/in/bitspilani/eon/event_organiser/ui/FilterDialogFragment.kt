@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.fragment_filter_dialog.*
 class FilterDialogFragment() : DialogFragment(),
     FilterCallbackListener {
 
+    private var eventTypeSelected: Int? = null
     // tab titles
     private val titles =
         arrayOf("Type of Events", "Calender")
@@ -68,8 +69,17 @@ class FilterDialogFragment() : DialogFragment(),
         endDate: String?,
         fromFilter:Boolean
     ) {
-        eventDashboardViewModel.getEvents(eventType, eventLocation, startDate, endDate,fromFilter)
+        eventDashboardViewModel.getEvents(eventTypeSelected, eventLocation, startDate, endDate,fromFilter)
         dismiss()
+    }
+
+    override fun onFilterTypeSelected(eventType: Int?) {
+
+        eventType?.let {
+            eventTypeSelected=it
+        }
+
+
     }
 
 
@@ -85,4 +95,5 @@ interface FilterCallbackListener {
         endDate: String? = null,
         fromFilter:Boolean = false
     )
+    fun onFilterTypeSelected(eventType: Int?)
 }

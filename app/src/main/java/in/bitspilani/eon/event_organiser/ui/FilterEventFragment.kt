@@ -84,6 +84,7 @@ class FilterEventFragment(
             radioButton.setOnClickListener {
 
                 filterType = it.id
+                filterCallbackListener.onFilterTypeSelected(it.id)
 
             }
         }
