@@ -73,17 +73,18 @@ interface ApiService {
     fun subscribeEvent(@Body map: HashMap<String, Any>): Call<PaymentResponse>
 
     @DELETE("core/subscription/{id}/")
-    fun cancelEvent(@Path ("id") id: Int?): Call<CommonResponse>
+    fun cancelEvent(@Path("id") id: Int?): Call<CommonResponse>
 
     @GET("/core/notification/")
     fun getNotification(): Call<NotificationResponse>
 
     @HTTP(method = "DELETE", path = "/core/invite/", hasBody = true)
-    fun deleteInvitee(@Body body:JsonObject): Call<CommonResponse>
+    fun deleteInvitee(@Body body: JsonObject): Call<CommonResponse>
 
     @PATCH("/core/notification/")
-    fun getNotificationRead(): Call<NotificationResponse>
+    fun getNotificationRead(@Body body: HashMap<String, Any>): Call<CommonResponse>
+
 
     @PATCH("core/user/{user_id}/")
-    fun updateBasicDetails(@Path ("user_id") user_id:Int ,@Body jsonObject: JsonObject): Call<CommonResponse>
+    fun updateBasicDetails(@Path("user_id") user_id: Int, @Body jsonObject: JsonObject): Call<CommonResponse>
 }

@@ -61,7 +61,6 @@ class ChangePasswordFragment() : DialogFragment() {
 
     override fun onDetach() {
         super.onDetach()
-        actionbarHost?.showToolbar(showToolbar = true, showBottomNav = true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -109,7 +108,6 @@ class ChangePasswordFragment() : DialogFragment() {
                         (activity as BitsEonActivity).showProgress(false)
 
                 }
-
 
             }
             }

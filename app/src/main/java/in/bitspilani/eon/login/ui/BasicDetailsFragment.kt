@@ -2,10 +2,7 @@ package `in`.bitspilani.eon.login.ui
 
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.databinding.FragmentBasicDetailsBinding
-import `in`.bitspilani.eon.utils.Constants
-import `in`.bitspilani.eon.utils.ModelPreferencesManager
-import `in`.bitspilani.eon.utils.Validator
-import `in`.bitspilani.eon.utils.clickWithDebounce
+import `in`.bitspilani.eon.utils.*
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -125,7 +122,19 @@ class BasicDetailsFragment : Fragment() {
 
                         }
 
-                        authViewModel.register(signupMap)
+                        //since default value here is 100, if its 100 then we show user tnc dialog
+
+                        if(ModelPreferencesManager.getInt(Constants.TERMS_AND_CONDITION)==100){
+
+                            TermsAndConditionDialog.openDialog(activity!!){
+
+                                ModelPreferencesManager.putInt(Constants.TERMS_AND_CONDITION,1)
+                                authViewModel.register(signupMap)
+                            }
+
+                        }
+
+
 
 
                     } else {

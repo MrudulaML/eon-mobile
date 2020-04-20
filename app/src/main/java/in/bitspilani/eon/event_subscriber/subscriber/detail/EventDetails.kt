@@ -235,8 +235,6 @@ class EventDetails : Fragment() {
             return 0
         }
 
-
-
         return ((data.discountPercentage.toDouble() / 100) * amount).toInt()
 
     }

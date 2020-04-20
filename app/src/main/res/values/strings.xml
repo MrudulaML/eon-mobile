@@ -49,5 +49,7 @@
     <string name="decreasing_total_amount">Total amount paid for 4 tickets is Rs.</string>
     <string name="decreasing_refund_text">Total amount refundable to you Rs.1450 </string>
     <string name="event_cancel_text">For this event cancellation, your complete amount will be refunded</string>
-
+    <string name="i_hereby_agree">I hereby agree with the terms and conditions</string>
+    <string name="terms_and_condition_title">Terms &amp; Conditions</string>
+    <string name="terms_and_condition_value">BITS - Pilani and Eon Introduction These Website Standard Terms and Conditions written on this webpage shall manage your use of our website, Webiste Name accessible at Website.com. These Terms will be applied fully and affect to your use of this Website. By using this Website, you agreed to accept all terms and conditions written in here. You must not use this Website if you disagree with any of these Website Standard Terms and Conditions. Minors or people below 18 years old are not allowed to use this Website. Intellectual Property Rights Other than the content you own, under these Terms, Company Name and/or its licensors own all the intellectual property rights and materials contained in this Website. You are granted limited license only for purposes of viewing the material contained on this Website. Restrictions You are specifically restricted from all of the following.</string>
 </resources>

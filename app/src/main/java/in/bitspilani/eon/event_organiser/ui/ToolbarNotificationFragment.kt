@@ -6,10 +6,12 @@ import `in`.bitspilani.eon.event_organiser.ui.adapter.NotificationAdapter
 import `in`.bitspilani.eon.event_organiser.viewmodel.NotificationViewModel
 import `in`.bitspilani.eon.login.ui.ActionbarHost
 import `in`.bitspilani.eon.utils.MarginItemDecoration
+import `in`.bitspilani.eon.utils.clickWithDebounce
 import `in`.bitspilani.eon.utils.getViewModelFactory
 import android.content.Context
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -48,9 +50,11 @@ class ToolbarNotificationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initView()
         setUpObservable()
+        setClicks()
     }
 
     private fun setUpObservable() {
+
         notificationViewModel.notificationLiveData.observe(viewLifecycleOwner, Observer {
 
             rv_notifications.layoutManager = LinearLayoutManager(activity)
@@ -65,12 +69,39 @@ class ToolbarNotificationFragment : Fragment() {
                 )
             rv_notifications.adapter = notificationAdapter
         })
+
+        notificationViewModel.clearAllData.observe(viewLifecycleOwner, Observer {
+
+
+            showUserMsg(it.message)
+            notificationViewModel.getNotification()
+
+        })
+
+        notificationViewModel.progressLiveData.observe(viewLifecycleOwner, Observer {
+
+            (activity as BitsEonActivity).showProgress(it)
+        })
+
+    }
+
+    fun showUserMsg(msg: String) {
+        Toast.makeText(activity, msg, Toast.LENGTH_LONG).show()
+    }
+
+    fun setClicks() {
+
+        tv_clear_all.clickWithDebounce {
+
+            notificationViewModel.readNotification()
+        }
     }
 
     /**
      * toggle visibility of different navigation
      */
     private var actionbarHost: ActionbarHost? = null
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is ActionbarHost) {
