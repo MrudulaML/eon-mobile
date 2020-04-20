@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -22,6 +23,7 @@ import kotlinx.android.synthetic.main.fragment_filter_dialog.*
 class FilterDialogFragment() : DialogFragment(),
     FilterCallbackListener {
 
+    private var eventTypeSelected: Int? = null
     // tab titles
     private val titles =
         arrayOf("Type of Events", "Calender")
@@ -37,6 +39,8 @@ class FilterDialogFragment() : DialogFragment(),
         return inflater.inflate(R.layout.fragment_filter_dialog, container, false)
     }
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //using common view fragment with activity scope for reuse
@@ -47,15 +51,13 @@ class FilterDialogFragment() : DialogFragment(),
 
         setUpClickListeners()
 
+
     }
 
     private fun setUpClickListeners() {
         filter_view_pager.adapter =
-            FilterPagerAdapter(
-                activity!!,this
-            )
+            FilterPagerAdapter(activity!!,this)
         TabLayoutMediator(filter_tab_layout, filter_view_pager) { tab, position ->
-            //To get the first name of doppelganger celebrities
             tab.text = titles[position]
         }.attach()
     }
@@ -67,8 +69,17 @@ class FilterDialogFragment() : DialogFragment(),
         endDate: String?,
         fromFilter:Boolean
     ) {
-        eventDashboardViewModel.getEvents(eventType, eventLocation, startDate, endDate,fromFilter)
+        eventDashboardViewModel.getEvents(eventTypeSelected, eventLocation, startDate, endDate,fromFilter)
         dismiss()
+    }
+
+    override fun onFilterTypeSelected(eventType: Int?) {
+
+        eventType?.let {
+            eventTypeSelected=it
+        }
+
+
     }
 
 
@@ -84,4 +95,5 @@ interface FilterCallbackListener {
         endDate: String? = null,
         fromFilter:Boolean = false
     )
+    fun onFilterTypeSelected(eventType: Int?)
 }

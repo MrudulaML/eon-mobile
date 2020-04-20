@@ -4,6 +4,7 @@ package `in`.bitspilani.eon.event_organiser.ui
 import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.event_organiser.models.EventList
+import `in`.bitspilani.eon.event_organiser.models.MonoEvent
 import `in`.bitspilani.eon.event_organiser.ui.adapter.EventAdapter
 import `in`.bitspilani.eon.event_organiser.viewmodel.EventDashboardViewModel
 import `in`.bitspilani.eon.login.ui.ActionbarHost
@@ -13,6 +14,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -33,7 +35,7 @@ import timber.log.Timber
 class HomeFragment : Fragment() {
    // private val dashboardViewModel by viewModels<EventDashboardViewModel> { getViewModelFactory() }
     private var actionbarHost: ActionbarHost? = null
-    private var isWishListed : Boolean =false
+    lateinit var  eventListUpdated : ArrayList<MonoEvent>
     private lateinit var layoutManager: RecyclerView.LayoutManager
     private lateinit var eventAdapter: EventAdapter
     private lateinit var eventDashboardViewModel: EventDashboardViewModel
@@ -63,6 +65,12 @@ class HomeFragment : Fragment() {
         setUpClickListeners()
         setUpSearch()
 
+        swipe_refresh_layout.setOnRefreshListener {
+
+            eventDashboardViewModel.getEvents()
+            swipe_refresh_layout.isRefreshing = false
+        }
+
     }
 
 
@@ -77,7 +85,7 @@ class HomeFragment : Fragment() {
             override fun onQueryTextChange(newText: String?): Boolean {
 
                 if(newText.isNullOrEmpty()){
-                    eventDashboardViewModel.getEvents()
+                    //eventDashboardViewModel.getEvents()
                     defocusAndHideKeyboard(activity)
                 }
                 else
@@ -132,25 +140,28 @@ class HomeFragment : Fragment() {
 
     private fun setEventRecyclerView(eventList: EventList) {
 
+        eventListUpdated=eventList.eventList
         val isSubscriber :  Boolean = ModelPreferencesManager.getInt(Constants.USER_ROLE)==2
         Timber.e("is subcriber$isSubscriber")
         layoutManager = LinearLayoutManager(activity)
         //TODO fix this hack
         if (eventList.fromFilter) {
             btn_filter_clear.visibility=View.VISIBLE
-            bindList(eventList, isSubscriber)
+            bindList(eventListUpdated, isSubscriber)
         }
         else
-            bindList(eventList, isSubscriber)
+            bindList(eventListUpdated, isSubscriber)
 
     }
 
     private fun bindList(
-        eventList: EventList,
+        eventList: ArrayList<MonoEvent>,
         isSubscriber: Boolean = false
     ) {
+
+
         rv_event_list.layoutManager = layoutManager
-        eventAdapter = EventAdapter(eventList.eventList, eventDashboardViewModel, isSubscriber)
+        eventAdapter = EventAdapter(eventList, eventDashboardViewModel, isSubscriber)
         rv_event_list.adapter = eventAdapter
     }
 

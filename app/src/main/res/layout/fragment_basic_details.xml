@@ -117,9 +117,10 @@
                                 android:background="@android:color/transparent"
                                 android:drawableStart="@drawable/ic_icon_basic_details_grey"
                                 android:drawableLeft="@drawable/ic_icon_basic_details_grey"
-                                android:drawablePadding="@dimen/_20dp"
+                                android:drawablePadding="@dimen/_8sdp"
                                 android:hint="@string/organisation_name"
                                 android:inputType="text"
+                                android:padding="@dimen/_8dp"
                                 android:textColorHint="@color/grey"
                                 android:textSize="@dimen/_18dp" />
 
@@ -129,10 +130,9 @@
                             android:id="@+id/emailAddressWrapper"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/organizationNameWrapper"
                             android:layout_marginTop="@dimen/_10dp"
-                            android:background="@drawable/bg_edit_text"
                             android:padding="@dimen/_8dp"
+                            android:background="@drawable/bg_edit_text"
                             android:theme="@style/TextLabel">
 
                             <androidx.appcompat.widget.AppCompatEditText
@@ -142,8 +142,9 @@
                                 android:background="@android:color/transparent"
                                 android:drawableStart="@drawable/ic_icon_mail_grey"
                                 android:drawableLeft="@drawable/ic_icon_mail_grey"
-                                android:drawablePadding="@dimen/_20dp"
+                                android:drawablePadding="@dimen/_8sdp"
                                 android:hint="@string/email_id"
+                                android:padding="@dimen/_8dp"
                                 android:inputType="textEmailAddress"
                                 android:textColorHint="@color/grey"
                                 android:textSize="@dimen/_18dp" />
@@ -166,9 +167,10 @@
                                 android:background="@android:color/transparent"
                                 android:drawableStart="@drawable/ic_user"
                                 android:drawableLeft="@drawable/ic_user"
-                                android:drawablePadding="@dimen/_20dp"
+                                android:drawablePadding="@dimen/_8sdp"
                                 android:hint="@string/username"
                                 android:inputType="textEmailAddress"
+                                android:padding="@dimen/_8dp"
                                 android:textColorHint="@color/grey"
                                 android:textSize="@dimen/_18dp" />
 
@@ -190,9 +192,10 @@
                                 android:background="@android:color/transparent"
                                 android:drawableStart="@drawable/ic_icon_phone_grey"
                                 android:drawableLeft="@drawable/ic_icon_phone_grey"
-                                android:drawablePadding="@dimen/_20dp"
+                                android:drawablePadding="@dimen/_8sdp"
                                 android:hint="@string/contact_details"
                                 android:inputType="phone"
+                                android:padding="@dimen/_8dp"
                                 android:textColorHint="@color/grey"
                                 android:textSize="@dimen/_18dp" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -246,9 +249,10 @@
                                 android:background="@android:color/transparent"
                                 android:drawableStart="@drawable/ic_account_number"
                                 android:drawableLeft="@drawable/ic_account_number"
-                                android:drawablePadding="@dimen/_20dp"
+                                android:padding="@dimen/_8dp"
                                 android:hint="@string/bank_acc_no"
                                 android:inputType="number"
+                                android:drawablePadding="@dimen/_8sdp"
                                 android:textColorHint="@color/grey"
                                 android:textSize="@dimen/_18dp" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -270,9 +274,10 @@
                                 android:background="@android:color/transparent"
                                 android:drawableStart="@drawable/ic_bank_name"
                                 android:drawableLeft="@drawable/ic_bank_name"
-                                android:drawablePadding="@dimen/_20dp"
+                                android:drawablePadding="@dimen/_8sdp"
                                 android:hint="@string/bank_name"
                                 android:inputType="text"
+                                android:padding="@dimen/_8dp"
                                 android:textColorHint="@color/grey"
                                 android:textSize="@dimen/_18dp" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -294,9 +299,10 @@
                                 android:background="@android:color/transparent"
                                 android:drawableStart="@drawable/ic_ifsce_code"
                                 android:drawableLeft="@drawable/ic_ifsce_code"
-                                android:drawablePadding="@dimen/_20dp"
+                                android:drawablePadding="@dimen/_8sdp"
                                 android:hint="@string/ifsc_code"
                                 android:inputType="text"
+                                android:padding="@dimen/_8dp"
                                 android:textColorHint="@color/grey"
                                 android:textSize="@dimen/_18dp" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -316,7 +322,7 @@
                             android:layout_marginTop="@dimen/_10dp"
                             android:background="@drawable/bg_edit_text"
                             android:hint="Password"
-                            android:padding="@dimen/_8sdp"
+                            android:padding="@dimen/_8dp"
                             app:passwordToggleEnabled="true"
                             android:theme="@style/TextLabel">
 
@@ -327,8 +333,9 @@
                                 android:background="@android:color/transparent"
                                 android:drawableStart="@drawable/ic_icon_lock_password_grey"
                                 android:drawableLeft="@drawable/ic_icon_lock_password_grey"
-                                android:drawablePadding="@dimen/_20dp"
+                                android:drawablePadding="@dimen/_8sdp"
                                 android:inputType="textPassword"
+                                android:padding="@dimen/_8dp"
                                 android:textColorHint="@color/grey" />
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -357,7 +364,8 @@
                                 android:background="@android:color/transparent"
                                 android:drawableStart="@drawable/ic_icon_lock_password_grey"
                                 android:drawableLeft="@drawable/ic_icon_lock_password_grey"
-                                android:drawablePadding="@dimen/_20dp"
+                                android:drawablePadding="@dimen/_8sdp"
+                                android:padding="@dimen/_8dp"
                                 android:inputType="textPassword" />
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -365,12 +373,11 @@
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_next"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/_32dp"
+                        android:layout_height="@dimen/_32dp"
                         android:layout_marginTop="@dimen/_20dp"
-                        android:background="@drawable/bg_button_rounded_corners"
-                        android:text="@string/next"
-                        android:textColor="@color/white" />
+                        android:background="@drawable/ic_icon_next_circle_blue"
+                        android:layout_gravity="center"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>

@@ -4,6 +4,8 @@ package `in`.bitspilani.eon.utils
 import `in`.bitspilani.eon.event_organiser.models.FilterResponse
 import android.content.Context
 import android.os.SystemClock
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
@@ -66,7 +68,7 @@ fun View.invisibleIf(invisible: Boolean) {
 
 @BindingAdapter("app:`in`.bitspilani.eon.utils.visibleIf")
 fun View.visibleIf(visible: Boolean) {
-    visibility = if (visible) View.VISIBLE else View.GONE
+    visibility = if (visible) View.VISIBLE else View.INVISIBLE
 }
 
 
@@ -90,6 +92,14 @@ fun AppCompatImageView.isSelected(isSelected: Boolean) {
 fun loadImage(view: ImageView, imageUrl: String) {
 
     Picasso.get().load(imageUrl).into(view)
+}
+
+fun EditText.onChange(cb: (String) -> Unit) {
+    this.addTextChangedListener(object: TextWatcher {
+        override fun afterTextChanged(s: Editable?) { cb(s.toString()) }
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+    })
 }
 
 //TODO optimise this hacky thing

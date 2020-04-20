@@ -10,7 +10,10 @@ import `in`.bitspilani.eon.utils.ApiCallback
 import `in`.bitspilani.eon.utils.Constants
 import `in`.bitspilani.eon.utils.ModelPreferencesManager
 import `in`.bitspilani.eon.utils.goneUnless
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Base64
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -22,55 +25,42 @@ import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import com.auth0.android.jwt.JWT
+import com.facebook.FacebookSdk
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_bits_eon.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 
 
 class BitsEonActivity : AppCompatActivity(),ActionbarHost {
-    lateinit var navController: NavController
-    lateinit var bottomNavigation : BottomNavigationView
 
-
-
+    private lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        FacebookSdk.sdkInitialize(this.applicationContext)
         setContentView(R.layout.activity_bits_eon)
+
+        printKeyHash() // getting hashkey
+
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
-        bottomNavigation= findViewById(R.id.bottom_navigation)
+
         setSupportActionBar(toolbar)
-        supportActionBar!!.hide()
-        bottom_navigation.visibility=View.GONE
-        supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        setupEventTypes()
+        showToolbar(showToolbar = false,showBottomNav = false)
+
+
         checkIfAuthenticated()
-        NavigationUI.setupWithNavController(bottomNavigation,navController)
+        NavigationUI.setupWithNavController(bottom_navigation,navController)
 
-    }
-
-    //TODO fix this hack replace this with rx
-    private fun setupEventTypes() {
-       RestClient().authClient.create(ApiService::class.java).getFilter()
-            .enqueue(object : ApiCallback<FilterResponse>(){
-                override fun onSuccessResponse(responseBody: FilterResponse) {
-
-                    ModelPreferencesManager.put(responseBody, Constants.EVENT_TYPES)
-
-                }
-
-                override fun onApiError(errorType: ApiError, error: String?) {
-
-                }
-            })
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.top_navigation, menu)
-        if (ModelPreferencesManager.getInt(Constants.USER_ROLE) == 1) {
+        if (ModelPreferencesManager.getInt(Constants.USER_ROLE) == 2) {
             val itemToHide = menu.findItem(R.id.notificationFragment)
-            itemToHide.isVisible = false
+            itemToHide.isVisible = true
         }
         return true
     }
@@ -82,11 +72,7 @@ class BitsEonActivity : AppCompatActivity(),ActionbarHost {
             when {
                 userData?.access.isNullOrEmpty() -> {
                     delay(400)
-                    navController.navigate(R.id.action_splashScreen_to_signInFragment,
-                        null,
-                        NavOptions.Builder()
-                            .setPopUpTo(R.id.splashScreen,
-                                true).build())
+                    navController.navigate(R.id.action_splashScreen_to_signInFragment)
 
                     //TODO fix this hack put null safety prone to crash
                 }
@@ -94,20 +80,12 @@ class BitsEonActivity : AppCompatActivity(),ActionbarHost {
                     delay(400)
                     ModelPreferencesManager.clearCache()
                     Toast.makeText(this@BitsEonActivity, "Session expired", Toast.LENGTH_LONG).show()
-                    navController.navigate(R.id.action_splashScreen_to_signInFragment,
-                        null,
-                        NavOptions.Builder()
-                            .setPopUpTo(R.id.splashScreen,
-                                true).build())
+                    navController.navigate(R.id.action_splashScreen_to_signInFragment)
 
                 }
                 else -> {
                     delay(400)
-                    navController.navigate(R.id.action_splashScreen_to_HomeFragment,
-                        null,
-                        NavOptions.Builder()
-                            .setPopUpTo(R.id.app_nav,
-                                false).build())
+                    navController.navigate(R.id.action_splashScreen_to_HomeFragment)
 
                 }
             }
@@ -150,5 +128,22 @@ class BitsEonActivity : AppCompatActivity(),ActionbarHost {
 
     fun showProgress(show: Boolean) = progress.goneUnless(visible = show)
 
+    private fun printKeyHash(){
+        try {
+            val packageInfo = packageManager.getPackageInfo(
+                "in.bitspilani.eon",
+                PackageManager.GET_SIGNATURES
+            )
 
+            for (signature in packageInfo.signatures) {
+                val md = MessageDigest.getInstance("SHA")
+                md.update(signature.toByteArray())
+                Log.d("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT))
+            }
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        } catch (e: NoSuchAlgorithmException) {
+            e.printStackTrace()
+        }
+    }
 }

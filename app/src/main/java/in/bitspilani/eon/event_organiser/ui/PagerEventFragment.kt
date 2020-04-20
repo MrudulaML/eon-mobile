@@ -6,9 +6,7 @@ import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.databinding.FragmentEventBinding
 import `in`.bitspilani.eon.event_organiser.models.DetailResponseOrganiser
 import `in`.bitspilani.eon.event_organiser.viewmodel.EventDetailOrganiserViewModel
-import `in`.bitspilani.eon.utils.clickWithDebounce
-import `in`.bitspilani.eon.utils.getViewModelFactory
-import `in`.bitspilani.eon.utils.showSnackbar
+import `in`.bitspilani.eon.utils.*
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
@@ -23,6 +21,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import com.facebook.CallbackManager
+import com.facebook.share.model.ShareLinkContent
+import com.facebook.share.widget.ShareDialog
 import kotlinx.android.synthetic.main.dialog_success_reminder.view.*
 import kotlinx.android.synthetic.main.fragment_event.*
 import timber.log.Timber
@@ -38,6 +39,9 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
     private val eventDetailOrganiserViewModel by viewModels<EventDetailOrganiserViewModel> { getViewModelFactory() }
 
     lateinit var binding: FragmentEventBinding
+    var shareDialog: ShareDialog? = null
+    var callbackManager: CallbackManager? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -62,6 +66,16 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
         super.onViewCreated(view, savedInstanceState)
         setUpClickListeners()
         setUpObservables()
+        setOffEventsForOrganiser()
+        callbackManager = CallbackManager.Factory.create()
+        shareDialog = ShareDialog(this)
+
+    }
+
+    private fun setOffEventsForOrganiser() {
+
+        linearLayout2.goneUnless(eventDetailResponse.data.self_organised)
+        linearLayout3.goneUnless(eventDetailResponse.data.self_organised)
     }
 
     private fun setUpObservables() {
@@ -104,45 +118,18 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
 
     }
 
-    private fun setupListeners() {
-        share_fb.clickWithDebounce {
-            invokeFacebookShare(activity!!,"","")
-        }
-        send_reminder.clickWithDebounce { showUserMsg("Send reminders successfully") }
-        send_updates.clickWithDebounce { showUserMsg("Send updates successfully") }
-    }
-    private fun showUserMsg(msg:String){
-        Toast.makeText(activity,msg, Toast.LENGTH_LONG).show()
-    }
-    private fun invokeFacebookShare(
-        activity: Activity,
-        quote: String?,
-        credit: String?
-    ) {
-        val shareIntent = Intent(Intent.ACTION_SEND)
-        shareIntent.type = "text/plain"
-        shareIntent.putExtra(
-            Intent.EXTRA_SUBJECT,
-            "Bits EOn"
-        )
-        shareIntent.putExtra(Intent.EXTRA_TEXT, eventDetailResponse.data.name)
-        activity.startActivity(
-            Intent.createChooser(
-                shareIntent,
-                "Bits EOn"
-            )
-        )
-    }
     private fun setUpClickListeners() {
         share_fb.clickWithDebounce {
-            invokeFacebookShare(activity!!,"","")
+            shareFacebook() // to do
         }
 
         //TODO handle thi elegently
         text_url.clickWithDebounce {
-            try{
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(eventDetailResponse.data.external_links))
-            startActivity(browserIntent)}catch (e:Exception){
+            try {
+                val browserIntent =
+                    Intent(Intent.ACTION_VIEW, Uri.parse(eventDetailResponse.data.external_links))
+                startActivity(browserIntent)
+            } catch (e: Exception) {
 
             }
         }
@@ -175,5 +162,23 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
             event_id =  eventDetailResponse.data.id,
             message = message
         )
+    }
+
+    fun shareFacebook(){
+
+        if (ShareDialog.canShow(ShareLinkContent::class.java)){
+
+            val shareLinkContent = ShareLinkContent.Builder()
+                .setContentTitle("Share text on facebook")
+                .setQuote("This is useful link")
+                .setContentUrl(Uri.parse("https://developers.facebook.com"))
+                .build()
+            shareDialog?.show(shareLinkContent)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        callbackManager?.onActivityResult(requestCode, resultCode, data);
     }
 }

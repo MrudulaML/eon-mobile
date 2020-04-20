@@ -30,13 +30,9 @@ class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganis
 
     private lateinit var  layoutManager: LinearLayoutManager
     private lateinit var inviteeList: ArrayList<Invitee>
-    private var  positionInvitee: Int = 0
 
     private val eventDetailOrganiserViewModel by viewModels<EventDetailOrganiserViewModel> { getViewModelFactory() }
 
-    // tab titles
-    private val titles =
-        arrayOf("Movies", "Events")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,7 +62,7 @@ class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganis
 
         eventDetailOrganiserViewModel.deleteProgress.observe(viewLifecycleOwner, Observer {
 
-            prog.goneUnless(it)
+            progress_bar.goneUnless(it)
         })
     }
 
