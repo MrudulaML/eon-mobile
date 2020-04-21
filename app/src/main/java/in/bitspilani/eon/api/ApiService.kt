@@ -1,5 +1,6 @@
 package `in`.bitspilani.eon.api
 
+import `in`.bitspilani.eon.analytics.data.AnalyticsResponse
 import `in`.bitspilani.eon.event_organiser.models.*
 import `in`.bitspilani.eon.event_subscriber.models.EventDetailResponse
 import `in`.bitspilani.eon.event_subscriber.models.PaymentResponse
@@ -89,4 +90,7 @@ interface ApiService {
 
     @PATCH("core/user/{user_id}/")
     fun updateBasicDetails(@Path("user_id") user_id: Int, @Body jsonObject: JsonObject): Call<CommonResponse>
+
+    @GET("/core/event-summary")
+    fun getAnalytics(): Call<AnalyticsResponse>
 }

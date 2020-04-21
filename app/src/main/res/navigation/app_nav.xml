@@ -335,17 +335,6 @@
 
 
         </fragment>
-        <fragment
-            android:id="@+id/eventFilterFragment"
-            android:name="in.bitspilani.eon.event_organiser.ui.FilterEventFragment"
-            android:label="EventFilterFragment">
-
-            <action
-                android:id="@+id/filter_to_dashboard"
-                app:destination="@id/homeFragment"
-                app:popUpTo="@id/homeFragment"
-                app:popUpToInclusive="true" />
-        </fragment>
 
         <!-- global actions for nav bar-->
         <action
@@ -369,6 +358,10 @@
                 app:destination="@id/eventDetails" />
 
         </fragment>
+        <fragment
+            android:id="@+id/analyticsDashboardFragment"
+            android:name="in.bitspilani.eon.analytics.AnalyticsDashboardFragment"
+            android:label="AnalyticsDashboardFragment" />
     </navigation>
 
 </navigation>
