@@ -63,9 +63,9 @@ class FeedbackFragment : Fragment() {
 
         var list: ArrayList<Feedback> = ArrayList<Feedback>()
 
-        list.add(Feedback("Are you mad at me?"))
-        list.add(Feedback("Lets play holi?"))
-        list.add(Feedback("Did you like our event?"))
+        list.add(Feedback("Are you mad at me wehbelkb asjbdbask dbkasdbjbaskjdb?"))
+        list.add(Feedback("Lets play holi akjbsdlbajsdb kbajsdbbasdb kjaksdbj baskbdbabsdbabsdkb?"))
+        list.add(Feedback("Did you like our event kjabsdflkjjsbdkfsad askdjva?"))
         list.add(Feedback("Do you like eminem"))
 
         rv_subscriber_feedback.layoutManager = LinearLayoutManager(activity)

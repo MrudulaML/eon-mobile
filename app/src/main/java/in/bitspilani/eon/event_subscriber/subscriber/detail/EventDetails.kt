@@ -212,6 +212,12 @@ class EventDetails : Fragment() {
 
             CommonUtil.openLinkBrowser(activity!!, data.external_links)
         }
+
+        iv_feedback.clickWithDebounce {
+
+            findNavController().navigate(R.id.action_eventDetails_to_subscriberFeedback)
+
+        }
     }
 
     override fun onRequestPermissionsResult(
@@ -298,9 +304,9 @@ class EventDetails : Fragment() {
             eventDetailsFragmentBinding.eventData = it.data
             amount = it.data.subscription_fee
             data = it.data
-            it.data.images?.let{
+            it.data.images?.let {
 
-                loadImage(iv_event,it)
+                loadImage(iv_event, it)
             }
 
             if (amount > 0) btn_price.text = "₹ $amount" else btn_price.text = "confirm"
@@ -444,9 +450,9 @@ class EventDetails : Fragment() {
         var userEmailId = userData!!.user.email
         var userName = ""
 
-        if (userData!!.user.name == null){
+        if (userData!!.user.name == null) {
             userName = userEmailId.substring(0, userEmailId.indexOf("@"));
-        }else{
+        } else {
             userName = userData!!.user.name
         }
 
@@ -516,7 +522,7 @@ class EventDetails : Fragment() {
             dir.mkdirs()
         val filePath: File
 
-        filePath = File(directoryPath, eventId+"_tickets.pdf")
+        filePath = File(directoryPath, eventId + "_tickets.pdf")
 
         if (filePath.exists()) {
             filePath.delete()
@@ -560,8 +566,8 @@ class EventDetails : Fragment() {
         }
     }
 
-    private fun showSnackBar(message: String, bool: Boolean){
-      Snackbar.make(view!!, message, Snackbar.LENGTH_LONG).show()
+    private fun showSnackBar(message: String, bool: Boolean) {
+        Snackbar.make(view!!, message, Snackbar.LENGTH_LONG).show()
 
 //        if (bool){
 //            val eventId = Integer.toString(data.event_id) // event id
@@ -592,7 +598,7 @@ class EventDetails : Fragment() {
 //            snackbar.show()
 //        }
 
-   }
+    }
 }
 
 

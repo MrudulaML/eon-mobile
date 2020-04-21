@@ -86,11 +86,21 @@ class BasicDetailsFragment : Fragment() {
     private fun onNextClick() {
         when (authViewModel.registerCurrentStep) {
             OrganiserDetailsSteps.BASIC_DETAILS -> {
-                if (Validator.isValidName(edt_org_name, true) &&
-                    Validator.isValidEmail(edit_email, true)&&
+                if (
+                    Validator.isValidEmail(edit_email, true) &&
                     Validator.isValidPhone(edt_org_contact, true) &&
                     Validator.isValidName(edt_org_address, true)
                 ) {
+                    if (authViewModel.userType == UserType.ORGANISER) {
+
+                        if (!Validator.isValidName(edt_org_name, true))
+                            return
+                    } else {
+
+                        if (!Validator.isValidName(edt_user_name, true))
+                            return
+                    }
+
                     authViewModel.registerCurrentStep = OrganiserDetailsSteps.PASSWORD
                     binding.step = OrganiserDetailsSteps.PASSWORD
                     binding.stepView.go(1, true)

@@ -13,22 +13,22 @@
         tools:layout="@layout/fragment_splash_screen">
         <action
             android:id="@+id/action_splashScreen_to_signInFragment"
+            app:destination="@id/signInFragment"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_left"
             app:popUpTo="@id/splashScreen"
-            app:popUpToInclusive="true"
-            app:destination="@id/signInFragment" />
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_splashScreen_to_HomeFragment"
+            app:destination="@id/home_nav"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_left"
             app:popUpTo="@id/app_nav"
-            app:popUpToInclusive="false"
-            app:destination="@id/home_nav" />
+            app:popUpToInclusive="false" />
 
     </fragment>
 
@@ -82,9 +82,9 @@
 
         <action
             android:id="@+id/action_BasicInfoFragment_to_signInFragment"
+            app:destination="@id/signInFragment"
             app:popUpTo="@id/signInFragment"
-            app:popUpToInclusive="true"
-            app:destination="@id/signInFragment" />
+            app:popUpToInclusive="true" />
 
         <action
             android:id="@+id/action_BasicInfoFragment_to_homeFragment"
@@ -141,9 +141,10 @@
             android:name="in.bitspilani.eon.event_organiser.ui.EventDetailsOrganiserFragment"
             tools:layout="@layout/fragment_event_detail_organiser">
 
-            <action android:id="@+id/action_event_details_organiser_to_dashboardFragment"
+            <action
+                android:id="@+id/action_event_details_organiser_to_dashboardFragment"
                 app:popUpTo="@id/homeFragment"
-                app:popUpToInclusive="false"/>
+                app:popUpToInclusive="false" />
 
         </fragment>
 
@@ -252,6 +253,10 @@
                 app:popUpTo="@id/homeFragment"
                 app:popUpToInclusive="true" />
 
+            <action
+                android:id="@+id/action_eventDetails_to_subscriberFeedback"
+                app:destination="@+id/subcriberFeedback" />
+
             <argument
                 android:name="event_id"
                 android:defaultValue="0"
@@ -311,6 +316,15 @@
                 app:argType="integer" />
 
         </fragment>
+
+
+        <fragment
+            android:id="@+id/subcriberFeedback"
+            android:name="in.bitspilani.eon.event_subscriber.subscriber.feedback.FeedbackFragment"
+            android:label="fragment_feedback"
+            tools:layout="@layout/fragment_feedback">
+
+        </fragment>
         <fragment
             android:id="@+id/notificationFragment"
             android:name="in.bitspilani.eon.event_organiser.ui.ToolbarNotificationFragment"
@@ -327,11 +341,10 @@
             <!-- action to popup back-stack-->
             <action
                 android:id="@+id/action_to_sign_in"
-                app:destination="@id/signInFragment"/>
+                app:destination="@id/signInFragment" />
             <action
                 android:id="@+id/action_profile_to_sub_wish_list"
                 app:destination="@id/eventWishListFragment" />
-
 
 
         </fragment>
@@ -351,11 +364,11 @@
         <action
             android:id="@+id/nav_user_profile"
             app:destination="@id/userProfileFragment"
-            app:popUpTo="@id/homeFragment"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_left"
+            app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="false" />
         <fragment
             android:id="@+id/eventWishListFragment"
