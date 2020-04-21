@@ -8,6 +8,7 @@ import `in`.bitspilani.eon.event_organiser.ui.adapter.EventDetailPagerAdapter
 import `in`.bitspilani.eon.event_organiser.viewmodel.EventDetailOrganiserViewModel
 import `in`.bitspilani.eon.login.ui.ActionbarHost
 import `in`.bitspilani.eon.utils.getViewModelFactory
+import `in`.bitspilani.eon.utils.goneUnless
 import android.content.Context
 import android.os.Bundle
 import android.view.*
@@ -33,18 +34,12 @@ class EventDetailsOrganiserFragment : Fragment(),InviteeCallbackListener,EventDe
 
     private val eventDetailOrganiserViewModel by viewModels<EventDetailOrganiserViewModel> { getViewModelFactory() }
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_event_detail_organiser, container, false)
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -66,7 +61,7 @@ class EventDetailsOrganiserFragment : Fragment(),InviteeCallbackListener,EventDe
             if(!it.data.self_organised ) tab_layout.visibility=View.GONE
             event_detail_view_pager.adapter=
                 EventDetailPagerAdapter(
-                    activity!!,it
+                    activity!!,it,this
                 )
             TabLayoutMediator(tab_layout, event_detail_view_pager) { tab, position ->
                 //To get the first name of doppelganger celebrities
@@ -115,14 +110,9 @@ class EventDetailsOrganiserFragment : Fragment(),InviteeCallbackListener,EventDe
         (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(false)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        menu.clear()
-    }
-
-    override fun getInvitees() {
-
-
+    override fun getdelete(showDelete: Boolean) {
+        toolbar_fragment.goneUnless(!showDelete)
+        tab_layout.goneUnless(!showDelete)
     }
 
     override fun getEvent() {
@@ -139,7 +129,7 @@ interface EventDetailsCallbackListener {
     fun getEvent()
 }
 interface InviteeCallbackListener {
-    fun getInvitees()
+    fun getdelete(showDelete: Boolean)
 }
 
 

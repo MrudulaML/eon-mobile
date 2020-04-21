@@ -1,6 +1,7 @@
 package `in`.bitspilani.eon.event_organiser.ui.adapter
 
 import `in`.bitspilani.eon.event_organiser.models.DetailResponseOrganiser
+import `in`.bitspilani.eon.event_organiser.ui.EventDetailsOrganiserFragment
 import `in`.bitspilani.eon.event_organiser.ui.PagerEventFragment
 import `in`.bitspilani.eon.event_organiser.ui.PagerInviteeListFragment
 import androidx.fragment.app.Fragment
@@ -10,7 +11,8 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 
 class EventDetailPagerAdapter(
     fragmentActivity: FragmentActivity,
-    private val eventDetailResponse: DetailResponseOrganiser
+    private val eventDetailResponse: DetailResponseOrganiser,
+    private val eventDetailsOrganiserFragment: EventDetailsOrganiserFragment
 ) :
     FragmentStateAdapter(fragmentActivity) {
 
@@ -18,7 +20,7 @@ class EventDetailPagerAdapter(
     override fun createFragment(position: Int): Fragment {
         when (position) {
             0 -> return PagerEventFragment(eventDetailResponse)
-            1 -> return PagerInviteeListFragment(eventDetailResponse)
+            1 -> return PagerInviteeListFragment(eventDetailResponse,eventDetailsOrganiserFragment)
 
         }
         return PagerEventFragment(eventDetailResponse)
