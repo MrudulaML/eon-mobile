@@ -101,6 +101,24 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
+                    goneUnless="@{eventData.is_subscribed()}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="20dp"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:layout_marginEnd="15dp"
+                    android:background="@drawable/bg_subscribed_rectangle2"
+                    android:paddingStart="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="5dp"
+                    android:text="Subscribed"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
                     android:id="@+id/tv_event_name"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"

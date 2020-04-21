@@ -1,18 +1,18 @@
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <import type="android.view.View" />
+
         <variable
             name="isSubscriber"
-            type="java.lang.Boolean"/>
+            type="java.lang.Boolean" />
 
         <variable
             name="event"
-            type="in.bitspilani.eon.event_organiser.models.MonoEvent"/>
+            type="in.bitspilani.eon.event_organiser.models.MonoEvent" />
 
         <variable
             name="dashboardViewmodel"
@@ -22,32 +22,50 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:clickable="true"
-        android:focusable="true"
         android:layout_marginHorizontal="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_4sdp"
         android:layout_marginBottom="@dimen/_4sdp"
-        app:cardElevation="@dimen/_2dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
         android:onClick="@{() -> dashboardViewmodel.onEventClick(event.id)}"
-        app:cardCornerRadius="@dimen/_4sdp">
+        app:cardCornerRadius="@dimen/_4sdp"
+        app:cardElevation="@dimen/_2dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:paddingBottom="@dimen/_8sdp"
-            android:layout_height="wrap_content">
-
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/_8sdp">
 
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/appCompatImageView"
                 android:layout_width="0dp"
-                android:minWidth="@dimen/_200sdp"
                 android:layout_height="@dimen/_160sdp"
+                android:minWidth="@dimen/_200sdp"
                 android:scaleType="centerCrop"
                 app:imageUrl="@{event.images}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                goneUnless="@{event.is_subscribed()}"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginTop="20dp"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/bg_subscribed_rectangle2"
+                android:paddingStart="10dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="5dp"
+                android:text="Subscribed"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -67,15 +85,15 @@
             <androidx.appcompat.widget.AppCompatTextView
 
                 android:id="@+id/appCompatTextView17"
+                date="@{event.date}"
                 visibility="@{isSubscriber ? View.VISIBLE : View.GONE}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:layout_marginStart="14dp"
                 android:layout_marginTop="8dp"
-                android:layout_centerHorizontal="true"
                 android:drawableLeft="@drawable/ic_calender_black_24dp"
                 android:drawablePadding="@dimen/_4sdp"
-                date="@{event.date}"
                 android:textColor="@color/dark_grey"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -92,12 +110,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:textAlignment="center"
-                android:minWidth="@dimen/_40sdp"
                 android:background="@drawable/rounded_corner_solid_yellow_4"
                 android:backgroundTint="@color/yellow"
+                android:minWidth="@dimen/_40sdp"
                 android:padding="@dimen/_2sdp"
                 android:text="@{event.subscription_fee>0?Integer.toString(event.subscription_fee):`Free` }"
+                android:textAlignment="center"
                 android:textColor="@color/dark_grey"
                 android:textSize="14sp"
                 android:textStyle="bold"
@@ -131,19 +149,19 @@
                 android:text="@{Integer.toString(event.sold_tickets)+` Attendees`}"
                 android:textColor="@color/grey"
                 android:textStyle="bold"
-                tools:text="Attendees"
                 app:layout_constraintStart_toStartOf="@+id/appCompatTextView"
-                app:layout_constraintTop_toBottomOf="@+id/appCompatTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/appCompatTextView"
+                tools:text="Attendees" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/text_event_date"
+                date="@{event.date}"
+                visibility="@{isSubscriber ? View.GONE : View.VISIBLE}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:drawableLeft="@drawable/ic_calender_black_24dp"
                 android:gravity="center"
-                visibility="@{isSubscriber ? View.GONE : View.VISIBLE}"
-                date="@{event.date}"
                 android:textColor="@color/black"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -151,7 +169,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/appCompatImageView"
                 app:layout_constraintVertical_bias="1.0"
                 tools:text="12 Apr 2020" />
-
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
