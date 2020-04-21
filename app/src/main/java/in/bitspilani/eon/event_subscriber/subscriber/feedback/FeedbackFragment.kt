@@ -63,9 +63,12 @@ class FeedbackFragment : Fragment() {
 
         btn_submit.clickWithDebounce {
 
-            list.forEach{
+            list.forEach {
 
-                Log.e("xoxo", "heres my feedback : answer:"+it.answer+" image: "+it.imageUri+" question: "+it.question)
+                Log.e(
+                    "xoxo",
+                    "heres my feedback : answer:" + it.answer + " image: " + it.imageUri + " question: " + it.question
+                )
             }
 
 
