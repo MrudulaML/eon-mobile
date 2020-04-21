@@ -31,6 +31,11 @@ enum class USER_TYPE(val desc: String) {
     SUBSCRIBER("Event Subscriber"),
 }
 
+enum class ROLE(val role : String){
+    ORGANIZER("organizer"),
+    SUBSCRIBER("subscriber")
+
+}
 class AuthViewModel : BaseViewModel() {
 
     val progress: SingleLiveEvent<Boolean> = SingleLiveEvent()

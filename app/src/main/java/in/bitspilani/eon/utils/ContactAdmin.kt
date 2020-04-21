@@ -17,8 +17,7 @@ class ContactAdmin {
         lateinit var mAlertDialog: AlertDialog
         @JvmStatic
         fun openDialog(
-            activity: Activity,
-            onSendClick: (emailId: String, message: String) -> Unit
+            activity: Activity, onOKayClick: () -> Unit
         ) {
 
             this@Companion.activity = activity
@@ -34,6 +33,9 @@ class ContactAdmin {
 
             mDialogView.btn_okay.clickWithDebounce {
 
+                onOKayClick.invoke()
+
+                mAlertDialog.dismiss()
 
             }
 
