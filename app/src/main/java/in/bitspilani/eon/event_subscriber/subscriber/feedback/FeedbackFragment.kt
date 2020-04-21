@@ -1,6 +1,7 @@
 package `in`.bitspilani.eon.event_subscriber.subscriber.feedback
 
 import `in`.bitspilani.eon.R
+import `in`.bitspilani.eon.event_subscriber.models.Feedback
 import `in`.bitspilani.eon.event_subscriber.subscriber.payments.PaymentViewModel
 import `in`.bitspilani.eon.login.data.Data
 import `in`.bitspilani.eon.login.ui.ActionbarHost
@@ -22,6 +23,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.fragment_feedback.*
 import kotlinx.android.synthetic.main.layout_dialog_payment_success.view.*
 import kotlinx.android.synthetic.main.payment_fragment.*
 
@@ -52,9 +55,24 @@ class FeedbackFragment : Fragment() {
             showBottomNav = false
         )
 
+        setRecyclerview()
 
     }
 
+    fun setRecyclerview() {
+
+        var list: ArrayList<Feedback> = ArrayList<Feedback>()
+
+        list.add(Feedback("Are you mad at me?"))
+        list.add(Feedback("Lets play holi?"))
+        list.add(Feedback("Did you like our event?"))
+        list.add(Feedback("Do you like eminem"))
+
+        rv_subscriber_feedback.layoutManager = LinearLayoutManager(activity)
+        rv_subscriber_feedback.adapter = FeedbackAdapter(list)
+
+
+    }
 
     fun setObservables() {
 
