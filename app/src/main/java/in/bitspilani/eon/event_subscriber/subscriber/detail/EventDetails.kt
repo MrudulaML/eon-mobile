@@ -8,12 +8,14 @@ import `in`.bitspilani.eon.login.ui.ActionbarHost
 import `in`.bitspilani.eon.utils.*
 import android.Manifest
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Paint
 import android.graphics.Typeface
 import android.graphics.pdf.PdfDocument
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
@@ -30,6 +32,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
@@ -198,10 +201,10 @@ class EventDetails : Fragment() {
                         STORAGE_PERMISSION_CODE
                     )
                 } else {
-                    createPdf(data.event_id)
+                    createPdf()
                 }
             } else {
-
+                createPdf()
             }
         }
 
@@ -219,7 +222,7 @@ class EventDetails : Fragment() {
         when (requestCode) {
             STORAGE_PERMISSION_CODE -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    createPdf(data.event_id)
+                    createPdf()
                 } else {
                     showUserMsg("Permission denied")
                 }
@@ -419,9 +422,9 @@ class EventDetails : Fragment() {
     }
 
     // create pdf and save external directory
-    private fun createPdf(event_id: Int) {
+    private fun createPdf() {
 
-        val eventId = Integer.toString(event_id) // event id
+        val eventId = Integer.toString(data.event_id) // event id
 
         val userData =
             ModelPreferencesManager.get<`in`.bitspilani.eon.login.data.Data>(Constants.CURRENT_USER)
@@ -513,7 +516,7 @@ class EventDetails : Fragment() {
             dir.mkdirs()
         val filePath: File
 
-        filePath = File(directoryPath, eventId+"_"+eventName+"_tickets.pdf")
+        filePath = File(directoryPath, eventId+"_tickets.pdf")
 
         if (filePath.exists()) {
             filePath.delete()
@@ -524,16 +527,14 @@ class EventDetails : Fragment() {
 
         try {
             document.writeTo(FileOutputStream(filePath))
-            showUserMsg("Successfully downloaded")
+            showSnackBar("Downloaded", true);
+
             Log.e("Invoice", "Tickets" + filePath)
         } catch (e: IOException) {
             Log.e("Invoice", "Error: " + e.toString());
-            showUserMsg("Error!")
+            view?.showSnackbar("Error")
         }
-
-        document.writeTo(FileOutputStream(filePath));
         document.close();
-
     }
 
     fun toSimpleString(date: Date): String {
@@ -559,7 +560,40 @@ class EventDetails : Fragment() {
         }
     }
 
+    private fun showSnackBar(message: String, bool: Boolean){
+      Snackbar.make(view!!, message, Snackbar.LENGTH_LONG).show()
 
+//        if (bool){
+//            val eventId = Integer.toString(data.event_id) // event id
+//            val directoryPath = Environment.getExternalStorageDirectory().path + "/invoices/"
+//            var targetFile: File
+//
+//
+//            var snackbar: Snackbar
+//
+//            snackbar = Snackbar
+//                .make(view!!, message, Snackbar.LENGTH_LONG)
+//                .setAction("File location", View.OnClickListener() {
+//                    @Override
+//                    fun onClick(view: View) {
+//
+//                        val targetUri: Uri
+//                        val intent: Intent
+//
+//                        intent = Intent(Intent.ACTION_VIEW)
+//                        targetFile = File(directoryPath, eventId+"_tickets.pdf")
+//                        targetUri = Uri.fromFile(targetFile)
+//                        intent.setDataAndType(targetUri, "application/pdf");
+//                        startActivity(intent);
+//
+//                    }
+//                })
+//
+//            snackbar.show()
+//        }
 
+   }
 }
+
+
 
