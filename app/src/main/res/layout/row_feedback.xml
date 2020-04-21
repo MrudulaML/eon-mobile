@@ -12,9 +12,11 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
 
         <LinearLayout
 
@@ -32,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="1"
+                android:text="@{Integer.toString(feedbackData.questionNumber)}"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -67,13 +69,15 @@
             android:lines="4"
             android:paddingStart="10dp"
             android:paddingTop="15dp"
+            android:text="@{feedbackData.answer}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ll_question" />
 
 
         <LinearLayout
-            android:id="@+id/ll_attachment"
+            android:id="@+id/ll_action_attachment"
+            goneUnless="@{feedbackData.imageUri==null}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -95,6 +99,32 @@
                 android:layout_marginStart="10dp"
                 android:text="Add attachment"
                 android:textSize="16sp" />
+
         </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/iv_attached_image"
+            attachImage="@{feedbackData.imageUri}"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:elevation="10dp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_image_attached_text"
+            goneUnless="@{feedbackData.imageUri!=null}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:text="Image Attached Successfully"
+            android:textColor="@color/medium_aqua_marine"
+            android:visibility="gone" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+    </LinearLayout>
 </layout>

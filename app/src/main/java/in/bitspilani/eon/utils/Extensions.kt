@@ -3,6 +3,7 @@ package `in`.bitspilani.eon.utils
 
 import `in`.bitspilani.eon.event_organiser.models.FilterResponse
 import android.content.Context
+import android.net.Uri
 import android.os.SystemClock
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,6 +11,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter
@@ -30,9 +32,28 @@ fun View.goneUnless(visible: Boolean) {
     visibility = if (visible) View.VISIBLE else View.GONE
 }
 
+@BindingAdapter("attachImage")
+fun ImageView.attachImage(uri: Uri?) {
+
+    if (uri != null) {
+
+        setImageURI(uri)
+        visibility = View.VISIBLE
+    } else {
+
+        visibility = View.GONE
+    }
+}
+
+@BindingAdapter("goneUnless")
+fun LinearLayout.goneUnless(visible: Boolean){
+    visibility = if (visible) View.VISIBLE else View.GONE
+}
+
+
 @BindingAdapter("goneUnless")
 fun TextView.goneUnless(visible: Boolean) {
-   visibility = if (visible) View.VISIBLE else View.GONE
+    visibility = if (visible) View.VISIBLE else View.GONE
 }
 
 @BindingAdapter("app:`in`.bitspilani.eon.utils.invisibleUnless")
