@@ -86,6 +86,12 @@
                     app:sv_selectedStepNumberColor="@color/navy"
                     app:sv_selectedTextColor="@color/white" />
 
+               <androidx.core.widget.NestedScrollView
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:fillViewport="true"
+                   android:focusableInTouchMode="true">
+
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -99,32 +105,58 @@
                         android:orientation="vertical"
                         android:visibility="@{step == OrganiserDetailsSteps.BASIC_DETAILS ? View.VISIBLE : View.GONE }">
 
-
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/organizationNameWrapper"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10dp"
+                            android:padding="@dimen/_8dp"
+                            android:background="@drawable/bg_edit_text"
+                            android:theme="@style/TextLabel"
+                            android:visibility="@{userType == USER_TYPE.ORGANISER  ? View.VISIBLE : View.GONE }">
+
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                                android:id="@+id/edt_org_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/transparent"
+                            android:drawableStart="@drawable/ic_icon_basic_details_grey"
+                            android:drawableLeft="@drawable/ic_icon_basic_details_grey"
+                                android:drawablePadding="@dimen/_8sdp"
+                                android:hint="@string/organisation_name"
+                                android:padding="@dimen/_8dp"
+                                android:inputType="text"
+                                android:textColorHint="@color/grey"
+                                android:textSize="@dimen/_18dp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_10dp"
                             android:background="@drawable/bg_edit_text"
                             android:padding="@dimen/_8dp"
                             android:theme="@style/TextLabel"
-                            android:visibility="@{userType == USER_TYPE.ORGANISER  ? View.VISIBLE : View.GONE }">
+                            android:visibility="@{userType == USER_TYPE.SUBSCRIBER  ? View.VISIBLE : View.GONE }">
 
                             <androidx.appcompat.widget.AppCompatEditText
-                                android:id="@+id/edt_org_name"
+                                android:id="@+id/edt_user_name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@android:color/transparent"
-                                android:drawableStart="@drawable/ic_icon_basic_details_grey"
-                                android:drawableLeft="@drawable/ic_icon_basic_details_grey"
+                                android:drawableStart="@drawable/ic_user"
+                                android:drawableLeft="@drawable/ic_user"
                                 android:drawablePadding="@dimen/_8sdp"
-                                android:hint="@string/organisation_name"
+                                android:hint="@string/username"
                                 android:inputType="text"
                                 android:padding="@dimen/_8dp"
                                 android:textColorHint="@color/grey"
                                 android:textSize="@dimen/_18dp" />
 
                         </com.google.android.material.textfield.TextInputLayout>
+
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/emailAddressWrapper"
@@ -152,31 +184,6 @@
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.textfield.TextInputLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_10dp"
-                            android:background="@drawable/bg_edit_text"
-                            android:padding="@dimen/_8dp"
-                            android:theme="@style/TextLabel"
-                            android:visibility="@{userType == USER_TYPE.SUBSCRIBER  ? View.VISIBLE : View.GONE }">
-
-                            <androidx.appcompat.widget.AppCompatEditText
-                                android:id="@+id/edt_user_name"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@android:color/transparent"
-                                android:drawableStart="@drawable/ic_user"
-                                android:drawableLeft="@drawable/ic_user"
-                                android:drawablePadding="@dimen/_8sdp"
-                                android:hint="@string/username"
-                                android:inputType="textEmailAddress"
-                                android:padding="@dimen/_8dp"
-                                android:textColorHint="@color/grey"
-                                android:textSize="@dimen/_18dp" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/organisationContactWrapper"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -197,16 +204,22 @@
                                 android:inputType="phone"
                                 android:padding="@dimen/_8dp"
                                 android:textColorHint="@color/grey"
+                                android:maxLength="10"
                                 android:textSize="@dimen/_18dp" />
                         </com.google.android.material.textfield.TextInputLayout>
 
+
+
                         <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tv_address"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_16sdp"
                             android:text="@string/address"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_18fs" />
+
+
 
                         <androidx.appcompat.widget.AppCompatEditText
                             android:id="@+id/edt_org_address"
@@ -222,9 +235,10 @@
                             android:minLines="3"
                             android:padding="@dimen/_10dp"
                             android:scrollbars="vertical"
+                            android:focusable="true"
                             android:singleLine="false" />
 
-                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
@@ -379,6 +393,7 @@
                         android:background="@drawable/ic_icon_next_circle_blue"
                         android:layout_gravity="center"/>
                 </androidx.appcompat.widget.LinearLayoutCompat>
+               </androidx.core.widget.NestedScrollView>
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.constraintlayout.widget.ConstraintLayout>

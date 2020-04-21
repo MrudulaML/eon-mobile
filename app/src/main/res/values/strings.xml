@@ -6,21 +6,19 @@
 
     <string name="login">Login</string>
     <string name="forgot_password">Forgot Password?</string>
-    <string name="username">Username</string>
+    <string name="username">Your Full Name</string>
     <string name="password_hint">Password</string>
-    <string name="organiser">Organiser</string>
+    <string name="organiser">Organizer</string>
     <string name="bank_acc_no">Bank Acc No</string>
     <string name="ifsc_code">IFSC Code</string>
     <string name="bank_name">Bank Name</string>
     <string name="next">Next</string>
-    <string name="password_restriction_hint">Password must contain at least a Lower case, Upper case, Numbers and
-        Special,8-16 characters
-    </string>
+    <string name="password_restriction_hint">Password must be of length 8-16 characters having one lower case, one upper case and one numeric character.</string>
 
     <string name="subscriber">Subscriber</string>
     <string name="register">Register</string>
     <string name="details">Please provide the following details</string>
-    <string name="organisation_name">Enter Organisation Name</string>
+    <string name="organisation_name">Enter Organization Name</string>
     <string name="email_id">Enter Email Id</string>
     <string name="contact_details">Enter Contact Details</string>
     <string name="address_detail">Enter Address Details</string>
