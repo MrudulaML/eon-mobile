@@ -20,9 +20,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 @BindingAdapter("app:`in`.bitspilani.eon.utils.formatDate")
-fun TextView.formatDate( dateString: String, time : String) {
+fun TextView.formatDate(dateString: String, time: String) {
 
-    text=CommonUtil.formatDate(dateString,time).toString()
+    text = CommonUtil.formatDate(dateString, time).toString()
 }
 
 @BindingAdapter("app:`in`.bitspilani.eon.utils.goneUnless")
@@ -30,18 +30,24 @@ fun View.goneUnless(visible: Boolean) {
     visibility = if (visible) View.VISIBLE else View.GONE
 }
 
+@BindingAdapter("goneUnless")
+fun TextView.goneUnless(visible: Boolean) {
+   visibility = if (visible) View.VISIBLE else View.GONE
+}
+
 @BindingAdapter("app:`in`.bitspilani.eon.utils.invisibleUnless")
 fun View.invisibleUnless(visible: Boolean) {
     visibility = if (visible) View.VISIBLE else View.INVISIBLE
 }
+
 @BindingAdapter("date")
-fun formatDate(view:TextView,datestring: String) {
+fun formatDate(view: TextView, datestring: String) {
 
     var dateFormat: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd");
     var date: Date = dateFormat.parse(datestring);
     val formatter: DateFormat = SimpleDateFormat("EEEEEEEEE, dd MMM yyyy ")
     val today = formatter.format(date)
-    view.text= today
+    view.text = today
 }
 
 var EditText.value
@@ -95,8 +101,11 @@ fun loadImage(view: ImageView, imageUrl: String) {
 }
 
 fun EditText.onChange(cb: (String) -> Unit) {
-    this.addTextChangedListener(object: TextWatcher {
-        override fun afterTextChanged(s: Editable?) { cb(s.toString()) }
+    this.addTextChangedListener(object : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {
+            cb(s.toString())
+        }
+
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
     })
@@ -104,13 +113,13 @@ fun EditText.onChange(cb: (String) -> Unit) {
 
 //TODO optimise this hacky thing
 @BindingAdapter("eventType")
-fun getType(view: TextView,id: Int) {
+fun getType(view: TextView, id: Int) {
     val eventTypeCached = ModelPreferencesManager.get<FilterResponse>(Constants.EVENT_TYPES)
     val eventType = eventTypeCached?.data?.filter {
 
-        it.id ==id
+        it.id == id
     }
-    view.text=eventType?.get(0)?.type
+    view.text = eventType?.get(0)?.type
 }
 
 
@@ -140,15 +149,18 @@ fun View.showKeyboard() {
     this.requestFocus()
     imm.showSoftInput(this, 0)
 }
+
 /**
  * Try to hide the keyboard and returns whether it worked
  * https://stackoverflow.com/questions/1109022/close-hide-the-android-soft-keyboard
  */
 fun View.hideKeyboard(): Boolean {
     try {
-        val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputMethodManager =
+            context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         return inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
-    } catch (ignored: RuntimeException) { }
+    } catch (ignored: RuntimeException) {
+    }
     return false
 }
 

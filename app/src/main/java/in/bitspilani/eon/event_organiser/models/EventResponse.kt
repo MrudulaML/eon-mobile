@@ -1,8 +1,6 @@
 package `in`.bitspilani.eon.event_organiser.models
 
 
-
-
 data class EventResponse(
     var `data`: ArrayList<MonoEvent>,
     var message: String
@@ -22,7 +20,8 @@ data class MonoEvent(
     var sold_tickets: Int,
     var subscription_fee: Int,
     var time: String,
-    var is_wishlisted : Boolean? = null
+    var is_wishlisted: Boolean? = null,
+    var is_subscribed: Boolean? = false
 )
 
 

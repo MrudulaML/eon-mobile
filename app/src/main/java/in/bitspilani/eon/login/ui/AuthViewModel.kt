@@ -27,10 +27,15 @@ enum class ForgotPasswordSteps(val desc: String) {
 }
 
 enum class USER_TYPE(val desc: String) {
-    ORGANISER("Event Organiser"),
+    ORGANISER("Event Organizer"),
     SUBSCRIBER("Event Subscriber"),
 }
 
+enum class ROLE(val role : String){
+    ORGANIZER("organizer"),
+    SUBSCRIBER("subscriber")
+
+}
 class AuthViewModel : BaseViewModel() {
 
     val progress: SingleLiveEvent<Boolean> = SingleLiveEvent()

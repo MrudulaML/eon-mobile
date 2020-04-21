@@ -80,6 +80,11 @@
             android:id="@+id/sign_into_homepage"
             app:destination="@id/app_nav" />
 
+        <action
+            android:id="@+id/action_BasicInfoFragment_to_signInFragment"
+            app:popUpTo="@id/signInFragment"
+            app:popUpToInclusive="true"
+            app:destination="@id/signInFragment" />
 
         <action
             android:id="@+id/action_BasicInfoFragment_to_homeFragment"

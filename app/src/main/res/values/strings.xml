@@ -6,21 +6,19 @@
 
     <string name="login">Login</string>
     <string name="forgot_password">Forgot Password?</string>
-    <string name="username">Username</string>
+    <string name="username">Your Full Name</string>
     <string name="password_hint">Password</string>
-    <string name="organiser">Organiser</string>
+    <string name="organiser">Organizer</string>
     <string name="bank_acc_no">Bank Acc No</string>
     <string name="ifsc_code">IFSC Code</string>
     <string name="bank_name">Bank Name</string>
     <string name="next">Next</string>
-    <string name="password_restriction_hint">Password must contain at least a Lower case, Upper case, Numbers and
-        Special,8-16 characters
-    </string>
+    <string name="password_restriction_hint">Password must be of length 8-16 characters having one lower case, one upper case and one numeric character.</string>
 
     <string name="subscriber">Subscriber</string>
     <string name="register">Register</string>
     <string name="details">Please provide the following details</string>
-    <string name="organisation_name">Enter Organisation Name</string>
+    <string name="organisation_name">Enter Organization Name</string>
     <string name="email_id">Enter Email Id</string>
     <string name="contact_details">Enter Contact Details</string>
     <string name="address_detail">Enter Address Details</string>
@@ -52,4 +50,6 @@
     <string name="i_hereby_agree">I hereby agree with the terms and conditions</string>
     <string name="terms_and_condition_title">Terms &amp; Conditions</string>
     <string name="terms_and_condition_value">BITS - Pilani and Eon Introduction These Website Standard Terms and Conditions written on this webpage shall manage your use of our website, Webiste Name accessible at Website.com. These Terms will be applied fully and affect to your use of this Website. By using this Website, you agreed to accept all terms and conditions written in here. You must not use this Website if you disagree with any of these Website Standard Terms and Conditions. Minors or people below 18 years old are not allowed to use this Website. Intellectual Property Rights Other than the content you own, under these Terms, Company Name and/or its licensors own all the intellectual property rights and materials contained in this Website. You are granted limited license only for purposes of viewing the material contained on this Website. Restrictions You are specifically restricted from all of the following.</string>
+    <string name="contact_admin">You have been registered with us. Please contact admin for approval.</string>
+
 </resources>

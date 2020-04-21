@@ -59,16 +59,22 @@ class BasicDetailsFragment : Fragment() {
 
             showUserMsg("Registration Successful")
 
-            ModelPreferencesManager.putInt(Constants.USER_ROLE, it!!.user!!.role!!.id)
+//            ModelPreferencesManager.putInt(Constants.USER_ROLE, it!!.user!!.role!!.id)
+//
+//            ModelPreferencesManager.putString(Constants.ACCESS_TOKEN, it.access)
+//
+//            ModelPreferencesManager.putString(Constants.ACCESS_TOKEN, it.access)
+//            ModelPreferencesManager.putString(Constants.REFRESH_TOKEN, it.refresh)
+//            ModelPreferencesManager.putInt(Constants.USER_ROLE, it.user.role.id)
+//            ModelPreferencesManager.put(it, Constants.CURRENT_USER)
 
-            ModelPreferencesManager.putString(Constants.ACCESS_TOKEN, it.access)
+            //  findNavController().navigate(R.id.action_BasicInfoFragment_to_homeFragment)
 
-            ModelPreferencesManager.putString(Constants.ACCESS_TOKEN, it.access)
-            ModelPreferencesManager.putString(Constants.REFRESH_TOKEN, it.refresh)
-            ModelPreferencesManager.putInt(Constants.USER_ROLE, it.user.role.id)
-            ModelPreferencesManager.put(it, Constants.CURRENT_USER)
 
-            findNavController().navigate(R.id.action_BasicInfoFragment_to_homeFragment)
+            ContactAdmin.openDialog(activity!!) {
+
+                findNavController().navigate(R.id.action_BasicInfoFragment_to_signInFragment)
+            }
 
         })
         authViewModel.registerError.observe(viewLifecycleOwner, Observer {
@@ -80,7 +86,8 @@ class BasicDetailsFragment : Fragment() {
     private fun onNextClick() {
         when (authViewModel.registerCurrentStep) {
             OrganiserDetailsSteps.BASIC_DETAILS -> {
-                if (Validator.isValidEmail(edit_email, true) &&
+                if (Validator.isValidName(edt_org_name, true) &&
+                    Validator.isValidEmail(edit_email, true)&&
                     Validator.isValidPhone(edt_org_contact, true) &&
                     Validator.isValidName(edt_org_address, true)
                 ) {
@@ -115,7 +122,7 @@ class BasicDetailsFragment : Fragment() {
 
                             signupMap.put("organization", edt_org_name.text.toString())
 
-                            signupMap.put("role", "organiser")
+                            signupMap.put("role", ROLE.ORGANIZER.role)
 
                         } else {
                             signupMap.put("role", "subscriber")
@@ -124,17 +131,17 @@ class BasicDetailsFragment : Fragment() {
 
                         //since default value here is 100, if its 100 then we show user tnc dialog
 
-                        if(ModelPreferencesManager.getInt(Constants.TERMS_AND_CONDITION)==100){
+                        if (ModelPreferencesManager.getInt(Constants.TERMS_AND_CONDITION) == 100) {
 
-                            TermsAndConditionDialog.openDialog(activity!!){
+                            TermsAndConditionDialog.openDialog(activity!!) {
 
-                                ModelPreferencesManager.putInt(Constants.TERMS_AND_CONDITION,1)
+                                ModelPreferencesManager.putInt(Constants.TERMS_AND_CONDITION, 1)
                                 authViewModel.register(signupMap)
                             }
 
+                        } else if (ModelPreferencesManager.getInt(Constants.TERMS_AND_CONDITION) == 1) {
+                            authViewModel.register(signupMap)
                         }
-
-
 
 
                     } else {
