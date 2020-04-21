@@ -39,3 +39,5 @@ data class EventList(
     val fromFilter: Boolean = false,
     val eventList: ArrayList<MonoEvent>
 )
+
+data class extraFilter(val id:Int,val type:String)

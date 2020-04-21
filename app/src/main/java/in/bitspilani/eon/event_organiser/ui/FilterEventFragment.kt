@@ -28,6 +28,8 @@ class FilterEventFragment(
 
     private val eventFilterViewModel by viewModels<EventFilterViewModel> { getViewModelFactory() }
     private var filterType: Int? = null
+    private var subscriptionType: String? = null
+    private var eventStatus: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,13 +56,50 @@ class FilterEventFragment(
 
     }
 
+
     private fun setUpClickListeners() {
 
         btn_filter.clickWithDebounce {
 
-            filterCallbackListener.onApplyFilter(eventType = filterType, fromFilter = true)
+            filterCallbackListener.onApplyFilter(eventType = filterType, fromFilter = true,eventStatus = eventStatus,subscriptionType = subscriptionType)
         }
 
+        radio_group_leted.setOnCheckedChangeListener { group, checkedId ->
+
+            Timber.e("Checked id$")
+            when(checkedId){
+                R.id.completed->{
+                    eventStatus="completed"
+                    filterCallbackListener.onFilterTypeSelected(eventStatus = "completed")
+                }
+                R.id.upcoming->{
+                    eventStatus="upcoming"
+                    filterCallbackListener.onFilterTypeSelected(eventStatus = "upcoming")
+                }
+                R.id.cancelled->{
+                    eventStatus="cancelled"
+                    filterCallbackListener.onFilterTypeSelected(eventStatus = "cancelled")
+
+                }
+
+            }
+        }
+
+
+        radio_group_money.setOnCheckedChangeListener { group, checkedId ->
+
+            Timber.e("Checked id$checkedId")
+            when(checkedId){
+                R.id.free->{
+                    subscriptionType="free"
+                    filterCallbackListener.onFilterTypeSelected(subType = "free")
+                }
+                R.id.paid->{
+                    subscriptionType="paid"
+                    filterCallbackListener.onFilterTypeSelected(subType = "paid")
+                }
+            }
+        }
 
     }
 
@@ -84,7 +123,7 @@ class FilterEventFragment(
             radioButton.setOnClickListener {
 
                 filterType = it.id
-                filterCallbackListener.onFilterTypeSelected(it.id)
+                filterCallbackListener.onFilterTypeSelected(eventType = it.id)
 
             }
         }

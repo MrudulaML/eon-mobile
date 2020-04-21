@@ -33,11 +33,14 @@ class EventDashboardViewModel : BaseViewModel() {
         eventLocation: String? = null,
         startDate: String? = null,
         endDate: String? = null,
-        fromFilter: Boolean = false
+        fromFilter: Boolean = false,
+        eventStatus:String?=null,
+        subscriptionType:String?=null
+
     ) {
         showProgress(true)
         setupEventTypes()
-        restClient.authClient.create(ApiService::class.java).getEvents(eventType, eventLocation, startDate, endDate)
+        restClient.authClient.create(ApiService::class.java).getEvents(eventType, eventLocation, startDate, endDate,eventStatus,subscriptionType)
             .enqueue(object : ApiCallback<EventResponse>() {
                 override fun onSuccessResponse(responseBody: EventResponse) {
                     val eventList = EventList(fromFilter,responseBody.data)

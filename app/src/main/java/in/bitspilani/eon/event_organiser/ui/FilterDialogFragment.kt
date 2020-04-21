@@ -24,6 +24,9 @@ class FilterDialogFragment() : DialogFragment(),
     FilterCallbackListener {
 
     private var eventTypeSelected: Int? = null
+    private var subscriptionTypeSelected: String? = null
+    private var eventStatusSelected: String? = null
+
     // tab titles
     private val titles =
         arrayOf("Type of Events", "Calender")
@@ -38,7 +41,6 @@ class FilterDialogFragment() : DialogFragment(),
         isCancelable = true
         return inflater.inflate(R.layout.fragment_filter_dialog, container, false)
     }
-
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -56,7 +58,7 @@ class FilterDialogFragment() : DialogFragment(),
 
     private fun setUpClickListeners() {
         filter_view_pager.adapter =
-            FilterPagerAdapter(activity!!,this)
+            FilterPagerAdapter(activity!!, this)
         TabLayoutMediator(filter_tab_layout, filter_view_pager) { tab, position ->
             tab.text = titles[position]
         }.attach()
@@ -67,24 +69,51 @@ class FilterDialogFragment() : DialogFragment(),
         eventLocation: String?,
         startDate: String?,
         endDate: String?,
-        fromFilter:Boolean
+        fromFilter: Boolean,
+        eventStatus: String?,
+        subscriptionType: String?
     ) {
-        eventDashboardViewModel.getEvents(eventTypeSelected, eventLocation, startDate, endDate,fromFilter)
+        eventDashboardViewModel.getEvents(
+            eventTypeSelected,
+            eventLocation,
+            startDate,
+            endDate,
+            fromFilter,
+            eventStatusSelected,
+            subscriptionTypeSelected
+        )
         dismiss()
     }
 
-    override fun onFilterTypeSelected(eventType: Int?) {
+    override fun onFilterTypeSelected(eventType: Int?, eventStatu: String?, subType: String?) {
 
         eventType?.let {
-            eventTypeSelected=it
+            eventTypeSelected = it
         }
 
+        eventStatu?.let {
+            eventStatusSelected = it
+        }
+
+        subType?.let {
+            subscriptionTypeSelected = it
+
+        }
 
     }
 
 
 }
+/*for event_created_by(organizer)
+--> event_created_by =True/False
+-->is_wishlisted=True/False
 
+for filter based on event_status
+--> event_status = completed/cancelled
+(default is upcoming)
+
+for filter based on subscription_type
+--> subscription_type = free/paid*/
 
 
 interface FilterCallbackListener {
@@ -93,7 +122,15 @@ interface FilterCallbackListener {
         eventLocation: String? = null,
         startDate: String? = null,
         endDate: String? = null,
-        fromFilter:Boolean = false
+        fromFilter: Boolean = false,
+        eventStatus: String? = null,
+        subscriptionType: String? = null
+
     )
-    fun onFilterTypeSelected(eventType: Int?)
+
+    fun onFilterTypeSelected(
+        eventType: Int? = null,
+        eventStatus: String? = null,
+        subType: String? = null
+    )
 }

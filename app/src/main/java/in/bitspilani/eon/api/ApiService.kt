@@ -35,7 +35,9 @@ interface ApiService {
         @Query("event_type") eventType: Int? = null,
         @Query("location") eventLocation: String? = null,
         @Query("start_date") startDate: String? = null,
-        @Query("end_date") endDate: String? = null
+        @Query("end_date") endDate: String? = null,
+        @Query("event_status") eventStatus: String? = null,
+        @Query("subscription_type") subType: String? = null
     ): Call<EventResponse>
 
     @POST("/authentication/change-password")

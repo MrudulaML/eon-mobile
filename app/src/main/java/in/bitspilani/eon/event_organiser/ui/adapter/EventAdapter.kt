@@ -26,7 +26,7 @@ class EventAdapter(
     var eventFilteredList = ArrayList<MonoEvent>()
 
     init {
-        eventFilteredList = eventList
+        eventFilteredList =eventList
     }
 
     override fun getItemCount(): Int = eventFilteredList.size
@@ -47,44 +47,22 @@ class EventAdapter(
 
     }
 
-    fun filter(query: String) {
-
-        if (query.isBlank()) {
-            Timber.e("filter is empty")
-
-            eventFilteredList= eventList
-
-            Timber.e("filter is empty${eventList.size}")
-
-        } else {
-            val result: ArrayList<MonoEvent> = ArrayList()
-            for (item in eventFilteredList) {
-                if (item.name.toLowerCase(Locale.ROOT).contains(query.toLowerCase(Locale.ROOT))||
-                    item.location.toLowerCase(Locale.ROOT).contains(query.toLowerCase(Locale.ROOT))) {
-                    result.add(item)
-                }
-            }
-            eventFilteredList.clear()
-            eventFilteredList.addAll(result)
-        }
-        notifyDataSetChanged()
-    }
-
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val charSearch = constraint.toString()
                 Timber.e("event filter $charSearch")
-                eventFilteredList = if (charSearch.isEmpty()) {
-                    eventList
+               if (charSearch.isEmpty()) {
+                   eventFilteredList = eventList
                 } else {
                     val resultList = ArrayList<MonoEvent>()
-                    for (item in eventFilteredList) {
-                        if (item.location.toLowerCase(Locale.ROOT).contains(charSearch.toLowerCase(Locale.ROOT))) {
+                    for (item in eventList) {
+                        if (item.name.toLowerCase(Locale.ROOT).contains(charSearch.toLowerCase(Locale.ROOT))
+                            ||item.location.toLowerCase(Locale.ROOT).contains(charSearch.toLowerCase(Locale.ROOT))) {
                             resultList.add(item)
                         }
                     }
-                    resultList
+                    eventFilteredList= resultList
                 }
                 val filterResults = FilterResults()
                 filterResults.values = eventFilteredList

@@ -27,7 +27,7 @@ enum class ForgotPasswordSteps(val desc: String) {
 }
 
 enum class USER_TYPE(val desc: String) {
-    ORGANISER("Event Organiser"),
+    ORGANISER("Event Organizer"),
     SUBSCRIBER("Event Subscriber"),
 }
 
