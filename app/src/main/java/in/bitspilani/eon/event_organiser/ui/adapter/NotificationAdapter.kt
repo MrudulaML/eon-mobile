@@ -5,11 +5,12 @@ import `in`.bitspilani.eon.event_organiser.models.Notification
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.notification_item_row.view.*
 
-class NotificationAdapter(private val notificationList : List<Notification>) : RecyclerView.Adapter<NotificationAdapter.NotificationViewHolder>() {
+class NotificationAdapter(private val notificationList : List<Notification>,var onClearNotification: (position:Notification) -> Unit) : RecyclerView.Adapter<NotificationAdapter.NotificationViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotificationViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = NotificationItemRowBinding.inflate(inflater)
+        val binding = NotificationItemRowBinding.inflate(inflater,parent,false)
         return NotificationViewHolder(binding)
     }
 
@@ -21,6 +22,10 @@ class NotificationAdapter(private val notificationList : List<Notification>) : R
         fun bind(item: Notification) {
 
             binding.notofication = item
+
+            itemView.btn_close.setOnClickListener {
+                onClearNotification(item)
+            }
             binding.executePendingBindings()
         }
 
