@@ -20,7 +20,7 @@ data class FeedbackUser (
 
     @SerializedName("id") val id : Int,
     @SerializedName("email") val email : String,
-    @SerializedName("contact") val contact : Int,
+    @SerializedName("contact") val contact : Long,
     @SerializedName("name") val name : String
 )
 data class FeedbackData (

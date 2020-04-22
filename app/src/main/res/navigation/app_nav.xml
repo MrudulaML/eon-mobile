@@ -142,6 +142,9 @@
             tools:layout="@layout/fragment_event_detail_organiser">
 
             <action
+                android:id="@+id/action_PagerEvent_to_feedback"
+                app:destination="@id/organiserFeedback" />
+            <action
                 android:id="@+id/action_event_details_organiser_to_dashboardFragment"
                 app:popUpTo="@id/homeFragment"
                 app:popUpToInclusive="false" />

@@ -80,6 +80,8 @@ class EventDetailsOrganiserFragment : Fragment(),InviteeCallbackListener,EventDe
         })
 
 
+
+
     }
 
 

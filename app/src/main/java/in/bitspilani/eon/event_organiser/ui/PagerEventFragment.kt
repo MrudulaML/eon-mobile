@@ -17,6 +17,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -73,7 +74,15 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
 
         ll_viewfeedback.clickWithDebounce {
 
-            findNavController().navigate(R.id.action_PagerEvent_to_feedback)
+
+          // if( findNavController().currentDestination?.id == R.id.pager)
+            findNavController().navigate(
+                R.id.action_PagerEvent_to_feedback,
+                bundleOf(Constants.EVENT_ID to eventDetailResponse.data.id)
+            )
+
+
+           // eventDetailOrganiserViewModel.startFeedback.postValue(eventDetailResponse.data.id)
         }
 
     }

@@ -20,6 +20,8 @@ class EventDetailOrganiserViewModel(private val apiService: ApiService) : BaseVi
 
     var deleteProgress: MutableLiveData<Boolean> = SingleLiveEvent()
 
+    var startFeedback:  MutableLiveData<Int> = MutableLiveData()
+
     fun getEventDetails(id: Int) {
         showProgress(true)
         apiService.getEventDetailsOrganiser(id)
