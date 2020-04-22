@@ -11,6 +11,8 @@ class AnalyticsViewModel(val apiService: ApiService) : BaseViewModel() {
 
     val analyticsLiveData : SingleLiveEvent<AnalyticsResponse> = SingleLiveEvent()
 
+
+
     fun getAnalytics(){
         showProgress(true)
         apiService.getAnalytics()

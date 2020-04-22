@@ -12,21 +12,25 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class OrganizedEventAdapter(private val eventList: ArrayList<OrganizedEvent>) :
+class OrganizedEventAdapter(
+    private val eventList: ArrayList<OrganizedEvent>,
+    var isEmpty: (isEmpty: Boolean) -> Unit
+) :
     RecyclerView.Adapter<OrganizedEventAdapter.EventViewHolder>(),
     Filterable {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = AnalyticsItemRowBinding.inflate(inflater,parent,false)
+        val binding = AnalyticsItemRowBinding.inflate(inflater, parent, false)
         return EventViewHolder(binding)
     }
 
-    var selectAll:Boolean =false
+    var selectAll: Boolean = false
     var eventFilteredList = ArrayList<OrganizedEvent>()
 
     init {
         eventFilteredList = eventList
     }
+
     override fun getItemCount(): Int = eventFilteredList.size
 
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
@@ -53,11 +57,14 @@ class OrganizedEventAdapter(private val eventList: ArrayList<OrganizedEvent>) :
                 } else {
                     val resultList = ArrayList<OrganizedEvent>()
                     for (item in eventList) {
-                        if (item.name.toLowerCase(Locale.ROOT).contains(charSearch.toLowerCase(Locale.ROOT))) {
+                        if (item.status.toLowerCase(Locale.ROOT)
+                                .contains(charSearch.toLowerCase(Locale.ROOT))
+                        ) {
                             resultList.add(item)
                         }
                     }
-                    eventFilteredList= resultList
+
+                    eventFilteredList = resultList
                 }
                 val filterResults = FilterResults()
                 filterResults.values = eventFilteredList
@@ -68,6 +75,10 @@ class OrganizedEventAdapter(private val eventList: ArrayList<OrganizedEvent>) :
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
 
                 eventFilteredList = results?.values as ArrayList<OrganizedEvent>
+                if (eventFilteredList.isEmpty())
+                    isEmpty(true)
+                else
+                    isEmpty(false)
                 notifyDataSetChanged()
             }
 

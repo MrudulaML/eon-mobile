@@ -170,5 +170,9 @@ dependencies {
     //chip edittext
     implementation "com.hootsuite.android:nachos:1.1.1"
 
+    //pie chart
+    implementation 'com.github.lecho:hellocharts-android:v1.5.8'
+
+
 
 }
