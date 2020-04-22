@@ -37,7 +37,7 @@ class AnalyticsDashboardFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activity!!.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        analyticsViewModel.getAnalytics()
+
 
 
     }
@@ -53,6 +53,7 @@ class AnalyticsDashboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        analyticsViewModel.getAnalytics()
         setUpObservables()
 
         setUpSearch()
@@ -154,16 +155,16 @@ class AnalyticsDashboardFragment : Fragment() {
 
         val pieChartData = PieChartData(pieData)
         pieChartData.setHasCenterCircle(true).setCenterText1("Total Events\n"+data.total_events)
-            .setCenterText1FontSize(20).centerText1Color = Color.parseColor("#0097A7")
+            .setCenterText1FontSize(16).centerText1Color = Color.parseColor("#808080")
         pie_chart.pieChartData = pieChartData
     }
 
     @SuppressLint("SetTextI18n")
     private fun setData(data: Data) {
         txt_revenue.text= resources.getString(R.string.rupee_symbol)+data.total_revenue.toString()
-        txt_completed_events.text=data.completed_events.toString()
-        txt_ongoing_events.text=data.ongoing_events.toString()
-        txt_cancelled_events.text=data.cancelled_events.toString()
+        txt_completed_events.text=((data.completed_events.toDouble() / data.total_events) * 100).toInt().toString()+"%"
+        txt_ongoing_events.text=((data.ongoing_events.toDouble() / data.total_events) * 100).toInt().toString()+"%"
+        txt_cancelled_events.text=((data.cancelled_events.toDouble() / data.total_events) * 100).toInt().toString()+"%"
 
     }
 

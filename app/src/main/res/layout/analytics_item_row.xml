@@ -21,14 +21,16 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/appCompatTextView20"
-            android:layout_width="194dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:paddingStart="@dimen/_16sdp"
             android:text="Event Name"
             android:textColor="@color/grey"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintVertical_chainStyle="packed"
             app:layout_constraintEnd_toStartOf="@+id/appCompatTextView21"
-            app:layout_constraintHorizontal_bias="0.51"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,8 +38,8 @@
             android:id="@+id/appCompatTextView24"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{organized_event.name}"
             android:paddingStart="@dimen/_16sdp"
+            android:text="@{organized_event.name}"
             android:textColor="@color/dark_grey2"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -46,25 +48,26 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/appCompatTextView21"
-            android:layout_width="194dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:paddingStart="@dimen/_16sdp"
             android:text="No of Tickets"
+            app:layout_constraintHorizontal_weight="1"
             android:textColor="@color/grey"
-            app:layout_constraintBottom_toBottomOf="@+id/appCompatTextView20"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/appCompatTextView20"
-            app:layout_constraintTop_toTopOf="@+id/appCompatTextView20" />
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/appCompatTextView23"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingStart="@dimen/_16sdp"
             android:text="@{Integer.toString(organized_event.total_tickets)}"
             android:textColor="@color/dark_grey2"
-            android:paddingStart="@dimen/_16sdp"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/appCompatTextView21"
@@ -75,21 +78,25 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/appCompatTextView27"
-            android:layout_width="194dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:paddingStart="@dimen/_16sdp"
             android:text="Booked Tickets"
             android:textColor="@color/grey"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintEnd_toStartOf="@+id/appCompatTextView28"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appCompatTextView24" />
+            app:layout_constraintTop_toBottomOf="@+id/appCompatTextView24"
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/appCompatTextView25"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{Integer.toString(organized_event.sold_tickets)}"
             android:paddingStart="@dimen/_16sdp"
+            android:text="@{Integer.toString(organized_event.sold_tickets)}"
             android:textColor="@color/dark_grey2"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -98,14 +105,15 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/appCompatTextView28"
-            android:layout_width="194dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:paddingStart="@dimen/_16sdp"
             android:text="Revenue Earned"
             android:textColor="@color/grey"
-            android:paddingStart="@dimen/_16sdp"
+            app:layout_constraintHorizontal_weight="1"
             app:layout_constraintBottom_toBottomOf="@+id/appCompatTextView27"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/appCompatTextView27"
             app:layout_constraintTop_toTopOf="@+id/appCompatTextView27"
             app:layout_constraintVertical_bias="0.0" />
@@ -113,11 +121,11 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{Integer.toString(organized_event.revenue)}"
-            android:textStyle="bold"
             android:paddingStart="@dimen/_16sdp"
-            android:textSize="20sp"
+            android:text="@{Integer.toString(organized_event.revenue)}"
             android:textColor="@color/dark_grey2"
+            android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/appCompatTextView28"
             app:layout_constraintTop_toBottomOf="@+id/appCompatTextView28" />
 
@@ -129,16 +137,16 @@
             android:paddingStart="@dimen/_16sdp"
             android:text="Status"
             android:textColor="@color/dark_grey2"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/appCompatTextView27"
             app:layout_constraintTop_toBottomOf="@+id/appCompatTextView25" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
+            android:paddingStart="@dimen/_16sdp"
             android:text="@{organized_event.status}"
             android:textColor="@color/dark_grey2"
-            android:paddingStart="@dimen/_16sdp"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

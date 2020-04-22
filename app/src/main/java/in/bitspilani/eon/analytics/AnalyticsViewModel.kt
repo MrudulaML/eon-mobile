@@ -5,11 +5,12 @@ import `in`.bitspilani.eon.analytics.data.AnalyticsResponse
 import `in`.bitspilani.eon.api.ApiService
 import `in`.bitspilani.eon.utils.ApiCallback
 import `in`.bitspilani.eon.utils.SingleLiveEvent
+import androidx.lifecycle.MutableLiveData
 
 
 class AnalyticsViewModel(val apiService: ApiService) : BaseViewModel() {
 
-    val analyticsLiveData : SingleLiveEvent<AnalyticsResponse> = SingleLiveEvent()
+    val analyticsLiveData : MutableLiveData<AnalyticsResponse> = SingleLiveEvent()
 
 
 
