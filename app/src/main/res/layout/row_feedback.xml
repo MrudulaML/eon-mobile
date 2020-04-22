@@ -8,7 +8,7 @@
         <variable
             name="feedbackData"
 
-            type="in.bitspilani.eon.event_subscriber.models.Feedback" />
+            type="in.bitspilani.eon.event_subscriber.models.FeedbackData" />
 
     </data>
 
@@ -24,10 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/tv_question_number"
@@ -69,9 +66,7 @@
             android:lines="4"
             android:paddingStart="10dp"
             android:paddingTop="15dp"
-            android:text="@{feedbackData.answer}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:text="@{feedbackData.answer.description}"
             app:layout_constraintTop_toBottomOf="@id/ll_question" />
 
 
@@ -102,29 +97,44 @@
 
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/iv_attached_image"
-            attachImage="@{feedbackData.imageUri}"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:elevation="10dp"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/tv_image_attached_text"
-            goneUnless="@{feedbackData.imageUri!=null}"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="5dp"
-            android:text="Image Attached Successfully"
-            android:textColor="@color/medium_aqua_marine"
-            android:visibility="gone" />
+            goneUnless="@{feedbackData.imageUri!=null}"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_attached_image"
+                attachImage="@{feedbackData.imageUri}"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:elevation="10dp"
+                android:scaleType="fitXY"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_image_attached_text"
+                goneUnless="@{feedbackData.imageUri!=null}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:text="Image Attached Successfully"
+                android:textColor="@color/medium_aqua_marine"
+                android:visibility="gone" />
+        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="40dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="@color/grey" />
     </LinearLayout>
 </layout>

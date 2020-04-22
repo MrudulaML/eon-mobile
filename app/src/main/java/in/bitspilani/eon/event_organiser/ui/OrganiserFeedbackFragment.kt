@@ -1,8 +1,11 @@
 package `in`.bitspilani.eon.event_organiser.ui
 
+import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.event_organiser.ui.adapter.OrgFeedbackAdapter
+import `in`.bitspilani.eon.event_organiser.viewmodel.OrgFeedbackViewmodel
 import `in`.bitspilani.eon.event_subscriber.subscriber.feedback.FeedbackAdapter
+import `in`.bitspilani.eon.event_subscriber.subscriber.feedback.FeedbackViewmodel
 import `in`.bitspilani.eon.event_subscriber.subscriber.payments.PaymentViewModel
 import `in`.bitspilani.eon.login.data.Data
 import `in`.bitspilani.eon.login.ui.ActionbarHost
@@ -22,6 +25,7 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,6 +35,8 @@ import kotlinx.android.synthetic.main.layout_dialog_payment_success.view.*
 import kotlinx.android.synthetic.main.payment_fragment.*
 
 class OrganiserFeedbackFragment : Fragment() {
+
+    private val orgFeedbackViewmodel by viewModels<OrgFeedbackViewmodel> { getViewModelFactory() }
 
     private var actionbarHost: ActionbarHost? = null
 
@@ -55,15 +61,31 @@ class OrganiserFeedbackFragment : Fragment() {
 
         actionbarHost?.showToolbar(showToolbar = false, showBottomNav = false)
 
+        setObservables()
         init()
     }
 
 
-    fun init(){
+    fun init() {
 
-        rv_org_feedback.layoutManager = LinearLayoutManager(activity!!)
-        rv_org_feedback.adapter = OrgFeedbackAdapter()
+        orgFeedbackViewmodel.getUsers(arguments!!.getInt(Constants.EVENT_ID, 0))
 
+    }
+
+    fun setObservables() {
+
+
+        //loader observable
+        orgFeedbackViewmodel.progressLiveData.observe(viewLifecycleOwner, Observer {
+
+            (activity as BitsEonActivity).showProgress(it)
+        })
+
+        orgFeedbackViewmodel.feedbackListData.observe(viewLifecycleOwner, Observer {
+
+            rv_org_feedback.layoutManager = LinearLayoutManager(activity!!)
+            rv_org_feedback.adapter = OrgFeedbackAdapter(it.data)
+        })
     }
 
     fun showUserMsg(msg: String) {

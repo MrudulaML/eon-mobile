@@ -37,7 +37,7 @@ class EonViewModelFactory(
             isAssignableFrom(EventSummaryViewModel::class.java) -> EventSummaryViewModel(apiService)
             isAssignableFrom(UserProfileViewModel::class.java) -> UserProfileViewModel(apiService)
             isAssignableFrom(FeedbackViewmodel::class.java) -> FeedbackViewmodel(apiService)
-
+            isAssignableFrom(OrgFeedbackViewmodel::class.java) -> OrgFeedbackViewmodel(apiService)
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

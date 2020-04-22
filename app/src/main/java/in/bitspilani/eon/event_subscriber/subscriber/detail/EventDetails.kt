@@ -213,9 +213,9 @@ class EventDetails : Fragment() {
             CommonUtil.openLinkBrowser(activity!!, data.external_links)
         }
 
-        iv_feedback.clickWithDebounce {
+        btn_feedback.clickWithDebounce {
 
-            findNavController().navigate(R.id.action_eventDetails_to_subscriberFeedback)
+            findNavController().navigate(R.id.action_eventDetails_to_subscriberFeedback,bundleOf(Constants.EVENT_ID to data.event_id))
 
         }
     }
@@ -360,7 +360,7 @@ class EventDetails : Fragment() {
 
 
         //counter observer
-        seatCount.observe(this, Observer {
+        seatCount.observe(viewLifecycleOwner, Observer {
 
 
             tv_seat_counter.text = it.toString()
@@ -597,6 +597,13 @@ class EventDetails : Fragment() {
 //
 //            snackbar.show()
 //        }
+
+    }
+
+    override fun onDetach() {
+
+        eventDetailsViewModel.progressLiveData.postValue(false)
+        super.onDetach()
 
     }
 }

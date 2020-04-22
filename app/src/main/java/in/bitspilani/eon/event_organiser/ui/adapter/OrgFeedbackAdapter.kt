@@ -2,7 +2,8 @@ package `in`.bitspilani.eon.event_organiser.ui.adapter
 
 import `in`.bitspilani.eon.databinding.RowFeedbackBinding
 import `in`.bitspilani.eon.databinding.RowOrganiserFeedbackBinding
-import `in`.bitspilani.eon.event_subscriber.models.Feedback
+import `in`.bitspilani.eon.event_organiser.models.FeedbackUser
+import `in`.bitspilani.eon.event_subscriber.models.FeedbackData
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,7 +11,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class OrgFeedbackAdapter  : RecyclerView.Adapter<OrgFeedbackAdapter.ViewHolder>() {
+class OrgFeedbackAdapter(var userList: ArrayList<`in`.bitspilani.eon.event_organiser.models.FeedbackData>)  : RecyclerView.Adapter<OrgFeedbackAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
@@ -21,18 +22,21 @@ class OrgFeedbackAdapter  : RecyclerView.Adapter<OrgFeedbackAdapter.ViewHolder>(
 
     override fun getItemCount(): Int {
 
-        return 10
+        return userList.size
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(userList[position].user,position)
 
-    }
+
 
     inner class ViewHolder(val binding: RowOrganiserFeedbackBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Feedback, position: Int) {
+        fun bind(item: FeedbackUser, position: Int) {
             with(binding) {
+
+                binding.feedbackUserData=item
+                binding.executePendingBindings()
 
 
             }

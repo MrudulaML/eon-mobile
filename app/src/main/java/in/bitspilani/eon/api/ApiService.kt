@@ -1,10 +1,10 @@
 package `in`.bitspilani.eon.api
 
 import `in`.bitspilani.eon.event_organiser.models.*
-import `in`.bitspilani.eon.event_subscriber.models.EventDetailResponse
-import `in`.bitspilani.eon.event_subscriber.models.PaymentResponse
+import `in`.bitspilani.eon.event_subscriber.models.*
 import `in`.bitspilani.eon.login.data.*
 import com.google.gson.JsonObject
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -86,7 +86,23 @@ interface ApiService {
     @PATCH("/core/notification/")
     fun getNotificationRead(@Body body: HashMap<String, Any>): Call<CommonResponse>
 
-
     @PATCH("core/user/{user_id}/")
     fun updateBasicDetails(@Path("user_id") user_id: Int, @Body jsonObject: JsonObject): Call<CommonResponse>
+
+    @GET("core/feedback-questions/")
+    fun getQuestions(): Call<QuestionsResponse>
+
+    @POST("core/presigned-url/")
+    fun getPresignUrl(@Body body: HashMap<String, Any>): Call<PresignResponse>
+
+    @POST("core/feedback/")
+    fun postFeedback(@Body feedbackBody: FeedbackBody): Call<CommonResponse>
+
+    @PUT
+    fun uploadImage(@Url url: String, @Body image: RequestBody): Call<Void>
+
+
+    @GET("core/feedback/")
+    fun getFeedbackList(@Body hashMap: HashMap<String,Any>):Call<FeedbackListResponse>
+
 }

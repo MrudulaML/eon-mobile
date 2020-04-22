@@ -1,13 +1,19 @@
 package `in`.bitspilani.eon.event_subscriber.subscriber.feedback
 
+import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
-import `in`.bitspilani.eon.event_subscriber.models.Feedback
+import `in`.bitspilani.eon.event_subscriber.models.FeedbackBody
+import `in`.bitspilani.eon.event_subscriber.models.FeedbackData
 import `in`.bitspilani.eon.login.ui.ActionbarHost
+import `in`.bitspilani.eon.utils.Constants
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import `in`.bitspilani.eon.utils.getViewModelFactory
+import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -16,10 +22,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_feedback.*
+import okhttp3.MediaType
+import okhttp3.RequestBody
+import java.io.File
 
 
 class FeedbackFragment : Fragment() {
@@ -28,9 +41,11 @@ class FeedbackFragment : Fragment() {
     private var actionbarHost: ActionbarHost? = null
 
 
+    var READ_PERMISSION: Int = 912
     var PICK_IMAGE: Int = 911
     var imageUri: Uri? = null
 
+    var eventId: Int = 0
     var position: Int = -1
 
     override fun onCreateView(
@@ -54,49 +69,85 @@ class FeedbackFragment : Fragment() {
             showBottomNav = false
         )
 
-        setRecyclerview()
-
+        setObservables()
         setClicks()
+        init()
+
+        feedbackViewmodel.getQuestions()
+    }
+
+    fun init() {
+
+        eventId = arguments!!.getInt(Constants.EVENT_ID, 0)
+
     }
 
     fun setClicks() {
 
         btn_submit.clickWithDebounce {
 
-            list.forEach {
-
-                Log.e(
-                    "xoxo",
-                    "heres my feedback : answer:" + it.answer + " image: " + it.imageUri + " question: " + it.question
-                )
-            }
-
-
+            feedbackViewmodel.postFeedback(FeedbackBody(eventId, list))
         }
 
     }
 
-    var list: ArrayList<Feedback> = ArrayList<Feedback>()
-    fun setRecyclerview() {
-
-
-        list.add(Feedback("Are you mad at me wehbelkb asjbdbask dbkasdbjbaskjdb?"))
-        list.add(Feedback("Lets play holi akjbsdlbajsdb kbajsdbbasdb kjaksdbj baskbdbabsdbabsdkb?"))
-        list.add(Feedback("Did you like our event kjabsdflkjjsbdkfsad askdjva?"))
-        list.add(Feedback("Do you like eminem"))
-
-        rv_subscriber_feedback.layoutManager = LinearLayoutManager(activity!!)
-        rv_subscriber_feedback.adapter = FeedbackAdapter(list) {
-
-            position = it
-            openGallery()
-        }
-
-
-    }
-
+    var imageName: String = ""
+    var list: ArrayList<FeedbackData> = ArrayList<FeedbackData>()
     fun setObservables() {
 
+
+        //loader observable
+        feedbackViewmodel.progressLiveData.observe(viewLifecycleOwner, Observer {
+
+            (activity as BitsEonActivity).showProgress(it)
+        })
+
+        feedbackViewmodel.questionsData.observe(viewLifecycleOwner, Observer {
+
+
+            list = it.data
+
+            rv_subscriber_feedback.layoutManager = LinearLayoutManager(activity!!)
+            rv_subscriber_feedback.adapter = FeedbackAdapter(list) {
+
+                position = it
+                openGallery()
+            }
+            rv_subscriber_feedback.setHasFixedSize(true)
+
+
+        })
+
+        feedbackViewmodel.presignData.observe(viewLifecycleOwner, Observer {
+
+            imageName = it.data.image_name
+            feedbackViewmodel.uploadImageToS3(it.data.presigned_url, getRequestBody(imageUri))
+
+        })
+
+
+        feedbackViewmodel.uploadImageData.observe(viewLifecycleOwner, Observer {
+
+            list[position].imageUri = imageUri
+            list[position].answer.image = imageName
+
+            //   rv_subscriber_feedback.adapter!!.notifyItemChanged(position)
+
+            rv_subscriber_feedback.adapter!!.notifyDataSetChanged()
+
+            showUserMsg("Image uploaded successfully")
+
+        })
+
+        feedbackViewmodel.errorData.observe(viewLifecycleOwner, Observer {
+            showUserMsg(it)
+        })
+
+        feedbackViewmodel.postFeedbackData.observe(viewLifecycleOwner, Observer {
+
+            showUserMsg("Feedback Submitted Successfully")
+            findNavController().popBackStack()
+        })
 
     }
 
@@ -125,23 +176,105 @@ class FeedbackFragment : Fragment() {
         if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
             imageUri = data!!.getData()
 
+            Log.e("xoxo", "file name" + getRealPathFromURI(activity!!, imageUri!!))
             updateAdapter(imageUri)
 
         }
 
     }
 
-    fun updateAdapter(imageUri: Uri?) {
 
-        list[position].imageUri = imageUri
-
-        rv_subscriber_feedback.adapter!!.notifyItemChanged(position)
+    private fun getRealPathFromURI(context: Context, contentUri: Uri): String? {
+        var cursor: Cursor? = null
+        return try {
+            val proj =
+                arrayOf(MediaStore.Images.Media.DATA)
+            cursor = context.contentResolver.query(contentUri, proj, null, null, null)
+            val column_index: Int = cursor!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+            cursor!!.moveToFirst()
+            cursor.getString(column_index)
+        } catch (e: Exception) {
+            Log.e("xoxo", "getRealPathFromURI Exception : $e")
+            ""
+        } finally {
+            if (cursor != null) {
+                cursor.close()
+            }
+        }
     }
 
+
+    fun updateAdapter(imageUri: Uri?) {
+
+        this.imageUri = imageUri
+        val file = File(imageUri?.path)
+
+        feedbackViewmodel.getPresignUrl(file.name)
+
+
+//        list[position].imageUri = imageUri
+//
+//        rv_subscriber_feedback.adapter!!.notifyItemChanged(position)
+    }
+
+
+    fun getRequestBody(imageUri: Uri?): RequestBody {
+
+        val file = File(getRealPathFromURI(activity!!, imageUri!!)!!)
+
+        return RequestBody.create(MediaType.parse("image/jpeg"), file)
+    }
+
+
     private fun openGallery() {
-        val gallery =
-            Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-        startActivityForResult(gallery, PICK_IMAGE)
+
+        if (ContextCompat.checkSelfPermission(activity!!, Manifest.permission.READ_EXTERNAL_STORAGE)
+            == PackageManager.PERMISSION_GRANTED
+        ) {
+
+            val gallery =
+                Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+            startActivityForResult(gallery, PICK_IMAGE)
+        } else {
+
+            askPermissions()
+        }
+
+    }
+
+    fun askPermissions() {
+
+        ActivityCompat.requestPermissions(
+            activity!!,
+            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+            READ_PERMISSION
+        )
+
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>, grantResults: IntArray
+    ) {
+        when (requestCode) {
+            READ_PERMISSION -> {
+
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+
+                    openGallery()
+                } else {
+
+                    showUserMsg("Please grant the necessary permission ")
+                }
+                return
+            }
+
+            // Add other 'when' lines to check for other
+            // permissions this app might request.
+            else -> {
+                // Ignore all other requests.
+            }
+        }
     }
 
 

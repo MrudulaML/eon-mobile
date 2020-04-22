@@ -21,6 +21,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.facebook.CallbackManager
 import com.facebook.share.model.ShareLinkContent
 import com.facebook.share.widget.ShareDialog
@@ -70,6 +71,11 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
         callbackManager = CallbackManager.Factory.create()
         shareDialog = ShareDialog(this)
 
+        ll_viewfeedback.clickWithDebounce {
+
+            findNavController().navigate(R.id.action_PagerEvent_to_feedback)
+        }
+
     }
 
     private fun setOffEventsForOrganiser() {
@@ -94,12 +100,14 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
         })
         eventDetailOrganiserViewModel.errorView.observe(viewLifecycleOwner, Observer {
             it?.let {
-            view?.showSnackbar(it, 0)}
+                view?.showSnackbar(it, 0)
+            }
 
         })
 
 
     }
+
     //TODO fix this use appcompat
     private fun openReminderDialog(message: String) {
         val builder =
@@ -134,13 +142,13 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
             }
         }
         send_updates.clickWithDebounce {
-            isFromUpdate=false
-            val dialogFragment = NotifySubscriberFragment(this,isFromUpdate)
+            isFromUpdate = false
+            val dialogFragment = NotifySubscriberFragment(this, isFromUpdate)
             dialogFragment.show(childFragmentManager, "AaddInviteeDialog")
         }
         send_reminder.clickWithDebounce {
-            isFromUpdate=true
-            val dialogFragment = NotifySubscriberFragment(this,isFromUpdate)
+            isFromUpdate = true
+            val dialogFragment = NotifySubscriberFragment(this, isFromUpdate)
             dialogFragment.show(childFragmentManager, "AaddInviteeDialog")
         }
     }
@@ -149,7 +157,7 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
         Timber.e("on notify confirm")
         eventDetailOrganiserViewModel.notifySubscriber(
             type = "updates",
-            event_id =  eventDetailResponse.data.id,
+            event_id = eventDetailResponse.data.id,
             message = message
         )
     }
@@ -159,14 +167,14 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
         isFromUpdate = false
         eventDetailOrganiserViewModel.notifySubscriber(
             type = "reminder",
-            event_id =  eventDetailResponse.data.id,
+            event_id = eventDetailResponse.data.id,
             message = message
         )
     }
 
-    fun shareFacebook(){
+    fun shareFacebook() {
 
-        if (ShareDialog.canShow(ShareLinkContent::class.java)){
+        if (ShareDialog.canShow(ShareLinkContent::class.java)) {
 
             val shareLinkContent = ShareLinkContent.Builder()
                 .setContentTitle("Share text on facebook")

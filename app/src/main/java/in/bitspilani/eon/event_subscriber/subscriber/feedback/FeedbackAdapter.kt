@@ -1,16 +1,17 @@
 package `in`.bitspilani.eon.event_subscriber.subscriber.feedback
 
 import `in`.bitspilani.eon.databinding.RowFeedbackBinding
-import `in`.bitspilani.eon.event_subscriber.models.Feedback
+import `in`.bitspilani.eon.event_subscriber.models.FeedbackData
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.payment_fragment.*
 
-class FeedbackAdapter(var feedbackList: ArrayList<Feedback>, val onAttachmentClick: (position: Int) -> Unit) : RecyclerView.Adapter<FeedbackAdapter.ViewHolder>() {
+class FeedbackAdapter(var feedbackList: ArrayList<FeedbackData>, val onAttachmentClick: (position: Int) -> Unit) : RecyclerView.Adapter<FeedbackAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
@@ -24,13 +25,12 @@ class FeedbackAdapter(var feedbackList: ArrayList<Feedback>, val onAttachmentCli
         return feedbackList.size
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) =
-        holder.bind(feedbackList[position], position)
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(feedbackList[position], position)
 
     inner class ViewHolder(val binding: RowFeedbackBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Feedback, position: Int) {
+        fun bind(item: FeedbackData, position: Int) {
             with(binding) {
 
                 item.questionNumber = position + 1
@@ -44,7 +44,8 @@ class FeedbackAdapter(var feedbackList: ArrayList<Feedback>, val onAttachmentCli
 
                     override fun afterTextChanged(s: Editable) {
 
-
+                        Log.e("xoxo","my object: "+feedbackList[position] +"answer" +feedbackList[position].answer!!.description)
+                        feedbackList[position].answer?.description= binding.etAnswer.text.toString()
 
                     }
 
@@ -53,8 +54,6 @@ class FeedbackAdapter(var feedbackList: ArrayList<Feedback>, val onAttachmentCli
                     }
 
                     override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-
-                        feedbackList[position].answer= binding.etAnswer.text.toString()
 
                     }
                 })

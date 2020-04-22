@@ -91,7 +91,7 @@ class BasicDetailsFragment : Fragment() {
                     Validator.isValidPhone(edt_org_contact, true) &&
                     Validator.isValidName(edt_org_address, true)
                 ) {
-                    if (authViewModel.userType == UserType.ORGANISER) {
+                    if (authViewModel.userType == USER_TYPE.ORGANISER) {
 
                         if (!Validator.isValidName(edt_org_name, true))
                             return

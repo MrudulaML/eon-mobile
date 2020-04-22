@@ -55,16 +55,6 @@
                 app:layout_constraintStart_toEndOf="@id/iv_back"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/iv_feedback"
-                android:layout_width="40dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginEnd="10dp"
-                android:src="@drawable/ic_feedback"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/iv_wishlist"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/iv_wishlist"
@@ -307,6 +297,18 @@
                             android:layout_marginTop="15dp"
                             android:visibility="gone"
                             app:layout_constraintBottom_toBottomOf="parent" />
+
+                        <Button
+                            android:layout_marginTop="10dp"
+                            android:id="@+id/btn_feedback"
+                            goneUnless="@{(eventData._subscribed &amp;&amp; !eventData.feedback_given)}"
+                            android:layout_width="120dp"
+                            android:layout_height="35dp"
+                            android:layout_gravity="center"
+                            android:background="@color/colorPrimary"
+                            android:text="Send Feedback"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
 
                         <View
                             android:id="@+id/space_view"

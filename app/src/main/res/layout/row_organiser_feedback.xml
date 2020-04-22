@@ -2,6 +2,17 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
+    <data>
+
+        <variable
+            name="feedbackUserData"
+
+            type="in.bitspilani.eon.event_organiser.models.FeedbackUser" />
+
+    </data>
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="120dp"
@@ -16,7 +27,7 @@
             android:layout_marginTop="20dp"
             android:drawableStart="@drawable/ic_mail"
             android:drawablePadding="10dp"
-            android:text="milind.dave@wwe.com"
+            android:text="@{feedbackUserData.email}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,7 +39,7 @@
             android:layout_marginTop="20dp"
             android:drawableStart="@drawable/ic_user"
             android:drawablePadding="10dp"
-            android:text="Milind Dave"
+            android:text="@{feedbackUserData.name}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_user_email" />
 
@@ -40,11 +51,10 @@
             android:layout_marginTop="20dp"
             android:drawableStart="@drawable/ic_call"
             android:drawablePadding="10dp"
-            android:text="9912345678"
-            app:layout_constraintTop_toTopOf="parent"
+            android:text="@{feedbackUserData.contact}"
             app:layout_constraintBaseline_toBaselineOf="@id/tv_user_name"
             app:layout_constraintStart_toEndOf="@id/tv_user_name"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

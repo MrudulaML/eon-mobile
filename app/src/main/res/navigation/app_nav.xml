@@ -149,6 +149,29 @@
         </fragment>
 
         <fragment
+            android:id="@+id/PagerEventFragment"
+            android:name="in.bitspilani.eon.event_organiser.ui.PagerEventFragment"
+            tools:layout="@layout/fragment_event">
+
+            <action
+                android:id="@+id/action_PagerEvent_to_feedback"
+                app:destination="@id/organiserFeedback" />
+
+        </fragment>
+
+        <fragment
+            android:id="@+id/organiserFeedback"
+            android:name="in.bitspilani.eon.event_organiser.ui.OrganiserFeedbackFragment"
+            tools:layout="@layout/fragment_organiser_feedback" >
+
+            <argument
+                android:name="event_id"
+                android:defaultValue="0"
+                app:argType="integer" />
+
+        </fragment>
+
+        <fragment
             android:id="@+id/paymentFrag"
             android:name="in.bitspilani.eon.event_subscriber.subscriber.payments.PaymentFrag"
             tools:layout="@layout/payment_fragment">
@@ -324,6 +347,11 @@
             android:label="fragment_feedback"
             tools:layout="@layout/fragment_feedback">
 
+            <argument
+                android:name="event_id"
+                android:defaultValue="0"
+                app:argType="integer" />
+
         </fragment>
         <fragment
             android:id="@+id/notificationFragment"
@@ -346,8 +374,8 @@
                 android:id="@+id/action_profile_to_sub_wish_list"
                 app:destination="@id/eventWishListFragment" />
 
-
         </fragment>
+
         <fragment
             android:id="@+id/eventFilterFragment"
             android:name="in.bitspilani.eon.event_organiser.ui.FilterEventFragment"

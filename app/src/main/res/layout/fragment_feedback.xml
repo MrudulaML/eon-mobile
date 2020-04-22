@@ -31,7 +31,6 @@
 
 
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_subscriber_feedback"
         android:layout_width="match_parent"
