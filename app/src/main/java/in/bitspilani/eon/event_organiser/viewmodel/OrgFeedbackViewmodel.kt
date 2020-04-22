@@ -2,7 +2,9 @@ package `in`.bitspilani.eon.event_organiser.viewmodel
 
 import `in`.bitspilani.eon.BaseViewModel
 import `in`.bitspilani.eon.api.ApiService
+import `in`.bitspilani.eon.event_organiser.models.FeedbackData
 import `in`.bitspilani.eon.event_organiser.models.FeedbackListResponse
+import `in`.bitspilani.eon.event_organiser.models.Responses
 import `in`.bitspilani.eon.event_subscriber.models.PaymentResponse
 import `in`.bitspilani.eon.event_subscriber.models.QuestionsResponse
 import `in`.bitspilani.eon.utils.ApiCallback
@@ -73,5 +75,13 @@ class OrgFeedbackViewmodel(private val apiService: ApiService) : BaseViewModel()
 //            })
     }
 
+
+    var detailPage: MutableLiveData<FeedbackData> = MutableLiveData()
+
+    fun onSingleUserFeedbackClick(list:FeedbackData){
+
+        detailPage.postValue(list)
+
+    }
 
 }

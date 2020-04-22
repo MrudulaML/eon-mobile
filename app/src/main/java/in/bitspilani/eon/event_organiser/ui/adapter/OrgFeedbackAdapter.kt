@@ -3,6 +3,7 @@ package `in`.bitspilani.eon.event_organiser.ui.adapter
 import `in`.bitspilani.eon.databinding.RowFeedbackBinding
 import `in`.bitspilani.eon.databinding.RowOrganiserFeedbackBinding
 import `in`.bitspilani.eon.event_organiser.models.FeedbackUser
+import `in`.bitspilani.eon.event_organiser.viewmodel.OrgFeedbackViewmodel
 import `in`.bitspilani.eon.event_subscriber.models.FeedbackData
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import android.text.Editable
@@ -11,7 +12,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class OrgFeedbackAdapter(var userList: ArrayList<`in`.bitspilani.eon.event_organiser.models.FeedbackData>)  : RecyclerView.Adapter<OrgFeedbackAdapter.ViewHolder>() {
+class OrgFeedbackAdapter(var userList: ArrayList<`in`.bitspilani.eon.event_organiser.models.FeedbackData>,var orgFeedbackViewmodel: OrgFeedbackViewmodel)  : RecyclerView.Adapter<OrgFeedbackAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
@@ -36,6 +37,10 @@ class OrgFeedbackAdapter(var userList: ArrayList<`in`.bitspilani.eon.event_organ
             with(binding) {
 
                 binding.feedbackUserData=item
+                binding.llRoot.clickWithDebounce {
+
+                    orgFeedbackViewmodel.onSingleUserFeedbackClick(userList[position])
+                }
                 binding.executePendingBindings()
 
 

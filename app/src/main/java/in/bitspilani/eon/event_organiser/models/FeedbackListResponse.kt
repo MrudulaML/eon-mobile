@@ -23,8 +23,9 @@ data class FeedbackUser (
     @SerializedName("contact") val contact : Long,
     @SerializedName("name") val name : String
 )
+
 data class FeedbackData (
 
     @SerializedName("user") val user : FeedbackUser,
-    @SerializedName("responses") val responses : List<Responses>
+    @SerializedName("responses") val responses : ArrayList<Responses>
 )
