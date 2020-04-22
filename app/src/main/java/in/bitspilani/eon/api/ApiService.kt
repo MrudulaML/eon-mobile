@@ -89,7 +89,7 @@ interface ApiService {
 
 
     @PATCH("core/user/{user_id}/")
-    fun updateBasicDetails(@Path("user_id") user_id: Int, @Body jsonObject: JsonObject): Call<CommonResponse>
+    fun updateBasicDetails(@Path("user_id") user_id: Int, @Body jsonObject: JsonObject): Call<BasicDetailsResponse>
 
     @GET("/core/event-summary")
     fun getAnalytics(): Call<AnalyticsResponse>
