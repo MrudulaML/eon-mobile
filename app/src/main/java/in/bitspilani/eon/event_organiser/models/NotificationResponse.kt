@@ -5,6 +5,9 @@ data class NotificationResponse(
 )
 
 data class Notification(
+    var created_on: String,
+    var event: String,
+    var event_id: Int,
     var id: Int,
     var message: String
 )

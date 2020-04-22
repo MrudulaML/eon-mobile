@@ -4,7 +4,6 @@ import `in`.bitspilani.eon.BaseViewModel
 import `in`.bitspilani.eon.api.ApiService
 import `in`.bitspilani.eon.event_organiser.models.Notification
 import `in`.bitspilani.eon.event_organiser.models.NotificationResponse
-import `in`.bitspilani.eon.event_subscriber.models.EventDetailResponse
 import `in`.bitspilani.eon.login.data.CommonResponse
 import `in`.bitspilani.eon.utils.ApiCallback
 import `in`.bitspilani.eon.utils.SingleLiveEvent
@@ -18,17 +17,17 @@ class NotificationViewModel(private val apiService: ApiService) : BaseViewModel(
 
     var notificationList: List<Notification> = ArrayList<Notification>()
 
-    val clearAllData:MutableLiveData<CommonResponse> = MutableLiveData()
+    val clearAllData: MutableLiveData<CommonResponse> = MutableLiveData()
 
     val notificationLiveData: SingleLiveEvent<NotificationResponse> = SingleLiveEvent()
 
     fun getNotification() {
-
+        showProgress(true)
         apiService.getNotification()
             .enqueue(object : ApiCallback<NotificationResponse>() {
                 override fun onSuccessResponse(responseBody: NotificationResponse) {
 
-                    notificationList=responseBody.data
+                    notificationList = responseBody.data
                     notificationLiveData.postValue(responseBody)
                     showProgress(false)
                 }
@@ -44,29 +43,26 @@ class NotificationViewModel(private val apiService: ApiService) : BaseViewModel(
 
     fun readNotification() {
 
+
         var notificationIdList: ArrayList<Int> = ArrayList<Int>()
-
-        showProgress(true)
-
-        if(notificationList!=null){
+        if (notificationList != null) {
 
             notificationList.forEach {
-
                 notificationIdList.add(it.id)
-
             }
-
-
         }
 
-        var hashMap : HashMap<String,Any> = HashMap()
-        hashMap.put("notification_ids",notificationIdList)
+        var hashMap: HashMap<String, Any> = HashMap()
+        hashMap.put("notification_ids", notificationIdList)
 
+        showProgress(true)
         apiService.getNotificationRead(hashMap)
             .enqueue(object : Callback<CommonResponse> {
 
-                override fun onResponse(call: Call<CommonResponse>,
-                    response: Response<CommonResponse>) {
+                override fun onResponse(
+                    call: Call<CommonResponse>,
+                    response: Response<CommonResponse>
+                ) {
 
                     showProgress(false)
                     if (response.isSuccessful) {
@@ -85,6 +81,30 @@ class NotificationViewModel(private val apiService: ApiService) : BaseViewModel(
 
     }
 
+    fun readNotificationSingle(notificationId: Int) {
+
+        val hashMap: HashMap<String, Any> = HashMap()
+        hashMap["notification_ids"] = arrayListOf(notificationId)
+        showProgress(true)
+        apiService.getNotificationRead(hashMap)
+            .enqueue(object : Callback<CommonResponse> {
+                override fun onResponse(
+                    call: Call<CommonResponse>,
+                    response: Response<CommonResponse>
+                ) {
+                    showProgress(false)
+                    if (response.isSuccessful)
+                        clearAllData.postValue(response.body())
+                }
+
+                override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
+                    showProgress(false)
+                   // errorView.postValue(error)
+
+                }
+            })
+
+    }
 
 
 }
