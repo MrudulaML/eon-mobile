@@ -3,7 +3,6 @@ package `in`.bitspilani.eon.event_organiser.ui
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.event_organiser.models.DetailResponseOrganiser
 import `in`.bitspilani.eon.event_organiser.models.Invitee
-import `in`.bitspilani.eon.event_organiser.ui.adapter.EventDetailPagerAdapter
 import `in`.bitspilani.eon.event_organiser.ui.adapter.InviteesAdapter
 import `in`.bitspilani.eon.event_organiser.viewmodel.EventDetailOrganiserViewModel
 import `in`.bitspilani.eon.utils.clickWithDebounce
@@ -12,25 +11,22 @@ import `in`.bitspilani.eon.utils.goneUnless
 import `in`.bitspilani.eon.utils.showSnackbar
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.fragment_event_detail_organiser.*
 import kotlinx.android.synthetic.main.fragment_invitee.*
 import timber.log.Timber
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 /**
  * A simple [Fragment] subclass.
  *
  */
-class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganiser) : Fragment(),
+class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganiser,val inviteeCallbackListener: InviteeCallbackListener) : Fragment(),
     CallbackListener {
 
     private var deleteAll: Boolean = false
@@ -63,30 +59,28 @@ class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganis
         eventDetailOrganiserViewModel.deleteInvitee.observe(viewLifecycleOwner, Observer {
 
 
-        if(it.message.toLowerCase(Locale.ROOT).contains("success")) {
-            showDeleteOption(false)
-            if(chb_select_all.isChecked)
-                chb_select_all.isChecked=false
+            if (it.message.toLowerCase(Locale.ROOT).contains("success")) {
+                showDeleteOption(false)
+                if (!deleteAll)
+                    inviteeListDeleted.clear()
+            }
             view.showSnackbar(it.message, 0)
-            if(deleteAll)
-                eventDetailOrganiserViewModel.getEventDetails(detailResponse.data.id)
-
-        }
 
         })
         chb_select_all.setOnCheckedChangeListener { buttonView, isChecked ->
 
-            deleteAll = if (isChecked) {
+            if (isChecked) {
                 inviteesAdapter.selectAll()
                 showDeleteOption(true)
-                true
+                deleteAll = true
+
             } else {
                 inviteesAdapter.deSelectAll()
                 showDeleteOption(false)
-                false
+                deleteAll = true
+
             }
         }
-
         btn_delete_all.clickWithDebounce {
 
             if (!deleteAll) {
@@ -97,11 +91,11 @@ class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganis
                     invitationIds,
                     detailResponse.data.id
                 )
+                inviteesAdapter.deSelectAll()
                eventDetailOrganiserViewModel.getEventDetails(detailResponse.data.id)
             } else {
-
                 val invitationIds: ArrayList<Int> = arrayListOf()
-                for (i in detailResponse.data.invitee_list) {
+                for (i in inviteeList) {
                     invitationIds.add(i.invitation_id)
                 }
                 eventDetailOrganiserViewModel.deleteInvitee(
@@ -113,20 +107,29 @@ class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganis
             }
         }
 
+        btn_close.clickWithDebounce {
+
+            inviteesAdapter.deSelectAll()
+            showDeleteOption(false)
+            inviteeListDeleted.clear()
+        }
+
         eventDetailOrganiserViewModel.eventData.observe(viewLifecycleOwner, Observer {
 
             inviteeList = it.data.invitee_list
             inviteesAdapter = InviteesAdapter(
                 inviteeList
-            ,selectCheckBoxCallback = { invitee: Invitee, isSelected: Boolean ->
-                Timber.e("invitee id${invitee.invitation_id}")
-                if (isSelected)
-                    inviteeListDeleted.add(invitee)
-                else
-                    inviteeListDeleted.remove(invitee)
-                showDeleteOption(inviteeListDeleted.size > 0)
-                Timber.e("invitee selected list${inviteeListDeleted.size}")
-            })
+                , selectCheckBoxCallback = { invitee: Invitee, isSelected: Boolean ->
+                    Timber.e("invitee id${invitee.invitation_id}")
+                    if (isSelected)
+                        inviteeListDeleted.add(invitee)
+                    else
+                        inviteeListDeleted.remove(invitee)
+
+                    showDeleteOption(inviteeListDeleted.size > 0)
+
+                    Timber.e("invitee selected list${inviteeListDeleted.size}")
+                })
             rv_invitee_list.adapter = inviteesAdapter
             inviteesAdapter.notifyDataSetChanged()
 
@@ -139,9 +142,17 @@ class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganis
         })
     }
 
-    private fun showDeleteOption(show: Boolean) {
 
-        btn_delete_all.goneUnless(show)
+    private fun showDeleteOption(show: Boolean) {
+        if (show) {
+            delete_menu.visibility = View.VISIBLE
+            inviteeCallbackListener.getdelete(true)
+        } else {
+
+            delete_menu.visibility = View.GONE
+            inviteeCallbackListener.getdelete(false)
+        }
+
 
     }
 
@@ -176,6 +187,8 @@ class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganis
                 else
                     inviteeListDeleted.remove(invitee)
                 showDeleteOption(inviteeListDeleted.size > 0)
+                inviteeCallbackListener.getdelete(inviteeListDeleted.size > 0)
+
                 Timber.e("invitee selected list${inviteeListDeleted.size}")
             })
         rv_invitee_list.adapter = inviteesAdapter

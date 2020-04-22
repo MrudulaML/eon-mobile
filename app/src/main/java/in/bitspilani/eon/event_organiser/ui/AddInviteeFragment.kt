@@ -13,13 +13,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.widget.doBeforeTextChanged
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.google.gson.JsonArray
 import com.hootsuite.nachos.terminator.ChipTerminatorHandler
+import com.hootsuite.nachos.validator.ChipifyingNachoValidator
 import kotlinx.android.synthetic.main.fragment_add_invitee.*
 import timber.log.Timber
 import kotlin.math.roundToInt
@@ -65,8 +65,10 @@ class AddInviteeFragment(private val eventData: Data, private val callbackListen
         })
 
         nacho_text_view.addChipTerminator(',', ChipTerminatorHandler.BEHAVIOR_CHIPIFY_ALL);
+        nacho_text_view.addChipTerminator('\n', ChipTerminatorHandler.BEHAVIOR_CHIPIFY_TO_TERMINATOR);
+        nacho_text_view.addChipTerminator(' ', ChipTerminatorHandler.BEHAVIOR_CHIPIFY_TO_TERMINATOR);
 
-
+        nacho_text_view.setNachoValidator(ChipifyingNachoValidator())
     }
 
     private fun setUpClickListeners() {
