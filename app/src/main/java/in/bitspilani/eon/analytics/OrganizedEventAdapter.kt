@@ -57,9 +57,9 @@ class OrganizedEventAdapter(
                 } else {
                     val resultList = ArrayList<OrganizedEvent>()
                     for (item in eventList) {
-                        if (item.status.toLowerCase(Locale.ROOT)
-                                .contains(charSearch.toLowerCase(Locale.ROOT))
-                        ) {
+                        if (item.status.toLowerCase(Locale.ROOT).contains(charSearch.toLowerCase(Locale.ROOT)) ||
+                            item.name.toLowerCase(Locale.ROOT).contains(charSearch.toLowerCase(Locale.ROOT)))
+                         {
                             resultList.add(item)
                         }
                     }
