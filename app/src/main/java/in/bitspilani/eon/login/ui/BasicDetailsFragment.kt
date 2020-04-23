@@ -1,5 +1,6 @@
 package `in`.bitspilani.eon.login.ui
 
+import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.databinding.FragmentBasicDetailsBinding
 import `in`.bitspilani.eon.utils.*
@@ -59,25 +60,41 @@ class BasicDetailsFragment : Fragment() {
 
             showUserMsg("Registration Successful")
 
-//            ModelPreferencesManager.putInt(Constants.USER_ROLE, it!!.user!!.role!!.id)
+            if (it.user.role.id == 2) {
+
+//                ModelPreferencesManager.putInt(Constants.USER_ROLE, it!!.user!!.role!!.id)
 //
-//            ModelPreferencesManager.putString(Constants.ACCESS_TOKEN, it.access)
+//                ModelPreferencesManager.putString(Constants.ACCESS_TOKEN, it.access)
 //
-//            ModelPreferencesManager.putString(Constants.ACCESS_TOKEN, it.access)
-//            ModelPreferencesManager.putString(Constants.REFRESH_TOKEN, it.refresh)
-//            ModelPreferencesManager.putInt(Constants.USER_ROLE, it.user.role.id)
-//            ModelPreferencesManager.put(it, Constants.CURRENT_USER)
-
-            //  findNavController().navigate(R.id.action_BasicInfoFragment_to_homeFragment)
-
-
-            ContactAdmin.openDialog(activity!!) {
+//                ModelPreferencesManager.putString(Constants.ACCESS_TOKEN, it.access)
+//                ModelPreferencesManager.putString(Constants.REFRESH_TOKEN, it.refresh)
+//                ModelPreferencesManager.putInt(Constants.USER_ROLE, it.user.role.id)
+//                ModelPreferencesManager.put(it, Constants.CURRENT_USER)
 
                 findNavController().navigate(R.id.action_BasicInfoFragment_to_signInFragment)
+
+            } else {
+
+                ContactAdmin.openDialog(activity!!) {
+
+                    findNavController().navigate(R.id.action_BasicInfoFragment_to_signInFragment)
+                }
             }
 
+
         })
+
         authViewModel.registerError.observe(viewLifecycleOwner, Observer {
+
+            showUserMsg(it)
+        })
+
+        authViewModel.progressLiveData.observe(viewLifecycleOwner, Observer {
+
+            (activity as BitsEonActivity).showProgress(it)
+        })
+
+        authViewModel.errorView.observe(viewLifecycleOwner, Observer {
 
             showUserMsg(it)
         })

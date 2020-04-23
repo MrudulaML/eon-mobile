@@ -5,6 +5,8 @@ import `in`.bitspilani.eon.api.ApiService
 import `in`.bitspilani.eon.event_subscriber.models.EventDetailResponse
 import `in`.bitspilani.eon.event_subscriber.models.PaymentResponse
 import `in`.bitspilani.eon.login.data.CommonResponse
+import `in`.bitspilani.eon.login.data.SignUpResponse
+import `in`.bitspilani.eon.utils.ApiCallback
 import androidx.lifecycle.MutableLiveData
 import retrofit2.Call
 import retrofit2.Callback
@@ -73,6 +75,7 @@ class EventDetailsViewModel(private val apiService: ApiService) : BaseViewModel(
 
     fun wishlistEvent() {
 
+        showProgress(true)
 
         var hashMap: HashMap<String, Any> = HashMap()
 
@@ -84,6 +87,7 @@ class EventDetailsViewModel(private val apiService: ApiService) : BaseViewModel(
                 call: Call<CommonResponse>,
                 response: Response<CommonResponse>
             ) {
+                showProgress(false)
 
                 if (response.isSuccessful) {
 
@@ -107,12 +111,15 @@ class EventDetailsViewModel(private val apiService: ApiService) : BaseViewModel(
 
     fun removeFromWishlist() {
 
+        showProgress(true)
         apiService.deleteWishlist(eventId).enqueue(object : Callback<CommonResponse> {
 
             override fun onResponse(
                 call: Call<CommonResponse>,
                 response: Response<CommonResponse>
             ) {
+
+                showProgress(false)
 
                 if (response.isSuccessful) {
 
@@ -128,6 +135,7 @@ class EventDetailsViewModel(private val apiService: ApiService) : BaseViewModel(
 
             override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
 
+                showProgress(false)
                 errorToast.postValue(t.message)
             }
         })
@@ -137,27 +145,18 @@ class EventDetailsViewModel(private val apiService: ApiService) : BaseViewModel(
 
     fun sendEmail(map: HashMap<String, Any>) {
 
-        apiService.sendEmail(map).enqueue(object : Callback<CommonResponse> {
+        showProgress(true)
 
-            override fun onResponse(
-                call: Call<CommonResponse>,
-                response: Response<CommonResponse>
-            ) {
+        apiService.sendEmail(map).enqueue(object : ApiCallback<CommonResponse>() {
+            override fun onSuccessResponse(response: CommonResponse) {
 
-                if (response.isSuccessful) {
-
-                    emailApiData.postValue(response.body()?.message)
-                } else {
-
-                    if (response.body()?.message != null)
-                    shareEmailError.postValue(response.message())
-                }
-
+                showProgress(false)
+                emailApiData.postValue(response.message)
             }
 
-            override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
-
-                shareEmailError.postValue(t.message)
+            override fun onApiError(errorType: ApiError, error: String?) {
+                showProgress(false)
+                errorView.postValue(error)
             }
         })
     }
@@ -166,30 +165,19 @@ class EventDetailsViewModel(private val apiService: ApiService) : BaseViewModel(
 
     fun subscribeToFreeEvent(hashMap: HashMap<String, Any>) {
 
+        showProgress(true)
+
         apiService.subscribeEvent(hashMap)
-            .enqueue(object : Callback<PaymentResponse> {
+            .enqueue(object : ApiCallback<PaymentResponse>() {
+                override fun onSuccessResponse(response: PaymentResponse) {
 
-                override fun onResponse(
-                    call: Call<PaymentResponse>,
-                    response: Response<PaymentResponse>
-                ) {
-
-                    if (response.isSuccessful) {
-
-                        freeEventLiveData.postValue(response.body())
-
-                    } else {
-
-                        if (response.body()?.message != null)
-                            errorToast.postValue(response.body()?.message)
-
-                    }
-
+                    showProgress(false)
+                    freeEventLiveData.postValue(response)
                 }
 
-                override fun onFailure(call: Call<PaymentResponse>, t: Throwable) {
-
-                    errorToast.postValue(t.message)
+                override fun onApiError(errorType: ApiError, error: String?) {
+                    showProgress(false)
+                    errorToast.postValue(error)
                 }
             })
     }

@@ -120,28 +120,19 @@ class AuthViewModel : BaseViewModel() {
 
         try {
 
+            showProgress(true)
+
             restClient.noAuthClient.create(ApiService::class.java).registerUser(hashMap)
-                .enqueue(object : Callback<SignUpResponse> {
-                    override fun onResponse(
-                        call: Call<SignUpResponse>,
-                        response: Response<SignUpResponse>
-                    ) {
+                .enqueue(object : ApiCallback<SignUpResponse>(){
+                    override fun onSuccessResponse(response: SignUpResponse) {
 
-                        if (response.isSuccessful)
-                            registerData.postValue(response.body()?.data)
-                        else {
-                            if (response.body()?.message!=null) {
-
-                                registerError.postValue(response.body()!!.message)
-                            }
-
-                        }
-
-
+                        showProgress(false)
+                        registerData.postValue(response.data)
                     }
 
-                    override fun onFailure(call: Call<SignUpResponse>, t: Throwable) {
-                        registerError.postValue(t.toString())
+                    override fun onApiError(errorType: ApiError, error: String?) {
+                        showProgress(false)
+                        errorView.postValue(error)
                     }
                 })
         } catch (e: Exception) {

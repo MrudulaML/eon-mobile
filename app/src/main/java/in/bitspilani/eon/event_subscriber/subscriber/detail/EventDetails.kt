@@ -215,8 +215,14 @@ class EventDetails : Fragment() {
 
         btn_feedback.clickWithDebounce {
 
-            if(!isFeedbackGiven){
-                findNavController().navigate(R.id.action_eventDetails_to_subscriberFeedback,bundleOf(Constants.EVENT_ID to data.event_id,Constants.EVENT_NAME to data.event_name))
+            if (!isFeedbackGiven) {
+                findNavController().navigate(
+                    R.id.action_eventDetails_to_subscriberFeedback,
+                    bundleOf(
+                        Constants.EVENT_ID to data.event_id,
+                        Constants.EVENT_NAME to data.event_name
+                    )
+                )
             }
 
         }
@@ -297,7 +303,7 @@ class EventDetails : Fragment() {
 
     var isSubscribed: Boolean = false
 
-    var isFeedbackGiven: Boolean=false
+    var isFeedbackGiven: Boolean = false
 
     fun setObservables() {
 
@@ -315,9 +321,10 @@ class EventDetails : Fragment() {
 
             if (amount > 0) btn_price.text = "₹ $amount" else btn_price.text = "confirm"
 
-             if(data.feedback_given){
-                 isFeedbackGiven= true
-                 btn_feedback.text="Feedback Sent"}
+            if (data.feedback_given) {
+                isFeedbackGiven = true
+                btn_feedback.text = "Feedback Sent"
+            }
 
             if (data.is_wishlisted) {
                 eventDetailsViewModel.wishlist = false
@@ -353,6 +360,11 @@ class EventDetails : Fragment() {
 
         })
 
+
+        eventDetailsViewModel.errorView.observe(viewLifecycleOwner, Observer {
+
+            showUserMsg(it)
+        })
         //wishlist observer
 
         eventDetailsViewModel.wishlistData.observe(viewLifecycleOwner, Observer {
