@@ -3,7 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="70dp">
+    android:layout_height="70dp"
+    android:orientation="horizontal"
+    >
+
 
     <Button
         android:id="@+id/btn_download"
@@ -15,14 +18,31 @@
         android:text="download"
         android:textColor="@color/white"
         android:textSize="12sp"
-        app:layout_constraintEnd_toStartOf="@+id/btn_cancel"
+        app:layout_constraintEnd_toStartOf="@+id/btn_feedback"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <Button
+        android:id="@+id/btn_feedback"
+        android:layout_width="100dp"
+        android:layout_height="35dp"
+        android:layout_gravity="center"
+        android:background="@color/colorPrimary"
+        android:text="Send Feedback"
+        android:textColor="@color/white"
+        android:textSize="11sp"
+        android:visibility="visible"
+        app:layout_constraintBaseline_toBaselineOf="@id/btn_download"
+        app:layout_constraintEnd_toStartOf="@id/btn_cancel"
+        app:layout_constraintStart_toEndOf="@id/btn_download"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="155dp"
+        tools:layout_editor_absoluteY="18dp" />
 
     <Button
         android:id="@+id/btn_cancel"
-
         android:layout_width="100dp"
         android:layout_height="35dp"
         android:background="@drawable/stroke_primary_color_curve"
@@ -33,6 +53,6 @@
         app:layout_constraintBaseline_toBaselineOf="@id/btn_download"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btn_download" />
+        app:layout_constraintStart_toEndOf="@+id/btn_feedback" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

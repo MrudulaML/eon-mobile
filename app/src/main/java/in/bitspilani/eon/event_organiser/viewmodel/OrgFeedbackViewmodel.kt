@@ -19,6 +19,8 @@ import retrofit2.Response
 class OrgFeedbackViewmodel(private val apiService: ApiService) : BaseViewModel() {
 
 
+    var url: MutableLiveData<String> = MutableLiveData()
+
     var feedbackListData: MutableLiveData<FeedbackListResponse> = MutableLiveData()
 
     var errorToast: MutableLiveData<String> = MutableLiveData()
@@ -83,5 +85,7 @@ class OrgFeedbackViewmodel(private val apiService: ApiService) : BaseViewModel()
         detailPage.postValue(list)
 
     }
+
+
 
 }

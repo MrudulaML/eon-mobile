@@ -325,6 +325,8 @@ class EventDetails : Fragment() {
             if (data.feedback_given) {
                 isFeedbackGiven = true
                 btn_feedback.text = "Feedback Sent"
+                btn_feedback.setBackgroundResource(R.drawable.stroke_rectangle_grey)
+                btn_feedback.setTextColor(resources.getColor(R.color.grey))
             }
 
             if (data.is_wishlisted) {
@@ -334,6 +336,7 @@ class EventDetails : Fragment() {
             tv_event_date.formatDate(data.date, data.time)
 
             if (data.is_subscribed) {
+                btn_feedback.visibility=View.VISIBLE
                 isSubscribed = true
                 ll_paid_event_info.visibility = View.VISIBLE
                 tv_seats_info.text =
@@ -357,7 +360,6 @@ class EventDetails : Fragment() {
                 }
             }
 
-            //showUserMsg(it.message)
 
         })
 
