@@ -11,10 +11,7 @@ import `in`.bitspilani.eon.login.ui.ActionbarHost
 import `in`.bitspilani.eon.utils.*
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
+import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -46,7 +43,17 @@ class HomeFragment : Fragment() {
         } ?: throw Exception("Invalid Activity")
 
         eventDashboardViewModel.getEvents()
-        
+        setHasOptionsMenu(true)
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.top_navigation, menu)
+        if (ModelPreferencesManager.getInt(Constants.USER_ROLE) == 2) {
+            val itemToHide = menu.findItem(R.id.notificationFragment)
+            itemToHide?.isVisible = true
+        }
+        super.onCreateOptionsMenu(menu, inflater)
 
     }
 
