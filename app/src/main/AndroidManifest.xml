@@ -15,7 +15,7 @@
             android:icon="@mipmap/ic_launcher"
             android:usesCleartextTraffic="true"
             android:label="@string/app_name"
-            android:roundIcon="@drawable/logo_bits"
+            android:roundIcon="@mipmap/ic_launcher"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
             <meta-data android:name="com.facebook.sdk.ApplicationId"
