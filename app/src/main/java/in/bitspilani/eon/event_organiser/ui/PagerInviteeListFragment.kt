@@ -118,6 +118,7 @@ class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganis
 
         eventDetailOrganiserViewModel.eventData.observe(viewLifecycleOwner, Observer {
 
+            invitee_search_view.visibility=View.VISIBLE
             inviteeList = it.data.invitee_list
             inviteesAdapter = InviteesAdapter(
                 inviteeList

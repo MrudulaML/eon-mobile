@@ -13,7 +13,6 @@ class AddInviteeViewModel(private val apiService: ApiService): BaseViewModel() {
     val addInviteeLiveData : SingleLiveEvent<AddInviteeResponse> = SingleLiveEvent()
 
     fun adInvitee(event_id:Int, discount:Int, emailList: JsonArray){
-        showProgress(true)
         val body = JsonObject()
         body.addProperty("event",event_id)
         body.addProperty("discount_percentage",discount)

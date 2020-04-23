@@ -1,11 +1,13 @@
 package `in`.bitspilani.eon.event_organiser.ui
 
+import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.event_organiser.models.Data
 import `in`.bitspilani.eon.event_organiser.models.Invitee
 import `in`.bitspilani.eon.event_organiser.viewmodel.AddInviteeViewModel
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import `in`.bitspilani.eon.utils.getViewModelFactory
+import `in`.bitspilani.eon.utils.goneUnless
 import `in`.bitspilani.eon.utils.onChange
 import android.os.Bundle
 import android.text.TextUtils
@@ -62,6 +64,13 @@ class AddInviteeFragment(private val eventData: Data, private val callbackListen
 
             callbackListener.onDataReceived(it.data.invitee_list)
             //Toast.makeText(activity, "Invitees added successfully.", Toast.LENGTH_LONG).show()
+        })
+
+        addInviteeViewModel.progressLiveData.observe(viewLifecycleOwner, Observer {
+
+            (activity as BitsEonActivity).showProgress(it)
+
+            progress.goneUnless(it)
         })
 
         nacho_text_view.addChipTerminator(',', ChipTerminatorHandler.BEHAVIOR_CHIPIFY_ALL);
