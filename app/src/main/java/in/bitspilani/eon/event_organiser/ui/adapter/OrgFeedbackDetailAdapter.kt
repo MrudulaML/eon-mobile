@@ -34,6 +34,7 @@ class OrgFeedbackDetailAdapter(var userList: ArrayList<`in`.bitspilani.eon.event
             with(binding) {
 
                 binding.responseData = item
+                binding.tvQuestionNumber.text=(position+1).toString()
                 binding.executePendingBindings()
 
 

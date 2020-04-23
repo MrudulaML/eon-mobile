@@ -1,6 +1,7 @@
 package `in`.bitspilani.eon.utils
 
 
+import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.event_organiser.models.FilterResponse
 import android.content.Context
 import android.net.Uri
@@ -46,7 +47,7 @@ fun ImageView.attachImage(uri: Uri?) {
 }
 
 @BindingAdapter("goneUnless")
-fun LinearLayout.goneUnless(visible: Boolean){
+fun LinearLayout.goneUnless(visible: Boolean) {
     visibility = if (visible) View.VISIBLE else View.GONE
 }
 
@@ -98,6 +99,11 @@ fun View.visibleIf(visible: Boolean) {
     visibility = if (visible) View.VISIBLE else View.INVISIBLE
 }
 
+@BindingAdapter("imageUrl")
+fun invisibleWhen(imageView: ImageView, url: String) {
+
+    Picasso.get().load(url).into(imageView)
+}
 
 @BindingAdapter("app:`in`.bitspilani.eon.utils.invisibleWhen")
 fun View.invisibleWhen(invisible: Boolean) {
@@ -116,9 +122,14 @@ fun AppCompatImageView.isSelected(isSelected: Boolean) {
 }
 
 @BindingAdapter("imageUrl")
-fun loadImage(view: ImageView, imageUrl: String) {
+fun loadImage(view: ImageView, imageUrl: String?) {
 
+    if(imageUrl!=null && !imageUrl.isEmpty())
     Picasso.get().load(imageUrl).into(view)
+      else{
+        Picasso.get().load(R.drawable.dummy_image).into(view)
+
+    }
 }
 
 fun EditText.onChange(cb: (String) -> Unit) {
