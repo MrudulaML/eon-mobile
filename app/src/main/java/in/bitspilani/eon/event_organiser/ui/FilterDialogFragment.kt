@@ -104,17 +104,6 @@ class FilterDialogFragment() : DialogFragment(),
 
 
 }
-/*for event_created_by(organizer)
---> event_created_by =True/False
--->is_wishlisted=True/False
-
-for filter based on event_status
---> event_status = completed/cancelled
-(default is upcoming)
-
-for filter based on subscription_type
---> subscription_type = free/paid*/
-
 
 interface FilterCallbackListener {
     fun onApplyFilter(
