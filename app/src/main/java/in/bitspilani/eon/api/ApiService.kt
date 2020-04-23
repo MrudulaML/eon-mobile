@@ -1,5 +1,6 @@
 package `in`.bitspilani.eon.api
 
+import `in`.bitspilani.eon.analytics.data.AnalyticsResponse
 import `in`.bitspilani.eon.event_organiser.models.*
 import `in`.bitspilani.eon.event_subscriber.models.*
 import `in`.bitspilani.eon.login.data.*
@@ -86,8 +87,11 @@ interface ApiService {
     @PATCH("/core/notification/")
     fun getNotificationRead(@Body body: HashMap<String, Any>): Call<CommonResponse>
 
+    @GET("/core/event-summary")
+    fun getAnalytics(): Call<AnalyticsResponse>
+
     @PATCH("core/user/{user_id}/")
-    fun updateBasicDetails(@Path("user_id") user_id: Int, @Body jsonObject: JsonObject): Call<CommonResponse>
+    fun updateBasicDetails(@Path("user_id") user_id: Int, @Body jsonObject: JsonObject): Call<BasicDetailsResponse>
 
     @GET("core/feedback-questions/")
     fun getQuestions(): Call<QuestionsResponse>
@@ -103,6 +107,5 @@ interface ApiService {
 
     @GET("core/feedback/")
     fun getFeedbackList(@Query("event_id") id: Int):Call<FeedbackListResponse>
-
 
 }

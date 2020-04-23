@@ -12,6 +12,7 @@ import `in`.bitspilani.eon.utils.ModelPreferencesManager
 import `in`.bitspilani.eon.utils.goneUnless
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Handler
 import android.util.Base64
 import android.util.Log
 import android.view.Menu
@@ -19,6 +20,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.postDelayed
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
@@ -123,6 +125,27 @@ class BitsEonActivity : AppCompatActivity(),ActionbarHost {
         bottom_navigation.goneUnless(showBottomNav)
 
     }
+  /*  private var backPressedOnce = false
+    override fun onBackPressed() {
+        if (navController.graph.startDestination == navController.currentDestination?.id)
+        {
+            if (backPressedOnce)
+            {
+                super.onBackPressed()
+                return
+            }
+
+            backPressedOnce = true
+            Toast.makeText(this, "Press BACK again to exit", Toast.LENGTH_SHORT).show()
+
+            Handler().postDelayed(2000) {
+                backPressedOnce = false
+            }
+        }
+        else {
+            super.onBackPressed()
+        }
+    }*/
 
     fun showProgress(show: Boolean) = progress.goneUnless(visible = show)
 

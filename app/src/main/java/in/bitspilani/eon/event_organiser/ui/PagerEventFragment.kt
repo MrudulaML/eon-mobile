@@ -29,6 +29,7 @@ import com.facebook.share.widget.ShareDialog
 import kotlinx.android.synthetic.main.dialog_success_reminder.view.*
 import kotlinx.android.synthetic.main.fragment_event.*
 import timber.log.Timber
+import java.util.*
 
 
 /**
@@ -100,10 +101,23 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
         Toast.makeText(activity!!, msg, Toast.LENGTH_LONG).show()
     }
 
+    //TODO fix this with data binding
     private fun setOffEventsForOrganiser() {
 
-        linearLayout2.goneUnless(eventDetailResponse.data.self_organised)
-        linearLayout3.goneUnless(eventDetailResponse.data.self_organised)
+        if(eventDetailResponse.data.self_organised){
+
+            if(eventDetailResponse.data.event_status.toLowerCase().equals("completed") ||
+                    eventDetailResponse.data.event_status.toLowerCase(Locale.ROOT).equals("cancelled")){
+                linearLayout2.goneUnless(false)
+                linearLayout3.goneUnless(false)
+
+            }else{
+
+                linearLayout2.goneUnless(true)
+                linearLayout3.goneUnless(true)
+            }
+
+        }
     }
 
     private fun setUpObservables() {

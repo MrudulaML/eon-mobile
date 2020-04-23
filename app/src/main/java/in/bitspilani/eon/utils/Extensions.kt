@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.SystemClock
 import android.text.Editable
 import android.text.TextWatcher
+import android.text.format.DateUtils
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
@@ -19,8 +20,10 @@ import androidx.databinding.BindingAdapter
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import java.text.DateFormat
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 @BindingAdapter("app:`in`.bitspilani.eon.utils.formatDate")
 fun TextView.formatDate(dateString: String, time: String) {
@@ -60,6 +63,21 @@ fun TextView.goneUnless(visible: Boolean) {
 @BindingAdapter("app:`in`.bitspilani.eon.utils.invisibleUnless")
 fun View.invisibleUnless(visible: Boolean) {
     visibility = if (visible) View.VISIBLE else View.INVISIBLE
+}
+
+@BindingAdapter("timeAgo")
+fun getPrettyTime(view: TextView, date: String) {
+
+    val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    sdf.timeZone = TimeZone.getTimeZone("GMT")
+    try {
+        val time = sdf.parse(date).time
+        val now = System.currentTimeMillis()
+
+        view.text = DateUtils.getRelativeTimeSpanString(time, now, DateUtils.MINUTE_IN_MILLIS)
+    } catch (e: ParseException) {
+        e.printStackTrace()
+    }
 }
 
 @BindingAdapter("date")

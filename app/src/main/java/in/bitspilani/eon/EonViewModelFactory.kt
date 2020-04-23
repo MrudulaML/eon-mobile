@@ -1,5 +1,6 @@
 package `in`.bitspilani.eon
 
+import `in`.bitspilani.eon.analytics.AnalyticsViewModel
 import `in`.bitspilani.eon.api.ApiService
 import `in`.bitspilani.eon.event_organiser.viewmodel.*
 import `in`.bitspilani.eon.event_subscriber.subscriber.detail.EventDetailsViewModel
@@ -38,6 +39,8 @@ class EonViewModelFactory(
             isAssignableFrom(UserProfileViewModel::class.java) -> UserProfileViewModel(apiService)
             isAssignableFrom(FeedbackViewmodel::class.java) -> FeedbackViewmodel(apiService)
             isAssignableFrom(OrgFeedbackViewmodel::class.java) -> OrgFeedbackViewmodel(apiService)
+            isAssignableFrom(AnalyticsViewModel::class.java) -> AnalyticsViewModel(apiService)
+
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

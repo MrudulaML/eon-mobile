@@ -13,22 +13,22 @@
         tools:layout="@layout/fragment_splash_screen">
         <action
             android:id="@+id/action_splashScreen_to_signInFragment"
-            app:destination="@id/signInFragment"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_left"
             app:popUpTo="@id/splashScreen"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="true"
+            app:destination="@id/signInFragment" />
         <action
             android:id="@+id/action_splashScreen_to_HomeFragment"
-            app:destination="@id/home_nav"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_left"
             app:popUpTo="@id/app_nav"
-            app:popUpToInclusive="false" />
+            app:popUpToInclusive="false"
+            app:destination="@id/home_nav" />
 
     </fragment>
 
@@ -82,14 +82,12 @@
 
         <action
             android:id="@+id/action_BasicInfoFragment_to_signInFragment"
-            app:destination="@id/signInFragment"
             app:popUpTo="@id/signInFragment"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="true"
+            app:destination="@id/signInFragment" />
 
         <action
             android:id="@+id/action_BasicInfoFragment_to_homeFragment"
-            app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="true"
             app:destination="@id/home_nav" />
 
     </fragment>
@@ -399,13 +397,14 @@
             <!-- action to popup back-stack-->
             <action
                 android:id="@+id/action_to_sign_in"
-                app:destination="@id/signInFragment" />
+                app:destination="@id/signInFragment"/>
             <action
                 android:id="@+id/action_profile_to_sub_wish_list"
                 app:destination="@id/eventWishListFragment" />
 
-        </fragment>
 
+
+        </fragment>
         <fragment
             android:id="@+id/eventFilterFragment"
             android:name="in.bitspilani.eon.event_organiser.ui.FilterEventFragment"
@@ -422,11 +421,11 @@
         <action
             android:id="@+id/nav_user_profile"
             app:destination="@id/userProfileFragment"
+            app:popUpTo="@id/homeFragment"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_left"
-            app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="false" />
         <fragment
             android:id="@+id/eventWishListFragment"
@@ -440,6 +439,10 @@
                 app:destination="@id/eventDetails" />
 
         </fragment>
+        <fragment
+            android:id="@+id/analyticsDashboardFragment"
+            android:name="in.bitspilani.eon.analytics.AnalyticsDashboardFragment"
+            android:label="AnalyticsDashboardFragment" />
     </navigation>
 
 </navigation>

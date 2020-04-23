@@ -9,6 +9,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -34,8 +35,10 @@ class BasicDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_basic_details, container, false)
+        activity?.getWindow()?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         return binding.root
     }
 
@@ -103,29 +106,43 @@ class BasicDetailsFragment : Fragment() {
     private fun onNextClick() {
         when (authViewModel.registerCurrentStep) {
             OrganiserDetailsSteps.BASIC_DETAILS -> {
-                if (
-                    Validator.isValidEmail(edit_email, true) &&
-                    Validator.isValidPhone(edt_org_contact, true) &&
-                    Validator.isValidName(edt_org_address, true)
-                ) {
-                    if (authViewModel.userType == USER_TYPE.ORGANISER) {
 
-                        if (!Validator.isValidName(edt_org_name, true))
-                            return
-                    } else {
+                if (authViewModel.userType == USER_TYPE.ORGANISER) {
+                    if (!Validator.isValidName(edt_org_name, true)){
+                        return
+                    }else{
 
-                        if (!Validator.isValidName(edt_user_name, true))
-                            return
+                        if (
+                            Validator.isValidEmail(edit_email, true) &&
+                            Validator.isValidPhone(edt_org_contact, true) &&
+                            Validator.isValidName(edt_org_address, true)
+                        ) {
+                            authViewModel.registerCurrentStep = OrganiserDetailsSteps.PASSWORD
+                            binding.step = OrganiserDetailsSteps.PASSWORD
+                            binding.stepView.go(1, true)
+                            signupMap.put("email", edit_email.text.toString())
+                            signupMap.put("contact", edt_org_contact.text.toString())
+                            signupMap.put("address", edt_org_address.text.toString())
+                        }
                     }
-
-                    authViewModel.registerCurrentStep = OrganiserDetailsSteps.PASSWORD
-                    binding.step = OrganiserDetailsSteps.PASSWORD
-                    binding.stepView.go(1, true)
-
-                    signupMap.put("email", edit_email.text.toString())
-                    signupMap.put("contact", edt_org_contact.text.toString())
-                    signupMap.put("address", edt_org_address.text.toString())
-
+                }
+                else {
+                    if (!Validator.isValidName(edt_user_name, true)){
+                        return
+                    }else{
+                        if (
+                            Validator.isValidEmail(edit_email, true) &&
+                            Validator.isValidPhone(edt_org_contact, true) &&
+                            Validator.isValidName(edt_org_address, true)
+                        ) {
+                            authViewModel.registerCurrentStep = OrganiserDetailsSteps.PASSWORD
+                            binding.step = OrganiserDetailsSteps.PASSWORD
+                            binding.stepView.go(1, true)
+                            signupMap.put("email", edit_email.text.toString())
+                            signupMap.put("contact", edt_org_contact.text.toString())
+                            signupMap.put("address", edt_org_address.text.toString())
+                        }
+                    }
                 }
 
             }

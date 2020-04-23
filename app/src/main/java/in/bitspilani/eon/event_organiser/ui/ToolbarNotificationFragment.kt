@@ -18,6 +18,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_notification.*
+import timber.log.Timber
 
 
 /**
@@ -58,14 +59,13 @@ class ToolbarNotificationFragment : Fragment() {
         notificationViewModel.notificationLiveData.observe(viewLifecycleOwner, Observer {
 
             rv_notifications.layoutManager = LinearLayoutManager(activity)
-            rv_notifications.addItemDecoration(
-                MarginItemDecoration(
-                    resources.getDimension(R.dimen._16sdp).toInt()
-                )
-            )
             val notificationAdapter =
                 NotificationAdapter(
-                    it.data
+                    it.data,onClearNotification = {
+
+                        Timber.e("cleared notification id${it.id}")
+                        notificationViewModel.readNotificationSingle(it.id)
+                    }
                 )
             rv_notifications.adapter = notificationAdapter
         })

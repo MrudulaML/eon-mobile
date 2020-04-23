@@ -8,8 +8,10 @@ data class DetailResponseOrganiser(
 data class Data(
     var date: String,
     var description: String,
+    var event_status: String,
     var event_type: Int,
     var external_links: String,
+    var feedback_count: Int,
     var id: Int,
     var images: String,
     var invitee_list: ArrayList<Invitee>,
@@ -43,3 +45,5 @@ data class User(
     var name: Any,
     var user_id: Int
 )
+
+

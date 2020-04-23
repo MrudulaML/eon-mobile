@@ -2,6 +2,7 @@ package `in`.bitspilani.eon.event_organiser.viewmodel
 
 import `in`.bitspilani.eon.BaseViewModel
 import `in`.bitspilani.eon.api.ApiService
+import `in`.bitspilani.eon.login.data.BasicDetailsResponse
 import `in`.bitspilani.eon.login.data.CommonResponse
 import `in`.bitspilani.eon.utils.ApiCallback
 import `in`.bitspilani.eon.utils.SingleLiveEvent
@@ -10,8 +11,8 @@ import com.google.gson.JsonObject
 
 class UserProfileViewModel(val apiService: ApiService) : BaseViewModel() {
 
-     var basicDetailLiveData: SingleLiveEvent<CommonResponse> = SingleLiveEvent()
-     var changePasswordLiveData: SingleLiveEvent<CommonResponse> = SingleLiveEvent()
+     var basicDetailLiveData: SingleLiveEvent<BasicDetailsResponse> = SingleLiveEvent()
+
 
     fun updateUserDetails(
         user_id: Int,
@@ -34,8 +35,8 @@ class UserProfileViewModel(val apiService: ApiService) : BaseViewModel() {
 
         showProgress(true)
         apiService.updateBasicDetails(user_id,body)
-            .enqueue(object : ApiCallback<CommonResponse>() {
-                override fun onSuccessResponse(responseBody: CommonResponse) {
+            .enqueue(object : ApiCallback<BasicDetailsResponse>() {
+                override fun onSuccessResponse(responseBody: BasicDetailsResponse) {
                     basicDetailLiveData.postValue(responseBody)
                     showProgress(false)
                 }

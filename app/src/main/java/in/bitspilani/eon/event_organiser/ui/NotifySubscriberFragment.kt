@@ -63,7 +63,7 @@ class NotifySubscriberFragment(
 
                 view?.showSnackbar("Message can not be empty",0)
             }
-            hideKeyboard(activity)
+
             dismiss()
         }
 

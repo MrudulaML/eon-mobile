@@ -52,8 +52,16 @@ class FilterEventFragment(
 
         setObservables()
         setUpClickListeners()
+        setUpVisibility()
 
+    }
 
+    private fun setUpVisibility() {
+        if( ModelPreferencesManager.getInt(Constants.USER_ROLE)==2)
+        {
+            radio_group_leted.visibility=View.GONE
+            leted_title.visibility=View.GONE
+        }
     }
 
 
