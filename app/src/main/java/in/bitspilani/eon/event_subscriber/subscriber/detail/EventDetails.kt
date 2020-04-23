@@ -7,6 +7,7 @@ import `in`.bitspilani.eon.event_subscriber.models.Data
 import `in`.bitspilani.eon.login.ui.ActionbarHost
 import `in`.bitspilani.eon.utils.*
 import android.Manifest
+import android.app.DownloadManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -536,6 +537,8 @@ class EventDetails : Fragment() {
         document.finishPage(page)
 
         val directoryPath = Environment.getExternalStorageDirectory().path + "/invoices/"
+        var downloadManager: DownloadManager? = null
+        downloadManager = context?.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
 
         val dir = File(directoryPath)
 
@@ -554,9 +557,9 @@ class EventDetails : Fragment() {
 
         try {
             document.writeTo(FileOutputStream(filePath))
+            // creating also in documents
+            downloadManager.addCompletedDownload(filePath.name, filePath.name, true,"application/pdf", filePath.absolutePath, filePath.length(), true)
             showSnackBar("Downloaded", true);
-
-            Log.e("Invoice", "Tickets" + filePath)
         } catch (e: IOException) {
             Log.e("Invoice", "Error: " + e.toString());
             view?.showSnackbar("Error")
