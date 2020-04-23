@@ -8,6 +8,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -33,8 +34,10 @@ class BasicDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_basic_details, container, false)
+        activity?.getWindow()?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         return binding.root
     }
 
@@ -86,23 +89,45 @@ class BasicDetailsFragment : Fragment() {
     private fun onNextClick() {
         when (authViewModel.registerCurrentStep) {
             OrganiserDetailsSteps.BASIC_DETAILS -> {
-                if (Validator.isValidName(edt_org_name, true) &&
-                    Validator.isValidEmail(edit_email, true)&&
-                    Validator.isValidPhone(edt_org_contact, true) &&
-                    Validator.isValidName(edt_org_address, true)
-                ) {
-                    authViewModel.registerCurrentStep = OrganiserDetailsSteps.PASSWORD
-                    binding.step = OrganiserDetailsSteps.PASSWORD
-                    binding.stepView.go(1, true)
 
-                    signupMap.put("email", edit_email.text.toString())
-                    signupMap.put("contact", edt_org_contact.text.toString())
-                    signupMap.put("address", edt_org_address.text.toString())
+                if (authViewModel.userType == USER_TYPE.ORGANISER) {
+                    if (!Validator.isValidName(edt_org_name, true)){
+                        return
+                    }else{
 
+                        if (
+                            Validator.isValidEmail(edit_email, true) &&
+                            Validator.isValidPhone(edt_org_contact, true) &&
+                            Validator.isValidName(edt_org_address, true)
+                        ) {
+                            authViewModel.registerCurrentStep = OrganiserDetailsSteps.PASSWORD
+                            binding.step = OrganiserDetailsSteps.PASSWORD
+                            binding.stepView.go(1, true)
+                            signupMap.put("email", edit_email.text.toString())
+                            signupMap.put("contact", edt_org_contact.text.toString())
+                            signupMap.put("address", edt_org_address.text.toString())
+                        }
+                    }
                 }
-
+                else {
+                    if (!Validator.isValidName(edt_user_name, true)){
+                        return
+                    }else{
+                        if (
+                            Validator.isValidEmail(edit_email, true) &&
+                            Validator.isValidPhone(edt_org_contact, true) &&
+                            Validator.isValidName(edt_org_address, true)
+                        ) {
+                            authViewModel.registerCurrentStep = OrganiserDetailsSteps.PASSWORD
+                            binding.step = OrganiserDetailsSteps.PASSWORD
+                            binding.stepView.go(1, true)
+                            signupMap.put("email", edit_email.text.toString())
+                            signupMap.put("contact", edt_org_contact.text.toString())
+                            signupMap.put("address", edt_org_address.text.toString())
+                        }
+                    }
+                }
             }
-
             OrganiserDetailsSteps.BANK_DETAILS -> {
                 if (Validator.isValidBankAccNo(edit_bank_acc_no)
                     && Validator.isValidIFSC(edt_ifsc)
@@ -112,38 +137,25 @@ class BasicDetailsFragment : Fragment() {
                     binding.stepView.go(2, true)
                 }
             }
-
             OrganiserDetailsSteps.PASSWORD -> {
                 if (Validator.isValidPassword(edt_password)) {
                     if (TextUtils.equals(edt_password.text, edt_confirm_password.text)) {
-
                         signupMap.put("password", edt_password.text.toString())
                         if (authViewModel.userType == USER_TYPE.ORGANISER) {
-
                             signupMap.put("organization", edt_org_name.text.toString())
-
                             signupMap.put("role", ROLE.ORGANIZER.role)
-
                         } else {
                             signupMap.put("role", "subscriber")
-
                         }
-
                         //since default value here is 100, if its 100 then we show user tnc dialog
-
                         if (ModelPreferencesManager.getInt(Constants.TERMS_AND_CONDITION) == 100) {
-
                             TermsAndConditionDialog.openDialog(activity!!) {
-
                                 ModelPreferencesManager.putInt(Constants.TERMS_AND_CONDITION, 1)
                                 authViewModel.register(signupMap)
                             }
-
                         } else if (ModelPreferencesManager.getInt(Constants.TERMS_AND_CONDITION) == 1) {
                             authViewModel.register(signupMap)
                         }
-
-
                     } else {
                         showUserMsg("Password Does not match")
                     }

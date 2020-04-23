@@ -115,18 +115,17 @@
                             android:theme="@style/TextLabel"
                             android:visibility="@{userType == USER_TYPE.ORGANISER  ? View.VISIBLE : View.GONE }">
 
-
-                        <androidx.appcompat.widget.AppCompatEditText
+                            <androidx.appcompat.widget.AppCompatEditText
                                 android:id="@+id/edt_org_name"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:background="@android:color/transparent"
-                            android:drawableStart="@drawable/ic_icon_basic_details_grey"
-                            android:drawableLeft="@drawable/ic_icon_basic_details_grey"
+                                android:drawableStart="@drawable/ic_icon_basic_details_grey"
+                                android:drawableLeft="@drawable/ic_icon_basic_details_grey"
                                 android:drawablePadding="@dimen/_8sdp"
                                 android:hint="@string/organisation_name"
                                 android:padding="@dimen/_8dp"
-                                android:inputType="text"
+                                android:inputType="textEmailAddress"
                                 android:textColorHint="@color/grey"
                                 android:textSize="@dimen/_18dp" />
 
