@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/_16sdp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_event_types"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:text="Event Types"
+        android:textAlignment="textStart"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/event_types_spinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:padding="0dp"
+        android:spinnerMode="dropdown"
+        android:dropDownWidth="match_parent"
+        android:prompt="@string/prompt_drop_down"
+        android:theme="@android:style/Theme.Holo.Light"
+        android:backgroundTint="@color/grey_mid"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_event_types" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_event_fees"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="32dp"
+        android:text="Fees"
+        android:textAlignment="textStart"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/event_status_spinner" />
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/event_fees_spinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:padding="0dp"
+        android:theme="@android:style/Theme.Holo.Light"
+        android:backgroundTint="@color/grey_mid"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_event_fees" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_event_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="32dp"
+        android:text="Event Status"
+        android:textAlignment="textStart"
+        android:textSize="@dimen/_10sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/event_types_spinner" />
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/event_status_spinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        android:padding="0dp"
+        android:theme="@android:style/Theme.Holo.Light"
+        android:backgroundTint="@color/grey_mid"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_event_status" />
+
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edt_start_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/ic_icon_event_calendar_on"
+        android:drawableTint="@color/grey_mid"
+        android:drawablePadding="@dimen/_4sdp"
+        android:focusable="false"
+        android:hint="Start Date"
+        android:textSize="14sp"
+        android:padding="@dimen/_8sdp"
+        app:layout_constraintEnd_toStartOf="@+id/edt_end_date"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/event_fees_spinner" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/edt_end_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/ic_icon_event_calendar_on"
+        android:drawablePadding="@dimen/_4sdp"
+        android:drawableTint="@color/grey_mid"
+        android:focusable="false"
+        android:hint="End Date"
+        android:padding="@dimen/_8sdp"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/edt_start_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/edt_start_date"
+        app:layout_constraintTop_toTopOf="@+id/edt_start_date" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_filter"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_button_rounded_corners"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="Filter"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_reset"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_reset"
+        app:layout_constraintTop_toTopOf="@+id/btn_reset" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_reset"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/rounded_corner_grey_4"
+        android:padding="@dimen/_4sdp"
+        android:text="Reset"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintEnd_toStartOf="@+id/btn_filter"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chb_invitee" />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/chb_invitee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Events created by me"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edt_start_date" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
