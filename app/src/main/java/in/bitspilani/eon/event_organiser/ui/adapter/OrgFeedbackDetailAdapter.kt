@@ -3,6 +3,8 @@ package `in`.bitspilani.eon.event_organiser.ui.adapter
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.event_organiser.models.FeedbackUser
 import `in`.bitspilani.eon.event_organiser.models.Responses
+import `in`.bitspilani.eon.event_organiser.viewmodel.OrgFeedbackViewmodel
+import `in`.bitspilani.eon.utils.clickWithDebounce
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -44,10 +46,13 @@ class PageViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
         if (imageUrl != null && !imageUrl.isEmpty())
             Picasso.get().load(imageUrl).into(view.iv_attached_image)
+
         else {
 
             view.iv_attached_image.visibility=View.GONE
 
         }
+
+
     }
 }

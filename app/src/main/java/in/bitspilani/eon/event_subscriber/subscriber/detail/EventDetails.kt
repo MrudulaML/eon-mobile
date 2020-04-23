@@ -325,6 +325,8 @@ class EventDetails : Fragment() {
             if (data.feedback_given) {
                 isFeedbackGiven = true
                 btn_feedback.text = "Feedback Sent"
+                btn_feedback.setBackgroundResource(R.drawable.stroke_rectangle_grey)
+                btn_feedback.setTextColor(resources.getColor(R.color.grey))
             }
 
             if (data.is_wishlisted) {
@@ -357,7 +359,6 @@ class EventDetails : Fragment() {
                 }
             }
 
-            //showUserMsg(it.message)
 
         })
 
