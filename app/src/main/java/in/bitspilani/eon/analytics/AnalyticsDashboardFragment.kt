@@ -53,7 +53,7 @@ class AnalyticsDashboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        analyticsViewModel.getAnalytics()
+        analyticsViewModel.getAnalytics("")
         setUpObservables()
 
         setUpSearch()
