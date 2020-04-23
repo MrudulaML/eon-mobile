@@ -21,8 +21,7 @@ data class Data(
     var self_organised: Boolean,
     var sold_tickets: Int,
     var subscription_fee: Int,
-    var time: String,
-    var feedback_count: Int
+    var time: String
 )
 
 data class Invitee(
