@@ -40,6 +40,7 @@ class FeedbackFragment : Fragment() {
     private val feedbackViewmodel by viewModels<FeedbackViewmodel> { getViewModelFactory() }
     private var actionbarHost: ActionbarHost? = null
 
+    lateinit var adapter: FeedbackAdapter
 
     var READ_PERMISSION: Int = 912
     var PICK_IMAGE: Int = 911
@@ -64,8 +65,7 @@ class FeedbackFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         actionbarHost?.showToolbar(
-            showToolbar = true,
-            title = "Send Feedback",
+            showToolbar = false,
             showBottomNav = false
         )
 
@@ -131,9 +131,9 @@ class FeedbackFragment : Fragment() {
             list[position].imageUri = imageUri
             list[position].answer.image = imageName
 
-            //   rv_subscriber_feedback.adapter!!.notifyItemChanged(position)
+               rv_subscriber_feedback.adapter!!.notifyItemChanged(position)
 
-            rv_subscriber_feedback.adapter!!.notifyDataSetChanged()
+//            rv_subscriber_feedback.adapter!!.notifyDataSetChanged()
 
             showUserMsg("Image uploaded successfully")
 

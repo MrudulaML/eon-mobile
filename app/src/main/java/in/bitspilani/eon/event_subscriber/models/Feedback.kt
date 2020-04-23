@@ -14,7 +14,7 @@ data class FeedbackData(
     var questionNumber: Int = 0,
     var imageUri: Uri? = null,
 
-    @SerializedName("id") val id: Int=0,
+    @SerializedName("id") val id: Int = 0,
     @SerializedName("question") val question: String? = null,
     @SerializedName("answer") var answer: Answer = Answer()
 
@@ -22,8 +22,8 @@ data class FeedbackData(
 
 data class Answer(
 
-    @SerializedName("description") var description: String = "",
-    @SerializedName("image") var image: String = ""
+    @SerializedName("description") var description: String? = null,
+    @SerializedName("image") var image: String? = null
 )
 
 data class FeedbackBody(

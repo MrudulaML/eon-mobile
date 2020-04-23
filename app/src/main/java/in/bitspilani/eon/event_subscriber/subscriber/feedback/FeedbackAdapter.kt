@@ -44,7 +44,10 @@ class FeedbackAdapter(var feedbackList: ArrayList<FeedbackData>, val onAttachmen
 
                     override fun afterTextChanged(s: Editable) {
 
-                        Log.e("xoxo","my object: "+feedbackList[position] +"answer" +feedbackList[position].answer!!.description)
+                       // Log.e("xoxo","my object: "+feedbackList[position] +"answer" +feedbackList[position].answer!!.description)
+
+                         Log.e("xoxo","full list: "+feedbackList)
+
                         feedbackList[position].answer?.description= binding.etAnswer.text.toString()
 
                     }
