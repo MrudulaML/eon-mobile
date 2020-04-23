@@ -12,6 +12,7 @@ object Constants {
     //1 for organiser and 1 for subscriber
     const val USER_ROLE = "user_role"
 
+    const val FEEDBACK_COUNT="feedback_count"
     const val RESPONSE_LIST="response_list"
     const val TERMS_AND_CONDITION="terms_and_condition"
     const val EVENT_ID = "event_id"

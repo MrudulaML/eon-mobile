@@ -72,6 +72,11 @@ class OrganiserFeedbackFragment : Fragment() {
 
         orgFeedbackViewmodel.getUsers(arguments!!.getInt(Constants.EVENT_ID, 0))
 
+        tv_total_feedbacks.text = "Total Feedbacks - " + arguments!!.getInt(Constants.FEEDBACK_COUNT, 0)
+
+        iv_back.clickWithDebounce {
+            findNavController().popBackStack()
+        }
     }
 
     fun setObservables() {
@@ -86,14 +91,17 @@ class OrganiserFeedbackFragment : Fragment() {
         orgFeedbackViewmodel.feedbackListData.observe(viewLifecycleOwner, Observer {
 
             rv_org_feedback.layoutManager = LinearLayoutManager(activity!!)
-            rv_org_feedback.adapter = OrgFeedbackAdapter(it.data,orgFeedbackViewmodel)
+            rv_org_feedback.adapter = OrgFeedbackAdapter(it.data, orgFeedbackViewmodel)
         })
 
         orgFeedbackViewmodel.detailPage.observe(viewLifecycleOwner, Observer {
 
             var gson = Gson()
 
-            findNavController().navigate(R.id.action_orgFeedback_to_orgFeedbackDetail, bundleOf(Constants.RESPONSE_LIST to gson.toJson(it).toString()))
+            findNavController().navigate(
+                R.id.action_orgFeedback_to_orgFeedbackDetail,
+                bundleOf(Constants.RESPONSE_LIST to gson.toJson(it).toString())
+            )
 
         })
 
@@ -120,7 +128,6 @@ class OrganiserFeedbackFragment : Fragment() {
         super.onDetach()
         actionbarHost?.showToolbar(showToolbar = false, showBottomNav = false)
     }
-
 
 
 }

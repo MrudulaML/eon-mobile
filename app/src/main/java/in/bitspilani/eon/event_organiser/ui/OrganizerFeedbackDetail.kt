@@ -9,6 +9,7 @@ import `in`.bitspilani.eon.event_organiser.ui.adapter.OrgFeedbackDetailAdapter
 import `in`.bitspilani.eon.event_organiser.viewmodel.OrgFeedbackViewmodel
 import `in`.bitspilani.eon.login.ui.ActionbarHost
 import `in`.bitspilani.eon.utils.Constants
+import `in`.bitspilani.eon.utils.clickWithDebounce
 import `in`.bitspilani.eon.utils.getViewModelFactory
 import android.content.Context
 import android.os.Bundle
@@ -19,6 +20,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_org_feedback_detail.*
@@ -26,7 +28,6 @@ import kotlinx.android.synthetic.main.fragment_organiser_feedback.*
 
 class OrganizerFeedbackDetail : Fragment() {
 
-    private val orgFeedbackViewmodel by viewModels<OrgFeedbackViewmodel> { getViewModelFactory() }
 
     private var actionbarHost: ActionbarHost? = null
 
@@ -45,7 +46,6 @@ class OrganizerFeedbackDetail : Fragment() {
 
         init()
 
-        setObservables()
     }
 
     fun init() {
@@ -53,30 +53,27 @@ class OrganizerFeedbackDetail : Fragment() {
         var gson = Gson()
         var feedbackDataInJsonString = arguments!!.getString(Constants.RESPONSE_LIST)
 
-        var feedbackData: FeedbackData = gson.fromJson(feedbackDataInJsonString, FeedbackData::class.java)
+
+        var feedbackData: FeedbackData =
+            gson.fromJson(feedbackDataInJsonString, FeedbackData::class.java)
+
+        tv_toolbar_text_detail.text = feedbackData.user.email
+
 
         rv_org_feedback_detail.layoutManager = LinearLayoutManager(activity!!)
-        rv_org_feedback_detail.adapter = OrgFeedbackDetailAdapter(feedbackData.responses)
+        rv_org_feedback_detail.adapter =
+            OrgFeedbackDetailAdapter(activity!!, feedbackData.responses)
+        rv_org_feedback_detail.setHasFixedSize(true)
 
+
+        iv_back_detail.clickWithDebounce {
+
+            findNavController().popBackStack()
+        }
 
     }
 
-    fun setObservables() {
 
-
-        //loader observable
-        orgFeedbackViewmodel.progressLiveData.observe(viewLifecycleOwner, Observer {
-
-            (activity as BitsEonActivity).showProgress(it)
-        })
-
-
-        orgFeedbackViewmodel.errorToast.observe(viewLifecycleOwner, Observer {
-
-
-            showUserMsg(it)
-        })
-    }
 
     fun showUserMsg(msg: String) {
         Toast.makeText(activity, msg, Toast.LENGTH_SHORT)

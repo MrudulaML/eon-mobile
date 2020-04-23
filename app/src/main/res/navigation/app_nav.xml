@@ -172,6 +172,11 @@
                 android:defaultValue="0"
                 app:argType="integer" />
 
+            <argument
+                android:name="feedback_count"
+                android:defaultValue="0"
+                app:argType="integer" />
+
             <action
                 android:id="@+id/action_orgFeedback_to_orgFeedbackDetail"
                 app:destination="@id/organiserFeedbackDetail" />

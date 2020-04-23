@@ -215,7 +215,9 @@ class EventDetails : Fragment() {
 
         btn_feedback.clickWithDebounce {
 
-            findNavController().navigate(R.id.action_eventDetails_to_subscriberFeedback,bundleOf(Constants.EVENT_ID to data.event_id))
+            if(!isFeedbackGiven){
+                findNavController().navigate(R.id.action_eventDetails_to_subscriberFeedback,bundleOf(Constants.EVENT_ID to data.event_id))
+            }
 
         }
     }
@@ -295,6 +297,8 @@ class EventDetails : Fragment() {
 
     var isSubscribed: Boolean = false
 
+    var isFeedbackGiven: Boolean=false
+
     fun setObservables() {
 
 
@@ -310,6 +314,10 @@ class EventDetails : Fragment() {
             }
 
             if (amount > 0) btn_price.text = "₹ $amount" else btn_price.text = "confirm"
+
+             if(data.feedback_given){
+                 isFeedbackGiven= true
+                 btn_feedback.text="Feedback Sent"}
 
             if (data.is_wishlisted) {
                 eventDetailsViewModel.wishlist = false

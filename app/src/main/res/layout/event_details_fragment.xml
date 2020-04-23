@@ -299,12 +299,12 @@
                             app:layout_constraintBottom_toBottomOf="parent" />
 
                         <Button
-                            android:layout_marginTop="10dp"
                             android:id="@+id/btn_feedback"
-                            goneUnless="@{(eventData._subscribed &amp;&amp; !eventData.feedback_given)}"
+                            goneUnless="@{eventData._subscribed}"
                             android:layout_width="120dp"
                             android:layout_height="35dp"
                             android:layout_gravity="center"
+                            android:layout_marginTop="15dp"
                             android:background="@color/colorPrimary"
                             android:text="Send Feedback"
                             android:textColor="@color/white"

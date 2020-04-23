@@ -75,16 +75,29 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
         ll_viewfeedback.clickWithDebounce {
 
 
-          // if( findNavController().currentDestination?.id == R.id.pager)
-            findNavController().navigate(
-                R.id.action_PagerEvent_to_feedback,
-                bundleOf(Constants.EVENT_ID to eventDetailResponse.data.id)
-            )
+            if (eventDetailResponse.data.self_organised) {
 
+                findNavController().navigate(
+                    R.id.action_PagerEvent_to_feedback,
+                    bundleOf(
+                        Constants.EVENT_ID to eventDetailResponse.data.id,
+                        Constants.FEEDBACK_COUNT to eventDetailResponse.data.feedback_count
+                    )
+                )
+            } else {
 
-           // eventDetailOrganiserViewModel.startFeedback.postValue(eventDetailResponse.data.id)
+                showUserMsg("You can only see feedbacks of events organized by you")
+
+            }
+
         }
 
+    }
+
+    fun showUserMsg(msg: String) {
+
+
+        Toast.makeText(activity!!, msg, Toast.LENGTH_LONG).show()
     }
 
     private fun setOffEventsForOrganiser() {
