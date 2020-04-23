@@ -11,11 +11,11 @@ object Constants {
     const val REFRESH_TOKEN = "refresh_token"
     //1 for organiser and 1 for subscriber
     const val USER_ROLE = "user_role"
-
-    const val EVENT_NAME="event_name"
-    const val FEEDBACK_COUNT="feedback_count"
-    const val RESPONSE_LIST="response_list"
-    const val TERMS_AND_CONDITION="terms_and_condition"
+    const val IMAGE_URL = "image_url"
+    const val EVENT_NAME = "event_name"
+    const val FEEDBACK_COUNT = "feedback_count"
+    const val RESPONSE_LIST = "response_list"
+    const val TERMS_AND_CONDITION = "terms_and_condition"
     const val EVENT_ID = "event_id"
     const val AMOUNT = "amount"
     const val AMOUNT_PAID = "amount_paid"
