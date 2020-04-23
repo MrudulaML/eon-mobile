@@ -14,9 +14,9 @@ class AnalyticsViewModel(val apiService: ApiService) : BaseViewModel() {
 
 
 
-    fun getAnalytics(){
+    fun getAnalytics(event_status:String =""){
         showProgress(true)
-        apiService.getAnalytics()
+        apiService.getAnalytics(event_status)
             .enqueue(object : ApiCallback<AnalyticsResponse>(){
                 override fun onSuccessResponse(responseBody: AnalyticsResponse) {
                     analyticsLiveData.postValue(responseBody)

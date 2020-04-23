@@ -105,7 +105,7 @@ class AnalyticsDashboardFragment : Fragment() {
 
     private fun filterEventList(itemAtPosition: String) {
         spinner_event_type.text = itemAtPosition
-        organizedEventAdapter.filter.filter(itemAtPosition)
+        analyticsViewModel.getAnalytics(itemAtPosition)
     }
 
     private fun setUpSearch() {
@@ -169,19 +169,13 @@ class AnalyticsDashboardFragment : Fragment() {
     }
 
     private fun setRecyclerView(eventList: ArrayList<OrganizedEvent>) {
-        if(eventList.size>0) {
-            layoutManager = LinearLayoutManager(activity)
-            rv_event_list_analytics.layoutManager = layoutManager
-            organizedEventAdapter = OrganizedEventAdapter(eventList) {
-                tv_no_data.goneUnless(it)
-            }
-            rv_event_list_analytics.adapter = organizedEventAdapter
-        }else{
-            tv_no_data.visibility=View.VISIBLE
+        layoutManager = LinearLayoutManager(activity)
+        rv_event_list_analytics.layoutManager = layoutManager
+        organizedEventAdapter = OrganizedEventAdapter(eventList) {
+            tv_no_data.goneUnless(it)
         }
-
-
-
+        rv_event_list_analytics.adapter = organizedEventAdapter
+        (rv_event_list_analytics.adapter as OrganizedEventAdapter).notifyDataSetChanged()
     }
 
     /**
