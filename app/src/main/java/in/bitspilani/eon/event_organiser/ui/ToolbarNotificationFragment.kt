@@ -111,7 +111,7 @@ class ToolbarNotificationFragment : Fragment() {
 
     override fun onDetach() {
         super.onDetach()
-        actionbarHost?.showToolbar(showToolbar = true, showBottomNav = true)
+        actionbarHost?.showToolbar(showToolbar = true, showBottomNav = false)
     }
 
     override fun onDestroyView() {
