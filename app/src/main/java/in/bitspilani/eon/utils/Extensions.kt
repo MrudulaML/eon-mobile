@@ -4,6 +4,7 @@ package `in`.bitspilani.eon.utils
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.event_organiser.models.FilterResponse
 import android.content.Context
+import android.content.res.Resources
 import android.net.Uri
 import android.os.SystemClock
 import android.text.Editable
@@ -226,6 +227,10 @@ fun View.showSnackbar(messageRes: String, length: Int = Snackbar.LENGTH_LONG) {
     snackBar.show()
 }
 
+val Int.dp: Int
+    get() = (this / Resources.getSystem().displayMetrics.density).toInt()
+val Int.px: Int
+    get() = (this * Resources.getSystem().displayMetrics.density).toInt()
 
 
 

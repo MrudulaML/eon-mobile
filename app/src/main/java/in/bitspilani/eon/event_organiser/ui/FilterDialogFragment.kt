@@ -4,14 +4,17 @@ package `in`.bitspilani.eon.event_organiser.ui
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.event_organiser.ui.adapter.FilterPagerAdapter
 import `in`.bitspilani.eon.event_organiser.viewmodel.EventDashboardViewModel
+import `in`.bitspilani.eon.utils.px
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.fragment_filter_dialog.*
 
@@ -55,13 +58,40 @@ class FilterDialogFragment() : DialogFragment(),
 
 
     }
-
+    //TODO so much hack ashutosh
     private fun setUpClickListeners() {
-        filter_view_pager.adapter =
-            FilterPagerAdapter(activity!!, this)
+
+        val filterAdapter =FilterPagerAdapter(activity!!, this)
+        val doppelgangerPageChangeCallback = object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                when (position) {
+                    1 -> {
+                        val params: ViewGroup.LayoutParams = filter_view_pager.getLayoutParams()
+                        params.height = 300.px
+                        params.width = 300.px
+                        filter_view_pager.setLayoutParams(params)
+                        filterAdapter.notifyDataSetChanged()
+                    }
+                    0 -> {
+
+                        val params: ViewGroup.LayoutParams = filter_view_pager.getLayoutParams()
+                        params.height = 600.px
+                        params.width = 300.px
+                        filter_view_pager.setLayoutParams(params)
+                        filterAdapter.notifyDataSetChanged()
+                    }
+                }
+            }
+        }
+
+        filter_view_pager.adapter = filterAdapter
+
         TabLayoutMediator(filter_tab_layout, filter_view_pager) { tab, position ->
             tab.text = titles[position]
         }.attach()
+
+        filter_view_pager.registerOnPageChangeCallback(doppelgangerPageChangeCallback)
+
     }
 
     override fun onApplyFilter(
