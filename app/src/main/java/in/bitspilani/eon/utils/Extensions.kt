@@ -1,8 +1,10 @@
 package `in`.bitspilani.eon.utils
 
 
+import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.event_organiser.models.FilterResponse
 import android.content.Context
+import android.net.Uri
 import android.os.SystemClock
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,6 +13,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter
@@ -33,9 +36,28 @@ fun View.goneUnless(visible: Boolean) {
     visibility = if (visible) View.VISIBLE else View.GONE
 }
 
+@BindingAdapter("attachImage")
+fun ImageView.attachImage(uri: Uri?) {
+
+    if (uri != null) {
+
+        setImageURI(uri)
+        visibility = View.VISIBLE
+    } else {
+
+        visibility = View.GONE
+    }
+}
+
+@BindingAdapter("goneUnless")
+fun LinearLayout.goneUnless(visible: Boolean) {
+    visibility = if (visible) View.VISIBLE else View.GONE
+}
+
+
 @BindingAdapter("goneUnless")
 fun TextView.goneUnless(visible: Boolean) {
-   visibility = if (visible) View.VISIBLE else View.GONE
+    visibility = if (visible) View.VISIBLE else View.GONE
 }
 
 @BindingAdapter("app:`in`.bitspilani.eon.utils.invisibleUnless")
@@ -95,6 +117,11 @@ fun View.visibleIf(visible: Boolean) {
     visibility = if (visible) View.VISIBLE else View.INVISIBLE
 }
 
+@BindingAdapter("imageUrl")
+fun invisibleWhen(imageView: ImageView, url: String) {
+
+    Picasso.get().load(url).into(imageView)
+}
 
 @BindingAdapter("app:`in`.bitspilani.eon.utils.invisibleWhen")
 fun View.invisibleWhen(invisible: Boolean) {
@@ -113,9 +140,14 @@ fun AppCompatImageView.isSelected(isSelected: Boolean) {
 }
 
 @BindingAdapter("imageUrl")
-fun loadImage(view: ImageView, imageUrl: String) {
+fun loadImage(view: ImageView, imageUrl: String?) {
 
+    if(imageUrl!=null && !imageUrl.isEmpty())
     Picasso.get().load(imageUrl).into(view)
+      else{
+        Picasso.get().load(R.drawable.dummy_image).into(view)
+
+    }
 }
 
 fun EditText.onChange(cb: (String) -> Unit) {

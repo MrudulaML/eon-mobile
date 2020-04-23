@@ -28,16 +28,15 @@ data class Invitee(
     var discount_percentage: Int,
     var email: String,
     var invitation_id: Int,
-    var event: Event ? =null,
-    var user: User? =null,
-    var selectAll : Boolean? = false
+    var event: Event? = null,
+    var user: User? = null,
+    var selectAll: Boolean? = false
 )
 
 data class Event(
     var event_id: Int,
     var event_name: String
 )
-
 
 
 data class User(

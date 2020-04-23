@@ -4,6 +4,7 @@ import `in`.bitspilani.eon.analytics.AnalyticsViewModel
 import `in`.bitspilani.eon.api.ApiService
 import `in`.bitspilani.eon.event_organiser.viewmodel.*
 import `in`.bitspilani.eon.event_subscriber.subscriber.detail.EventDetailsViewModel
+import `in`.bitspilani.eon.event_subscriber.subscriber.feedback.FeedbackViewmodel
 import `in`.bitspilani.eon.event_subscriber.subscriber.payments.PaymentViewModel
 import `in`.bitspilani.eon.event_subscriber.subscriber.summary.EventSummaryViewModel
 import `in`.bitspilani.eon.login.ui.ChangePwViewModel
@@ -36,6 +37,8 @@ class EonViewModelFactory(
             isAssignableFrom(PaymentViewModel::class.java) -> PaymentViewModel(apiService)
             isAssignableFrom(EventSummaryViewModel::class.java) -> EventSummaryViewModel(apiService)
             isAssignableFrom(UserProfileViewModel::class.java) -> UserProfileViewModel(apiService)
+            isAssignableFrom(FeedbackViewmodel::class.java) -> FeedbackViewmodel(apiService)
+            isAssignableFrom(OrgFeedbackViewmodel::class.java) -> OrgFeedbackViewmodel(apiService)
             isAssignableFrom(AnalyticsViewModel::class.java) -> AnalyticsViewModel(apiService)
 
             else ->

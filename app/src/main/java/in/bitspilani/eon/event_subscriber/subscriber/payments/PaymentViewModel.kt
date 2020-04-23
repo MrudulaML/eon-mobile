@@ -1,14 +1,17 @@
 package `in`.bitspilani.eon.event_subscriber.subscriber.payments
 
+import `in`.bitspilani.eon.BaseViewModel
 import `in`.bitspilani.eon.api.ApiService
 import `in`.bitspilani.eon.event_subscriber.models.PaymentResponse
+import `in`.bitspilani.eon.login.data.SignUpResponse
+import `in`.bitspilani.eon.utils.ApiCallback
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PaymentViewModel(private val apiService: ApiService) : ViewModel() {
+class PaymentViewModel(private val apiService: ApiService) : BaseViewModel() {
 
 
     var subscriptionData: MutableLiveData<PaymentResponse> = MutableLiveData()
@@ -18,28 +21,21 @@ class PaymentViewModel(private val apiService: ApiService) : ViewModel() {
 
     fun payAndSubscribe(hashMap: HashMap<String, Any>) {
 
-        apiService.subscribeEvent(hashMap).enqueue(object : Callback<PaymentResponse> {
+        showProgress(true)
 
-            override fun onResponse(
-                call: Call<PaymentResponse>,
-                response: Response<PaymentResponse>
-            ) {
+        apiService.subscribeEvent(hashMap)
+            .enqueue(object : ApiCallback<PaymentResponse>(){
+                override fun onSuccessResponse(response: PaymentResponse) {
 
-                if (response.isSuccessful) {
-
-                    subscriptionData.postValue(response.body())
-                } else {
-
-                    errorData.postValue(response.message())
+                    showProgress(false)
+                    subscriptionData.postValue(response)
                 }
 
-            }
-
-            override fun onFailure(call: Call<PaymentResponse>, t: Throwable) {
-
-
-            }
-        })
+                override fun onApiError(errorType: ApiError, error: String?) {
+                    showProgress(false)
+                    errorData.postValue(error)
+                }
+            })
 
     }
 

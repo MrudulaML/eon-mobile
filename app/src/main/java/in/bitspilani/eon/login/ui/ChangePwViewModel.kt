@@ -2,7 +2,9 @@ package `in`.bitspilani.eon.login.ui
 
 import `in`.bitspilani.eon.BaseViewModel
 import `in`.bitspilani.eon.api.ApiService
+import `in`.bitspilani.eon.event_subscriber.models.PaymentResponse
 import `in`.bitspilani.eon.login.data.CommonResponse
+import `in`.bitspilani.eon.utils.ApiCallback
 import androidx.lifecycle.MutableLiveData
 import retrofit2.Call
 import retrofit2.Callback
@@ -19,35 +21,19 @@ class ChangePwViewModel(private val apiService: ApiService) : BaseViewModel() {
         showProgress(true)
 
         apiService.changePassword(hashMap)
-            .enqueue(object : Callback<CommonResponse> {
-                override fun onResponse(
-                    call: Call<CommonResponse>,
-                    response: Response<CommonResponse>
-                ) {
+            .enqueue(object : ApiCallback<CommonResponse>(){
+                override fun onSuccessResponse(response: CommonResponse) {
+
                     showProgress(false)
-
-                    if(response.isSuccessful){
-
-                        changePasswordMsg.postValue(response.body()!!.message)
-
-                    }
-                    else{
-                        errorToast.postValue(response.body()!!.message)
-                    }
-
-
+                    changePasswordMsg.postValue(response.message)
                 }
 
-                override fun onFailure(call: Call<CommonResponse>, t: Throwable) {
-
+                override fun onApiError(errorType: ApiError, error: String?) {
                     showProgress(false)
-
-                    changePasswordMsg.postValue(t.message)
-
-
-
+                    errorToast.postValue(error)
                 }
             })
+
 
     }
 

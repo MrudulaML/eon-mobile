@@ -141,11 +141,59 @@
             android:name="in.bitspilani.eon.event_organiser.ui.EventDetailsOrganiserFragment"
             tools:layout="@layout/fragment_event_detail_organiser">
 
-            <action android:id="@+id/action_event_details_organiser_to_dashboardFragment"
+            <action
+                android:id="@+id/action_PagerEvent_to_feedback"
+                app:destination="@id/organiserFeedback" />
+            <action
+                android:id="@+id/action_event_details_organiser_to_dashboardFragment"
                 app:popUpTo="@id/homeFragment"
-                app:popUpToInclusive="false"/>
+                app:popUpToInclusive="false" />
 
         </fragment>
+
+        <fragment
+            android:id="@+id/PagerEventFragment"
+            android:name="in.bitspilani.eon.event_organiser.ui.PagerEventFragment"
+            tools:layout="@layout/fragment_event">
+
+            <action
+                android:id="@+id/action_PagerEvent_to_feedback"
+                app:destination="@id/organiserFeedback" />
+
+        </fragment>
+
+        <fragment
+            android:id="@+id/organiserFeedback"
+            android:name="in.bitspilani.eon.event_organiser.ui.OrganiserFeedbackFragment"
+            tools:layout="@layout/fragment_organiser_feedback" >
+
+            <argument
+                android:name="event_id"
+                android:defaultValue="0"
+                app:argType="integer" />
+
+            <argument
+                android:name="feedback_count"
+                android:defaultValue="0"
+                app:argType="integer" />
+
+            <action
+                android:id="@+id/action_orgFeedback_to_orgFeedbackDetail"
+                app:destination="@id/organiserFeedbackDetail" />
+
+        </fragment>
+
+        <fragment
+            android:id="@+id/organiserFeedbackDetail"
+            android:name="in.bitspilani.eon.event_organiser.ui.OrganizerFeedbackDetail"
+            tools:layout="@layout/fragment_org_feedback_detail">
+            <argument
+                android:name="response_list"
+                app:argType="string" />
+
+        </fragment>
+
+
 
         <fragment
             android:id="@+id/paymentFrag"
@@ -252,6 +300,10 @@
                 app:popUpTo="@id/homeFragment"
                 app:popUpToInclusive="true" />
 
+            <action
+                android:id="@+id/action_eventDetails_to_subscriberFeedback"
+                app:destination="@+id/subcriberFeedback" />
+
             <argument
                 android:name="event_id"
                 android:defaultValue="0"
@@ -311,6 +363,24 @@
                 app:argType="integer" />
 
         </fragment>
+
+
+        <fragment
+            android:id="@+id/subcriberFeedback"
+            android:name="in.bitspilani.eon.event_subscriber.subscriber.feedback.FeedbackFragment"
+            android:label="fragment_feedback"
+            tools:layout="@layout/fragment_feedback">
+
+            <argument
+                android:name="event_id"
+                android:defaultValue="0"
+                app:argType="integer" />
+
+            <argument
+                android:name="event_name"
+                app:argType="string" />
+
+        </fragment>
         <fragment
             android:id="@+id/notificationFragment"
             android:name="in.bitspilani.eon.event_organiser.ui.ToolbarNotificationFragment"
@@ -334,6 +404,17 @@
 
 
 
+        </fragment>
+        <fragment
+            android:id="@+id/eventFilterFragment"
+            android:name="in.bitspilani.eon.event_organiser.ui.FilterEventFragment"
+            android:label="EventFilterFragment">
+
+            <action
+                android:id="@+id/filter_to_dashboard"
+                app:destination="@id/homeFragment"
+                app:popUpTo="@id/homeFragment"
+                app:popUpToInclusive="true" />
         </fragment>
 
         <!-- global actions for nav bar-->

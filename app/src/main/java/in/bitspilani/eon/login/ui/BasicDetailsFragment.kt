@@ -1,5 +1,6 @@
 package `in`.bitspilani.eon.login.ui
 
+import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.databinding.FragmentBasicDetailsBinding
 import `in`.bitspilani.eon.utils.*
@@ -62,25 +63,41 @@ class BasicDetailsFragment : Fragment() {
 
             showUserMsg("Registration Successful")
 
-//            ModelPreferencesManager.putInt(Constants.USER_ROLE, it!!.user!!.role!!.id)
+            if (it.user.role.id == 2) {
+
+//                ModelPreferencesManager.putInt(Constants.USER_ROLE, it!!.user!!.role!!.id)
 //
-//            ModelPreferencesManager.putString(Constants.ACCESS_TOKEN, it.access)
+//                ModelPreferencesManager.putString(Constants.ACCESS_TOKEN, it.access)
 //
-//            ModelPreferencesManager.putString(Constants.ACCESS_TOKEN, it.access)
-//            ModelPreferencesManager.putString(Constants.REFRESH_TOKEN, it.refresh)
-//            ModelPreferencesManager.putInt(Constants.USER_ROLE, it.user.role.id)
-//            ModelPreferencesManager.put(it, Constants.CURRENT_USER)
-
-            //  findNavController().navigate(R.id.action_BasicInfoFragment_to_homeFragment)
-
-
-            ContactAdmin.openDialog(activity!!) {
+//                ModelPreferencesManager.putString(Constants.ACCESS_TOKEN, it.access)
+//                ModelPreferencesManager.putString(Constants.REFRESH_TOKEN, it.refresh)
+//                ModelPreferencesManager.putInt(Constants.USER_ROLE, it.user.role.id)
+//                ModelPreferencesManager.put(it, Constants.CURRENT_USER)
 
                 findNavController().navigate(R.id.action_BasicInfoFragment_to_signInFragment)
+
+            } else {
+
+                ContactAdmin.openDialog(activity!!) {
+
+                    findNavController().navigate(R.id.action_BasicInfoFragment_to_signInFragment)
+                }
             }
 
+
         })
+
         authViewModel.registerError.observe(viewLifecycleOwner, Observer {
+
+            showUserMsg(it)
+        })
+
+        authViewModel.progressLiveData.observe(viewLifecycleOwner, Observer {
+
+            (activity as BitsEonActivity).showProgress(it)
+        })
+
+        authViewModel.errorView.observe(viewLifecycleOwner, Observer {
 
             showUserMsg(it)
         })
@@ -127,7 +144,9 @@ class BasicDetailsFragment : Fragment() {
                         }
                     }
                 }
+
             }
+
             OrganiserDetailsSteps.BANK_DETAILS -> {
                 if (Validator.isValidBankAccNo(edit_bank_acc_no)
                     && Validator.isValidIFSC(edt_ifsc)
@@ -137,25 +156,38 @@ class BasicDetailsFragment : Fragment() {
                     binding.stepView.go(2, true)
                 }
             }
+
             OrganiserDetailsSteps.PASSWORD -> {
                 if (Validator.isValidPassword(edt_password)) {
                     if (TextUtils.equals(edt_password.text, edt_confirm_password.text)) {
+
                         signupMap.put("password", edt_password.text.toString())
                         if (authViewModel.userType == USER_TYPE.ORGANISER) {
+
                             signupMap.put("organization", edt_org_name.text.toString())
+
                             signupMap.put("role", ROLE.ORGANIZER.role)
+
                         } else {
                             signupMap.put("role", "subscriber")
+
                         }
+
                         //since default value here is 100, if its 100 then we show user tnc dialog
+
                         if (ModelPreferencesManager.getInt(Constants.TERMS_AND_CONDITION) == 100) {
+
                             TermsAndConditionDialog.openDialog(activity!!) {
+
                                 ModelPreferencesManager.putInt(Constants.TERMS_AND_CONDITION, 1)
                                 authViewModel.register(signupMap)
                             }
+
                         } else if (ModelPreferencesManager.getInt(Constants.TERMS_AND_CONDITION) == 1) {
                             authViewModel.register(signupMap)
                         }
+
+
                     } else {
                         showUserMsg("Password Does not match")
                     }

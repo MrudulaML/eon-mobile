@@ -1,5 +1,6 @@
 package `in`.bitspilani.eon.event_subscriber.subscriber.payments
 
+import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.login.data.Data
 import `in`.bitspilani.eon.login.ui.ActionbarHost
@@ -105,8 +106,14 @@ class PaymentFrag : Fragment() {
         })
 
         paymentViewModel.errorData.observe(viewLifecycleOwner, Observer {
+            showUserMsg(it)
+
+        })
 
 
+        paymentViewModel.progressLiveData.observe(viewLifecycleOwner, Observer {
+
+            (activity as BitsEonActivity).showProgress(it)
         })
 
     }

@@ -55,6 +55,7 @@
                 app:layout_constraintStart_toEndOf="@id/iv_back"
                 app:layout_constraintTop_toTopOf="parent" />
 
+
             <ImageView
                 android:id="@+id/iv_wishlist"
                 android:layout_width="40dp"
@@ -105,8 +106,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_marginTop="20dp"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
                     android:layout_marginEnd="15dp"
                     android:background="@drawable/bg_subscribed_rectangle2"
                     android:paddingStart="10dp"
@@ -115,6 +114,8 @@
                     android:paddingBottom="5dp"
                     android:text="Subscribed"
                     android:textColor="@color/colorPrimary"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -137,13 +138,13 @@
                     android:layout_height="0dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="16dp"
-                    app:layout_constraintBaseline_toBaselineOf="@id/tv_event_name"
                     android:drawableLeft="@drawable/ic_url"
                     android:drawablePadding="@dimen/_8sdp"
                     android:gravity="center"
                     android:padding="@dimen/_4sdp"
                     android:textAlignment="center"
                     android:textColor="@color/grey"
+                    app:layout_constraintBaseline_toBaselineOf="@id/tv_event_name"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/iv_event"
                     tools:text="Link" />
@@ -186,7 +187,6 @@
                             android:textSize="15sp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/tv_event_date" />
-
 
 
                         <View
@@ -297,6 +297,18 @@
                             android:layout_marginTop="15dp"
                             android:visibility="gone"
                             app:layout_constraintBottom_toBottomOf="parent" />
+
+                        <Button
+                            android:id="@+id/btn_feedback"
+                            goneUnless="@{eventData._subscribed}"
+                            android:layout_width="120dp"
+                            android:layout_height="35dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="15dp"
+                            android:background="@color/colorPrimary"
+                            android:text="Send Feedback"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
 
                         <View
                             android:id="@+id/space_view"
