@@ -376,6 +376,10 @@
                 android:defaultValue="0"
                 app:argType="integer" />
 
+            <argument
+                android:name="event_name"
+                app:argType="string" />
+
         </fragment>
         <fragment
             android:id="@+id/notificationFragment"

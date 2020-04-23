@@ -64,6 +64,7 @@ class FeedbackViewmodel(private val apiService: ApiService) : BaseViewModel() {
         hashMap.put("path_name", path_name)
 
 
+        showProgress(true)
         apiService.getPresignUrl(hashMap).enqueue(object : ApiCallback<PresignResponse>() {
             override fun onSuccessResponse(responseBody: PresignResponse) {
 
@@ -82,6 +83,7 @@ class FeedbackViewmodel(private val apiService: ApiService) : BaseViewModel() {
     }
 
     fun uploadImageToS3(url: String, requestBody: RequestBody) {
+        showProgress(true)
 
 
         restClient.noAuthClient.create(ApiService::class.java).uploadImage(url, requestBody)
@@ -108,6 +110,8 @@ class FeedbackViewmodel(private val apiService: ApiService) : BaseViewModel() {
                 }
 
                 override fun onFailure(call: Call<Void>, t: Throwable) {
+
+                    showProgress(false)
 
                     errorData.postValue(t.message)
 

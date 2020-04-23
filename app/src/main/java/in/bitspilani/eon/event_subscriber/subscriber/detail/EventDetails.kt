@@ -216,7 +216,7 @@ class EventDetails : Fragment() {
         btn_feedback.clickWithDebounce {
 
             if(!isFeedbackGiven){
-                findNavController().navigate(R.id.action_eventDetails_to_subscriberFeedback,bundleOf(Constants.EVENT_ID to data.event_id))
+                findNavController().navigate(R.id.action_eventDetails_to_subscriberFeedback,bundleOf(Constants.EVENT_ID to data.event_id,Constants.EVENT_NAME to data.event_name))
             }
 
         }

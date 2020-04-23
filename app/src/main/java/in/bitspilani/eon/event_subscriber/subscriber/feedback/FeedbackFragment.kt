@@ -80,6 +80,8 @@ class FeedbackFragment : Fragment() {
 
         eventId = arguments!!.getInt(Constants.EVENT_ID, 0)
 
+        tv_event_name.text = arguments!!.getString(Constants.EVENT_NAME)
+
     }
 
     fun setClicks() {
@@ -87,6 +89,11 @@ class FeedbackFragment : Fragment() {
         btn_submit.clickWithDebounce {
 
             feedbackViewmodel.postFeedback(FeedbackBody(eventId, list))
+        }
+
+        iv_back_subs_feed.clickWithDebounce {
+
+            findNavController().popBackStack()
         }
 
     }
@@ -131,7 +138,7 @@ class FeedbackFragment : Fragment() {
             list[position].imageUri = imageUri
             list[position].answer.image = imageName
 
-               rv_subscriber_feedback.adapter!!.notifyItemChanged(position)
+            rv_subscriber_feedback.adapter!!.notifyItemChanged(position)
 
 //            rv_subscriber_feedback.adapter!!.notifyDataSetChanged()
 
