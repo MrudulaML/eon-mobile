@@ -101,7 +101,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
         android:layout_marginTop="16dp"
-        android:text="Type of Event"
+        android:text="Type of event"
         android:textColor="@color/grey"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
