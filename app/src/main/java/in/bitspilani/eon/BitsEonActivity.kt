@@ -55,17 +55,6 @@ class BitsEonActivity : AppCompatActivity(),ActionbarHost {
 
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.top_navigation, menu)
-        if (ModelPreferencesManager.getInt(Constants.USER_ROLE) == 2) {
-            val itemToHide = menu.findItem(R.id.notificationFragment)
-            itemToHide.isVisible = true
-        }
-        return true
-    }
-
-
     private fun checkIfAuthenticated(){
         lifecycleScope.launch {
             val userData = ModelPreferencesManager.get<Data>(Constants.CURRENT_USER)
