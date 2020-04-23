@@ -336,6 +336,7 @@ class EventDetails : Fragment() {
             tv_event_date.formatDate(data.date, data.time)
 
             if (data.is_subscribed) {
+                btn_feedback.visibility=View.VISIBLE
                 isSubscribed = true
                 ll_paid_event_info.visibility = View.VISIBLE
                 tv_seats_info.text =
