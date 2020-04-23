@@ -52,6 +52,8 @@ class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganis
         setRecyclerview(detailResponse)
         setUpSearch()
 
+        setUpVisibility()
+
         fab.clickWithDebounce {
             showDialog()
         }
@@ -140,6 +142,23 @@ class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganis
 
             progress_bar.goneUnless(it)
         })
+    }
+
+
+    //TODO fix this with data binding
+    private fun setUpVisibility() {
+        if (detailResponse.data.self_organised) {
+
+            if (detailResponse.data.event_status.toLowerCase().equals("completed") ||
+                detailResponse.data.event_status.toLowerCase(Locale.ROOT).equals("cancelled")
+            ) {
+
+                fab.visibility = View.GONE
+            } else {
+
+                fab.visibility = View.VISIBLE
+            }
+        }
     }
 
 
