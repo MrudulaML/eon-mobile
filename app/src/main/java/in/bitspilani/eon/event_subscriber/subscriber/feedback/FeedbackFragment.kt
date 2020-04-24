@@ -85,25 +85,32 @@ class FeedbackFragment : Fragment() {
 
     }
 
+    var submitFeedback: Boolean = false
+
     fun setClicks() {
 
 
         btn_submit.clickWithDebounce {
+            submitFeedback = true
 
             try {
 
                 list.forEach {
 
 
-                    if (it.answer?.image == null && it.answer?.description == null) {
+                    if (it.answer?.description == null) {
 
-                        it.answer = null
+                        // it.answer = null
+                        submitFeedback = false
                     }
 
                 }
 
+                if (submitFeedback)
+                    feedbackViewmodel.postFeedback(FeedbackBody(eventId, list))
+                else
+                    showUserMsg("Please fill all the answer fields")
 
-                feedbackViewmodel.postFeedback(FeedbackBody(eventId, list))
 
             } catch (e: Exception) {
 
