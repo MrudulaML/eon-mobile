@@ -45,7 +45,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
                 android:gravity="center_vertical"
                 android:text="Event Details"
@@ -58,8 +58,8 @@
 
             <ImageView
                 android:id="@+id/iv_wishlist"
-                android:layout_width="40dp"
-                android:layout_height="30dp"
+                android:layout_width="32dp"
+                android:layout_height="22dp"
                 android:layout_gravity="center_vertical"
                 android:onClick="@{() -> viewmodel.addOrRemovetoWishlist()}"
                 android:src="@drawable/ic_wishlist_line"
@@ -69,8 +69,8 @@
 
             <ImageView
                 android:id="@+id/iv_share"
-                android:layout_width="40dp"
-                android:layout_height="30dp"
+                android:layout_width="32dp"
+                android:layout_height="22dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="20dp"
                 android:src="@drawable/ic_icon_share_white"
@@ -135,44 +135,53 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/iv_external_share"
                     android:layout_width="wrap_content"
-                    android:layout_height="0dp"
+                    android:layout_height="30dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginEnd="16dp"
-                    android:drawableLeft="@drawable/ic_url"
-                    android:drawablePadding="@dimen/_8sdp"
+                    android:layout_marginEnd="20dp"
+                    android:drawableStart="@drawable/ic_url"
+                    android:drawablePadding="5dp"
                     android:gravity="center"
-                    android:padding="@dimen/_4sdp"
-                    android:textAlignment="center"
+                    android:text="Link"
                     android:textColor="@color/grey"
                     app:layout_constraintBaseline_toBaselineOf="@id/tv_event_name"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_event"
+                    app:layout_constraintTop_toBottomOf="@id/tv_event_name"
                     tools:text="Link" />
+
+                <TextView
+                    android:id="@+id/tv_event_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="20dp"
+                    android:drawableStart="@drawable/ic_icon_calendar_gray"
+                    android:drawablePadding="10dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_event_name" />
+
+
+                <ImageView
+                    android:id="@+id/iv_facebook"
+                    android:layout_marginEnd="50dp"
+                    app:layout_constraintTop_toBottomOf="@id/iv_external_share"
+                    android:src="@drawable/ic_facebook"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"/>
 
                 <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/tv_event_name">
+                    app:layout_constraintTop_toBottomOf="@id/tv_event_date">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-
-                        <TextView
-
-                            android:id="@+id/tv_event_date"
-                            android:layout_width="wrap_content"
-                            android:layout_height="25dp"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="5dp"
-                            android:drawableStart="@drawable/ic_icon_calendar_gray"
-                            android:drawablePadding="10dp"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="15sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/tv_event_name" />
 
                         <TextView
                             android:id="@+id/tv_event_location"

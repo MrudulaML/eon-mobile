@@ -9,6 +9,7 @@ import `in`.bitspilani.eon.event_subscriber.models.PaymentResponse
 import `in`.bitspilani.eon.event_subscriber.models.QuestionsResponse
 import `in`.bitspilani.eon.utils.ApiCallback
 import `in`.bitspilani.eon.utils.Constants
+import `in`.bitspilani.eon.utils.SingleLiveEvent
 import android.provider.SyncStateContract
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -21,7 +22,7 @@ class OrgFeedbackViewmodel(private val apiService: ApiService) : BaseViewModel()
 
     var url: MutableLiveData<String> = MutableLiveData()
 
-    var feedbackListData: MutableLiveData<FeedbackListResponse> = MutableLiveData()
+    var feedbackListData: SingleLiveEvent<FeedbackListResponse> = SingleLiveEvent()
 
     var errorToast: MutableLiveData<String> = MutableLiveData()
 
@@ -51,34 +52,10 @@ class OrgFeedbackViewmodel(private val apiService: ApiService) : BaseViewModel()
             })
 
 
-//        apiService .getFeedbackList(eventId).enqueue(object : Callback<FeedbackListResponse> {
-//
-//                override fun onResponse(
-//                    call: Call<FeedbackListResponse>,
-//                    response: Response<FeedbackListResponse>
-//                ) {
-//
-//                    if (response.isSuccessful) {
-//
-//                        feedbackListData.postValue(response.body())
-//                    } else {
-//
-//                        errorToast.postValue(response.message())
-//                    }
-//
-//                }
-//
-//                override fun onFailure(call: Call<FeedbackListResponse>, t: Throwable) {
-//
-//
-//                    Log.e("xoxo", "org feedback  failure: " + t.toString())
-//
-//                }
-//            })
     }
 
 
-    var detailPage: MutableLiveData<FeedbackData> = MutableLiveData()
+    var detailPage: SingleLiveEvent<FeedbackData> = SingleLiveEvent()
 
     fun onSingleUserFeedbackClick(list:FeedbackData){
 

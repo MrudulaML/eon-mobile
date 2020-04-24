@@ -295,6 +295,10 @@
                 app:popUpToInclusive="true" />
 
             <action
+                android:id="@+id/action_subsEventDetails_to_orgFeedbackDetail"
+                app:destination="@id/organiserFeedbackDetail" />
+
+            <action
                 android:id="@+id/action_eventDetails_to_Homefragment"
                 app:destination="@id/homeFragment"
                 app:popUpTo="@id/homeFragment"
