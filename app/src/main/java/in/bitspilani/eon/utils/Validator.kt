@@ -17,9 +17,10 @@ class Validator {
         private const val PASSWORD_POLICY = "Password doesnt match requirements"
 
         private const val NAME_VALIDATION_MSG = "Enter a valid name"
-        private const val EMAIL_VALIDATION_MSG = "Enter a valid email address"
+        private const val EMAIL_VALIDATION_MSG = "Please enter a valid email!"
         private const val PHONE_VALIDATION_MSG = "Enter a valid phone number"
         private const val IFSC_VALIDATION_MSG = "Enter a valid ifsc"
+        private const val PASSWORD_VALIDATION_MSG = "Please input your password!"
 
 
         /**
@@ -69,6 +70,19 @@ class Validator {
             // Set error if required
             if (updateUI) {
                 val error: String? = if (valid) null else EMAIL_VALIDATION_MSG
+                setError(data, error)
+            }
+
+            return valid
+        }
+
+        fun isValidLoginPassword(data: Any, updateUI: Boolean = true): Boolean {
+            val str = getText(data)
+            val valid = str.trim().length > 2
+
+            // Set error if required
+            if (updateUI) {
+                val error: String? = if (valid) null else PASSWORD_VALIDATION_MSG
                 setError(data, error)
             }
 
@@ -174,12 +188,13 @@ class Validator {
 
             // Password should contain at least one special character
             // Allowed special characters : "~!@#$%^&*()-_=+|/,."';:{}[]<>?"
-            exp = ".*[~!@#\$%\\^&*()\\-_=+\\|\\[{\\]};:'\",<.>/?].*"
-            pattern = Pattern.compile(exp)
-            matcher = pattern.matcher(str)
-            if (!matcher.matches()) {
-                valid = false
-            }
+            // commented after matching with web as per qa requirement
+//            exp = ".*[~!@#\$%\\^&*()\\-_=+\\|\\[{\\]};:'\",<.>/?].*"
+//            pattern = Pattern.compile(exp)
+//            matcher = pattern.matcher(str)
+//            if (!matcher.matches()) {
+//                valid = false
+//            }
 
             // Set error if required
             if (updateUI) {
