@@ -13,7 +13,7 @@
     <string name="ifsc_code">IFSC Code</string>
     <string name="bank_name">Bank Name</string>
     <string name="next">Next</string>
-    <string name="password_restriction_hint">Password must be of length 8-16 characters having one lower case, one upper case and one numeric character.</string>
+    <string name="password_restriction_hint">Lower case, Upper case, Numbers, 8-16 character.</string>
 
     <string name="subscriber">Subscriber</string>
     <string name="register">Register</string>
@@ -24,6 +24,7 @@
     <string name="address_detail">Enter Address Details</string>
     <string name="address">Address</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="create_password">Create Password</string>
 
     <string name="reset_password">Reset Password</string>
     <string name="verification_code">Enter the Verification code</string>
