@@ -2,6 +2,7 @@ package `in`.bitspilani.eon.event_subscriber.subscriber.feedback
 
 import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
+import `in`.bitspilani.eon.event_subscriber.models.Answer
 import `in`.bitspilani.eon.event_subscriber.models.FeedbackBody
 import `in`.bitspilani.eon.event_subscriber.models.FeedbackData
 import `in`.bitspilani.eon.login.ui.ActionbarHost
@@ -86,9 +87,31 @@ class FeedbackFragment : Fragment() {
 
     fun setClicks() {
 
+
         btn_submit.clickWithDebounce {
 
-            feedbackViewmodel.postFeedback(FeedbackBody(eventId, list))
+            try {
+
+                list.forEach {
+
+
+                    if (it.answer?.image == null && it.answer?.description == null) {
+
+                        it.answer = null
+                    }
+
+                }
+
+
+                feedbackViewmodel.postFeedback(FeedbackBody(eventId, list))
+
+            } catch (e: Exception) {
+
+                showUserMsg("Something went wrong")
+                feedbackViewmodel.progressLiveData.postValue(false)
+            }
+
+
         }
 
         iv_back_subs_feed.clickWithDebounce {
@@ -112,12 +135,16 @@ class FeedbackFragment : Fragment() {
         feedbackViewmodel.questionsData.observe(viewLifecycleOwner, Observer {
 
 
+            Log.e("xoxo", "questions observer called")
+
             list = it.data
 
             rv_subscriber_feedback.layoutManager = LinearLayoutManager(activity!!)
             rv_subscriber_feedback.adapter = FeedbackAdapter(list) {
 
                 position = it
+                Log.e("xoxo", "position got from image click: " + position)
+
                 openGallery()
             }
             rv_subscriber_feedback.setHasFixedSize(true)
@@ -135,8 +162,17 @@ class FeedbackFragment : Fragment() {
 
         feedbackViewmodel.uploadImageData.observe(viewLifecycleOwner, Observer {
 
-            list[position].imageUri = imageUri
-            list[position].answer.image = imageName
+            list[position].let {
+
+                Log.e("xoxo", "position after uploading image: " + position)
+
+                it.imageUri = imageUri
+                it.answer?.image = imageName
+            }
+
+
+            Log.e("xoxo", "list before notify: " + list)
+
 
             rv_subscriber_feedback.adapter!!.notifyItemChanged(position)
 
