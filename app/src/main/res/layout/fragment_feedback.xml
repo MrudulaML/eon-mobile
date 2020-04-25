@@ -27,13 +27,13 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:text="Send Feedback"
             android:id="@+id/tv_toolbar_text_detail"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:gravity="center_vertical"
+            android:text="Send Feedback"
             android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -50,8 +50,8 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:background="@color/white"
-        android:textColor="@color/colorPrimary"
         android:text="Technical corridor"
+        android:textColor="@color/colorPrimary"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/toolbar" />
@@ -66,19 +66,35 @@
         android:background="@color/grey"
         app:layout_constraintTop_toBottomOf="@id/tv_event_name" />
 
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_subscriber_feedback"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
+        android:fillViewport="true"
         app:layout_constraintBottom_toTopOf="@id/btn_submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider"
-        tools:listitem="@layout/row_feedback" />
+        app:layout_constraintTop_toBottomOf="@+id/divider">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_subscriber_feedback"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider"
+            tools:listitem="@layout/row_feedback" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="120dp"/>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <Button
         android:id="@+id/btn_submit"

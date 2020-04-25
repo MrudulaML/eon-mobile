@@ -157,6 +157,7 @@ class FeedbackFragment : Fragment() {
             rv_subscriber_feedback.setHasFixedSize(true)
 
 
+            scrollRecyclerview()
         })
 
         feedbackViewmodel.presignData.observe(viewLifecycleOwner, Observer {
@@ -201,6 +202,30 @@ class FeedbackFragment : Fragment() {
 
     }
 
+
+    fun scrollRecyclerview() {
+
+
+        rv_subscriber_feedback.addOnLayoutChangeListener(object : View.OnLayoutChangeListener {
+
+            override fun onLayoutChange(
+                v: View, left: Int, top: Int, right: Int, bottom: Int,
+                oldLeft: Int, oldTop: Int, oldRight: Int, oldBottom: Int
+            ) {
+
+                if (bottom < oldBottom) {
+
+                    rv_subscriber_feedback.postDelayed(
+                        {
+                            rv_subscriber_feedback.smoothScrollToPosition(rv_subscriber_feedback.adapter!!.itemCount - 1)
+
+                        }, 100
+                    )
+                }
+            }
+        })
+
+    }
 
     fun showUserMsg(msg: String) {
         Toast.makeText(activity, msg, Toast.LENGTH_SHORT)

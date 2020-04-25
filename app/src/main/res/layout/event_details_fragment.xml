@@ -137,7 +137,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_marginTop="10dp"
-                    android:drawableStart="@drawable/ic_url"
+                    android:drawableStart="@drawable/ic_icon_url"
                     android:drawablePadding="5dp"
                     android:gravity="center"
                     android:textColor="@color/grey"
@@ -325,6 +325,8 @@
             layout="@layout/layout_seat_booking"
             android:layout_width="match_parent"
             android:layout_height="80dp"
+            app:eventData="@{eventData}"
+            android:layout_marginBottom="15dp"
             app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

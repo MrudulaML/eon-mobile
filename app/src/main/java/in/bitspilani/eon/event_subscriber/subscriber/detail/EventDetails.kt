@@ -297,8 +297,14 @@ class EventDetails : Fragment() {
 
         iv_increment.setOnClickListener {
 
-            seatCount.postValue(++count)
+            if (count < data.remainingTickets) {
 
+                seatCount.postValue(++count)
+
+            } else {
+
+                showUserMsg("Only " + data.remainingTickets + " Tickets are remaining.")
+            }
         }
 
         iv_decrement.setOnClickListener {
@@ -410,9 +416,9 @@ class EventDetails : Fragment() {
             )
 
         })
+
         //counter observer
         seatCount.observe(viewLifecycleOwner, Observer {
-
 
             tv_seat_counter.text = it.toString()
             if (!isSubscribed) {
@@ -420,6 +426,7 @@ class EventDetails : Fragment() {
                     btn_price.text = "₹ " + (it * amount)
 
             }
+
         })
 
         //send email observer

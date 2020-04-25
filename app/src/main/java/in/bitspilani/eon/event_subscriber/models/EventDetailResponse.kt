@@ -26,6 +26,7 @@ data class Data(
     @SerializedName("feedback_given") val feedback_given:Boolean,
     @SerializedName("subscription_fee") val subscription_fee: Int,
     @SerializedName("images") val images: String,
+    @SerializedName("remaining_tickets")val remainingTickets: Long,
     @SerializedName("external_links") val external_links: String,
     @SerializedName("invitee_list") val invitee_list: List<Invitee_list>,
     @SerializedName("subscription_details") val subscription_details: Subscription_details? = null
