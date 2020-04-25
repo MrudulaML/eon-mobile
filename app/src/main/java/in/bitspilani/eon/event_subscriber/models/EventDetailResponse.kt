@@ -22,6 +22,7 @@ data class Data(
     @SerializedName("description") val description: String,
     @SerializedName("is_subscribed") val is_subscribed: Boolean = false,
     @SerializedName("is_wishlisted") val is_wishlisted: Boolean = false,
+    @SerializedName("event_status")val eventStatus: String,
     @SerializedName("feedback_given") val feedback_given:Boolean,
     @SerializedName("subscription_fee") val subscription_fee: Int,
     @SerializedName("images") val images: String,

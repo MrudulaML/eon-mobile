@@ -334,11 +334,15 @@ class EventDetails : Fragment() {
                 loadImage(iv_event, it)
             }
 
+            included_seat_counter.goneUnless(data.eventStatus.equals("upcoming"))
+            btn_cancel.goneUnless(data.eventStatus.equals("upcoming"))
+
+
             if (amount > 0) btn_price.text = "₹ $amount" else btn_price.text = "confirm"
 
             if (data.feedback_given) {
                 isFeedbackGiven = true
-                btn_feedback.text = "Feedback Sent"
+                btn_feedback.text = "View Feedback"
                 btn_feedback.setBackgroundResource(R.drawable.stroke_rectangle_grey)
                 btn_feedback.setTextColor(resources.getColor(R.color.grey))
             }
@@ -633,7 +637,7 @@ class EventDetails : Fragment() {
         if (ShareDialog.canShow(ShareLinkContent::class.java)) {
 
             val shareLinkContent = ShareLinkContent.Builder()
-                .setContentUrl(Uri.parse(Constants.FACEBOOK_URL+data.event_id))
+                .setContentUrl(Uri.parse(Constants.FACEBOOK_URL + data.event_id))
                 .build()
             shareDialog?.show(shareLinkContent)
         }
