@@ -169,7 +169,7 @@
         android:layout_width="120dp"
         android:layout_height="40dp"
         android:layout_marginBottom="20dp"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/bg_blue_cruve"
         android:text="Pay"
         android:textSize="12sp"
         android:textColor="@color/white"
