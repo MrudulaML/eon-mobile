@@ -92,7 +92,7 @@
             tools:listitem="@layout/row_feedback" />
         <View
             android:layout_width="match_parent"
-            android:layout_height="120dp"/>
+            android:layout_height="180dp"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

@@ -164,7 +164,7 @@ class EventDetails : Fragment() {
 
                     }
 
-                    findNavController().navigate(R.id.eventSummaryFrag, bundle)
+                    findNavController().navigate(R.id.action_eventDetails_to_summary, bundle)
 
 
                 }
@@ -349,8 +349,6 @@ class EventDetails : Fragment() {
             if (data.feedback_given) {
                 isFeedbackGiven = true
                 btn_feedback.text = "View Feedback"
-                btn_feedback.setBackgroundResource(R.drawable.stroke_rectangle_grey)
-                btn_feedback.setTextColor(resources.getColor(R.color.grey))
             }
 
             if (data.is_wishlisted) {
