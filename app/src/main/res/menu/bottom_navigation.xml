@@ -17,18 +17,5 @@
         android:iconTint="@color/grey"
         android:icon="@drawable/ic_icon_event_calendar_on"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/action_three"
-        android:orderInCategory="200"
-        android:title=""
-        android:icon="@drawable/ic_users__guests"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/action_four"
-        android:orderInCategory="200"
-        android:title=""
-        android:icon="@drawable/ic_tickets"
-        app:showAsAction="never" />
 
 </menu>
