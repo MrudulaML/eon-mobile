@@ -7,7 +7,6 @@
         android:orderInCategory="100"
         android:title=""
         android:visible="false"
-        app:iconTint="@color/white"
         android:icon="@drawable/ic_notifications"
         app:showAsAction="always" />
 
