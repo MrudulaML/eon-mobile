@@ -73,6 +73,9 @@ class FilterDialogFragmentV2 : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if(ModelPreferencesManager.getInt(Constants.USER_ROLE)==2)
+            chb_by_me.visibility=View.GONE
+
         setDatePicker(edt_start_date)
         setDatePicker(edt_end_date)
 
@@ -82,7 +85,7 @@ class FilterDialogFragmentV2 : DialogFragment() {
             event_status_spinner.setSelection(0)
             event_types_spinner.setSelection(0)
             event_fees_spinner.setSelection(0)
-            chb_invitee.isChecked=false
+            chb_by_me.isChecked=false
             edt_start_date.text?.clear()
             edt_end_date.text?.clear()
             eventDashboardViewModel.getEvents()
@@ -261,7 +264,7 @@ class FilterDialogFragmentV2 : DialogFragment() {
 
         setSpinners()
 
-        chb_invitee.setOnCheckedChangeListener { buttonView, isChecked ->
+        chb_by_me.setOnCheckedChangeListener { buttonView, isChecked ->
             isCreatedByMe = if (isChecked) "True" else "False"
         }
 
@@ -279,7 +282,7 @@ class FilterDialogFragmentV2 : DialogFragment() {
                 event_fees_spinner.setSelection(it)
         }
         filters?.byMe?.let {
-            chb_invitee.isChecked=it
+            chb_by_me.isChecked=it
         }
 
         filters?.startDate?.let {

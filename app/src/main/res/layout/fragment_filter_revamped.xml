@@ -154,10 +154,10 @@
         app:layout_constraintEnd_toStartOf="@+id/btn_filter"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chb_invitee" />
+        app:layout_constraintTop_toBottomOf="@+id/chb_by_me" />
 
     <androidx.appcompat.widget.AppCompatCheckBox
-        android:id="@+id/chb_invitee"
+        android:id="@+id/chb_by_me"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
