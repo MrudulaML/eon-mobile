@@ -173,6 +173,34 @@ fun getType(view: TextView, id: Int) {
     view.text = eventType?.get(0)?.type
 }
 
+@BindingAdapter("eventStatus")
+fun setEventStatus(view : TextView, status : String ){
+
+    if(status.equals("upcoming")){
+
+        view.text="Upcoming"
+        view.setBackgroundResource(R.drawable.stroke_orange_rectangle)
+        view.setTextColor(view.resources.getColor(R.color.orange_status))
+
+    }
+
+    if(status.equals("completed")){
+
+        view.text="Completed"
+        view.setBackgroundResource(R.drawable.stroke_green_rectangle)
+        view.setTextColor(view.resources.getColor(R.color.green_status))
+
+    }
+
+    if(status.equals("cancelled")){
+
+        view.text="Cancelled"
+        view.setBackgroundResource(R.drawable.stroke_red_rectangle)
+        view.setTextColor(view.resources.getColor(R.color.red_status))
+
+    }
+
+}
 
 @BindingAdapter("visibility")
 fun setVisibility(view: View, value: Boolean) {

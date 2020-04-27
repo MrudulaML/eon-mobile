@@ -97,6 +97,15 @@ class PaymentFrag : Fragment() {
 
     }
 
+    fun validateUsername(username: String) : Boolean{
+
+        val pattern = Regex("[a-zA-Z.? ]*")
+
+
+        return pattern.containsMatchIn(username)
+
+
+    }
 
     fun setObservables() {
 
@@ -140,9 +149,7 @@ class PaymentFrag : Fragment() {
                 showUserMsg("Please enter Card owner's name")
             else if (et_card_number.text.isEmpty())
                 showUserMsg("Please enter Card number")
-            else if (et_card_number.text.toString().length < 16)
-                showUserMsg("please enter valid card number")
-            else if (et_card_number.text.toString().length > 16)
+            else if (et_card_number.text.toString().length != 16)
                 showUserMsg("please enter valid card number")
             else if (et_expiry_date.text.isEmpty()) {
                 showUserMsg("Please enter expiry date")

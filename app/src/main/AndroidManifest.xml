@@ -32,7 +32,7 @@
             </intent-filter>
         </activity>
 
-        <provider android:authorities="com.facebook.app.FacebookContentProvider676731286488616"
+        <provider android:authorities="com.facebook.app.FacebookContentProvider544312269603763"
             android:name="com.facebook.FacebookContentProvider"
             android:exported="true"/>
         <meta-data android:name="preloaded_fonts" android:resource="@array/preloaded_fonts"/>
