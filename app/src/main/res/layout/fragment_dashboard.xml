@@ -52,7 +52,7 @@
             app:layout_constraintEnd_toStartOf="@+id/btn_filter"
             app:layout_constraintHorizontal_bias="0.54"
             app:layout_constraintStart_toStartOf="parent"
-            app:queryHint="Search here for event name / location" />
+            app:queryHint="Event name / location" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
