@@ -18,6 +18,7 @@ data class MonoEvent(
     var name: String,
     var no_of_tickets: Int,
     var sold_tickets: Int,
+    var event_status: String,
     var subscription_fee: Int,
     var time: String,
     var is_wishlisted: Boolean? = null,
