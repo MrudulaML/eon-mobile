@@ -112,7 +112,8 @@ class ToolbarUserProfileFragment : Fragment(),UserProfileCallBack {
          profile_logout.clickWithDebounce {
 
              ModelPreferencesManager.clearCache()
-             Timber.d("Cached cleared")
+             activity?.viewModelStore?.clear()
+             Timber.d("Cached cleared + view model")
              (activity as BitsEonActivity).showProgress(true)
              lifecycleScope.launch {
                  delay(400)

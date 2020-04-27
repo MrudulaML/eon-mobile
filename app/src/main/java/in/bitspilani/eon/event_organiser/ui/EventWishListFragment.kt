@@ -100,7 +100,7 @@ class EventWishListFragment : Fragment() {
     private fun setUpClickListeners() {
         btn_filter.clickWithDebounce {
             //TODO move it to nav graph please
-            val dialogFragment = FilterDialogFragment()
+            val dialogFragment = FilterDialogFragmentV2()
             dialogFragment.show(childFragmentManager, "filterDialog")
 
         }

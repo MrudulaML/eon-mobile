@@ -4,9 +4,7 @@ package `in`.bitspilani.eon.event_organiser.viewmodel
 import `in`.bitspilani.eon.BaseViewModel
 import `in`.bitspilani.eon.api.ApiService
 import `in`.bitspilani.eon.api.RestClient
-import `in`.bitspilani.eon.event_organiser.models.EventList
-import `in`.bitspilani.eon.event_organiser.models.EventResponse
-import `in`.bitspilani.eon.event_organiser.models.FilterResponse
+import `in`.bitspilani.eon.event_organiser.models.*
 
 import `in`.bitspilani.eon.utils.ApiCallback
 import `in`.bitspilani.eon.utils.Constants
@@ -25,6 +23,11 @@ class EventDashboardViewModel : BaseViewModel() {
     val eventDetailsObservables: MutableLiveData<EventList> =
         MutableLiveData()
 
+    val eventFilterObservable: MutableLiveData<List<EventType>> =
+        SingleLiveEvent()
+    val selectedFilterObservable: MutableLiveData<SelectedFilter> =
+        SingleLiveEvent()
+
     private val restClient: RestClient = RestClient()
 
     val eventClickObservable: SingleLiveEvent<Int> = SingleLiveEvent()
@@ -34,16 +37,25 @@ class EventDashboardViewModel : BaseViewModel() {
         startDate: String? = null,
         endDate: String? = null,
         fromFilter: Boolean = false,
-        eventStatus:String?=null,
-        subscriptionType:String?=null
+        eventStatus: String? = null,
+        subscriptionType: String? = null,
+        isByMe: String? = null
 
     ) {
         showProgress(true)
         setupEventTypes()
-        restClient.authClient.create(ApiService::class.java).getEvents(eventType, eventLocation, startDate, endDate,eventStatus,subscriptionType)
+        restClient.authClient.create(ApiService::class.java).getEvents(
+                eventType,
+                eventLocation,
+                startDate,
+                endDate,
+                eventStatus,
+                subscriptionType,
+                isByMe
+            )
             .enqueue(object : ApiCallback<EventResponse>() {
                 override fun onSuccessResponse(responseBody: EventResponse) {
-                    val eventList = EventList(fromFilter,responseBody.data)
+                    val eventList = EventList(fromFilter, responseBody.data)
                     eventDetailsObservables.postValue(eventList)
                     showProgress(false)
                 }
@@ -60,14 +72,23 @@ class EventDashboardViewModel : BaseViewModel() {
 
     fun setupEventTypes() {
         RestClient().authClient.create(ApiService::class.java).getFilter()
-            .enqueue(object : ApiCallback<FilterResponse>(){
+            .enqueue(object : ApiCallback<FilterResponse>() {
                 override fun onSuccessResponse(responseBody: FilterResponse) {
 
                     ModelPreferencesManager.put(responseBody, Constants.EVENT_TYPES)
 
+                    eventFilterObservable.postValue(responseBody.data)
+                    //refresh events
+                    ModelPreferencesManager.put(responseBody, Constants.EVENT_TYPES)
+                    showProgress(false)
+
                 }
 
                 override fun onApiError(errorType: ApiError, error: String?) {
+
+                    /*  progress.value=false
+                 errorView.postValue(error)*/
+                    showProgress(false)
 
                 }
             })
@@ -78,5 +99,18 @@ class EventDashboardViewModel : BaseViewModel() {
         eventClickObservable.postValue(eventId)
     }
 
+
+    private var preSelectedFilters = SelectedFilter()
+    fun getSelectedFilters() {
+        selectedFilterObservable.postValue(preSelectedFilters)
+    }
+
+    fun setSelectedFilter(selectedFilter: SelectedFilter) {
+        preSelectedFilters = selectedFilter
+    }
+
+    fun resetFilters() {
+        preSelectedFilters = SelectedFilter()
+    }
 
 }
