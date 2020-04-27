@@ -45,6 +45,7 @@ import kotlinx.android.synthetic.main.layout_seat_booking.*
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
@@ -469,7 +470,10 @@ class EventDetails : Fragment() {
         val eventAmount = data.subscription_details?.amount_paid.toString()
 
         val bookingNotes = "It's non-transferable ticket"
-        val bookingDate = data.time
+        val bookingDate = data.subscription_details!!.createdOn // created on
+
+        // to do booking date format into date time
+
         var userEmailId = userData!!.user.email
         var userName = ""
 
@@ -538,6 +542,7 @@ class EventDetails : Fragment() {
         document.finishPage(page)
 
         val directoryPath = Environment.getExternalStorageDirectory().path + "/invoices/"
+
         var downloadManager: DownloadManager? = null
         downloadManager = context?.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
 
@@ -547,7 +552,7 @@ class EventDetails : Fragment() {
             dir.mkdirs()
         val filePath: File
 
-        filePath = File(directoryPath, eventId + "_tickets.pdf")
+        filePath = File(directoryPath, eventName+"-"+userName+".pdf")
 
         if (filePath.exists()) {
             filePath.delete()
@@ -567,6 +572,14 @@ class EventDetails : Fragment() {
         }
         document.close();
     }
+
+    fun formatDateTime(date_time: String): String {
+
+        var dateFormat: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+        val today = dateFormat.format(date_time)
+        return today
+    }
+
 
     fun toSimpleString(date: Date): String {
         val format = SimpleDateFormat("dd/MM/yyy")

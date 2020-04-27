@@ -29,6 +29,8 @@
     <string name="new_password">New Password</string>
     <string name="reset">Reset</string>
 
+    <string name="event_detail">Event Details</string>
+
 
     <string name="reset_password">Reset Password</string>
     <string name="verification_code">Enter the Verification code</string>
