@@ -291,6 +291,8 @@ class EventDetails : Fragment() {
 
     }
 
+    var allowBooking: Boolean= true
+
     var count = 1
     fun setDummyCounterLogic() {
 
@@ -298,21 +300,51 @@ class EventDetails : Fragment() {
         iv_increment.setOnClickListener {
 
 
-            if (count < data.remainingTickets+data.subscription_details!!.no_of_tickets_bought) {
 
-                seatCount.postValue(++count)
+                if (count < data.remainingTickets+data.subscription_details!!.no_of_tickets_bought) {
 
-            } else {
+                    seatCount.postValue(++count)
 
-                showUserMsg("Only " + data.remainingTickets + " Tickets are remaining.")
-            }
+                    changePriceButtonColor()
+                } else {
+
+                    showUserMsg("Only " + data.remainingTickets + " Tickets are remaining.")
+                }
+
+
         }
 
         iv_decrement.setOnClickListener {
 
-            if (count > 0) seatCount.postValue(--count)
+            if (count > 0)
+                seatCount.postValue(--count)
 
+            changePriceButtonColor()
         }
+
+    }
+
+    fun changePriceButtonColor(){
+
+        if(!isCountAndBoughtTicketsSame()){
+            btn_price.setBackgroundResource(R.drawable.bg_blue_cruve)
+            btn_price.setTextColor(activity!!.resources.getColor(R.color.white))
+        }
+        else{
+            btn_price.setBackgroundResource(R.drawable.bg_grey_curve)
+            btn_price.setTextColor(activity!!.resources.getColor(R.color.black))
+        }
+
+
+    }
+
+    fun isCountAndBoughtTicketsSame() : Boolean{
+
+        if(data.subscription_details!=null){
+
+            return count==data.subscription_details!!.no_of_tickets_bought
+        }else
+            return false
 
     }
 
@@ -347,6 +379,8 @@ class EventDetails : Fragment() {
 
             if (amount > 0) btn_price.text = "₹ $amount" else btn_price.text = "confirm"
 
+
+
             if (data.feedback_given) {
                 isFeedbackGiven = true
                 btn_feedback.text = "View Feedback"
@@ -380,6 +414,7 @@ class EventDetails : Fragment() {
                     count = it!!.no_of_tickets_bought
                     seatCount.postValue(count)
 
+                    changePriceButtonColor()
                 }
             }
 
