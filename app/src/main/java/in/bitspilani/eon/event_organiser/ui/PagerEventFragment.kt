@@ -213,7 +213,7 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
         if (ShareDialog.canShow(ShareLinkContent::class.java)) {
 
             val shareLinkContent = ShareLinkContent.Builder()
-                .setContentUrl(Uri.parse(eventDetailResponse.data.external_links))
+                .setContentUrl(Uri.parse(Constants.FACEBOOK_URL+eventDetailResponse.data.id))
                 .build()
             shareDialog?.show(shareLinkContent)
         }

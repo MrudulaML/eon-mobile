@@ -24,6 +24,7 @@
     <string name="address_detail">Enter Address Details</string>
     <string name="address">Address</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="create_password">Create Password</string>
 
     <string name="reset_password">Reset Password</string>
     <string name="verification_code">Enter the Verification code</string>

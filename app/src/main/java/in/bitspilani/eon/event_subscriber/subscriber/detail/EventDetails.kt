@@ -3,6 +3,7 @@ package `in`.bitspilani.eon.event_subscriber.subscriber.detail
 import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.databinding.EventDetailsFragmentBinding
+import `in`.bitspilani.eon.event_organiser.viewmodel.OrgFeedbackViewmodel
 import `in`.bitspilani.eon.event_subscriber.models.Data
 import `in`.bitspilani.eon.login.ui.ActionbarHost
 import `in`.bitspilani.eon.utils.*
@@ -33,7 +34,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
+import com.facebook.CallbackManager
+import com.facebook.share.model.ShareLinkContent
+import com.facebook.share.widget.ShareDialog
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
@@ -57,11 +62,16 @@ class EventDetails : Fragment() {
 
     private val eventDetailsViewModel by viewModels<EventDetailsViewModel> { getViewModelFactory() }
 
+    private val orgFeedbackViewmodel by viewModels<OrgFeedbackViewmodel> { getViewModelFactory() }
+
     var seatCount: MutableLiveData<Int> = MutableLiveData()
     private var actionbarHost: ActionbarHost? = null
 
     lateinit var data: Data
     lateinit var eventDetailsFragmentBinding: EventDetailsFragmentBinding
+
+    var shareDialog: ShareDialog? = null
+    var callbackManager: CallbackManager? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -82,7 +92,8 @@ class EventDetails : Fragment() {
         setDummyCounterLogic()
 
         try {
-
+            callbackManager = CallbackManager.Factory.create()
+            shareDialog = ShareDialog(this)
 
             eventDetailsFragmentBinding.viewmodel = eventDetailsViewModel
             setObservables()
@@ -151,15 +162,10 @@ class EventDetails : Fragment() {
                         bundle.putInt(Constants.ATTENDEES, count - noOfTickets)
                         bundle.putInt(Constants.AMOUNT, amount)
 
-                        findNavController().navigate(R.id.eventSummaryFrag, bundle)
-
-                        Log.e("xoxo", "bundle sent to payments" + bundle)
-
-                    } else {
-                        Log.e("xoxo", "bundle sent to summary" + bundle)
-
-                        findNavController().navigate(R.id.eventSummaryFrag, bundle)
                     }
+
+                    findNavController().navigate(R.id.action_eventDetails_to_summary, bundle)
+
 
                 }
 
@@ -180,6 +186,10 @@ class EventDetails : Fragment() {
             }
         }
 
+
+        iv_facebook.clickWithDebounce {
+            shareFacebook()
+        }
         btn_cancel.clickWithDebounce {
 
             CancelDialog.openDialog(activity!!) {
@@ -224,6 +234,10 @@ class EventDetails : Fragment() {
                         Constants.EVENT_NAME to data.event_name
                     )
                 )
+            } else {
+
+                orgFeedbackViewmodel.getUsers(data.event_id)
+
             }
 
         }
@@ -283,8 +297,14 @@ class EventDetails : Fragment() {
 
         iv_increment.setOnClickListener {
 
-            seatCount.postValue(++count)
+            if (count < data.remainingTickets) {
 
+                seatCount.postValue(++count)
+
+            } else {
+
+                showUserMsg("Only " + data.remainingTickets + " Tickets are remaining.")
+            }
         }
 
         iv_decrement.setOnClickListener {
@@ -320,13 +340,15 @@ class EventDetails : Fragment() {
                 loadImage(iv_event, it)
             }
 
+            included_seat_counter.goneUnless(data.eventStatus.equals("upcoming"))
+            btn_cancel.goneUnless(data.eventStatus.equals("upcoming"))
+
+
             if (amount > 0) btn_price.text = "₹ $amount" else btn_price.text = "confirm"
 
             if (data.feedback_given) {
                 isFeedbackGiven = true
-                btn_feedback.text = "Feedback Sent"
-                btn_feedback.setBackgroundResource(R.drawable.stroke_rectangle_grey)
-                btn_feedback.setTextColor(resources.getColor(R.color.grey))
+                btn_feedback.text = "View Feedback"
             }
 
             if (data.is_wishlisted) {
@@ -336,7 +358,7 @@ class EventDetails : Fragment() {
             tv_event_date.formatDate(data.date, data.time)
 
             if (data.is_subscribed) {
-                btn_feedback.visibility=View.VISIBLE
+                btn_feedback.visibility = View.VISIBLE
                 isSubscribed = true
                 ll_paid_event_info.visibility = View.VISIBLE
                 tv_seats_info.text =
@@ -382,9 +404,19 @@ class EventDetails : Fragment() {
         })
 
 
+        orgFeedbackViewmodel.feedbackListData.observe(viewLifecycleOwner, Observer {
+
+            var gson = Gson()
+
+            findNavController().navigate(
+                R.id.action_subsEventDetails_to_orgFeedbackDetail,
+                bundleOf(Constants.RESPONSE_LIST to gson.toJson(it.data[0]).toString())
+            )
+
+        })
+
         //counter observer
         seatCount.observe(viewLifecycleOwner, Observer {
-
 
             tv_seat_counter.text = it.toString()
             if (!isSubscribed) {
@@ -392,6 +424,7 @@ class EventDetails : Fragment() {
                     btn_price.text = "₹ " + (it * amount)
 
             }
+
         })
 
         //send email observer
@@ -559,7 +592,15 @@ class EventDetails : Fragment() {
         try {
             document.writeTo(FileOutputStream(filePath))
             // creating also in documents
-            downloadManager.addCompletedDownload(filePath.name, filePath.name, true,"application/pdf", filePath.absolutePath, filePath.length(), true)
+            downloadManager.addCompletedDownload(
+                filePath.name,
+                filePath.name,
+                true,
+                "application/pdf",
+                filePath.absolutePath,
+                filePath.length(),
+                true
+            )
             showSnackBar("Downloaded", true);
         } catch (e: IOException) {
             Log.e("Invoice", "Error: " + e.toString());
@@ -593,36 +634,24 @@ class EventDetails : Fragment() {
 
     private fun showSnackBar(message: String, bool: Boolean) {
         Snackbar.make(view!!, message, Snackbar.LENGTH_LONG).show()
+    }
 
-//        if (bool){
-//            val eventId = Integer.toString(data.event_id) // event id
-//            val directoryPath = Environment.getExternalStorageDirectory().path + "/invoices/"
-//            var targetFile: File
-//
-//
-//            var snackbar: Snackbar
-//
-//            snackbar = Snackbar
-//                .make(view!!, message, Snackbar.LENGTH_LONG)
-//                .setAction("File location", View.OnClickListener() {
-//                    @Override
-//                    fun onClick(view: View) {
-//
-//                        val targetUri: Uri
-//                        val intent: Intent
-//
-//                        intent = Intent(Intent.ACTION_VIEW)
-//                        targetFile = File(directoryPath, eventId+"_tickets.pdf")
-//                        targetUri = Uri.fromFile(targetFile)
-//                        intent.setDataAndType(targetUri, "application/pdf");
-//                        startActivity(intent);
-//
-//                    }
-//                })
-//
-//            snackbar.show()
-//        }
 
+    fun shareFacebook() {
+
+        if (ShareDialog.canShow(ShareLinkContent::class.java)) {
+
+            val shareLinkContent = ShareLinkContent.Builder()
+                .setContentUrl(Uri.parse(Constants.FACEBOOK_URL + data.event_id))
+                .build()
+            shareDialog?.show(shareLinkContent)
+        }
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        callbackManager?.onActivityResult(requestCode, resultCode, data);
     }
 
     override fun onDetach() {

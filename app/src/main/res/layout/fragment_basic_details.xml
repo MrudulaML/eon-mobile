@@ -34,12 +34,12 @@
                 android:background="@color/navy"/>
         </com.github.florent37.shapeofview.shapes.ArcView>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:focusableInTouchMode="true"
+            android:scrollbars="vertical"
             tools:context=".login.ui.BasicDetailFragment">
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -86,12 +86,7 @@
                     app:sv_selectedStepNumberColor="@color/navy"
                     app:sv_selectedTextColor="@color/white" />
 
-               <androidx.core.widget.NestedScrollView
-                   android:layout_width="match_parent"
-                   android:layout_height="match_parent"
-                   android:fillViewport="true"
-                   android:focusableInTouchMode="true">
-
+                <!--Start: card view layout-->
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -99,18 +94,18 @@
                     android:orientation="vertical"
                     android:padding="@dimen/_20dp">
 
+                    <!--Start: organiser/subscriber steps-->
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:visibility="@{step == OrganiserDetailsSteps.BASIC_DETAILS ? View.VISIBLE : View.GONE }">
 
+                        <!--organization name input-->
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/organizationNameWrapper"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_10dp"
-                            android:padding="@dimen/_8dp"
                             android:background="@drawable/bg_edit_text"
                             android:theme="@style/TextLabel"
                             android:visibility="@{userType == USER_TYPE.ORGANISER  ? View.VISIBLE : View.GONE }">
@@ -118,51 +113,52 @@
                             <androidx.appcompat.widget.AppCompatEditText
                                 android:id="@+id/edt_org_name"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:background="@android:color/transparent"
                                 android:drawableStart="@drawable/ic_icon_basic_details_grey"
                                 android:drawableLeft="@drawable/ic_icon_basic_details_grey"
-                                android:drawablePadding="@dimen/_8sdp"
+                                android:drawablePadding="@dimen/_11sdp"
                                 android:hint="@string/organisation_name"
-                                android:padding="@dimen/_8dp"
-                                android:inputType="textEmailAddress"
+                                android:layout_marginBottom="@dimen/_10dp"
+                                android:padding="@dimen/_10sdp"
+                                android:inputType="text"
                                 android:textColorHint="@color/grey"
-                                android:textSize="@dimen/_18dp" />
+                                android:textSize="@dimen/_18fs" />
 
                         </com.google.android.material.textfield.TextInputLayout>
 
+                        <!--user name input-->
                         <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/userNameWrapper"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_10dp"
                             android:background="@drawable/bg_edit_text"
-                            android:padding="@dimen/_8dp"
                             android:theme="@style/TextLabel"
                             android:visibility="@{userType == USER_TYPE.SUBSCRIBER  ? View.VISIBLE : View.GONE }">
 
                             <androidx.appcompat.widget.AppCompatEditText
                                 android:id="@+id/edt_user_name"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:background="@android:color/transparent"
                                 android:drawableStart="@drawable/ic_user"
                                 android:drawableLeft="@drawable/ic_user"
-                                android:drawablePadding="@dimen/_8sdp"
+                                android:drawablePadding="@dimen/_7sdp"
                                 android:hint="@string/username"
+                                android:layout_marginBottom="@dimen/_10dp"
+                                android:padding="@dimen/_10sdp"
                                 android:inputType="text"
-                                android:padding="@dimen/_8dp"
                                 android:textColorHint="@color/grey"
-                                android:textSize="@dimen/_18dp" />
+                                android:textSize="@dimen/_18fs" />
 
                         </com.google.android.material.textfield.TextInputLayout>
-
-
+                        <!--email input-->
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/emailAddressWrapper"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_10dp"
-                            android:padding="@dimen/_8dp"
                             android:background="@drawable/bg_edit_text"
                             android:theme="@style/TextLabel">
 
@@ -175,20 +171,19 @@
                                 android:drawableLeft="@drawable/ic_icon_mail_grey"
                                 android:drawablePadding="@dimen/_8sdp"
                                 android:hint="@string/email_id"
-                                android:padding="@dimen/_8dp"
+                                android:layout_marginBottom="@dimen/_10dp"
+                                android:padding="@dimen/_10sdp"
                                 android:inputType="textEmailAddress"
                                 android:textColorHint="@color/grey"
-                                android:textSize="@dimen/_18dp" />
-
+                                android:textSize="@dimen/_18fs" />
                         </com.google.android.material.textfield.TextInputLayout>
-
+                        <!--contact input-->
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/organisationContactWrapper"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_10dp"
                             android:background="@drawable/bg_edit_text"
-                            android:padding="@dimen/_8dp"
                             android:theme="@style/TextLabel">
 
                             <androidx.appcompat.widget.AppCompatEditText
@@ -201,30 +196,19 @@
                                 android:drawablePadding="@dimen/_8sdp"
                                 android:hint="@string/contact_details"
                                 android:inputType="phone"
-                                android:padding="@dimen/_8dp"
+                                android:layout_marginBottom="@dimen/_10dp"
+                                android:padding="@dimen/_10sdp"
                                 android:textColorHint="@color/grey"
                                 android:maxLength="10"
-                                android:textSize="@dimen/_18dp" />
+                                android:textSize="@dimen/_18fs" />
                         </com.google.android.material.textfield.TextInputLayout>
 
-
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/tv_address"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_16sdp"
-                            android:text="@string/address"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_18fs" />
-
-
-
+                        <!--address input-->
                         <androidx.appcompat.widget.AppCompatEditText
                             android:id="@+id/edt_org_address"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_16sdp"
+                            android:layout_marginTop="@dimen/_10dp"
                             android:autofillHints="Organisation Address"
                             android:background="@drawable/bg_edit_text"
                             android:gravity="start|top"
@@ -232,13 +216,14 @@
                             android:inputType="textMultiLine"
                             android:lines="8"
                             android:minLines="3"
-                            android:padding="@dimen/_10dp"
+                            android:padding="@dimen/_12sdp"
                             android:scrollbars="vertical"
                             android:focusable="true"
-                            android:singleLine="false" />
-
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
+                            android:singleLine="false"
+                            android:textSize="@dimen/_18fs"/>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                    <!--End: organiser/subscriber steps-->
+                    <!--Start: bank steps-->
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -321,22 +306,21 @@
                         </com.google.android.material.textfield.TextInputLayout>
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
-
+                    <!--End: bank steps-->
+                    <!--Start: password steps-->
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:visibility="@{step == OrganiserDetailsSteps.PASSWORD ? View.VISIBLE : View.GONE }">
-
+                        <!--password input-->
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/layout_password"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_10dp"
                             android:background="@drawable/bg_edit_text"
-                            android:hint="Password"
-                            android:padding="@dimen/_8dp"
-                            app:passwordToggleEnabled="true"
+                            android:layout_marginTop="@dimen/_4dp"
+                            android:hint="@string/create_password"
                             android:theme="@style/TextLabel">
 
                             <androidx.appcompat.widget.AppCompatEditText
@@ -346,28 +330,22 @@
                                 android:background="@android:color/transparent"
                                 android:drawableStart="@drawable/ic_icon_lock_password_grey"
                                 android:drawableLeft="@drawable/ic_icon_lock_password_grey"
-                                android:drawablePadding="@dimen/_8sdp"
+                                android:drawablePadding="@dimen/_7sdp"
                                 android:inputType="textPassword"
-                                android:padding="@dimen/_8dp"
-                                android:textColorHint="@color/grey" />
+                                android:layout_marginBottom="@dimen/_10dp"
+                                android:padding="@dimen/_10sdp"
+                                android:textColorHint="@color/grey"
+                                android:textSize="@dimen/_18fs"/>
                         </com.google.android.material.textfield.TextInputLayout>
 
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/_16sdp"
-                            app:passwordToggleEnabled="true"
-                            android:text="@string/password_restriction_hint" />
-
+                        <!--confirm password input-->
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/layout_confirm_password"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_10dp"
                             android:background="@drawable/bg_edit_text"
+                            android:layout_marginTop="@dimen/_10dp"
                             android:hint="@string/confirm_password"
-                            android:padding="@dimen/_8dp"
-                            app:passwordToggleEnabled="true"
                             android:theme="@style/TextLabel">
 
                             <androidx.appcompat.widget.AppCompatEditText
@@ -377,24 +355,55 @@
                                 android:background="@android:color/transparent"
                                 android:drawableStart="@drawable/ic_icon_lock_password_grey"
                                 android:drawableLeft="@drawable/ic_icon_lock_password_grey"
-                                android:drawablePadding="@dimen/_8sdp"
-                                android:padding="@dimen/_8dp"
-                                android:inputType="textPassword" />
+                                android:drawablePadding="@dimen/_7sdp"
+                                android:inputType="textPassword"
+                                android:layout_marginBottom="@dimen/_10dp"
+                                android:padding="@dimen/_10sdp"
+                                android:textColorHint="@color/grey"
+                                android:textSize="@dimen/_18fs"/>
                         </com.google.android.material.textfield.TextInputLayout>
 
-                    </androidx.appcompat.widget.LinearLayoutCompat>
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_14sdp"
+                            android:text="@string/confirm_password"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_18fs" />
 
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_14sdp"
+                            android:text="@string/password_restriction_hint"
+                            android:textSize="@dimen/_14fs"/>
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                    <!--End: password steps-->
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <!--End: card view layout-->
+                <!--Start: button next layout-->
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/_4dp"
+                    android:layout_marginBottom="@dimen/_20dp"
+                    android:gravity="center|bottom"
+                    android:orientation="vertical">
+                    <!--button next-->
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_next"
                         android:layout_width="@dimen/_32dp"
                         android:layout_height="@dimen/_32dp"
                         android:layout_marginTop="@dimen/_20dp"
                         android:background="@drawable/ic_icon_next_circle_blue"
-                        android:layout_gravity="center"/>
+                        android:layout_gravity="center_horizontal|center"/>
+
                 </androidx.appcompat.widget.LinearLayoutCompat>
-               </androidx.core.widget.NestedScrollView>
+                <!--End: button next layout-->
             </androidx.appcompat.widget.LinearLayoutCompat>
-        </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.core.widget.NestedScrollView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

@@ -146,13 +146,15 @@ class PaymentFrag : Fragment() {
                 showUserMsg("please enter valid card number")
             else if (et_expiry_date.text.isEmpty()) {
                 showUserMsg("Please enter expiry date")
+            } else if (!checkExpiryDate()) {
+                showUserMsg("Please enter valid expiry date")
+
             } else {
 
-                var expiryDate = et_expiry_date.text.toString()
 
                 hashMap.put("card_number", et_card_number.text.toString().toLong())
-                hashMap.put("expiry_month", 12)
-                hashMap.put("expiry_year", 2022)
+                hashMap.put("expiry_month", expiryMonth)
+                hashMap.put("expiry_year", 2000+expiryYear)
 
                 paymentViewModel.payAndSubscribe(hashMap)
             }
@@ -177,11 +179,11 @@ class PaymentFrag : Fragment() {
 
             findNavController().popBackStack(R.id.eventDetails, false)
 
-            findNavController().navigate(
-                R.id.action_payment_to_eventDetail,
-                bundleOf(Constants.EVENT_ID to eventId),
-                NavOptions.Builder().setPopUpTo(R.id.homeFragment, false).build()
-            )
+//            findNavController().navigate(
+//                R.id.action_payment_to_eventDetail,
+//                bundleOf(Constants.EVENT_ID to eventId),
+//                NavOptions.Builder().setPopUpTo(R.id.homeFragment, false).build()
+//            )
 
             mAlertDialog.dismiss()
         }
@@ -204,5 +206,31 @@ class PaymentFrag : Fragment() {
         super.onDetach()
         actionbarHost?.showToolbar(showToolbar = false, showBottomNav = false)
     }
+
+    var expiryMonth: Int = 0
+    var expiryYear: Int=0
+
+    fun checkExpiryDate(): Boolean {
+
+        var date: String = et_expiry_date.text.toString()
+        expiryMonth = date.substring(0, 2).toInt()
+        expiryYear = date.substring(3, 5).toInt()
+
+        if (expiryMonth < 1 || expiryMonth > 12) {
+
+            return false
+        }
+
+
+        if (expiryYear < 20) {
+            return false
+        }
+
+        if(expiryYear==20 && expiryMonth<4)
+        {return false}
+
+        return true
+    }
+
 
 }

@@ -2,6 +2,7 @@ package `in`.bitspilani.eon.event_subscriber.subscriber.feedback
 
 import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
+import `in`.bitspilani.eon.event_subscriber.models.Answer
 import `in`.bitspilani.eon.event_subscriber.models.FeedbackBody
 import `in`.bitspilani.eon.event_subscriber.models.FeedbackData
 import `in`.bitspilani.eon.login.ui.ActionbarHost
@@ -84,11 +85,40 @@ class FeedbackFragment : Fragment() {
 
     }
 
+    var submitFeedback: Boolean = false
+
     fun setClicks() {
 
-        btn_submit.clickWithDebounce {
 
-            feedbackViewmodel.postFeedback(FeedbackBody(eventId, list))
+        btn_submit.clickWithDebounce {
+            submitFeedback = true
+
+            try {
+
+                list.forEach {
+
+
+                    if (it.answer?.description == null) {
+
+                        // it.answer = null
+                        submitFeedback = false
+                    }
+
+                }
+
+                if (submitFeedback)
+                    feedbackViewmodel.postFeedback(FeedbackBody(eventId, list))
+                else
+                    showUserMsg("Please fill all the answer fields")
+
+
+            } catch (e: Exception) {
+
+                showUserMsg("Something went wrong")
+                feedbackViewmodel.progressLiveData.postValue(false)
+            }
+
+
         }
 
         iv_back_subs_feed.clickWithDebounce {
@@ -112,17 +142,22 @@ class FeedbackFragment : Fragment() {
         feedbackViewmodel.questionsData.observe(viewLifecycleOwner, Observer {
 
 
+            Log.e("xoxo", "questions observer called")
+
             list = it.data
 
             rv_subscriber_feedback.layoutManager = LinearLayoutManager(activity!!)
             rv_subscriber_feedback.adapter = FeedbackAdapter(list) {
 
                 position = it
+                Log.e("xoxo", "position got from image click: " + position)
+
                 openGallery()
             }
             rv_subscriber_feedback.setHasFixedSize(true)
 
 
+            scrollRecyclerview()
         })
 
         feedbackViewmodel.presignData.observe(viewLifecycleOwner, Observer {
@@ -135,8 +170,17 @@ class FeedbackFragment : Fragment() {
 
         feedbackViewmodel.uploadImageData.observe(viewLifecycleOwner, Observer {
 
-            list[position].imageUri = imageUri
-            list[position].answer.image = imageName
+            list[position].let {
+
+                Log.e("xoxo", "position after uploading image: " + position)
+
+                it.imageUri = imageUri
+                it.answer?.image = imageName
+            }
+
+
+            Log.e("xoxo", "list before notify: " + list)
+
 
             rv_subscriber_feedback.adapter!!.notifyItemChanged(position)
 
@@ -158,6 +202,30 @@ class FeedbackFragment : Fragment() {
 
     }
 
+
+    fun scrollRecyclerview() {
+
+
+        rv_subscriber_feedback.addOnLayoutChangeListener(object : View.OnLayoutChangeListener {
+
+            override fun onLayoutChange(
+                v: View, left: Int, top: Int, right: Int, bottom: Int,
+                oldLeft: Int, oldTop: Int, oldRight: Int, oldBottom: Int
+            ) {
+
+                if (bottom < oldBottom) {
+
+                    rv_subscriber_feedback.postDelayed(
+                        {
+                            rv_subscriber_feedback.smoothScrollToPosition(rv_subscriber_feedback.adapter!!.itemCount - 1)
+
+                        }, 100
+                    )
+                }
+            }
+        })
+
+    }
 
     fun showUserMsg(msg: String) {
         Toast.makeText(activity, msg, Toast.LENGTH_SHORT)
