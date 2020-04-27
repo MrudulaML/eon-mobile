@@ -43,6 +43,7 @@ class HomeFragment : Fragment() {
         } ?: throw Exception("Invalid Activity")
 
         eventDashboardViewModel.getEvents()
+        eventDashboardViewModel.setupEventTypes()
         setHasOptionsMenu(true)
 
     }
@@ -104,7 +105,7 @@ class HomeFragment : Fragment() {
     private fun setUpClickListeners() {
         btn_filter.clickWithDebounce {
             //TODO move it to nav graph please
-            val dialogFragment = FilterDialogFragment()
+            val dialogFragment = FilterDialogFragmentV2()
             dialogFragment.show(childFragmentManager, "filterDialog")
 
         }

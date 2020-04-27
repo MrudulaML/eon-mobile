@@ -201,6 +201,27 @@
 
         </androidx.cardview.widget.CardView>
 
+        <!--bar chart-->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginBottom="@dimen/_4sdp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardCornerRadius="0dp"
+            app:cardElevation="@dimen/_4dp">
+
+           <com.highsoft.highcharts.core.HIChartView
+               android:id="@+id/bar_chart"
+               android:layout_width="match_parent"
+               android:layout_height="@dimen/_300sdp"/>
+
+
+        </androidx.cardview.widget.CardView>
+
         <!-- event search-->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -228,7 +249,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:queryHint="Search here for event name" />
+                    app:queryHint="Search here for event Name/Location" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/spinner_event_type"

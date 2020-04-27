@@ -172,7 +172,8 @@ dependencies {
 
     //pie chart
     implementation 'com.github.lecho:hellocharts-android:v1.5.8'
-
+    //bar graph
+    implementation 'com.highsoft.highcharts:highcharts:7.0.3'
 
 
 }

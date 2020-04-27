@@ -4,17 +4,19 @@ import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.analytics.data.Data
 import `in`.bitspilani.eon.analytics.data.OrganizedEvent
+import `in`.bitspilani.eon.analytics.data.TicketGraphObject
 import `in`.bitspilani.eon.login.ui.ActionbarHost
 import `in`.bitspilani.eon.utils.*
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
+import android.os.AsyncTask
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.ArrayAdapter
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
@@ -22,24 +24,27 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+
+import com.highsoft.highcharts.common.hichartsclasses.*
 import kotlinx.android.synthetic.main.fragment_analytics_dashboard.*
 import lecho.lib.hellocharts.model.PieChartData
 import lecho.lib.hellocharts.model.SliceValue
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
+import kotlin.collections.ArrayList
 
 
 class AnalyticsDashboardFragment : Fragment() {
 
     private lateinit var  layoutManager: LinearLayoutManager
     private val analyticsViewModel by viewModels<AnalyticsViewModel> { getViewModelFactory() }
-
     private lateinit var organizedEventAdapter: OrganizedEventAdapter
     private var actionbarHost: ActionbarHost? = null
+
+    private lateinit var options : HIOptions
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        activity!!.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-
-
-
+        activity!!.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
     }
 
     override fun onCreateView(
@@ -53,15 +58,19 @@ class AnalyticsDashboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setUpBarChart()
         analyticsViewModel.getAnalytics("")
         setUpObservables()
-
         setUpSearch()
-
         setUpClickListeners()
-
-
         actionbarHost?.showToolbar(showToolbar = true,title = "Analytics",showBottomNav = true)
+
+    }
+
+    private fun setUpBarChart() {
+        
+        val options = HIOptions()
+        bar_chart.options=options
 
     }
 
@@ -75,7 +84,7 @@ class AnalyticsDashboardFragment : Fragment() {
 
     private fun setUpSpinner() {
         val builder = AlertDialog.Builder(activity!!)
-        builder.setTitle("Choose an animal")
+        builder.setTitle("Status")
         val animals = arrayOf("Completed", "Upcoming", "Cancelled","All")
         builder.setItems(animals) { dialog, which ->
             when (which) {
@@ -132,6 +141,8 @@ class AnalyticsDashboardFragment : Fragment() {
             setPieChartData(it.data)
             setRecyclerView(it.data.event_list)
 
+            setUpBarChartWithOptions(it.data.ticket_graph_object)
+
         })
 
         analyticsViewModel.errorView.observe(viewLifecycleOwner, Observer {
@@ -144,6 +155,20 @@ class AnalyticsDashboardFragment : Fragment() {
 
             (activity as BitsEonActivity).showProgress(it)
         })
+    }
+
+    private fun setUpBarChartWithOptions(optionsa: TicketGraphObject) {
+
+        doAsync {
+            val options = JavaUtilsForBar.getOptions(optionsa)
+
+            uiThread {
+                bar_chart.options= options
+                bar_chart.reload()
+            }
+        }
+
+
     }
 
     private fun setPieChartData(data: Data) {
