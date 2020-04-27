@@ -86,7 +86,6 @@
 
                 android:id="@+id/appCompatTextView17"
                 date="@{event.date}"
-                visibility="@{isSubscriber ? View.VISIBLE : View.GONE}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -126,7 +125,6 @@
 
             <androidx.appcompat.widget.AppCompatTextView
 
-                visibility="@{isSubscriber ? View.VISIBLE : View.GONE}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -153,7 +151,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/appCompatTextView"
                 tools:text="Attendees" />
 
-            <androidx.appcompat.widget.AppCompatTextView
+         <!--   <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/text_event_date"
                 date="@{event.date}"
                 visibility="@{isSubscriber ? View.GONE : View.VISIBLE}"
@@ -168,7 +166,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/appCompatImageView"
                 app:layout_constraintVertical_bias="1.0"
-                tools:text="12 Apr 2020" />
+                tools:text="12 Apr 2020" />-->
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

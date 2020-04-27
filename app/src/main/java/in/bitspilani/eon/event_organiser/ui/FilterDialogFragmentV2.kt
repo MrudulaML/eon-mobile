@@ -4,8 +4,12 @@ package `in`.bitspilani.eon.event_organiser.ui
 import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.event_organiser.models.EventType
+import `in`.bitspilani.eon.event_organiser.models.FilterResponse
 import `in`.bitspilani.eon.event_organiser.models.SelectedFilter
+import `in`.bitspilani.eon.event_organiser.models.User
 import `in`.bitspilani.eon.event_organiser.viewmodel.EventDashboardViewModel
+import `in`.bitspilani.eon.utils.Constants
+import `in`.bitspilani.eon.utils.ModelPreferencesManager
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
@@ -89,12 +93,10 @@ class FilterDialogFragmentV2 : DialogFragment() {
 
             filterEvents()
         }
-
-        eventDashboardViewModel.setupEventTypes()
-
-
+        val user =  ModelPreferencesManager.get<FilterResponse>(Constants.EVENT_TYPES)
+        user?.data?.let { populateFilters(it) }
         eventDashboardViewModel.eventFilterObservable.observe(viewLifecycleOwner, Observer {
-            populateFilters(it)
+
         })
         eventDashboardViewModel.progressLiveData.observe(viewLifecycleOwner, Observer {
 
@@ -232,7 +234,7 @@ class FilterDialogFragmentV2 : DialogFragment() {
 
     private fun populateFilters(eventTypes: List<EventType>) {
 
-        eventList.add("Event Type")
+        eventList.add("All")
         for (i in eventTypes) {
             eventList.add(i.type)
         }
@@ -246,14 +248,14 @@ class FilterDialogFragmentV2 : DialogFragment() {
 
         val eventStatusAdapter = ArrayAdapter(
             context!!,
-            R.layout.spinner_item_row, arrayListOf("Upcoming", "Completed", "Cancelled")
+            R.layout.spinner_item_row, arrayListOf("Upcoming", "Completed", "Cancelled","All")
         )
         event_status_spinner.adapter = eventStatusAdapter
 
 
         val eventFeesAdapter = ArrayAdapter(
             context!!,
-            R.layout.spinner_item_row, arrayListOf("Event fees", "Free", "Paid")
+            R.layout.spinner_item_row, arrayListOf("Fee Type", "Free", "Paid")
         )
         event_fees_spinner.adapter = eventFeesAdapter
 

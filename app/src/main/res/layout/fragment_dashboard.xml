@@ -13,19 +13,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/_44sdp">
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/appCompatTextView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="All Events"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btn_filter"
             android:layout_width="wrap_content"
@@ -55,20 +42,16 @@
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/event_search_view"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_2sdp"
-            android:layout_marginTop="6dp"
-            android:maxWidth="350dp"
-            android:layout_marginBottom="3dp"
+            android:layout_marginBottom="4dp"
+            android:paddingHorizontal="@dimen/_2sdp"
             android:background="@color/white"
-            android:paddingStart="@dimen/_16sdp"
-            app:iconifiedByDefault="true"
+            app:iconifiedByDefault="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btn_filter"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/appCompatTextView3"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_bias="0.54"
+            app:layout_constraintStart_toStartOf="parent"
             app:queryHint="Search here for event name / location" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
