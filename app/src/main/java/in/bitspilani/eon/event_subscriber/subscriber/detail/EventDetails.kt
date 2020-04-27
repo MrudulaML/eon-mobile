@@ -297,7 +297,8 @@ class EventDetails : Fragment() {
 
         iv_increment.setOnClickListener {
 
-            if (count < data.remainingTickets) {
+
+            if (count < data.remainingTickets+data.subscription_details!!.no_of_tickets_bought) {
 
                 seatCount.postValue(++count)
 
