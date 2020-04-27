@@ -34,6 +34,7 @@ public class JavaUtilsForBar {
 
         HIXAxis xaxis = new HIXAxis();
         xaxis.setCategories(ticketGraphObject.getName_list());
+        options.setXAxis(new ArrayList<>(Collections.singletonList(xaxis)));
 
 
         HIYAxis yaxis = new HIYAxis();
