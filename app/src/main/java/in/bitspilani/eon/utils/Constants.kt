@@ -30,6 +30,8 @@ object Constants {
     const val NUMBER_OF_TICKETS = "no_of_tickets"
 
     const val USER_ID = "user_id"
+
+    const val FACEBOOK_URL="http://d10crzu2ups2gn.cloudfront.net/event-details?id="
 }
 
 enum class UserType(val type: Int) {

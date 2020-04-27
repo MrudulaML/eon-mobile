@@ -7,8 +7,10 @@ import `in`.bitspilani.eon.event_organiser.models.Responses
 import `in`.bitspilani.eon.event_organiser.ui.adapter.OrgFeedbackAdapter
 import `in`.bitspilani.eon.event_organiser.ui.adapter.OrgFeedbackDetailAdapter
 import `in`.bitspilani.eon.event_organiser.viewmodel.OrgFeedbackViewmodel
+import `in`.bitspilani.eon.login.data.Data
 import `in`.bitspilani.eon.login.ui.ActionbarHost
 import `in`.bitspilani.eon.utils.Constants
+import `in`.bitspilani.eon.utils.ModelPreferencesManager
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import `in`.bitspilani.eon.utils.getViewModelFactory
 import android.content.Context
@@ -60,7 +62,12 @@ class OrganizerFeedbackDetail : Fragment() {
         var feedbackData: FeedbackData =
             gson.fromJson(feedbackDataInJsonString, FeedbackData::class.java)
 
-        tv_toolbar_text_detail.text = feedbackData.user.email
+        val userData = ModelPreferencesManager.get<Data>(Constants.CURRENT_USER)
+
+        if (userData!!.user.role.id == 1) {
+            tv_toolbar_text_detail.text = feedbackData.user.email
+        }
+
 
 
         rv_org_feedback_detail.layoutManager = LinearLayoutManager(activity!!)
@@ -77,7 +84,7 @@ class OrganizerFeedbackDetail : Fragment() {
 
         orgFeedbackViewmodel2.url.observe(viewLifecycleOwner, Observer {
 
-            findNavController().navigate(R.id.imageFragment, bundleOf( Constants.IMAGE_URL to it))
+            findNavController().navigate(R.id.imageFragment, bundleOf(Constants.IMAGE_URL to it))
         })
 
     }

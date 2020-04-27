@@ -16,7 +16,7 @@ data class FeedbackData(
 
     @SerializedName("id") val id: Int = 0,
     @SerializedName("question") val question: String? = null,
-    @SerializedName("answer") var answer: Answer = Answer()
+    @SerializedName("answer") var answer: Answer? = Answer()
 
 )
 

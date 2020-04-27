@@ -83,11 +83,12 @@ class SignInFragment : Fragment() {
         btn_login.clickWithDebounce {
 
             //local validation for password email
-            if (Validator.isValidEmail(etEmailAddress, true)) {
+            if (Validator.isValidEmail(etEmailAddress, true) && Validator.isValidLoginPassword(etPassword, true)) {
                 authViewModel.login(etEmailAddress.text.toString(), etPassword.text.toString())
-            } else {
-                view?.showSnackbar("Please select user role")
             }
+//            else {
+//                view?.showSnackbar("Please select user role")
+//            }
         }
 
         actionbarHost?.showToolbar(showToolbar = false, showBottomNav = false)

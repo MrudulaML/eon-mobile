@@ -239,8 +239,7 @@
             <action
                 android:id="@+id/action_summery_to_payment"
                 app:destination="@id/paymentFrag"
-                app:popUpTo="@id/eventDetails"
-                app:popUpToInclusive="true" />
+                />
 
             <argument
                 android:name="amount"
@@ -286,13 +285,17 @@
             <action
                 android:id="@+id/action_eventDetails_to_summary"
                 app:destination="@id/eventSummaryFrag"
-                app:popUpTo="@id/homeFragment" />
+                />
 
             <action
                 android:id="@+id/action_eventDetails_to_eventDetails"
                 app:destination="@id/eventDetails"
                 app:popUpTo="@id/eventDetails"
                 app:popUpToInclusive="true" />
+
+            <action
+                android:id="@+id/action_subsEventDetails_to_orgFeedbackDetail"
+                app:destination="@id/organiserFeedbackDetail" />
 
             <action
                 android:id="@+id/action_eventDetails_to_Homefragment"

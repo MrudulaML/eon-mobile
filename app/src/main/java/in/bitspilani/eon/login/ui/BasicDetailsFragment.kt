@@ -65,15 +65,6 @@ class BasicDetailsFragment : Fragment() {
 
             if (it.user.role.id == 2) {
 
-//                ModelPreferencesManager.putInt(Constants.USER_ROLE, it!!.user!!.role!!.id)
-//
-//                ModelPreferencesManager.putString(Constants.ACCESS_TOKEN, it.access)
-//
-//                ModelPreferencesManager.putString(Constants.ACCESS_TOKEN, it.access)
-//                ModelPreferencesManager.putString(Constants.REFRESH_TOKEN, it.refresh)
-//                ModelPreferencesManager.putInt(Constants.USER_ROLE, it.user.role.id)
-//                ModelPreferencesManager.put(it, Constants.CURRENT_USER)
-
                 findNavController().navigate(R.id.action_BasicInfoFragment_to_signInFragment)
 
             } else {
