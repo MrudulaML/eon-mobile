@@ -202,22 +202,13 @@
                                 android:maxLength="10"
                                 android:textSize="@dimen/_18fs" />
                         </com.google.android.material.textfield.TextInputLayout>
-                        <!--address static-->
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/tv_address"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_14sdp"
-                            android:text="@string/address"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_18fs" />
 
                         <!--address input-->
                         <androidx.appcompat.widget.AppCompatEditText
                             android:id="@+id/edt_org_address"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_12sdp"
+                            android:layout_marginTop="@dimen/_10dp"
                             android:autofillHints="Organisation Address"
                             android:background="@drawable/bg_edit_text"
                             android:gravity="start|top"
@@ -225,7 +216,7 @@
                             android:inputType="textMultiLine"
                             android:lines="8"
                             android:minLines="3"
-                            android:padding="@dimen/_14sdp"
+                            android:padding="@dimen/_12sdp"
                             android:scrollbars="vertical"
                             android:focusable="true"
                             android:singleLine="false"
