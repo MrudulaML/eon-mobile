@@ -30,7 +30,6 @@ class EonViewModelFactory(
             //only Put non shared View Models here
             isAssignableFrom(ChangePwViewModel::class.java) -> ChangePwViewModel(apiService)
             isAssignableFrom(EventDetailsViewModel::class.java) -> EventDetailsViewModel(apiService)
-            isAssignableFrom(EventFilterViewModel::class.java) -> EventFilterViewModel(apiService)
             isAssignableFrom(EventDetailOrganiserViewModel::class.java) -> EventDetailOrganiserViewModel(apiService)
             isAssignableFrom(AddInviteeViewModel::class.java) -> AddInviteeViewModel(apiService)
             isAssignableFrom(NotificationViewModel::class.java) -> NotificationViewModel(apiService)

@@ -40,4 +40,10 @@ data class EventList(
     val eventList: ArrayList<MonoEvent>
 )
 
-data class extraFilter(val id:Int,val type:String)
+data class SelectedFilter(
+    val eventType: Int?=null,
+    val eventStatus: Int?=null,
+    val eventFees: Int?=null,
+    val startDate: String?=null,
+    val endDate: String?=null,
+    val byMe : Boolean? =null)
