@@ -210,14 +210,33 @@
             android:layout_marginBottom="@dimen/_4sdp"
             android:clickable="true"
             android:focusable="true"
+            android:background="@drawable/card_left_border_blue"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardCornerRadius="0dp"
             app:cardElevation="@dimen/_4dp">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-           <com.highsoft.highcharts.core.HIChartView
-               android:id="@+id/bar_chart"
-               android:layout_width="match_parent"
-               android:layout_height="@dimen/_300sdp"/>
+
+
+                <com.highsoft.highcharts.core.HIChartView
+                    android:id="@+id/bar_chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_300sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:background="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </androidx.cardview.widget.CardView>
