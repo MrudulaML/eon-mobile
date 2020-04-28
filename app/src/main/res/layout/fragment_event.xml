@@ -78,8 +78,7 @@
         android:textColor="@color/grey"
         app:layout_constraintBottom_toBottomOf="@+id/appCompatTextView4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/appCompatTextView4"
-        tools:text="Link" />
+        app:layout_constraintTop_toTopOf="@+id/appCompatTextView4"/>
 
     <!-- type of event-->
 
@@ -291,7 +290,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_6sdp"
-                android:text="View Deedback"
+                android:text="View Feedback"
                 android:textSize="10sp" />
 
         </LinearLayout>

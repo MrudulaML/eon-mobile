@@ -11,7 +11,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
         android:elevation="0dp"
-        app:title="Event Details"
+        app:title="@string/event_detail"
         app:navigationIcon="@drawable/ic_arrow_back"
         app:titleTextColor="@color/white"
         android:theme="@style/ToolBarTheme"

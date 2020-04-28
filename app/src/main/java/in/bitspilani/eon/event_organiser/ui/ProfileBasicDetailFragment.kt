@@ -118,6 +118,7 @@ class ProfileBasicDetailFragment(val userProfileCallBack: UserProfileCallBack) :
 
             userProfileViewModel.updateUserDetails(
                 userData?.user?.user_id!!,
+                organization = rdt_org_name.text.toString(),
                 name = rdt_basic_name.text.toString(),
                 contact = rdt_basic_contact.text.toString(),
                 address = edt_basic_address.text.toString(),
@@ -130,7 +131,9 @@ class ProfileBasicDetailFragment(val userProfileCallBack: UserProfileCallBack) :
     }
 
     private fun setData() {
+        rdt_basic_email.isEnabled = false
         val userData = ModelPreferencesManager.get<Data>(Constants.CURRENT_USER)
+        rdt_org_name.setText(userData?.user?.organization, TextView.BufferType.EDITABLE)
         rdt_basic_name.setText(userData?.user?.name, TextView.BufferType.EDITABLE)
         rdt_basic_email.setText(userData?.user?.email, TextView.BufferType.EDITABLE)
         edt_basic_address.setText(userData?.user?.address, TextView.BufferType.EDITABLE)
