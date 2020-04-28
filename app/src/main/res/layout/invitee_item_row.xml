@@ -9,8 +9,8 @@
             type="in.bitspilani.eon.event_organiser.models.Invitee" />
 
         <variable
-            name="viewmodel"
-            type="in.bitspilani.eon.event_organiser.viewmodel.EventDetailOrganiserViewModel" />
+            name="eventStatus"
+            type="String" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,6 +19,7 @@
         android:orientation="horizontal">
         <androidx.appcompat.widget.AppCompatCheckBox
             android:id="@+id/chb_invitee"
+            statusVisibility="@{eventStatus}"
             android:layout_width="wrap_content"
             android:checked="@{invitee.selectAll}"
             android:layout_height="wrap_content"/>

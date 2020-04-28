@@ -8,12 +8,15 @@ import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.invitee_item_row.view.*
-import timber.log.Timber
 import java.util.*
 import kotlin.collections.ArrayList
 
 
-class InviteesAdapter(private val inviteeList: ArrayList<Invitee>, var selectCheckBoxCallback: (position:Invitee,isSelected:Boolean) -> Unit) :
+class InviteesAdapter(
+    private val inviteeList: ArrayList<Invitee>,
+    var eventStatus: String,
+    var selectCheckBoxCallback: (position: Invitee, isSelected: Boolean) -> Unit
+) :
     RecyclerView.Adapter<InviteesAdapter.InviteesViewHolder>(),
     Filterable {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InviteesViewHolder {
@@ -48,6 +51,7 @@ class InviteesAdapter(private val inviteeList: ArrayList<Invitee>, var selectChe
         fun bind(item: Invitee) {
             item.selectAll=selectAll
             binding.invitee = item
+            binding.eventStatus=eventStatus.toLowerCase()
             if (selectAll)
                 itemView.chb_invitee.isEnabled = false
             else {

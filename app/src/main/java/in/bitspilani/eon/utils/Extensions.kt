@@ -228,6 +228,12 @@ fun setOrganizedEventStatus(view : TextView, status : String ){
 
 }
 
+@BindingAdapter("statusVisibility")
+fun setDeleteVisibility(view: View, value: String) {
+    view.visibility = if (value.equals("completed") || value.equals("cancelled") ) View.GONE else View.VISIBLE
+}
+
+
 @BindingAdapter("visibility")
 fun setVisibility(view: View, value: Boolean) {
     view.visibility = if (value) View.VISIBLE else View.GONE

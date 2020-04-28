@@ -104,23 +104,30 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
     //TODO fix this with data binding
     private fun setOffEventsForOrganiser() {
 
-        if(eventDetailResponse.data.self_organised){
+        if (eventDetailResponse.data.self_organised) {
 
-            if(eventDetailResponse.data.event_status.toLowerCase(Locale.ROOT).equals("completed") ||
-                    eventDetailResponse.data.event_status.toLowerCase(Locale.ROOT).equals("cancelled")){
-                ll_second_row.goneUnless(false)
-                ll_third_row.goneUnless(false)
+            ll_first_row.goneUnless(true)
+            ll_second_row.goneUnless(true)
+            ll_third_row.goneUnless(true)
+            when (eventDetailResponse.data.event_status.toLowerCase(Locale.ROOT)) {
+                "completed" -> {
+                    enableNotify(false)
+                }
+                "cancelled" -> {
 
-            }else{
+                    enableNotify(false)
 
-                ll_second_row.goneUnless(true)
-                ll_third_row.goneUnless(true)
+                }
+
             }
 
-        }else{
-
-            ll_first_row.goneUnless(false)
         }
+
+    }
+
+    private fun enableNotify(show: Boolean) {
+        send_updates.isEnabled = show
+        send_reminder.isEnabled = show
     }
 
     private fun setUpObservables() {
@@ -216,7 +223,7 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
         if (ShareDialog.canShow(ShareLinkContent::class.java)) {
 
             val shareLinkContent = ShareLinkContent.Builder()
-                .setContentUrl(Uri.parse(Constants.FACEBOOK_URL+eventDetailResponse.data.id))
+                .setContentUrl(Uri.parse(Constants.FACEBOOK_URL + eventDetailResponse.data.id))
                 .build()
             shareDialog?.show(shareLinkContent)
         }

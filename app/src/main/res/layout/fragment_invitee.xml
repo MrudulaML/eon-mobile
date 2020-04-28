@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     android:background="@color/white">
 
 
@@ -18,7 +19,7 @@
             android:layout_height="@dimen/_88sdp"
             android:background="@color/colorPrimary"
             android:layout_alignParentTop="true"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/chb_select_all"
