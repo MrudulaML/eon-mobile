@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
     tools:context=".event_organiser.ui.HomeFragment">
@@ -52,14 +52,11 @@
             app:layout_constraintEnd_toStartOf="@+id/btn_filter"
             app:layout_constraintHorizontal_bias="0.54"
             app:layout_constraintStart_toStartOf="parent"
-            app:queryHint="Event name / location" />
+            app:queryHint="Event Name / Location" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_refresh_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_event_list"
         android:layout_width="match_parent"
@@ -67,6 +64,6 @@
         android:nestedScrollingEnabled="false"
         app:layout_constraintTop_toBottomOf="@+id/appCompatTextView2"
         tools:listitem="@layout/event_item_row" />
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
 </androidx.appcompat.widget.LinearLayoutCompat>

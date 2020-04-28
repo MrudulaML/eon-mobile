@@ -72,13 +72,6 @@ class HomeFragment : Fragment() {
         setUpObservables()
         setUpClickListeners()
         setUpSearch()
-
-        swipe_refresh_layout.setOnRefreshListener {
-
-            eventDashboardViewModel.getEvents()
-            swipe_refresh_layout.isRefreshing = false
-        }
-
     }
 
 
@@ -138,6 +131,11 @@ class HomeFragment : Fragment() {
         eventDashboardViewModel.progressLiveData.observe(viewLifecycleOwner, Observer {
 
             (activity as BitsEonActivity).showProgress(it)
+        })
+
+        eventDashboardViewModel.errorView.observe(viewLifecycleOwner, Observer {
+
+            view?.showSnackbar(it,0)
         })
 
     }

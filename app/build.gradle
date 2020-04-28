@@ -167,11 +167,9 @@ dependencies {
     //jwt
     implementation 'com.auth0.android:jwtdecode:2.0.0'
 
-    //chip edittext
+    //chip edit text
     implementation "com.hootsuite.android:nachos:1.1.1"
 
-    //pie chart
-    implementation 'com.github.lecho:hellocharts-android:v1.5.8'
     //bar graph
     implementation 'com.highsoft.highcharts:highcharts:7.0.3'
 

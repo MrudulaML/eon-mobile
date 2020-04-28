@@ -25,6 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
+                android:layout_marginStart="@dimen/_2sdp"
                 android:buttonTint="@color/white"
                 android:layout_marginBottom="@dimen/_8sdp"
                 android:text="Select All"
@@ -54,12 +55,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/delete_menu"
+            android:padding="0dp"
             android:layout_marginTop="@dimen/_2sdp"
             android:visibility="gone"
             android:layout_marginBottom="@dimen/_2sdp"
             android:background="@color/white"
             app:iconifiedByDefault="false"
-            app:queryHint="search by email/contact" />
+            app:queryHint="Email / Contact" />
 
         <ProgressBar
             android:id="@+id/progress_bar"
@@ -80,8 +82,8 @@
             android:layout_below="@id/invitee_search_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/invitee_search_view" />
-        <!--  tools:listitem="@layout/invitee_item_row"-->
+            app:layout_constraintTop_toBottomOf="@+id/invitee_search_view"
+            tools:listitem="@layout/invitee_item_row"/>
 
 
 

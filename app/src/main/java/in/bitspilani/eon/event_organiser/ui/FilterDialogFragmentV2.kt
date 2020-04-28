@@ -6,18 +6,17 @@ import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.event_organiser.models.EventType
 import `in`.bitspilani.eon.event_organiser.models.FilterResponse
 import `in`.bitspilani.eon.event_organiser.models.SelectedFilter
-import `in`.bitspilani.eon.event_organiser.models.User
 import `in`.bitspilani.eon.event_organiser.viewmodel.EventDashboardViewModel
 import `in`.bitspilani.eon.utils.Constants
 import `in`.bitspilani.eon.utils.ModelPreferencesManager
 import `in`.bitspilani.eon.utils.clickWithDebounce
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.EditText
@@ -26,9 +25,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.fragment_filter_revamped.*
-import kotlinx.android.synthetic.main.fragment_filter_revamped.btn_filter
-import kotlinx.android.synthetic.main.fragment_filter_revamped.edt_end_date
-import kotlinx.android.synthetic.main.fragment_filter_revamped.edt_start_date
 import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
@@ -40,7 +36,7 @@ import java.util.*
  */
 class FilterDialogFragmentV2 : DialogFragment() {
 
-    //private val eventFilterViewModel by viewModels<EventFilterViewModel> { getViewModelFactory() }
+
     private var eventList: ArrayList<String> = arrayListOf()
     private lateinit var eventDashboardViewModel: EventDashboardViewModel
 
@@ -75,29 +71,32 @@ class FilterDialogFragmentV2 : DialogFragment() {
 
         if(ModelPreferencesManager.getInt(Constants.USER_ROLE)==2)
             chb_by_me.visibility=View.GONE
+        val user =  ModelPreferencesManager.get<FilterResponse>(Constants.EVENT_TYPES)
+        user?.data?.let { populateFilters(it) }
 
         setDatePicker(edt_start_date)
         setDatePicker(edt_end_date)
 
+        setUpObservables()
+        setUpClickEvents()
+
+
+    }
+
+    private fun setUpClickEvents() {
         btn_reset.clickWithDebounce {
-
             resetFilters()
-            event_status_spinner.setSelection(0)
-            event_types_spinner.setSelection(0)
-            event_fees_spinner.setSelection(0)
-            chb_by_me.isChecked=false
-            edt_start_date.text?.clear()
-            edt_end_date.text?.clear()
             eventDashboardViewModel.getEvents()
-
+            dismiss()
         }
 
         btn_filter.clickWithDebounce {
 
             filterEvents()
         }
-        val user =  ModelPreferencesManager.get<FilterResponse>(Constants.EVENT_TYPES)
-        user?.data?.let { populateFilters(it) }
+    }
+
+    private fun setUpObservables() {
         eventDashboardViewModel.eventFilterObservable.observe(viewLifecycleOwner, Observer {
 
         })
@@ -109,13 +108,11 @@ class FilterDialogFragmentV2 : DialogFragment() {
 
             setPreSelectedFilters(it)
         })
-
-
     }
 
     private fun filterEvents() {
         if (!edt_start_date.text.isNullOrEmpty()) startDate = edt_start_date.text.toString()
-        if (!edt_end_date.text.isNullOrEmpty()) endDate = edt_start_date.text.toString()
+        if (!edt_end_date.text.isNullOrEmpty()) endDate = edt_end_date.text.toString()
 
         eventDashboardViewModel.getEvents(
             eventType = selectedEventType,
@@ -132,8 +129,13 @@ class FilterDialogFragmentV2 : DialogFragment() {
                 selectedEventStatusPos,
                 selectedEventFeesPos,
                 startDate,
-                endDate
+                endDate,
+                isCreatedByMe
             )
+        )
+
+        Timber.e(
+            "selected filters event type${selectedEventType} event status $selectedEventStatusPos event fees $selectedEventFeesPos start date $startDate end date $endDate is created by me $isCreatedByMe"
         )
         dismiss()
     }
@@ -177,7 +179,7 @@ class FilterDialogFragmentV2 : DialogFragment() {
                         null
                     else
                         parent?.getItemAtPosition(position).toString()
-                Timber.e("Filter $selectedEventStatus")
+
             }
 
         }
@@ -201,7 +203,7 @@ class FilterDialogFragmentV2 : DialogFragment() {
             }
 
         }
-
+        //get pre selected filter values
         eventDashboardViewModel.getSelectedFilters()
     }
 
@@ -258,7 +260,7 @@ class FilterDialogFragmentV2 : DialogFragment() {
 
         val eventFeesAdapter = ArrayAdapter(
             context!!,
-            R.layout.spinner_item_row, arrayListOf("Fee Type", "Free", "Paid")
+            R.layout.spinner_item_row, arrayListOf("Fee Type", "Free", "Paid","All")
         )
         event_fees_spinner.adapter = eventFeesAdapter
 
@@ -282,7 +284,7 @@ class FilterDialogFragmentV2 : DialogFragment() {
                 event_fees_spinner.setSelection(it)
         }
         filters?.byMe?.let {
-            chb_by_me.isChecked=it
+            chb_by_me.isChecked= it.toLowerCase().equals("true")
         }
 
         filters?.startDate?.let {
@@ -300,6 +302,14 @@ class FilterDialogFragmentV2 : DialogFragment() {
     override fun onDestroy() {
         super.onDestroy()
         Timber.e("Filter on onDestroy")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val params: ViewGroup.LayoutParams = dialog!!.window!!.attributes
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT
+        params.height = ViewGroup.LayoutParams.WRAP_CONTENT
+        dialog!!.window!!.attributes = params as WindowManager.LayoutParams
     }
 
 

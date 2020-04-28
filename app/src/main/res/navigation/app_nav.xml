@@ -386,13 +386,6 @@
         </fragment>
 
         <fragment
-            android:id="@+id/imageFragment"
-            android:name="in.bitspilani.eon.event_organiser.ui.ImageFragment"
-            tools:layout="@layout/fragment_image_view">
-            <argument android:name="image_url"
-                app:argType="string"/>
-        </fragment>
-        <fragment
             android:id="@+id/notificationFragment"
             android:name="in.bitspilani.eon.event_organiser.ui.ToolbarNotificationFragment"
             tools:layout="@layout/fragment_notification" />

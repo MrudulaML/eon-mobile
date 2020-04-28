@@ -47,4 +47,4 @@ data class SelectedFilter(
     val eventFees: Int?=null,
     val startDate: String?=null,
     val endDate: String?=null,
-    val byMe : Boolean? =null)
+    val byMe : String? =null)

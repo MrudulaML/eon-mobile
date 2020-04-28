@@ -72,7 +72,7 @@
 
         </androidx.cardview.widget.CardView>
 
-        <!--pie chart-->
+        <!-- upcoming chart-->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -88,116 +88,76 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/card_left_border_red">
+                android:background="@drawable/card_left_border_blue">
 
-                <lecho.lib.hellocharts.view.PieChartView
-                    android:id="@+id/pie_chart"
-                    android:layout_width="@dimen/_200sdp"
-                    android:layout_height="@dimen/_200sdp"
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/appCompatTextView29"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
                     android:layout_marginTop="32dp"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="Upcoming Events"
+                    android:textColor="@color/dark_grey2"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/appCompatTextView20"
+                    android:id="@+id/text_total_up_events"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Completed"
-                    android:textColor="@color/dark_grey"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toStartOf="@+id/appCompatTextView21"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/pie_chart" />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/appCompatImageView6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="@+id/appCompatTextView20"
-                    app:layout_constraintTop_toBottomOf="@+id/appCompatTextView20"
-                    app:srcCompat="@drawable/ic_color_chip_green" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/txt_completed_events"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:layout_marginBottom="32dp"
-
-                    android:textColor="@color/grey"
+                    tools:text="12"
+                    android:textColor="@color/blue_card"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/appCompatImageView6"
-                    app:layout_constraintTop_toBottomOf="@+id/appCompatImageView6" />
-
-
-                <!--ongoing-->
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/appCompatTextView21"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="OnGoing"
-                    android:textColor="@color/dark_grey"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/appCompatTextView20"
-                    app:layout_constraintEnd_toStartOf="@+id/appCompatTextView22"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/appCompatTextView20"
-                    app:layout_constraintTop_toTopOf="@+id/appCompatTextView20" />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/appCompatImageView7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="@+id/appCompatTextView21"
-                    app:layout_constraintTop_toBottomOf="@+id/appCompatTextView21"
-                    app:srcCompat="@drawable/ic_color_chip_orange" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/txt_ongoing_events"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:textColor="@color/grey"
-                    app:layout_constraintStart_toStartOf="@+id/appCompatImageView7"
-                    app:layout_constraintTop_toBottomOf="@+id/appCompatImageView7" />
-
-
-                <!--cancelled-->
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/appCompatTextView22"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Cancelled"
-                    android:textColor="@color/dark_grey"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/appCompatTextView21"
-                    app:layout_constraintTop_toTopOf="@+id/appCompatTextView21" />
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/appCompatImageView8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="@+id/appCompatTextView22"
-                    app:layout_constraintTop_toBottomOf="@+id/appCompatTextView22"
-                    app:srcCompat="@drawable/ic_color_chip_red" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/txt_cancelled_events"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:textColor="@color/grey"
-                    app:layout_constraintStart_toStartOf="@+id/appCompatImageView8"
-                    app:layout_constraintTop_toBottomOf="@+id/appCompatImageView8" />
+                    app:layout_constraintStart_toStartOf="@+id/appCompatTextView29"
+                    app:layout_constraintTop_toBottomOf="@+id/appCompatTextView29" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!--line chart-->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginBottom="@dimen/_4sdp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardCornerRadius="0dp"
+            app:cardElevation="@dimen/_4dp">
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_300sdp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:background="@drawable/card_left_border_green"
+                    android:layout_height="wrap_content">
+
+
+                    <com.highsoft.highcharts.core.HIChartView
+                        android:id="@+id/line_chart"
+                        android:layout_width="match_parent"
+                        android:visibility="invisible"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/_4sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </HorizontalScrollView>
 
         </androidx.cardview.widget.CardView>
 
@@ -208,35 +168,34 @@
             android:layout_marginHorizontal="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_4sdp"
             android:layout_marginBottom="@dimen/_4sdp"
+            android:background="@drawable/card_left_border_blue"
             android:clickable="true"
             android:focusable="true"
-            android:background="@drawable/card_left_border_blue"
             android:foreground="?android:attr/selectableItemBackground"
             app:cardCornerRadius="0dp"
             app:cardElevation="@dimen/_4dp">
-            <androidx.constraintlayout.widget.ConstraintLayout
+
+            <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="@dimen/_300sdp">
 
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:background="@drawable/card_left_border_green"
+                    android:layout_height="wrap_content">
 
+                    <com.highsoft.highcharts.core.HIChartView
+                        android:id="@+id/bar_chart"
+                        android:visibility="invisible"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/_4sdp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <com.highsoft.highcharts.core.HIChartView
-                    android:id="@+id/bar_chart"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_300sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <View
-                    android:id="@+id/view2"
-                    android:layout_width="@dimen/_30sdp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:background="@color/white"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </HorizontalScrollView>
 
 
         </androidx.cardview.widget.CardView>
@@ -268,7 +227,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:queryHint="Search here for event Name/Location" />
+                    app:queryHint="Event Name / Location" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/spinner_event_type"

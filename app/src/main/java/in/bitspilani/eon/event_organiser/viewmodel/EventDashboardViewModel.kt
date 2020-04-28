@@ -61,9 +61,7 @@ class EventDashboardViewModel : BaseViewModel() {
                 }
 
                 override fun onApiError(errorType: ApiError, error: String?) {
-                    /*progress.value=false
-
-                    errorView.postValue(error)*/
+                    errorView.postValue(error)
                     showProgress(false)
                 }
             })
@@ -80,15 +78,12 @@ class EventDashboardViewModel : BaseViewModel() {
                     eventFilterObservable.postValue(responseBody.data)
                     //refresh events
                     ModelPreferencesManager.put(responseBody, Constants.EVENT_TYPES)
-                    showProgress(false)
+
 
                 }
 
                 override fun onApiError(errorType: ApiError, error: String?) {
 
-                    /*  progress.value=false
-                 errorView.postValue(error)*/
-                    showProgress(false)
 
                 }
             })
