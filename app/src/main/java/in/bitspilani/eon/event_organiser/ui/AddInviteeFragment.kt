@@ -104,7 +104,7 @@ class AddInviteeFragment(
         btn_close.clickWithDebounce { dismiss() }
         btn_invitee_cancel.clickWithDebounce { dismiss() }
         btn_invitee_confirm.clickWithDebounce {
-
+            if(!nacho_text_view.text.isNullOrEmpty()){
             nacho_text_view.chipifyAllUnterminatedTokens()
             val listOfEmail = ArrayList<String>()
             for (chip in nacho_text_view.allChips) {
@@ -135,6 +135,10 @@ class AddInviteeFragment(
                 array
             )
 
+        }else{
+                shoSnackBar("Please enter email.")
+
+            }
         }
 
         edt_discount.onChange {

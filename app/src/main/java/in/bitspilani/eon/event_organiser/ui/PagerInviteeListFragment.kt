@@ -75,7 +75,7 @@ class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganis
             } else {
                 inviteesAdapter.deSelectAll()
                 showDeleteOption(false)
-                deleteAll = true
+                deleteAll = false
 
             }
         }
@@ -113,9 +113,10 @@ class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganis
         }
 
         eventDetailOrganiserViewModel.eventData.observe(viewLifecycleOwner, Observer {
-
-            invitee_search_view.visibility=View.VISIBLE
+            progress_bar.goneUnless(false)
+            chb_select_all.isChecked=false
             inviteeList = it.data.invitee_list
+            invitee_search_view.goneUnless(inviteeList.size>0)
             inviteesAdapter = InviteesAdapter(
                 inviteeList
                 , selectCheckBoxCallback = { invitee: Invitee, isSelected: Boolean ->
@@ -220,6 +221,7 @@ class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganis
 
     override fun onDataReceived(inviteeLis: ArrayList<Invitee>) {
 
+        progress_bar.goneUnless(true)
         invitee_search_view.goneUnless(inviteeLis.size>0)
         eventDetailOrganiserViewModel.getEventDetails(detailResponse.data.id)
 
