@@ -5,163 +5,172 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
-<LinearLayout android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_height="wrap_content">
+    <LinearLayout android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_66sdp"
-        android:background="@color/colorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45sdp"
+            android:background="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_20fs"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/_50sdp"
+                android:textColor="@color/white"
+                android:gravity="center_horizontal"
+                android:text="@string/profile"/>
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btn_close"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="@dimen/_24dp"
+                android:layout_height="@dimen/_24dp"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/ic_arrow_back" />
+        </RelativeLayout>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/zxing_transparent"
+            android:theme="@style/CircularProgress"
+            android:visibility="gone"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/rdt_org_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:drawableLeft="@drawable/ic_icon_basic_details_grey"
+            android:drawablePadding="@dimen/_4sdp"
+            android:background="@drawable/rounded_corner_grey_4"
+            android:hint="@string/org_name"
+            android:padding="@dimen/_8sdp"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/rdt_basic_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:visibility="gone"
+            android:drawableLeft="@drawable/ic_user"
+            android:drawablePadding="@dimen/_4sdp"
+            android:background="@drawable/rounded_corner_grey_4"
+            android:hint="@string/name"
+            android:padding="@dimen/_8sdp"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/rdt_basic_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:drawableLeft="@drawable/ic_icon_mail_grey"
+            android:drawablePadding="@dimen/_2sdp"
+            android:background="@drawable/rounded_corner_grey_4"
+            android:hint="Email"
+            android:padding="@dimen/_8sdp"/>
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/rdt_basic_contact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:inputType="numberDecimal"
+            android:drawableLeft="@drawable/ic_icon_phone_grey"
+            android:drawablePadding="@dimen/_2sdp"
+            android:background="@drawable/rounded_corner_grey_4"
+            android:hint="Contact"
+            android:padding="@dimen/_8sdp"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edt_basic_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:padding="@dimen/_8sdp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/rounded_corner_grey_4"
+            android:autofillHints="Organisation Address"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            android:lines="8"
+            android:minLines="3"
+            android:scrollbars="vertical"
+            android:hint="@string/address"
+            android:singleLine="false" />
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/interest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/_16sdp"
-            android:textColor="@color/white"
-            android:text="Basic details"/>
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/btn_close"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
+            android:textColor="@color/grey"
+            android:layout_marginStart="24dp"
+            android:visibility="gone"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:text="Select Interests"/>
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/radio_group_user"
+            android:layout_width="match_parent"
+            android:padding="@dimen/_24sdp"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:src="@android:drawable/ic_menu_close_clear_cancel" />
+            android:layout_marginTop="@dimen/_32sdp"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/_32sdp"
+            android:orientation="horizontal">
 
-    </RelativeLayout>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_basic_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_2sdp"
+                android:background="@drawable/rounded_corner_grey_4"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:padding="@dimen/_4sdp"
+                android:text="Cancel"
+                android:textColor="@color/colorPrimary" />
 
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        style="@style/Widget.AppCompat.ProgressBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/zxing_transparent"
-        android:theme="@style/CircularProgress"
-        android:visibility="gone"/>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_basic_confirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:backgroundTint="@color/colorPrimary"
+                android:background="@drawable/bg_button_rounded_corners"
+                android:padding="@dimen/_4sdp"
+                android:text="@string/update"
+                android:textColor="@color/white" />
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/rdt_basic_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:drawableLeft="@drawable/ic_user"
-        android:drawablePadding="@dimen/_2sdp"
-        android:background="@drawable/rounded_corner_grey_4"
-        android:hint="Name"
-        android:padding="@dimen/_8sdp"/>
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/rdt_basic_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:drawableLeft="@drawable/ic_icon_mail_grey"
-        android:drawablePadding="@dimen/_2sdp"
-        android:background="@drawable/rounded_corner_grey_4"
-        android:hint="Email"
-        android:padding="@dimen/_8sdp"/>
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/rdt_basic_contact"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:inputType="numberDecimal"
-        android:drawableLeft="@drawable/ic_icon_phone_grey"
-        android:drawablePadding="@dimen/_2sdp"
-        android:background="@drawable/rounded_corner_grey_4"
-        android:hint="Contact"
-        android:padding="@dimen/_8sdp"/>
-    <androidx.appcompat.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/grey"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:textStyle="bold"
-        android:textSize="15sp"
-        android:text="Address"/>
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/edt_basic_address"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:padding="@dimen/_8sdp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/rounded_corner_grey_4"
-        android:autofillHints="Organisation Address"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
-        android:lines="8"
-        android:minLines="3"
-        android:scrollbars="vertical"
-        android:singleLine="false" />
+        </LinearLayout>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/interest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/grey"
-        android:layout_marginStart="24dp"
-        android:visibility="gone"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:textStyle="bold"
-        android:textSize="15sp"
-        android:text="Select Interests"/>
 
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/radio_group_user"
-        android:layout_width="match_parent"
-        android:padding="@dimen/_24sdp"
-        android:layout_height="wrap_content"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_32sdp"
-        android:gravity="center"
-        android:layout_marginBottom="@dimen/_32sdp"
-        android:orientation="horizontal">
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_basic_confirm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_16sdp"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:backgroundTint="@color/colorPrimary"
-            android:background="@drawable/bg_button_rounded_corners"
-            android:padding="@dimen/_4sdp"
-            android:text="Save"
-            android:textColor="@color/white" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_basic_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_16sdp"
-            android:background="@drawable/rounded_corner_grey_4"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:padding="@dimen/_4sdp"
-            android:text="Cancel"
-            android:textColor="@color/colorPrimary" />
     </LinearLayout>
-
-
-</LinearLayout>
 </ScrollView>
