@@ -36,7 +36,7 @@ public class HiChartWrapper {
 
         HIOptions options = new HIOptions();
         HITitle title = new HITitle();
-        title.setText("Remaining Tickets vs Sold Tickets");
+        title.setText("Total vs Sold Tickets");
         options.setTitle(title);
 
         HIExporting exporting = new HIExporting();
@@ -44,6 +44,8 @@ public class HiChartWrapper {
         options.setExporting(exporting);
 
         HIXAxis xaxis = new HIXAxis();
+        xaxis.setTitle(new HITitle());
+        xaxis.getTitle().setText("Events");
         xaxis.setCategories(ticketGraphObject.getName_list());
         options.setXAxis(new ArrayList<>(Collections.singletonList(xaxis)));
 
@@ -55,7 +57,7 @@ public class HiChartWrapper {
         HIYAxis yaxis = new HIYAxis();
         yaxis.setMin(0);
         yaxis.setTitle(new HITitle());
-        yaxis.getTitle().setText("Total Tickets");
+        yaxis.getTitle().setText("Total Tickets vs Sold Tickets");
         yaxis.setStackLabels(new HIStackLabels());
         yaxis.getStackLabels().setEnabled(true);
         yaxis.getStackLabels().setStyle(new HICSSObject());

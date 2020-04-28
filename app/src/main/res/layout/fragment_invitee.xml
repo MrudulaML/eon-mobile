@@ -19,7 +19,7 @@
             android:layout_height="@dimen/_88sdp"
             android:background="@color/colorPrimary"
             android:layout_alignParentTop="true"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <androidx.appcompat.widget.AppCompatCheckBox
                 android:id="@+id/chb_select_all"
