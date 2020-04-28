@@ -244,7 +244,7 @@
                     android:drawableRight="@drawable/ic_arrow_drop_down_black_24dp"
                     android:focusable="true"
                     android:gravity="center|start"
-                    android:hint="Select event status"
+                    android:hint="Select Event Status"
                     android:paddingStart="@dimen/_16sdp"
                     android:textColor="@color/grey"
                     android:textSize="16sp"

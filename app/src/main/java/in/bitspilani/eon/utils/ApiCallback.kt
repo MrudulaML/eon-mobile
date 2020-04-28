@@ -47,6 +47,7 @@ abstract class ApiCallback<T> : Callback<T> {
 
         }
     }
+
     override fun onFailure(call: Call<T>, t: Throwable) {
         if(BuildConfig.DEBUG) {
             t.printStackTrace()

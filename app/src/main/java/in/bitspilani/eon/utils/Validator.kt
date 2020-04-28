@@ -14,7 +14,7 @@ class Validator {
     companion object {
 
         // Default validation messages
-        private const val PASSWORD_POLICY = "Password doesnt match requirements"
+        private const val PASSWORD_POLICY = "Password doesn't meet all the given requirements!"
 
         private const val NAME_VALIDATION_MSG = "Enter a valid name"
         private const val EMAIL_VALIDATION_MSG = "Please enter a valid email!"

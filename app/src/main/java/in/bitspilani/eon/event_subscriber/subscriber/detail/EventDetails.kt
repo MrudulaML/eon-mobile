@@ -50,6 +50,7 @@ import kotlinx.android.synthetic.main.layout_seat_booking.*
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
@@ -522,6 +523,7 @@ class EventDetails : Fragment() {
     // create pdf and save external directory
     private fun createPdf() {
 
+        try{
         val eventId = Integer.toString(data.event_id) // event id
 
         val userData =
@@ -538,7 +540,10 @@ class EventDetails : Fragment() {
         val eventAmount = data.subscription_details?.amount_paid.toString()
 
         val bookingNotes = "It's non-transferable ticket"
-        val bookingDate = data.time
+        val bookingDate = data.subscription_details!!.createdOn // created on
+
+        // to do booking date format into date time
+
         var userEmailId = userData!!.user.email
         var userName = ""
 
@@ -606,44 +611,56 @@ class EventDetails : Fragment() {
 
         document.finishPage(page)
 
-        val directoryPath = Environment.getExternalStorageDirectory().path + "/invoices/"
-        var downloadManager: DownloadManager? = null
-        downloadManager = context?.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+            val directoryPath = Environment.getExternalStorageDirectory().path + "/invoices/"
 
-        val dir = File(directoryPath)
+            var downloadManager: DownloadManager? = null
+            downloadManager = context?.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
 
-        if (!dir.exists())
-            dir.mkdirs()
-        val filePath: File
+            val dir = File(directoryPath)
 
-        filePath = File(directoryPath, eventId + "_tickets.pdf")
+            if (!dir.exists())
+                dir.mkdirs()
+            val filePath: File
 
-        if (filePath.exists()) {
-            filePath.delete()
-            filePath.createNewFile()
-        } else {
-            filePath.createNewFile()
+            filePath = File(directoryPath, eventName+"-"+userName+".pdf")
+
+            if (filePath.exists()) {
+                filePath.delete()
+                filePath.createNewFile()
+            } else {
+                filePath.createNewFile()
+            }
+
+            try {
+                document.writeTo(FileOutputStream(filePath))
+                // creating also in documents
+                showSnackBar("Downloaded", true);
+            } catch (e: IOException) {
+                Log.e("Invoice", "Error: " + e.toString());
+                view?.showSnackbar("Error")
+            }
+            document.close();
+
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+                // to do
+            }else{
+                downloadManager.addCompletedDownload(filePath.name, filePath.name, true,"application/pdf", filePath.absolutePath, filePath.length(), true)
+            }
+        }catch (e: Exception){
+            Log.e("xoxo","external prob: "+e.toString())
+            showSnackBar(e.toString(),true)
+
         }
 
-        try {
-            document.writeTo(FileOutputStream(filePath))
-            // creating also in documents
-            downloadManager.addCompletedDownload(
-                filePath.name,
-                filePath.name,
-                true,
-                "application/pdf",
-                filePath.absolutePath,
-                filePath.length(),
-                true
-            )
-            showSnackBar("Downloaded", true);
-        } catch (e: IOException) {
-            Log.e("Invoice", "Error: " + e.toString());
-            view?.showSnackbar("Error")
-        }
-        document.close();
     }
+
+    fun formatDateTime(date_time: String): String {
+
+        var dateFormat: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+        val today = dateFormat.format(date_time)
+        return today
+    }
+
 
     fun toSimpleString(date: Date): String {
         val format = SimpleDateFormat("dd/MM/yyy")

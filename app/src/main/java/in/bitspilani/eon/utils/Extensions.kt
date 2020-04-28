@@ -293,6 +293,29 @@ val Int.px: Int
     get() = (this * Resources.getSystem().displayMetrics.density).toInt()
 
 
+@BindingAdapter("time")
+fun convertTime(view: TextView, dateInString: String)
+{
+
+    var inputFormat=SimpleDateFormat("hh:mm:ss", Locale.ENGLISH)
+    var outputFormat=SimpleDateFormat("KK:mm a", Locale.ENGLISH)
+
+    view.text=outputFormat.format(inputFormat.parse(dateInString)!!)
+
+}
+
+
+@BindingAdapter("dateAndTime")
+fun convertDateAndTime(view: TextView, dateInString: String)
+{
+
+    var inputFormat=SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH)
+    var outputFormat=SimpleDateFormat("KK:mm a EEE, dd MMM yyyy ", Locale.ENGLISH)
+
+    view.text=outputFormat.format(inputFormat.parse(dateInString)!!)
+
+}
+
 
 
 

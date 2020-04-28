@@ -159,7 +159,7 @@ class ChangePasswordFragment() : DialogFragment() {
                 }
 
             } else {
-                showUserMsg("Please enter valid password")
+                showUserMsg("Please input your password!")
             }
         }
     }

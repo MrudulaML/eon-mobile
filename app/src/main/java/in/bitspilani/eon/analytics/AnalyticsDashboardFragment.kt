@@ -76,7 +76,7 @@ class AnalyticsDashboardFragment : Fragment() {
 
     private fun setUpSpinner() {
         val builder = AlertDialog.Builder(activity!!)
-        builder.setTitle("Status")
+        builder.setTitle("Event Status")
         val animals = arrayOf("Completed", "Upcoming", "Cancelled","All")
         builder.setItems(animals) { dialog, which ->
             when (which) {

@@ -13,6 +13,7 @@ import `in`.bitspilani.eon.utils.showSnackbar
 import android.content.Context
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -21,6 +22,8 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.fragment_event_detail_organiser.*
 import timber.log.Timber
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 /**
@@ -57,7 +60,10 @@ class EventDetailsOrganiserFragment : Fragment(),InviteeCallbackListener,EventDe
 
         setUpClickListeners()
         setUpObservables()
+
     }
+
+
 
     private fun setUpObservables() {
 
@@ -85,10 +91,7 @@ class EventDetailsOrganiserFragment : Fragment(),InviteeCallbackListener,EventDe
         })
 
 
-
-
     }
-
 
 
     private fun setUpClickListeners() {
