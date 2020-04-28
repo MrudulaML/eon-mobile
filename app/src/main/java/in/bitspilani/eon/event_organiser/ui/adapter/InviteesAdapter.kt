@@ -34,11 +34,6 @@ class InviteesAdapter(private val inviteeList: ArrayList<Invitee>, var selectChe
         holder.bind(inviteeFilteredList[position])
     }
 
-    fun removeAt(position: Invitee) {
-        inviteeFilteredList.remove(position)
-        notifyDataSetChanged()
-    }
-
     fun selectAll() {
         selectAll = true
         notifyDataSetChanged()
@@ -53,9 +48,14 @@ class InviteesAdapter(private val inviteeList: ArrayList<Invitee>, var selectChe
         fun bind(item: Invitee) {
             item.selectAll=selectAll
             binding.invitee = item
+            if (selectAll)
+                itemView.chb_invitee.isEnabled = false
+            else {
+                itemView.chb_invitee.isEnabled = true
+                itemView.chb_invitee.setOnCheckedChangeListener { buttonView, isChecked ->
 
-            itemView.chb_invitee.setOnCheckedChangeListener { buttonView, isChecked ->
-                selectCheckBoxCallback(item,isChecked)
+                    selectCheckBoxCallback(item, isChecked)
+                }
             }
             binding.executePendingBindings()
         }

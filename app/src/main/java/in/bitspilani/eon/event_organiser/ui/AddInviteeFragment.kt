@@ -5,10 +5,7 @@ import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.event_organiser.models.Data
 import `in`.bitspilani.eon.event_organiser.models.Invitee
 import `in`.bitspilani.eon.event_organiser.viewmodel.AddInviteeViewModel
-import `in`.bitspilani.eon.utils.clickWithDebounce
-import `in`.bitspilani.eon.utils.getViewModelFactory
-import `in`.bitspilani.eon.utils.goneUnless
-import `in`.bitspilani.eon.utils.onChange
+import `in`.bitspilani.eon.utils.*
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -24,6 +21,8 @@ import com.hootsuite.nachos.terminator.ChipTerminatorHandler
 import com.hootsuite.nachos.validator.ChipifyingNachoValidator
 import kotlinx.android.synthetic.main.fragment_add_invitee.*
 import timber.log.Timber
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.roundToInt
 
 
@@ -31,7 +30,10 @@ import kotlin.math.roundToInt
  * A simple [Fragment] subclass.
  *
  */
-class AddInviteeFragment(private val eventData: Data, private val callbackListener: CallbackListener) : DialogFragment() {
+class AddInviteeFragment(
+    private val eventData: Data,
+    private val callbackListener: CallbackListener
+) : DialogFragment() {
 
     private val addInviteeViewModel by viewModels<AddInviteeViewModel> { getViewModelFactory() }
 
@@ -61,23 +63,40 @@ class AddInviteeFragment(private val eventData: Data, private val callbackListen
         addInviteeViewModel.addInviteeLiveData.observe(viewLifecycleOwner, Observer {
 
             dismiss()
+            if (it.message.toLowerCase(Locale.ROOT).contains("success")){
+                shoSnackBar("Invitee added successfully.")
+                callbackListener.onDataReceived(it.data.invitee_list)
+            }
+            else
+                shoSnackBar(it.message)
 
-            callbackListener.onDataReceived(it.data.invitee_list)
-            //Toast.makeText(activity, "Invitees added successfully.", Toast.LENGTH_LONG).show()
+
         })
 
         addInviteeViewModel.progressLiveData.observe(viewLifecycleOwner, Observer {
 
-            (activity as BitsEonActivity).showProgress(it)
-
             progress.goneUnless(it)
         })
 
-        nacho_text_view.addChipTerminator(',', ChipTerminatorHandler.BEHAVIOR_CHIPIFY_ALL);
-        nacho_text_view.addChipTerminator('\n', ChipTerminatorHandler.BEHAVIOR_CHIPIFY_TO_TERMINATOR);
-        nacho_text_view.addChipTerminator(' ', ChipTerminatorHandler.BEHAVIOR_CHIPIFY_TO_TERMINATOR);
+        nacho_text_view.addChipTerminator(',', ChipTerminatorHandler.BEHAVIOR_CHIPIFY_ALL)
+        nacho_text_view.addChipTerminator(
+            '\n',
+            ChipTerminatorHandler.BEHAVIOR_CHIPIFY_TO_TERMINATOR
+        )
+        nacho_text_view.addChipTerminator(
+            ' ',
+            ChipTerminatorHandler.BEHAVIOR_CHIPIFY_TO_TERMINATOR
+        )
+
+        nacho_text_view.chipifyAllUnterminatedTokens()
 
         nacho_text_view.setNachoValidator(ChipifyingNachoValidator())
+    }
+
+    private fun shoSnackBar(message: String) {
+
+        view?.showSnackbar(message, 0)
+
     }
 
     private fun setUpClickListeners() {
@@ -85,26 +104,39 @@ class AddInviteeFragment(private val eventData: Data, private val callbackListen
         btn_close.clickWithDebounce { dismiss() }
         btn_invitee_cancel.clickWithDebounce { dismiss() }
         btn_invitee_confirm.clickWithDebounce {
-            if (!TextUtils.isEmpty(edt_discount.text))
-            {
-                val listOfEmail = ArrayList<String>()
-                //get emails from chips
-                for (chip in nacho_text_view.allChips) {
-
-                    listOfEmail.add(chip.text.toString())
-
+            if(!nacho_text_view.text.isNullOrEmpty()){
+            nacho_text_view.chipifyAllUnterminatedTokens()
+            val listOfEmail = ArrayList<String>()
+            for (chip in nacho_text_view.allChips) {
+                listOfEmail.add(chip.text.toString())
+                if (!android.util.Patterns.EMAIL_ADDRESS.matcher(chip.text.toString())
+                        .matches()
+                ) {
+                    listOfEmail.clear()
+                    shoSnackBar("Please enter a valid email address")
+                    return@clickWithDebounce
                 }
-                val array = JsonArray()
-                for (each in listOfEmail) {
-                    array.add(each)
-                }
-                Timber.e("invitee_list$array")
-               addInviteeViewModel.adInvitee(eventData.id, edt_discount.text.toString().toInt(), array)
 
+            }
+            if (listOfEmail.size > 10) {
+                shoSnackBar("Max 10 email ids are allowed.")
+                return@clickWithDebounce
+            }
 
-            } else {
+            val array = JsonArray()
+            for (each in listOfEmail) {
+                array.add(each)
+            }
+            Timber.e("invitee_list$array")
+            addInviteeViewModel.adInvitee(
+                eventData.id,
+                if (edt_discount.text.toString().isEmpty()) null else edt_discount.text.toString()
+                    .toInt(),
+                array
+            )
 
-                Toast.makeText(activity, "Please enter valid details", Toast.LENGTH_LONG).show()
+        }else{
+                shoSnackBar("Please enter email.")
 
             }
         }
@@ -112,9 +144,10 @@ class AddInviteeFragment(private val eventData: Data, private val callbackListen
         edt_discount.onChange {
             if (it.isNotEmpty()) {
 
-                val fees =eventData.subscription_fee- (it.toDouble().roundToInt()* (eventData.subscription_fee/100))
+                val fees = eventData.subscription_fee - (it.toDouble()
+                    .roundToInt() * (eventData.subscription_fee / 100))
                 text_updated_fees.text = fees.toString()
-            }else{
+            } else {
 
                 text_updated_fees.text = eventData.subscription_fee.toString()
             }

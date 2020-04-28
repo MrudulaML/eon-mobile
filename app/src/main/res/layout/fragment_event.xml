@@ -78,7 +78,8 @@
         android:textColor="@color/grey"
         app:layout_constraintBottom_toBottomOf="@+id/appCompatTextView4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/appCompatTextView4"/>
+        app:layout_constraintTop_toTopOf="@+id/appCompatTextView4"
+        tools:text="Link" />
 
     <!-- type of event-->
 
@@ -203,10 +204,11 @@
 
    <!-- first row-->
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/ll_first_row"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="8dp"
+        android:visibility="gone"
         android:orientation="horizontal"
         android:weightSum="2"
         app:layout_constraintStart_toStartOf="@+id/appCompatTextView8"
@@ -298,13 +300,13 @@
 
    <!-- second row-->
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/ll_second_row"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:weightSum="2"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        app:layout_constraintTop_toBottomOf="@+id/ll_first_row">
 
         <LinearLayout
             android:id="@+id/share_fb"
@@ -373,13 +375,13 @@
 
    <!-- third row-->
     <LinearLayout
-        android:id="@+id/linearLayout3"
+        android:id="@+id/ll_third_row"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:weightSum="2"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+        app:layout_constraintTop_toBottomOf="@+id/ll_second_row">
 
         <LinearLayout
             android:id="@+id/send_reminder"

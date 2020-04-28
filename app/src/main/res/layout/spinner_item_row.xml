@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.AppCompatTextView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cust_view"
     android:layout_width="match_parent"
+    android:paddingTop="@dimen/_8sdp"
     android:paddingStart="@dimen/_4sdp"
     android:paddingBottom="@dimen/_4sdp"
     android:gravity="bottom"
+    tools:text="Conference"
     android:textSize="16sp"
     android:layout_height="wrap_content"
     android:textColor="@color/dark_grey"
-    android:textIsSelectable="false"/>
+    android:textIsSelectable="false" />

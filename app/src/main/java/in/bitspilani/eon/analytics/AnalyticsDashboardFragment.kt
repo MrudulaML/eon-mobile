@@ -7,19 +7,14 @@ import `in`.bitspilani.eon.analytics.data.OrganizedEvent
 import `in`.bitspilani.eon.analytics.data.TicketGraphObject
 import `in`.bitspilani.eon.login.ui.ActionbarHost
 import `in`.bitspilani.eon.utils.*
-import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Color
-import android.os.AsyncTask
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -27,8 +22,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.highsoft.highcharts.common.hichartsclasses.*
 import kotlinx.android.synthetic.main.fragment_analytics_dashboard.*
-import lecho.lib.hellocharts.model.PieChartData
-import lecho.lib.hellocharts.model.SliceValue
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import kotlin.collections.ArrayList
@@ -41,7 +34,6 @@ class AnalyticsDashboardFragment : Fragment() {
     private lateinit var organizedEventAdapter: OrganizedEventAdapter
     private var actionbarHost: ActionbarHost? = null
 
-    private lateinit var options : HIOptions
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activity!!.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
@@ -52,13 +44,13 @@ class AnalyticsDashboardFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_analytics_dashboard, container, false)
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setUpBarChart()
+        setUpEmptyChart()
+
         analyticsViewModel.getAnalytics("")
         setUpObservables()
         setUpSearch()
@@ -67,11 +59,11 @@ class AnalyticsDashboardFragment : Fragment() {
 
     }
 
-    private fun setUpBarChart() {
+    private fun setUpEmptyChart() {
         
         val options = HIOptions()
         bar_chart.options=options
-
+        line_chart.options=options
     }
 
     private fun setUpClickListeners() {
@@ -138,10 +130,9 @@ class AnalyticsDashboardFragment : Fragment() {
         analyticsViewModel.analyticsLiveData.observe(viewLifecycleOwner, Observer {
 
             setData(it.data)
-            setPieChartData(it.data)
             setRecyclerView(it.data.event_list)
-
             setUpBarChartWithOptions(it.data.ticket_graph_object)
+            setUpLineChartWithOptions(it.data.ticket_graph_object)
 
         })
 
@@ -157,12 +148,33 @@ class AnalyticsDashboardFragment : Fragment() {
         })
     }
 
-    private fun setUpBarChartWithOptions(optionsa: TicketGraphObject) {
+    private fun setData(data: Data) {
+        txt_revenue.text= resources.getString(R.string.rupee_symbol)+data.total_revenue.toString()
+        text_total_up_events.text = data.ongoing_events.toString()
+
+    }
+
+    private fun setUpLineChartWithOptions(ticketGraphObject: TicketGraphObject) {
 
         doAsync {
-            val options = JavaUtilsForBar.getOptions(optionsa)
+            val options = HiChartWrapper.getOptionsForLine(ticketGraphObject)
 
             uiThread {
+                line_chart.visibility=View.VISIBLE
+                line_chart.options= options
+                line_chart.reload()
+            }
+        }
+
+    }
+
+    private fun setUpBarChartWithOptions(ticketGraphObject: TicketGraphObject) {
+
+        doAsync {
+            val options = HiChartWrapper.getOptionsForBar(ticketGraphObject)
+
+            uiThread {
+                bar_chart.visibility=View.VISIBLE
                 bar_chart.options= options
                 bar_chart.reload()
             }
@@ -171,27 +183,9 @@ class AnalyticsDashboardFragment : Fragment() {
 
     }
 
-    private fun setPieChartData(data: Data) {
 
-        val pieData :MutableList<SliceValue> = arrayListOf()
-        pieData.add(SliceValue(data.ongoing_events.toFloat(), ContextCompat.getColor(activity!!, R.color.orange_pie)))
-        pieData.add(SliceValue(data.completed_events.toFloat(), ContextCompat.getColor(activity!!, R.color.green_pie)))
-        pieData.add(SliceValue(data.cancelled_events.toFloat(), ContextCompat.getColor(activity!!, R.color.red_pie)))
 
-        val pieChartData = PieChartData(pieData)
-        pieChartData.setHasCenterCircle(true).setCenterText1("Total Events\n"+data.total_events)
-            .setCenterText1FontSize(16).centerText1Color = Color.parseColor("#808080")
-        pie_chart.pieChartData = pieChartData
-    }
 
-    @SuppressLint("SetTextI18n")
-    private fun setData(data: Data) {
-        txt_revenue.text= resources.getString(R.string.rupee_symbol)+data.total_revenue.toString()
-        txt_completed_events.text=((data.completed_events.toDouble() / data.total_events) * 100).toInt().toString()+"%"
-        txt_ongoing_events.text=((data.ongoing_events.toDouble() / data.total_events) * 100).toInt().toString()+"%"
-        txt_cancelled_events.text=((data.cancelled_events.toDouble() / data.total_events) * 100).toInt().toString()+"%"
-
-    }
 
     private fun setRecyclerView(eventList: ArrayList<OrganizedEvent>) {
         layoutManager = LinearLayoutManager(activity)

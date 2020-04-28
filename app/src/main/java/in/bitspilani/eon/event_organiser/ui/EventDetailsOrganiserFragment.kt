@@ -9,6 +9,7 @@ import `in`.bitspilani.eon.event_organiser.viewmodel.EventDetailOrganiserViewMod
 import `in`.bitspilani.eon.login.ui.ActionbarHost
 import `in`.bitspilani.eon.utils.getViewModelFactory
 import `in`.bitspilani.eon.utils.goneUnless
+import `in`.bitspilani.eon.utils.showSnackbar
 import android.content.Context
 import android.os.Bundle
 import android.view.*
@@ -84,6 +85,11 @@ class EventDetailsOrganiserFragment : Fragment(),InviteeCallbackListener,EventDe
             (activity as BitsEonActivity).showProgress(it)
         })
 
+        eventDetailOrganiserViewModel.errorView.observe(viewLifecycleOwner, Observer {
+
+            view?.showSnackbar(it,0)
+        })
+
 
     }
 
@@ -119,7 +125,7 @@ class EventDetailsOrganiserFragment : Fragment(),InviteeCallbackListener,EventDe
         (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(false)
     }
 
-    override fun getdelete(showDelete: Boolean) {
+    override fun getDelete(showDelete: Boolean) {
         toolbar_fragment.goneUnless(!showDelete)
         tab_layout.goneUnless(!showDelete)
     }
@@ -138,7 +144,7 @@ interface EventDetailsCallbackListener {
     fun getEvent()
 }
 interface InviteeCallbackListener {
-    fun getdelete(showDelete: Boolean)
+    fun getDelete(showDelete: Boolean)
 }
 
 

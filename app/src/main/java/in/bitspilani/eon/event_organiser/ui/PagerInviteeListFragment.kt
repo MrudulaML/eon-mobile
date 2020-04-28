@@ -16,7 +16,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_event_detail_organiser.*
 import kotlinx.android.synthetic.main.fragment_invitee.*
 import timber.log.Timber
 import java.util.*
@@ -26,7 +25,7 @@ import java.util.*
  * A simple [Fragment] subclass.
  *
  */
-class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganiser,val inviteeCallbackListener: InviteeCallbackListener) : Fragment(),
+class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganiser, private val inviteeCallbackListener: InviteeCallbackListener) : Fragment(),
     CallbackListener {
 
     private var deleteAll: Boolean = false
@@ -48,12 +47,9 @@ class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganis
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         setRecyclerview(detailResponse)
         setUpSearch()
-
         setUpVisibility()
-
         fab.clickWithDebounce {
             showDialog()
         }
@@ -79,7 +75,7 @@ class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganis
             } else {
                 inviteesAdapter.deSelectAll()
                 showDeleteOption(false)
-                deleteAll = true
+                deleteAll = false
 
             }
         }
@@ -117,9 +113,10 @@ class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganis
         }
 
         eventDetailOrganiserViewModel.eventData.observe(viewLifecycleOwner, Observer {
-
-            invitee_search_view.visibility=View.VISIBLE
+            progress_bar.goneUnless(false)
+            chb_select_all.isChecked=false
             inviteeList = it.data.invitee_list
+            invitee_search_view.goneUnless(inviteeList.size>0)
             inviteesAdapter = InviteesAdapter(
                 inviteeList
                 , selectCheckBoxCallback = { invitee: Invitee, isSelected: Boolean ->
@@ -129,8 +126,8 @@ class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganis
                     else
                         inviteeListDeleted.remove(invitee)
 
-                    showDeleteOption(inviteeListDeleted.size > 0)
 
+                    showDeleteOption(inviteeListDeleted.size > 0)
                     Timber.e("invitee selected list${inviteeListDeleted.size}")
                 })
             rv_invitee_list.adapter = inviteesAdapter
@@ -166,11 +163,11 @@ class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganis
     private fun showDeleteOption(show: Boolean) {
         if (show) {
             delete_menu.visibility = View.VISIBLE
-            inviteeCallbackListener.getdelete(true)
+            inviteeCallbackListener.getDelete(true)
         } else {
 
             delete_menu.visibility = View.GONE
-            inviteeCallbackListener.getdelete(false)
+            inviteeCallbackListener.getDelete(false)
         }
 
 
@@ -195,6 +192,7 @@ class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganis
     var inviteesAdapter = InviteesAdapter(arrayListOf(), { invitee: Invitee, b: Boolean -> })
     private fun setRecyclerview(detailResponseOrganiser: DetailResponseOrganiser) {
 
+        invitee_search_view.goneUnless(detailResponseOrganiser.data.invitee_list.size>0)
         layoutManager = LinearLayoutManager(activity)
         rv_invitee_list.layoutManager = layoutManager
         inviteeList = detailResponseOrganiser.data.invitee_list
@@ -206,8 +204,9 @@ class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganis
                     inviteeListDeleted.add(invitee)
                 else
                     inviteeListDeleted.remove(invitee)
+
                 showDeleteOption(inviteeListDeleted.size > 0)
-                inviteeCallbackListener.getdelete(inviteeListDeleted.size > 0)
+                inviteeCallbackListener.getDelete(inviteeListDeleted.size > 0)
 
                 Timber.e("invitee selected list${inviteeListDeleted.size}")
             })
@@ -222,6 +221,8 @@ class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganis
 
     override fun onDataReceived(inviteeLis: ArrayList<Invitee>) {
 
+        progress_bar.goneUnless(true)
+        invitee_search_view.goneUnless(inviteeLis.size>0)
         eventDetailOrganiserViewModel.getEventDetails(detailResponse.data.id)
 
     }

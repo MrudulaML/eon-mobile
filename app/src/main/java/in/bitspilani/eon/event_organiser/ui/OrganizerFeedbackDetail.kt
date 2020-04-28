@@ -82,11 +82,6 @@ class OrganizerFeedbackDetail : Fragment() {
         }
 
 
-        orgFeedbackViewmodel2.url.observe(viewLifecycleOwner, Observer {
-
-            findNavController().navigate(R.id.imageFragment, bundleOf(Constants.IMAGE_URL to it))
-        })
-
     }
 
 

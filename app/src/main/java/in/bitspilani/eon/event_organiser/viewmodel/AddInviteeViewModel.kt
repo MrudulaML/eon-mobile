@@ -12,10 +12,12 @@ class AddInviteeViewModel(private val apiService: ApiService): BaseViewModel() {
 
     val addInviteeLiveData : SingleLiveEvent<AddInviteeResponse> = SingleLiveEvent()
 
-    fun adInvitee(event_id:Int, discount:Int, emailList: JsonArray){
+    fun adInvitee(event_id:Int, discount:Int?, emailList: JsonArray){
         val body = JsonObject()
         body.addProperty("event",event_id)
-        body.addProperty("discount_percentage",discount)
+        discount?.let {
+            body.addProperty("discount_percentage",discount)
+        }
         body.add("invitee_list",emailList)
         showProgress(true)
         apiService.addInvitees(body)
@@ -26,8 +28,6 @@ class AddInviteeViewModel(private val apiService: ApiService): BaseViewModel() {
                 }
 
                 override fun onApiError(errorType: ApiError, error: String?) {
-                    /*progress.value=false
-                    errorView.postValue(error)*/
                     showProgress(false)
                 }
             })
