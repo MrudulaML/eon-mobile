@@ -20,8 +20,6 @@ class EventDetailOrganiserViewModel(private val apiService: ApiService) : BaseVi
 
     var deleteProgress: MutableLiveData<Boolean> = SingleLiveEvent()
 
-    var startFeedback:  MutableLiveData<Int> = MutableLiveData()
-
     fun getEventDetails(id: Int) {
         showProgress(true)
         apiService.getEventDetailsOrganiser(id)
@@ -32,8 +30,7 @@ class EventDetailOrganiserViewModel(private val apiService: ApiService) : BaseVi
                 }
 
                 override fun onApiError(errorType: ApiError, error: String?) {
-                    /*progress.value=false
-                    errorView.postValue(error)*/
+                    errorView.postValue(error)
                     showProgress(false)
                 }
             })
@@ -57,8 +54,6 @@ class EventDetailOrganiserViewModel(private val apiService: ApiService) : BaseVi
                 }
 
                 override fun onApiError(errorType: ApiError, error: String?) {
-                    /*progress.value=false
-                    errorView.postValue(error)*/
                     deleteProgress.postValue(false)
                 }
             })
@@ -79,7 +74,6 @@ class EventDetailOrganiserViewModel(private val apiService: ApiService) : BaseVi
                }
 
                 override fun onApiError(errorType: ApiError, error: String?) {
-
                     errorView.postValue(error)
                     showProgress(false)
                 }

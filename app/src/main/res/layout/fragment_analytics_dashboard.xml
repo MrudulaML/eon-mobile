@@ -227,7 +227,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:queryHint="Event Name/Location" />
+                    app:queryHint="Event Name / Location" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/spinner_event_type"

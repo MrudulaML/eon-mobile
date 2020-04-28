@@ -106,17 +106,20 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
 
         if(eventDetailResponse.data.self_organised){
 
-            if(eventDetailResponse.data.event_status.toLowerCase().equals("completed") ||
+            if(eventDetailResponse.data.event_status.toLowerCase(Locale.ROOT).equals("completed") ||
                     eventDetailResponse.data.event_status.toLowerCase(Locale.ROOT).equals("cancelled")){
-                linearLayout2.goneUnless(false)
-                linearLayout3.goneUnless(false)
+                ll_second_row.goneUnless(false)
+                ll_third_row.goneUnless(false)
 
             }else{
 
-                linearLayout2.goneUnless(true)
-                linearLayout3.goneUnless(true)
+                ll_second_row.goneUnless(true)
+                ll_third_row.goneUnless(true)
             }
 
+        }else{
+
+            ll_first_row.goneUnless(false)
         }
     }
 

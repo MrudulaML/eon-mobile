@@ -133,6 +133,11 @@ class HomeFragment : Fragment() {
             (activity as BitsEonActivity).showProgress(it)
         })
 
+        eventDashboardViewModel.errorView.observe(viewLifecycleOwner, Observer {
+
+            view?.showSnackbar(it,0)
+        })
+
     }
 
     private fun setEventRecyclerView(eventList: EventList) {
