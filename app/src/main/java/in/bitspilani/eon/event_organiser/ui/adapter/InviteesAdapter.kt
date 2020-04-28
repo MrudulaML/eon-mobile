@@ -51,6 +51,7 @@ class InviteesAdapter(private val inviteeList: ArrayList<Invitee>, var selectChe
             if (selectAll)
                 itemView.chb_invitee.isEnabled = false
             else {
+                itemView.chb_invitee.isEnabled = true
                 itemView.chb_invitee.setOnCheckedChangeListener { buttonView, isChecked ->
 
                     selectCheckBoxCallback(item, isChecked)
