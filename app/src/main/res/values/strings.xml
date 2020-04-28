@@ -57,4 +57,6 @@
     <string name="contact_admin">Your Registration with EOn is completed! Please contact Admin for activation of your account.</string>
     <string name="no_data">No events found</string>
 
+    <string name="revenue_earned">\u20B9 %s</string>
+
 </resources>

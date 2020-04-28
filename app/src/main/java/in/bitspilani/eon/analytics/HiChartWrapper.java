@@ -60,7 +60,7 @@ public class HiChartWrapper {
         yaxis.getStackLabels().setEnabled(true);
         yaxis.getStackLabels().setStyle(new HICSSObject());
         yaxis.getStackLabels().getStyle().setFontWeight("bold");
-        yaxis.getStackLabels().getStyle().setColor("gray");
+        yaxis.getStackLabels().getStyle().setColor("grey");
         options.setYAxis(new ArrayList<>(Collections.singletonList(yaxis)));
 
         HILegend legend = new HILegend();
@@ -87,14 +87,16 @@ public class HiChartWrapper {
         plotoptions.getColumn().getDataLabels().setEnabled(true);
         plotoptions.getColumn().getDataLabels().setColor(HIColor.initWithName("white"));
         plotoptions.getColumn().getDataLabels().setStyle(new HICSSObject());
-        plotoptions.getColumn().getDataLabels().getStyle().setTextOutline("0 0 3px black");
+        plotoptions.getColumn().getDataLabels().getStyle().setTextOutline("0 0 3px green");
         options.setPlotOptions(plotoptions);
 
         HIColumn column1 = new HIColumn();
         column1.setName("Remaining Tickets");
         column1.setData(ticketGraphObject.getRemaining_tickets());
 
+
         HIColumn column2 = new HIColumn();
+        column2.setColor(HIColor.initWithName("green"));
         column2.setName("Sold Tickets");
         column2.setData(ticketGraphObject.getSold_tickets());
 
