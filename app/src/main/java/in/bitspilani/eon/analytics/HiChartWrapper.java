@@ -36,7 +36,7 @@ public class HiChartWrapper {
 
         HIOptions options = new HIOptions();
         HITitle title = new HITitle();
-        title.setText("Remaining Tickets vs Sold Tickets");
+        title.setText("Total vs Sold Tickets");
         options.setTitle(title);
 
         HIExporting exporting = new HIExporting();
@@ -44,6 +44,8 @@ public class HiChartWrapper {
         options.setExporting(exporting);
 
         HIXAxis xaxis = new HIXAxis();
+        xaxis.setTitle(new HITitle());
+        xaxis.getTitle().setText("Events");
         xaxis.setCategories(ticketGraphObject.getName_list());
         options.setXAxis(new ArrayList<>(Collections.singletonList(xaxis)));
 
@@ -55,12 +57,12 @@ public class HiChartWrapper {
         HIYAxis yaxis = new HIYAxis();
         yaxis.setMin(0);
         yaxis.setTitle(new HITitle());
-        yaxis.getTitle().setText("Total Tickets");
+        yaxis.getTitle().setText("Total Tickets vs Sold Tickets");
         yaxis.setStackLabels(new HIStackLabels());
         yaxis.getStackLabels().setEnabled(true);
         yaxis.getStackLabels().setStyle(new HICSSObject());
         yaxis.getStackLabels().getStyle().setFontWeight("bold");
-        yaxis.getStackLabels().getStyle().setColor("gray");
+        yaxis.getStackLabels().getStyle().setColor("grey");
         options.setYAxis(new ArrayList<>(Collections.singletonList(yaxis)));
 
         HILegend legend = new HILegend();
@@ -87,14 +89,16 @@ public class HiChartWrapper {
         plotoptions.getColumn().getDataLabels().setEnabled(true);
         plotoptions.getColumn().getDataLabels().setColor(HIColor.initWithName("white"));
         plotoptions.getColumn().getDataLabels().setStyle(new HICSSObject());
-        plotoptions.getColumn().getDataLabels().getStyle().setTextOutline("0 0 3px black");
+        plotoptions.getColumn().getDataLabels().getStyle().setTextOutline("0 0 3px green");
         options.setPlotOptions(plotoptions);
 
         HIColumn column1 = new HIColumn();
         column1.setName("Remaining Tickets");
         column1.setData(ticketGraphObject.getRemaining_tickets());
 
+
         HIColumn column2 = new HIColumn();
+        column2.setColor(HIColor.initWithName("green"));
         column2.setName("Sold Tickets");
         column2.setData(ticketGraphObject.getSold_tickets());
 

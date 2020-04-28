@@ -9,8 +9,8 @@
             type="in.bitspilani.eon.event_organiser.models.Invitee" />
 
         <variable
-            name="viewmodel"
-            type="in.bitspilani.eon.event_organiser.viewmodel.EventDetailOrganiserViewModel" />
+            name="eventStatus"
+            type="String" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,6 +19,7 @@
         android:orientation="horizontal">
         <androidx.appcompat.widget.AppCompatCheckBox
             android:id="@+id/chb_invitee"
+            statusVisibility="@{eventStatus}"
             android:layout_width="wrap_content"
             android:checked="@{invitee.selectAll}"
             android:layout_height="wrap_content"/>
@@ -35,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/_4sdp"
-            android:weightSum="2"
+            android:weightSum="3"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -61,7 +62,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:orientation="vertical">
                 <!-- discount-->
                 <androidx.appcompat.widget.AppCompatTextView
@@ -74,7 +75,7 @@
                     android:id="@+id/text_discount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{Integer.toString(invitee.discount_percentage)}"
+                    android:text="@{Integer.toString(invitee.discount_percentage)+`%`}"
                     tools:text="500" />
             </LinearLayout>
         </LinearLayout>
@@ -84,7 +85,7 @@
             android:layout_height="match_parent"
             android:layout_margin="@dimen/_4sdp"
             android:visibility="visible"
-            android:weightSum="2"
+            android:weightSum="3"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -103,6 +104,7 @@
                     android:id="@+id/text_contact"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@{invitee.user.contact_number}"
                     tools:text="9999999999" />
 
             </LinearLayout>
@@ -110,7 +112,7 @@
             <!--contact-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
@@ -124,6 +126,7 @@
                     android:id="@+id/text_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@{invitee.user.name}"
                     tools:text="Anshuman" />
             </LinearLayout>
         </LinearLayout>

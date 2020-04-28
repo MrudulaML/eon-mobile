@@ -118,8 +118,9 @@ class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganis
             inviteeList = it.data.invitee_list
             invitee_search_view.goneUnless(inviteeList.size>0)
             inviteesAdapter = InviteesAdapter(
-                inviteeList
-                , selectCheckBoxCallback = { invitee: Invitee, isSelected: Boolean ->
+                inviteeList,
+                detailResponse.data.event_status,
+                selectCheckBoxCallback = { invitee: Invitee, isSelected: Boolean ->
                     Timber.e("invitee id${invitee.invitation_id}")
                     if (isSelected)
                         inviteeListDeleted.add(invitee)
@@ -189,7 +190,7 @@ class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganis
         })
     }
 
-    var inviteesAdapter = InviteesAdapter(arrayListOf(), { invitee: Invitee, b: Boolean -> })
+   lateinit var inviteesAdapter : InviteesAdapter
     private fun setRecyclerview(detailResponseOrganiser: DetailResponseOrganiser) {
 
         invitee_search_view.goneUnless(detailResponseOrganiser.data.invitee_list.size>0)
@@ -198,6 +199,7 @@ class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganis
         inviteeList = detailResponseOrganiser.data.invitee_list
         inviteesAdapter = InviteesAdapter(
             inviteeList,
+            detailResponse.data.event_status,
             selectCheckBoxCallback = { invitee: Invitee, isSelected: Boolean ->
                 Timber.e("invitee id${invitee.invitation_id}")
                 if (isSelected)

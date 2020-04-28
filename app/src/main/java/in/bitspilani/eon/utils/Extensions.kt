@@ -202,6 +202,38 @@ fun setEventStatus(view : TextView, status : String ){
 
 }
 
+@BindingAdapter("organizedEventStatus")
+fun setOrganizedEventStatus(view : TextView, status : String ){
+
+    if(status.toLowerCase().equals("upcoming")){
+
+        view.text=status.capitalize()
+        view.setTextColor(view.resources.getColor(R.color.orange_status))
+
+    }
+
+    if(status.toLowerCase().equals("completed")){
+
+        view.text=status.capitalize()
+        view.setTextColor(view.resources.getColor(R.color.green_status))
+
+    }
+
+    if(status.toLowerCase().equals("cancelled")){
+
+        view.text=status.capitalize()
+        view.setTextColor(view.resources.getColor(R.color.red_status))
+
+    }
+
+}
+
+@BindingAdapter("statusVisibility")
+fun setDeleteVisibility(view: View, value: String) {
+    view.visibility = if (value.equals("completed") || value.equals("cancelled") ) View.GONE else View.VISIBLE
+}
+
+
 @BindingAdapter("visibility")
 fun setVisibility(view: View, value: Boolean) {
     view.visibility = if (value) View.VISIBLE else View.GONE
