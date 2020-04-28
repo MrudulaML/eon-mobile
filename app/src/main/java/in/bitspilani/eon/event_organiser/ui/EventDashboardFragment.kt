@@ -72,13 +72,6 @@ class HomeFragment : Fragment() {
         setUpObservables()
         setUpClickListeners()
         setUpSearch()
-
-        swipe_refresh_layout.setOnRefreshListener {
-
-            eventDashboardViewModel.getEvents()
-            swipe_refresh_layout.isRefreshing = false
-        }
-
     }
 
 

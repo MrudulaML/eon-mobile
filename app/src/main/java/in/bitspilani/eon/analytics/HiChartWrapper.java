@@ -4,10 +4,18 @@ import com.highsoft.highcharts.common.HIColor;
 import com.highsoft.highcharts.common.hichartsclasses.HICSSObject;
 import com.highsoft.highcharts.common.hichartsclasses.HIChart;
 import com.highsoft.highcharts.common.hichartsclasses.HIColumn;
+import com.highsoft.highcharts.common.hichartsclasses.HICondition;
+import com.highsoft.highcharts.common.hichartsclasses.HICredits;
 import com.highsoft.highcharts.common.hichartsclasses.HIDataLabels;
+import com.highsoft.highcharts.common.hichartsclasses.HIExporting;
+import com.highsoft.highcharts.common.hichartsclasses.HILabel;
 import com.highsoft.highcharts.common.hichartsclasses.HILegend;
+import com.highsoft.highcharts.common.hichartsclasses.HILine;
 import com.highsoft.highcharts.common.hichartsclasses.HIOptions;
 import com.highsoft.highcharts.common.hichartsclasses.HIPlotOptions;
+import com.highsoft.highcharts.common.hichartsclasses.HIResponsive;
+import com.highsoft.highcharts.common.hichartsclasses.HIRules;
+import com.highsoft.highcharts.common.hichartsclasses.HISeries;
 import com.highsoft.highcharts.common.hichartsclasses.HIStackLabels;
 import com.highsoft.highcharts.common.hichartsclasses.HISubtitle;
 import com.highsoft.highcharts.common.hichartsclasses.HITitle;
@@ -18,23 +26,30 @@ import com.highsoft.highcharts.common.hichartsclasses.HIYAxis;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 
 import in.bitspilani.eon.analytics.data.TicketGraphObject;
 
-public class JavaUtilsForBar {
+public class HiChartWrapper {
 
-    public static HIOptions getOptions(TicketGraphObject ticketGraphObject) {
+    public static HIOptions getOptionsForBar(TicketGraphObject ticketGraphObject) {
 
         HIOptions options = new HIOptions();
-
         HITitle title = new HITitle();
         title.setText("Remaining Tickets vs Sold Tickets");
         options.setTitle(title);
 
+        HIExporting exporting = new HIExporting();
+        exporting.setEnabled(false);
+        options.setExporting(exporting);
 
         HIXAxis xaxis = new HIXAxis();
         xaxis.setCategories(ticketGraphObject.getName_list());
         options.setXAxis(new ArrayList<>(Collections.singletonList(xaxis)));
+
+        HICredits credits = new HICredits();
+        credits.setEnabled(false);
+        options.setCredits(credits);
 
 
         HIYAxis yaxis = new HIYAxis();
@@ -90,5 +105,68 @@ public class JavaUtilsForBar {
 
        return options;
 
+    }
+
+    public static HIOptions getOptionsForLine(TicketGraphObject ticketGraphObject){
+
+        HIOptions options = new HIOptions();
+
+        HIExporting exporting = new HIExporting();
+        exporting.setEnabled(false);
+        options.setExporting(exporting);
+
+
+        HICredits credits = new HICredits();
+        credits.setEnabled(false);
+        options.setCredits(credits);
+
+
+        HITitle title = new HITitle();
+        title.setText("Event wise revenue");
+        options.setTitle(title);
+
+        HIYAxis yaxis = new HIYAxis();
+        yaxis.setTitle(new HITitle());
+        yaxis.getTitle().setText("Revenue");
+        options.setYAxis(new ArrayList<>(Collections.singletonList(yaxis)));
+
+        HIXAxis xaxis = new HIXAxis();
+        xaxis.setTitle(new HITitle());
+        xaxis.getTitle().setText("Events");
+        xaxis.setCategories(ticketGraphObject.getName_list());
+        options.setXAxis(new ArrayList<>(Collections.singletonList(xaxis)));
+
+        HILegend legend = new HILegend();
+        legend.setLayout("vertical");
+        legend.setAlign("right");
+        legend.setVerticalAlign("middle");
+        options.setLegend(legend);
+
+        HIPlotOptions plotoptions = new HIPlotOptions();
+        plotoptions.setSeries(new HISeries());
+        options.setPlotOptions(plotoptions);
+
+        HILine line1 = new HILine();
+        line1.setName("Revenue");
+        line1.setData(new ArrayList<>(ticketGraphObject.getRevenue_list()));
+
+        HIResponsive responsive = new HIResponsive();
+
+        HIRules rules1 = new HIRules();
+        rules1.setCondition(new HICondition());
+        rules1.getCondition().setMaxWidth(500);
+        HashMap<String, HashMap> chartLegend = new HashMap<>();
+        HashMap<String, String> legendOptions = new HashMap<>();
+        legendOptions.put("layout", "horizontal");
+        legendOptions.put("align", "center");
+        legendOptions.put("verticalAlign", "bottom");
+        chartLegend.put("legend", legendOptions);
+        rules1.setChartOptions(chartLegend);
+        responsive.setRules(new ArrayList<>(Collections.singletonList(rules1)));
+        options.setResponsive(responsive);
+
+        options.setSeries(new ArrayList<>(Arrays.asList(line1)));
+
+       return options;
     }
 }

@@ -176,7 +176,7 @@ fun getType(view: TextView, id: Int) {
 @BindingAdapter("eventStatus")
 fun setEventStatus(view : TextView, status : String ){
 
-    if(status.equals("upcoming")){
+    if(status.toLowerCase().equals("upcoming")){
 
         view.text="Upcoming"
         view.setBackgroundResource(R.drawable.stroke_orange_rectangle)
@@ -184,7 +184,7 @@ fun setEventStatus(view : TextView, status : String ){
 
     }
 
-    if(status.equals("completed")){
+    if(status.toLowerCase().equals("completed")){
 
         view.text="Completed"
         view.setBackgroundResource(R.drawable.stroke_green_rectangle)
@@ -192,7 +192,7 @@ fun setEventStatus(view : TextView, status : String ){
 
     }
 
-    if(status.equals("cancelled")){
+    if(status.toLowerCase().equals("cancelled")){
 
         view.text="Cancelled"
         view.setBackgroundResource(R.drawable.stroke_red_rectangle)
