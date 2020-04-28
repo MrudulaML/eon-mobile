@@ -260,7 +260,7 @@ class FilterDialogFragmentV2 : DialogFragment() {
 
         val eventFeesAdapter = ArrayAdapter(
             context!!,
-            R.layout.spinner_item_row, arrayListOf("Fee Type", "Free", "Paid","All")
+            R.layout.spinner_item_row, arrayListOf("All", "Free", "Paid")
         )
         event_fees_spinner.adapter = eventFeesAdapter
 
