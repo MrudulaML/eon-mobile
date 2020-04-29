@@ -533,6 +533,8 @@ class EventDetails : Fragment() {
         var barcodeEncoder = BarcodeEncoder()
         var bitMatrix: BitMatrix? = null
 
+
+        val orgTitle = "EOn"
         val eventName = data.event_name
         val eventDateTime = tv_event_date.text.toString()
         val eventLocation = data.location
@@ -541,6 +543,9 @@ class EventDetails : Fragment() {
 
         val bookingNotes = "It's non-transferable ticket"
         val bookingDate = data.subscription_details!!.createdOn // created on
+        val bookingDateTime = formatDateTime(bookingDate)
+
+
 
         // to do booking date format into date time
 
@@ -578,7 +583,7 @@ class EventDetails : Fragment() {
         // header
         titlePaint.textSize = resources.getDimension(R.dimen._18fs)
         titlePaint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
-        canvas.drawText(eventName, 220F, 180F, titlePaint)// divider
+        canvas.drawText(orgTitle, 220F, 180F, titlePaint)// divider
         canvas.drawLine(40F, 248F, 1200 - 40F, 248F, linePaint)
 
         // QR Code
@@ -602,7 +607,7 @@ class EventDetails : Fragment() {
         canvas.drawText("Subscriber Name: " + userName, 300F, 650F, textPaint);
         canvas.drawText("Email Id: " + userEmailId, 300F, 710F, textPaint);
         canvas.drawText("Contact: " + userContact, 300F, 770F, textPaint);
-        canvas.drawText("Booking Date: " + bookingDate, 300F, 830F, textPaint);
+        canvas.drawText("Booking Date: " + bookingDateTime, 300F, 830F, textPaint);
 
         // Note
         textPaint.textSize = resources.getDimension(R.dimen._14fs)
@@ -657,8 +662,13 @@ class EventDetails : Fragment() {
     fun formatDateTime(date_time: String): String {
 
         var dateFormat: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
-        val today = dateFormat.format(date_time)
-        return today
+        val myDate = dateFormat.parse(date_time)
+
+        val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+
+        val s_date = formatter.format(myDate)
+
+        return s_date
     }
 
 
