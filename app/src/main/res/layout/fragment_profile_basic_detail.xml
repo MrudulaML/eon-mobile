@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -25,7 +24,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/_50sdp"
                 android:textColor="@color/white"
-                android:gravity="center_horizontal"
+                android:gravity="center_vertical|left"
                 android:text="@string/profile"/>
 
             <androidx.appcompat.widget.AppCompatImageButton
@@ -58,6 +57,7 @@
             android:drawableLeft="@drawable/ic_icon_basic_details_grey"
             android:drawablePadding="@dimen/_4sdp"
             android:background="@drawable/rounded_corner_grey_4"
+            android:gravity="center_vertical|left"
             android:hint="@string/org_name"
             android:padding="@dimen/_8sdp"/>
 
@@ -72,6 +72,7 @@
             android:drawableLeft="@drawable/ic_user"
             android:drawablePadding="@dimen/_4sdp"
             android:background="@drawable/rounded_corner_grey_4"
+            android:gravity="center_vertical|left"
             android:hint="@string/name"
             android:padding="@dimen/_8sdp"/>
 
@@ -85,8 +86,10 @@
             android:drawableLeft="@drawable/ic_icon_mail_grey"
             android:drawablePadding="@dimen/_2sdp"
             android:background="@drawable/rounded_corner_grey_4"
+            android:gravity="center_vertical|left"
             android:hint="Email"
             android:padding="@dimen/_8sdp"/>
+
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/rdt_basic_contact"
             android:layout_width="match_parent"
@@ -98,6 +101,7 @@
             android:drawableLeft="@drawable/ic_icon_phone_grey"
             android:drawablePadding="@dimen/_2sdp"
             android:background="@drawable/rounded_corner_grey_4"
+            android:gravity="center_vertical|left"
             android:hint="Contact"
             android:padding="@dimen/_8sdp"/>
 
@@ -154,6 +158,7 @@
                 android:background="@drawable/rounded_corner_grey_4"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:padding="@dimen/_4sdp"
+                android:textAllCaps="false"
                 android:text="Cancel"
                 android:textColor="@color/colorPrimary" />
 
@@ -166,6 +171,7 @@
                 android:backgroundTint="@color/colorPrimary"
                 android:background="@drawable/bg_button_rounded_corners"
                 android:padding="@dimen/_4sdp"
+                android:textAllCaps="false"
                 android:text="@string/update"
                 android:textColor="@color/white" />
 

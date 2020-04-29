@@ -66,6 +66,7 @@
         android:background="@drawable/bg_button_rounded_corners"
         android:backgroundTint="@color/colorPrimary"
         android:padding="@dimen/_4sdp"
+        android:textAllCaps="false"
         android:text="Confirm"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"

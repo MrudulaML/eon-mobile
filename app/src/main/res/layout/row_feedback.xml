@@ -76,7 +76,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/stroke_rectangle_grey"
-            android:gravity="start"
+            android:gravity="start|top"
             android:hint="Write you answer here..."
             android:lines="4"
             android:paddingStart="10dp"

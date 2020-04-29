@@ -12,18 +12,23 @@
 
 </data>
 <ScrollView
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
 <androidx.constraintlayout.widget.ConstraintLayout
 
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="wrap_content">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/appCompatImageView2"
         android:layout_width="0dp"
         android:layout_height="@dimen/_200dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
         android:scaleType="centerCrop"
         app:imageUrl="@{eventDetail.data.images}"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,17 +37,14 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/appCompatTextView4"
-        android:layout_width="0dp"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
         android:text="@{eventDetail.data.name}"
         android:textColor="@color/navy"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appCompatImageView2"
         tools:text="Name" />
@@ -68,14 +70,13 @@
         android:id="@+id/text_url"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginEnd="16dp"
-        android:drawableLeft="@drawable/ic_url"
-        android:drawablePadding="@dimen/_8sdp"
+        android:layout_marginEnd="20dp"
         android:gravity="center"
+        android:drawableLeft="@drawable/ic_icon_url"
         android:padding="@dimen/_4sdp"
         android:textAlignment="center"
         android:textColor="@color/grey"
-        app:layout_constraintBottom_toBottomOf="@+id/appCompatTextView15"
+        app:layout_constraintBottom_toBottomOf="@+id/appCompatTextView4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/appCompatTextView15" />
 
@@ -100,7 +101,7 @@
         android:id="@+id/appCompatTextView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
         android:text="Type of Event"
         android:textColor="@color/grey"
@@ -117,7 +118,7 @@
         android:layout_marginTop="8dp"
         app:eventType="@{eventDetail.data.event_type}"
         android:textColor="@color/grey"
-        android:textSize="15sp"
+        android:textSize="14sp"
         tools:text="ashajsa"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/appCompatTextView7"
@@ -143,7 +144,7 @@
         tools:text="1000"
         android:text="@{Integer.toString(eventDetail.data.no_of_tickets)}"
         android:textColor="@color/grey"
-        android:textSize="15sp"
+        android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/appCompatTextView6"
         app:layout_constraintTop_toBottomOf="@+id/appCompatTextView6" />
@@ -166,9 +167,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         tools:text="9:00 PM 12 Mar'20"
-        date="@{eventDetail.data.date}"
+        dateAndTime="@{eventDetail.data.date+` `+eventDetail.data.time}"
         android:textColor="@color/grey"
-        android:textSize="15sp"
+        android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/appCompatTextView8"
         app:layout_constraintTop_toBottomOf="@+id/appCompatTextView8" />
@@ -195,7 +196,7 @@
         tools:text="2000"
         android:text="@{eventDetail.data.subscription_fee>0?Integer.toString(eventDetail.data.subscription_fee):`FREE`}"
         android:textColor="@color/grey"
-        android:textSize="15sp"
+        android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/appCompatTextView12"
         app:layout_constraintTop_toBottomOf="@+id/appCompatTextView12" />
@@ -290,7 +291,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_6sdp"
-                android:text="View Deedback"
+                android:text="View Feedback"
                 android:textSize="10sp" />
 
         </LinearLayout>

@@ -105,16 +105,29 @@ class ResetPasswordFragment : Fragment() {
 
             ForgotPasswordSteps.VERIFICATION_CODE -> {
                 if (Validator.isValidVerificationCode(edit_verification_code)) {
-                    if (TextUtils.equals(edt_create_new_password.text, edt_re_enter_password.text)
-                        && Validator.isValidPassword(edt_create_new_password)
-                    ) {
+//                    if (TextUtils.equals(edt_create_new_password.text, edt_re_enter_password.text)
+//                        && Validator.isValidPassword(edt_create_new_password)
+//                    ) {
+//
+//                        authViewModel.resetPassword(
+//                            email!!,
+//                            edit_verification_code.text.toString(),
+//                            edt_create_new_password.text.toString()
+//                        )
+//
+//                    }
 
-                        authViewModel.resetPassword(
-                            email!!,
-                            edit_verification_code.text.toString(),
-                            edt_create_new_password.text.toString()
-                        )
-
+                    if(Validator.isValidPassword(edt_create_new_password, true) && Validator.isValidPassword(edt_re_enter_password, true))
+                    {
+                        if (TextUtils.equals(edt_create_new_password.text, edt_re_enter_password.text)){
+                            authViewModel.resetPassword(
+                                email!!,
+                                edit_verification_code.text.toString(),
+                                edt_create_new_password.text.toString()
+                            )
+                        }else{
+                            view?.showSnackbar("Passwords do not match!")
+                        }
                     }
                 }
             }

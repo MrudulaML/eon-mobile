@@ -19,7 +19,7 @@
     <string name="register">Register</string>
     <string name="details">Please provide the following details</string>
     <string name="organisation_name">Enter Organization Name</string>
-    <string name="email_id">Enter Email Id</string>
+    <string name="email_id">Email</string>
     <string name="contact_details">Enter Contact Details</string>
     <string name="address_detail">Enter Address Details</string>
     <string name="address">Address</string>
@@ -35,10 +35,13 @@
     <string name="profile">Profile</string>
     <string name="name">Name</string>
 
+    <string name="download">Download</string>
+    <string name="send_feedback">Send Feedback</string>
+    <string name="cancel">Cancel</string>
 
     <string name="reset_password">Reset Password</string>
-    <string name="verification_code">Enter the Verification code</string>
-    <string name="verification_code_text">You will be getting verification code on your registered email id</string>
+    <string name="verification_code">Enter the verification code</string>
+    <string name="verification_code_text">A verification code has been sent to the registered email ID</string>
     <string name="re_enter_password">Re-enter Password</string>
     <string name="create_new_password">Create New Password</string>
     <string name="password_set_message">Your Password has been updated successfully</string>

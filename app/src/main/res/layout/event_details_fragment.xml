@@ -143,8 +143,7 @@
                     android:textColor="@color/grey"
                     app:layout_constraintBaseline_toBaselineOf="@id/tv_event_name"
                     app:layout_constraintEnd_toStartOf="@id/iv_facebook"
-                    app:layout_constraintTop_toBottomOf="@id/tv_event_name"
-                    tools:text="Link" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_event_name" />
                 <ImageView
                     android:id="@+id/iv_facebook"
                     android:layout_marginEnd="20dp"
