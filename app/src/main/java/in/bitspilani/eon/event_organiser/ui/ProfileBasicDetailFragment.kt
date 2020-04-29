@@ -1,3 +1,4 @@
+
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.event_organiser.models.EventType
 import `in`.bitspilani.eon.event_organiser.models.FilterResponse
@@ -97,9 +98,8 @@ class ProfileBasicDetailFragment(val userProfileCallBack: UserProfileCallBack) :
 
     private fun validateDataAndConfirm() {
 
-        if (Validator.isValidName(rdt_basic_name)
-            && Validator.isValidName(edt_basic_address)
-            && Validator.isValidPhone(rdt_basic_contact)
+        if (Validator.isValidName(rdt_org_name, true)
+            && Validator.isValidPhone(rdt_basic_contact, true)
         ) {
 
             val userData = ModelPreferencesManager.get<Data>(Constants.CURRENT_USER)
@@ -133,7 +133,13 @@ class ProfileBasicDetailFragment(val userProfileCallBack: UserProfileCallBack) :
     private fun setData() {
         rdt_basic_email.isEnabled = false
         val userData = ModelPreferencesManager.get<Data>(Constants.CURRENT_USER)
-        rdt_org_name.setText(userData?.user?.organization, TextView.BufferType.EDITABLE)
+
+        if(userData?.user?.organization == null){
+            rdt_org_name.hint ="Organization Name"
+        }else{
+            rdt_org_name.hint =""
+            rdt_org_name.setText(userData?.user?.organization, TextView.BufferType.EDITABLE)
+        }
         rdt_basic_name.setText(userData?.user?.name, TextView.BufferType.EDITABLE)
         rdt_basic_email.setText(userData?.user?.email, TextView.BufferType.EDITABLE)
         edt_basic_address.setText(userData?.user?.address, TextView.BufferType.EDITABLE)
