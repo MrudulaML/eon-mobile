@@ -139,7 +139,7 @@
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_marginBottom="32dp"
         android:backgroundTint="@color/colorPrimary"
-        android:background="@drawable/bg_button_rounded_corners"
+        android:background="@drawable/bg_blue_cruve"
         android:padding="@dimen/_4sdp"
         android:text="Add"
         android:textAllCaps="false"

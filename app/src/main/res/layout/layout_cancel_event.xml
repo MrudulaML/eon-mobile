@@ -50,7 +50,7 @@
         android:textSize="10sp"
         android:layout_marginTop="50dp"
         android:layout_marginBottom="30dp"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/bg_blue_cruve"
         android:text="Confirm"
         android:textColor="@color/white"
         android:textAllCaps="false"
