@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.fragment_create_password.*
 
 class ResetPasswordFragment : Fragment() {
 
+    var isBack = false
     lateinit var authViewModel: AuthViewModel
     lateinit var binding: FragmentCreatePasswordBinding
     private var email: String? = ""
@@ -44,6 +45,11 @@ class ResetPasswordFragment : Fragment() {
         } ?: throw Exception("Invalid Activity")
 
         initViews()
+
+        btn_reset_back.clickWithDebounce {
+            onBackClick()
+        }
+
         btn_forgot_password_next.clickWithDebounce {
             onNextClick()
         }
@@ -91,6 +97,16 @@ class ResetPasswordFragment : Fragment() {
         binding.title.text = "Forgot Password"
         authViewModel.forgotPasswordSteps = ForgotPasswordSteps.ENTER_DETAILS
         binding.step = ForgotPasswordSteps.ENTER_DETAILS
+    }
+
+    private fun onBackClick(){
+
+        if (isBack){
+            isBack = false
+            //to do for back address screen
+        }else{
+            findNavController().popBackStack()  //  <- this code is to take him back to login screen
+        }
     }
 
     private fun onNextClick() {

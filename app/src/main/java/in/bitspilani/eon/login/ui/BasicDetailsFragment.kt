@@ -16,10 +16,17 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.shuhart.stepview.StepView
 import kotlinx.android.synthetic.main.fragment_basic_details.*
 
 
+
+
 class BasicDetailsFragment : Fragment() {
+
+    lateinit var stepView : StepView
+
+    var isBack = false
 
     lateinit var authViewModel: AuthViewModel
     lateinit var binding: FragmentBasicDetailsBinding
@@ -42,6 +49,10 @@ class BasicDetailsFragment : Fragment() {
         return binding.root
     }
 
+    override fun onDetach() {
+        super.onDetach()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         authViewModel = activity?.run {
@@ -49,6 +60,10 @@ class BasicDetailsFragment : Fragment() {
         } ?: throw Exception("Invalid Activity")
 
         initViews()
+
+        btn_reg_back.clickWithDebounce {
+            onBackClick()
+        }
         btn_next.clickWithDebounce {
             onNextClick()
         }
@@ -94,9 +109,21 @@ class BasicDetailsFragment : Fragment() {
         })
     }
 
+    private fun onBackClick(){
+
+        if (isBack){
+            isBack = false
+            //to do for back address screen
+        }else{
+            findNavController().popBackStack()  //  <- this code is to take him back to login screen
+        }
+    }
+
     private fun onNextClick() {
         when (authViewModel.registerCurrentStep) {
             OrganiserDetailsSteps.BASIC_DETAILS -> {
+
+                isBack = true
 
                 if (authViewModel.userType == USER_TYPE.ORGANISER) {
                     if (!Validator.isValidName(edt_org_name, true)){
@@ -149,6 +176,7 @@ class BasicDetailsFragment : Fragment() {
             }
 
             OrganiserDetailsSteps.PASSWORD -> {
+//                isBack = true
                 if (Validator.isValidPassword(edt_password)) {
                     if (TextUtils.equals(edt_password.text, edt_confirm_password.text)) {
 
