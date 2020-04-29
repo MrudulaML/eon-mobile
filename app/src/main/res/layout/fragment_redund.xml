@@ -26,8 +26,8 @@
 
             <ImageView
                 android:id="@+id/iv_back_refund"
-                android:layout_width="40dp"
-                android:layout_height="30dp"
+                android:layout_width="@dimen/_24dp"
+                android:layout_height="@dimen/_24dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="15dp"
                 android:src="@drawable/ic_icon_arrow_white"
