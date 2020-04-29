@@ -87,7 +87,7 @@
                     app:sv_doneCircleColor="@color/white"
                     app:sv_doneStepLineColor="@color/green"
                     app:sv_doneStepMarkColor="@color/navy"
-                    app:sv_doneTextColor="@color/navy"
+                    app:sv_doneTextColor="@color/white"
                     app:sv_nextStepCircleColor="@color/grey"
                     app:sv_nextStepCircleEnabled="true"
                     app:sv_nextStepLineColor="@color/grey"
@@ -376,17 +376,10 @@
                         <androidx.appcompat.widget.AppCompatTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_14sdp"
-                            android:text="@string/confirm_password"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_18fs" />
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_14sdp"
+                            android:layout_marginTop="@dimen/_10dp"
                             android:text="@string/password_restriction_hint"
-                            android:textSize="@dimen/_14fs"/>
+                            android:textSize="@dimen/_14fs"
+                            android:textColor="@color/navy"/>
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
                     <!--End: password steps-->
