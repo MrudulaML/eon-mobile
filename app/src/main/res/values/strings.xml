@@ -51,9 +51,9 @@
 
     <string name="facebook_app_id">544312269603763</string>
 
-    <string name="send_updates">Send Updates</string>
+    <string name="send_updates">Send updates</string>
     <string name="prompt_drop_down">Status</string>
-    <string name="send_reminder">Send Reminders</string>
+    <string name="send_reminder">Send reminders</string>
 
     <string name="rupee_symbol">\u20B9</string>
 

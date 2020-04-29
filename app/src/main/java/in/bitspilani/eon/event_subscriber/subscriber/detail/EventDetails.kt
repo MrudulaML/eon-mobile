@@ -378,7 +378,7 @@ class EventDetails : Fragment() {
             btn_cancel.goneUnless(data.eventStatus.equals("upcoming"))
 
 
-            if (amount > 0) btn_price.text = "₹ $amount" else btn_price.text = "confirm"
+            if (amount > 0) btn_price.text = "₹ $amount" else btn_price.text = "Confirm"
 
 
 
@@ -418,7 +418,6 @@ class EventDetails : Fragment() {
                     changePriceButtonColor()
                 }
             }
-
 
         })
 

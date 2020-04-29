@@ -135,6 +135,7 @@ class HomeFragment : Fragment() {
 
         eventDashboardViewModel.errorView.observe(viewLifecycleOwner, Observer {
 
+            if(it!=null)
             view?.showSnackbar(it,0)
         })
 

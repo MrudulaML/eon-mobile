@@ -60,7 +60,7 @@ class BitsEonActivity : AppCompatActivity(),ActionbarHost {
             val userData = ModelPreferencesManager.get<Data>(Constants.CURRENT_USER)
             when {
                 userData?.access.isNullOrEmpty() -> {
-                    delay(400)
+                    delay(3000)
                     navController.navigate(R.id.action_splashScreen_to_signInFragment)
 
                     //TODO fix this hack put null safety prone to crash
