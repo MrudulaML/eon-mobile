@@ -58,6 +58,7 @@
         android:background="@drawable/bg_blue_cruve"
         android:text="Share"
         android:textSize="10sp"
+        android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

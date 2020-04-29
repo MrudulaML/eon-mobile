@@ -35,6 +35,9 @@
     <string name="profile">Profile</string>
     <string name="name">Name</string>
 
+    <string name="download">Download</string>
+    <string name="send_feedback">Send Feedback</string>
+    <string name="cancel">Cancel</string>
 
     <string name="reset_password">Reset Password</string>
     <string name="verification_code">Enter the verification code</string>

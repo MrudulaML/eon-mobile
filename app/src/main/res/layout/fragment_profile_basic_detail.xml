@@ -158,6 +158,7 @@
                 android:background="@drawable/rounded_corner_grey_4"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:padding="@dimen/_4sdp"
+                android:textAllCaps="false"
                 android:text="Cancel"
                 android:textColor="@color/colorPrimary" />
 
@@ -170,6 +171,7 @@
                 android:backgroundTint="@color/colorPrimary"
                 android:background="@drawable/bg_button_rounded_corners"
                 android:padding="@dimen/_4sdp"
+                android:textAllCaps="false"
                 android:text="@string/update"
                 android:textColor="@color/white" />
 
