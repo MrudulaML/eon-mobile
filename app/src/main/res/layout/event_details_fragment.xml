@@ -171,89 +171,111 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_event_name" />
 
+                <TextView
+                    android:id="@+id/tv_event_location"
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    android:drawableStart="@drawable/ic_icon_map"
+                    android:drawablePadding="5dp"
+                    android:text="@{eventData.location}"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_event_date" />
 
+
+                <TextView
+                    android:id="@+id/tv_event_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="22dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:paddingStart="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_event_location" />
+
+
+                <View
+                    android:id="@+id/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@color/grey"
+                    app:layout_constraintTop_toBottomOf="@id/tv_event_status" />
+
+                <TextView
+                    android:id="@+id/tv_type_of_event"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Type of Event"
+                    android:textColor="@color/dark_grey2"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider" />
+
+                <TextView
+                    android:id="@+id/tv_type_of_event_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Technology"
+                    android:textColor="@color/dark_grey2"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_type_of_event" />
+
+                <TextView
+                    android:id="@+id/tv_subscription_fee"
+                    goneUnless="@{eventData.subscription_details.no_of_tickets_bought!=0}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="Type of Event"
+                    android:textColor="@color/dark_grey2"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBaseline_toBaselineOf="@id/tv_type_of_event"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider" />
+
+                <TextView
+                    android:id="@+id/tv_subscription_fee_value"
+                    goneUnless="@{eventData.subscription_details.no_of_tickets_bought!=0}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="@{`₹ `+eventData.subscription_details.amount_paid}"
+                    android:textColor="@color/dark_grey2"
+                    android:textSize="16sp"
+                    app:layout_constraintBaseline_toBaselineOf="@id/tv_type_of_event_value"
+                    app:layout_constraintStart_toStartOf="@id/tv_subscription_fee"
+                    app:layout_constraintTop_toBottomOf="@id/tv_subscription_fee" />
 
                 <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/tv_event_date">
+                    app:layout_constraintTop_toBottomOf="@id/tv_type_of_event_value">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-
-                        <TextView
-                            android:id="@+id/tv_event_location"
-                            android:layout_width="250dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="5dp"
-                            android:drawableStart="@drawable/ic_icon_map"
-                            android:drawablePadding="5dp"
-                            android:text="@{eventData.location}"
-                            android:textSize="15sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/tv_event_date" />
-
-
-                        <TextView
-                            android:gravity="center"
-                            android:paddingStart="10dp"
-                            android:paddingTop="5dp"
-                            android:paddingEnd="10dp"
-                            android:paddingBottom="5dp"
-                            android:id="@+id/tv_event_status"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="22dp"
-                            android:layout_marginTop="10dp"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="12sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/tv_event_date" />
-
-
-                        <View
-                            android:id="@+id/divider"
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginEnd="20dp"
-                            android:background="@color/grey"
-                            app:layout_constraintTop_toBottomOf="@id/tv_event_location" />
-
-                        <TextView
-                            android:id="@+id/tv_type_of_event"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="10dp"
-                            android:text="Type of Event"
-                            android:textColor="@color/dark_grey2"
-                            android:textSize="15sp"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/divider" />
-
-                        <TextView
-                            android:id="@+id/tv_type_of_event_value"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="10dp"
-                            android:background="@drawable/rounded_bg_grey"
-                            android:paddingStart="10dp"
-                            android:paddingTop="5dp"
-                            android:paddingEnd="10dp"
-                            android:paddingBottom="5dp"
-                            android:text="Technology"
-                            android:textColor="@color/dark_grey2"
-                            android:textSize="16sp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/tv_type_of_event" />
 
                         <TextView
                             android:id="@+id/tv_event_detail_text"

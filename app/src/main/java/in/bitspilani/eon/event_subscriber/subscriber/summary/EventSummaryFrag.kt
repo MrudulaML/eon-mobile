@@ -57,6 +57,7 @@ class EventSummaryFrag : Fragment() {
 
     fun getAndSetValues() {
 
+
         totalAttendees = arguments!!.getInt(Constants.ATTENDEES, 0)
         tv_attendees_value.text = totalAttendees.toString()
         amount = (arguments!!.getInt(Constants.AMOUNT, 0) * totalAttendees)
@@ -65,8 +66,9 @@ class EventSummaryFrag : Fragment() {
         discountAmount = (arguments!!.getInt(Constants.DISCOUNT_AMOUNT, 0) * totalAttendees)
         isUpdate = arguments!!.getBoolean(Constants.IS_UPDATE, false)
 
-
-        promo_group.goneUnless(discountPercentage > 0)
+        et_promocode.goneUnless(discountPercentage > 0)
+        tv_apply.goneUnless(discountPercentage > 0)
+        iv_cancel_promo.visibility=View.GONE
 
         cl_normal_summary.visibility = View.VISIBLE
 

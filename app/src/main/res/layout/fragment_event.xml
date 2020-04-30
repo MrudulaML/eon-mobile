@@ -58,7 +58,6 @@
         android:padding="@dimen/_4sdp"
         android:textAlignment="center"
         android:textColor="@color/grey"
-        app:layout_constraintBottom_toBottomOf="@+id/appCompatTextView4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/appCompatTextView15" />
 
@@ -183,7 +182,7 @@
         tools:text="9:00 PM 12 Mar'20"
         dateAndTime="@{eventDetail.data.date+` `+eventDetail.data.time}"
         android:textColor="@color/grey"
-        android:textSize="14sp"
+        android:textSize="13sp"
         app:layout_constraintStart_toStartOf="@+id/appCompatTextView8"
         app:layout_constraintTop_toBottomOf="@+id/appCompatTextView8" />
 
