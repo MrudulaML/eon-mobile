@@ -22,7 +22,7 @@
             android:layout_marginEnd="10dp"
             android:id="@+id/tv_total_available_tickets"
             android:gravity="center"
-            android:text="@{`Total available Tickets: `+ Long.toString(eventData.remainingTickets)}"
+            android:text="@{`Total Available Tickets: `+ Long.toString(eventData.remainingTickets)}"
             android:background="@drawable/bg_red_curve_rectangle"
             android:layout_width="match_parent"
             android:layout_height="30dp" />

@@ -395,8 +395,9 @@ class EventDetails : Fragment() {
                 eventDetailsViewModel.wishlist = false
                 iv_wishlist.src(R.drawable.ic_wishlist_fill)
             }
-            tv_event_date.formatDate(data.date, data.time)
+           // tv_event_date.formatDate(data.date, data.time)
 
+           convertDateAndTime(tv_event_date,data.date+" "+data.time)
             if (data.is_subscribed) {
                 btn_feedback.visibility = View.VISIBLE
                 isSubscribed = true
@@ -544,7 +545,7 @@ class EventDetails : Fragment() {
             val eventSeatCounter = data.subscription_details?.no_of_tickets_bought
             val eventAmount = data.subscription_details?.amount_paid.toString()
 
-            val bookingNotes = "It's non-transferable ticket"
+            val bookingNotes = "Ticket is non-transferable."
             val bookingDate = getFormattedDate(data.subscription_details!!.createdOn)
 
             var userEmailId = userData!!.user.email
@@ -581,7 +582,7 @@ class EventDetails : Fragment() {
             // header
             titlePaint.textSize = resources.getDimension(R.dimen._22fs)
             titlePaint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
-            canvas.drawText(orgTitle, 220F, 180F, titlePaint)// divider
+            canvas.drawText(orgTitle, 180F, 160F, titlePaint)// divider
             canvas.drawLine(40F, 248F, 1200 - 40F, 248F, linePaint)
 
             // QR Code
@@ -609,8 +610,8 @@ class EventDetails : Fragment() {
 
             // Note
             textPaint.textSize = resources.getDimension(R.dimen._14fs)
-            textPaint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
-            canvas.drawText("*Note: " + bookingNotes, 40F, 920F, textPaint);
+            textPaint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)
+            canvas.drawText("*Note: " + bookingNotes, 300F, 930F, textPaint);
 
             document.finishPage(page)
 

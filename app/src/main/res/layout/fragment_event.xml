@@ -120,8 +120,8 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
         android:text="Type of Event"
-        android:textColor="@color/grey"
-        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appCompatTextView5" />
 
@@ -136,7 +136,6 @@
         android:textColor="@color/grey"
         android:textSize="14sp"
         tools:text="ashajsa"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/appCompatTextView7"
         app:layout_constraintTop_toBottomOf="@+id/appCompatTextView7" />
 
@@ -147,8 +146,8 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="60dp"
         android:text="No. of Tickets"
-        android:textColor="@color/grey"
-        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appCompatTextView5" />
 
@@ -161,7 +160,6 @@
         android:text="@{Integer.toString(eventDetail.data.no_of_tickets)}"
         android:textColor="@color/grey"
         android:textSize="14sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/appCompatTextView6"
         app:layout_constraintTop_toBottomOf="@+id/appCompatTextView6" />
 
@@ -172,8 +170,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Event Date &amp; Time"
-        android:textColor="@color/grey"
-        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/appCompatTextView9"
         app:layout_constraintTop_toBottomOf="@+id/appCompatTextView9" />
 
@@ -186,7 +184,6 @@
         dateAndTime="@{eventDetail.data.date+` `+eventDetail.data.time}"
         android:textColor="@color/grey"
         android:textSize="14sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/appCompatTextView8"
         app:layout_constraintTop_toBottomOf="@+id/appCompatTextView8" />
 
@@ -199,8 +196,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Subscription Fee"
-        android:textColor="@color/grey"
-        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/appCompatTextView11"
         app:layout_constraintTop_toBottomOf="@+id/appCompatTextView11" />
 
@@ -213,7 +210,6 @@
         android:text="@{eventDetail.data.subscription_fee>0?Integer.toString(eventDetail.data.subscription_fee):`FREE`}"
         android:textColor="@color/grey"
         android:textSize="14sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/appCompatTextView12"
         app:layout_constraintTop_toBottomOf="@+id/appCompatTextView12" />
 

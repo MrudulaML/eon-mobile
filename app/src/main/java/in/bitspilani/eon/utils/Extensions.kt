@@ -313,11 +313,13 @@ fun convertDateAndTime(view: TextView, dateInString: String)
 {
 
     var inputFormat=SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH)
-    var outputFormat=SimpleDateFormat("KK:mm a EEE, dd MMM yyyy ", Locale.ENGLISH)
+    var outputFormat=SimpleDateFormat("EEE, dd MMM yyyy, KK:mm a", Locale.ENGLISH)
 
     view.text=outputFormat.format(inputFormat.parse(dateInString)!!)
 
 }
+
+
 
 
 

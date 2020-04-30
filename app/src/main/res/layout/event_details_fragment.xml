@@ -166,11 +166,11 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="20dp"
                     android:drawableStart="@drawable/ic_icon_calendar_gray"
-                    android:drawablePadding="10dp"
-                    android:textColor="@color/colorPrimary"
+                    android:drawablePadding="5dp"
                     android:textSize="15sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_event_name" />
+
 
 
                 <androidx.core.widget.NestedScrollView
@@ -191,9 +191,8 @@
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="5dp"
                             android:drawableStart="@drawable/ic_icon_map"
-                            android:drawablePadding="10dp"
+                            android:drawablePadding="5dp"
                             android:text="@{eventData.location}"
-                            android:textColor="@color/colorPrimary"
                             android:textSize="15sp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/tv_event_date" />
@@ -232,7 +231,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="20dp"
                             android:layout_marginTop="10dp"
-                            android:text="Type of event"
+                            android:text="Type of Event"
                             android:textColor="@color/dark_grey2"
                             android:textSize="15sp"
                             android:textStyle="bold"
