@@ -6,11 +6,13 @@ import `in`.bitspilani.eon.event_organiser.models.Data
 import `in`.bitspilani.eon.event_organiser.models.Invitee
 import `in`.bitspilani.eon.event_organiser.viewmodel.AddInviteeViewModel
 import `in`.bitspilani.eon.utils.*
+import android.app.Dialog
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -43,8 +45,11 @@ class AddInviteeFragment(
         savedInstanceState: Bundle?
     ): View? {
         isCancelable = false
+        dialog!!.window!!
+            .setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
         return inflater.inflate(R.layout.fragment_add_invitee, container, false)
     }
+
 
     override fun getTheme(): Int {
         return R.style.DialogTheme
@@ -152,7 +157,6 @@ class AddInviteeFragment(
                 text_updated_fees.text = eventData.subscription_fee.toString()
             }
         }
-
 
     }
 

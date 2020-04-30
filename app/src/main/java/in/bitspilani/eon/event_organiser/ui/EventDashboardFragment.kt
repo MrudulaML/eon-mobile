@@ -45,6 +45,7 @@ class HomeFragment : Fragment() {
         eventDashboardViewModel.getEvents()
         eventDashboardViewModel.setupEventTypes()
         setHasOptionsMenu(true)
+        eventDashboardViewModel.resetFilters()
 
     }
 
