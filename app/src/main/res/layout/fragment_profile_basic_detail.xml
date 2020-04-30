@@ -56,7 +56,7 @@
             android:layout_marginEnd="24dp"
             android:background="@drawable/rounded_corner_grey_4"
             android:layout_marginTop="24dp"
-            android:padding="@dimen/_8dp"
+            android:padding="@dimen/_18dp"
             android:theme="@style/TextLabel">
 
             <androidx.appcompat.widget.AppCompatEditText
@@ -68,7 +68,7 @@
                 android:drawableLeft="@drawable/ic_icon_basic_details_grey"
                 android:drawablePadding="@dimen/_6sdp"
                 android:layout_marginBottom="@dimen/_10dp"
-                android:layout_marginStart="@dimen/_10dp"
+                android:layout_marginStart="@dimen/_2dp"
                 android:gravity="center_vertical|left"
                 android:inputType="text"
                 android:hint="Organization Name"
@@ -87,7 +87,7 @@
             android:background="@drawable/rounded_corner_grey_4"
             android:visibility="gone"
             android:layout_marginTop="24dp"
-            android:padding="@dimen/_8dp"
+            android:padding="@dimen/_18dp"
             android:hint="@string/name"
             android:theme="@style/TextLabel">
 
@@ -100,7 +100,7 @@
                 android:drawableLeft="@drawable/ic_user"
                 android:drawablePadding="@dimen/_6sdp"
                 android:layout_marginBottom="@dimen/_10dp"
-                android:layout_marginStart="@dimen/_10dp"
+                android:layout_marginStart="@dimen/_2dp"
                 android:gravity="center_vertical|left"
                 android:inputType="text"
                 android:textColorHint="@color/grey"
@@ -117,7 +117,7 @@
             android:layout_marginEnd="24dp"
             android:background="@drawable/rounded_corner_grey_4"
             android:layout_marginTop="24dp"
-            android:padding="@dimen/_8dp"
+            android:padding="@dimen/_18dp"
             android:hint="Email"
             android:theme="@style/TextLabel">
 
@@ -130,7 +130,7 @@
                 android:drawableLeft="@drawable/ic_icon_mail_grey"
                 android:drawablePadding="@dimen/_6sdp"
                 android:layout_marginBottom="@dimen/_10dp"
-                android:layout_marginStart="@dimen/_10dp"
+                android:layout_marginStart="@dimen/_2dp"
                 android:gravity="center_vertical|left"
                 android:inputType="textEmailAddress"
                 android:textColorHint="@color/grey"
@@ -147,7 +147,7 @@
             android:layout_marginEnd="24dp"
             android:background="@drawable/rounded_corner_grey_4"
             android:layout_marginTop="24dp"
-            android:padding="@dimen/_8dp"
+            android:padding="@dimen/_18dp"
             android:theme="@style/TextLabel">
 
             <androidx.appcompat.widget.AppCompatEditText
@@ -159,10 +159,10 @@
                 android:drawableLeft="@drawable/ic_icon_phone_grey"
                 android:drawablePadding="@dimen/_6sdp"
                 android:layout_marginBottom="@dimen/_10dp"
-                android:layout_marginStart="@dimen/_10dp"
+                android:layout_marginStart="@dimen/_2dp"
                 android:gravity="center_vertical|left"
                 android:inputType="number"
-                android:hint="Contact"
+                android:hint="Contact No."
                 android:textColorHint="@color/grey"
                 android:textSize="@dimen/_18fs" />
 
@@ -183,7 +183,7 @@
             android:lines="8"
             android:minLines="3"
             android:scrollbars="vertical"
-            android:hint="@string/address"
+            android:hint="Enter Address"
             android:singleLine="false" />
 
         <androidx.appcompat.widget.AppCompatTextView

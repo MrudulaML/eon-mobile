@@ -575,7 +575,7 @@ class EventDetails : Fragment() {
         canvas.drawBitmap(resizedLogoBitmap, 40F, 80F, bitmapPaint)
 
         // header
-        titlePaint.textSize = resources.getDimension(R.dimen._18fs)
+        titlePaint.textSize = resources.getDimension(R.dimen._22fs)
         titlePaint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
         canvas.drawText(orgTitle, 220F, 180F, titlePaint)// divider
         canvas.drawLine(40F, 248F, 1200 - 40F, 248F, linePaint)
