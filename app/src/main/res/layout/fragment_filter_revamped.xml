@@ -129,7 +129,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@drawable/bg_button_rounded_corners"
+        android:background="@drawable/bg_blue_cruve"
         android:backgroundTint="@color/colorPrimary"
         android:text="Filter"
         android:textAllCaps="false"

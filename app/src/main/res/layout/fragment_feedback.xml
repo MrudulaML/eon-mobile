@@ -101,7 +101,7 @@
         android:layout_width="100dp"
         android:layout_height="30dp"
         android:layout_marginBottom="40dp"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/bg_blue_cruve"
         android:text="Submit"
         android:textColor="@color/white"
         android:textAllCaps="false"

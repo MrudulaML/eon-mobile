@@ -63,7 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:background="@drawable/bg_button_rounded_corners"
+        android:background="@drawable/bg_blue_cruve"
         android:backgroundTint="@color/colorPrimary"
         android:padding="@dimen/_4sdp"
         android:textAllCaps="false"

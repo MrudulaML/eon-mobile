@@ -47,63 +47,126 @@
             android:theme="@style/CircularProgress"
             android:visibility="gone"/>
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/rdt_org_name"
+        <!--organization input-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_org_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
-            android:drawableLeft="@drawable/ic_icon_basic_details_grey"
-            android:drawablePadding="@dimen/_4sdp"
             android:background="@drawable/rounded_corner_grey_4"
-            android:gravity="center_vertical|left"
-            android:hint="@string/org_name"
-            android:padding="@dimen/_8sdp"/>
+            android:layout_marginTop="24dp"
+            android:padding="@dimen/_8dp"
+            android:theme="@style/TextLabel">
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/rdt_basic_name"
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/rdt_org_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:drawableStart="@drawable/ic_icon_basic_details_grey"
+                android:drawableLeft="@drawable/ic_icon_basic_details_grey"
+                android:drawablePadding="@dimen/_6sdp"
+                android:layout_marginBottom="@dimen/_10dp"
+                android:layout_marginStart="@dimen/_10dp"
+                android:gravity="center_vertical|left"
+                android:inputType="text"
+                android:hint="Organization Name"
+                android:textColorHint="@color/grey"
+                android:textSize="@dimen/_18fs" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--name input-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_basic_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
+            android:background="@drawable/rounded_corner_grey_4"
             android:visibility="gone"
-            android:drawableLeft="@drawable/ic_user"
-            android:drawablePadding="@dimen/_4sdp"
-            android:background="@drawable/rounded_corner_grey_4"
-            android:gravity="center_vertical|left"
+            android:layout_marginTop="24dp"
+            android:padding="@dimen/_8dp"
             android:hint="@string/name"
-            android:padding="@dimen/_8sdp"/>
+            android:theme="@style/TextLabel">
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/rdt_basic_email"
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/rdt_basic_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:drawableStart="@drawable/ic_user"
+                android:drawableLeft="@drawable/ic_user"
+                android:drawablePadding="@dimen/_6sdp"
+                android:layout_marginBottom="@dimen/_10dp"
+                android:layout_marginStart="@dimen/_10dp"
+                android:gravity="center_vertical|left"
+                android:inputType="text"
+                android:textColorHint="@color/grey"
+                android:textSize="@dimen/_18fs" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--email input-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_basic_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
-            android:drawableLeft="@drawable/ic_icon_mail_grey"
-            android:drawablePadding="@dimen/_2sdp"
             android:background="@drawable/rounded_corner_grey_4"
-            android:gravity="center_vertical|left"
+            android:layout_marginTop="24dp"
+            android:padding="@dimen/_8dp"
             android:hint="Email"
-            android:padding="@dimen/_8sdp"/>
+            android:theme="@style/TextLabel">
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/rdt_basic_contact"
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/rdt_basic_email"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:drawableStart="@drawable/ic_icon_mail_grey"
+                android:drawableLeft="@drawable/ic_icon_mail_grey"
+                android:drawablePadding="@dimen/_6sdp"
+                android:layout_marginBottom="@dimen/_10dp"
+                android:layout_marginStart="@dimen/_10dp"
+                android:gravity="center_vertical|left"
+                android:inputType="textEmailAddress"
+                android:textColorHint="@color/grey"
+                android:textSize="@dimen/_18fs" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--contact input-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_basic_contact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
-            android:inputType="numberDecimal"
-            android:drawableLeft="@drawable/ic_icon_phone_grey"
-            android:drawablePadding="@dimen/_2sdp"
             android:background="@drawable/rounded_corner_grey_4"
-            android:gravity="center_vertical|left"
-            android:hint="Contact"
-            android:padding="@dimen/_8sdp"/>
+            android:layout_marginTop="24dp"
+            android:padding="@dimen/_8dp"
+            android:theme="@style/TextLabel">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/rdt_basic_contact"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:drawableStart="@drawable/ic_icon_phone_grey"
+                android:drawableLeft="@drawable/ic_icon_phone_grey"
+                android:drawablePadding="@dimen/_6sdp"
+                android:layout_marginBottom="@dimen/_10dp"
+                android:layout_marginStart="@dimen/_10dp"
+                android:gravity="center_vertical|left"
+                android:inputType="number"
+                android:hint="Contact"
+                android:textColorHint="@color/grey"
+                android:textSize="@dimen/_18fs" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edt_basic_address"
@@ -169,7 +232,7 @@
                 android:layout_marginHorizontal="@dimen/_16sdp"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:backgroundTint="@color/colorPrimary"
-                android:background="@drawable/bg_button_rounded_corners"
+                android:background="@drawable/bg_blue_cruve"
                 android:padding="@dimen/_4sdp"
                 android:textAllCaps="false"
                 android:text="@string/update"

@@ -20,7 +20,7 @@ enum class OrganiserDetailsSteps(val desc: String) {
 }
 
 enum class ForgotPasswordSteps(val desc: String) {
-    ENTER_DETAILS("Enter Details"),
+    ENTER_DETAILS("Basic"),
     VERIFICATION_CODE("Verification Code"),
     PASSWORD("Password"),
     SUCCESS("Success"),

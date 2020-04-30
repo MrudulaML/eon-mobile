@@ -532,16 +532,16 @@ class EventDetails : Fragment() {
         var barcodeEncoder = BarcodeEncoder()
         var bitMatrix: BitMatrix? = null
 
+
+        val orgTitle = "EOn"
         val eventName = data.event_name
-        val eventDateTime = tv_event_date.text.toString()
+        val eventDateTime = getFormattedDate(data.date)
         val eventLocation = data.location
         val eventSeatCounter = data.subscription_details?.no_of_tickets_bought
         val eventAmount = data.subscription_details?.amount_paid.toString()
 
         val bookingNotes = "It's non-transferable ticket"
-        val bookingDate = data.subscription_details!!.createdOn // created on
-
-        // to do booking date format into date time
+        val bookingDate = getFormattedDate(data.subscription_details!!.createdOn)
 
         var userEmailId = userData!!.user.email
         var userName = ""
@@ -577,7 +577,7 @@ class EventDetails : Fragment() {
         // header
         titlePaint.textSize = resources.getDimension(R.dimen._18fs)
         titlePaint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
-        canvas.drawText(eventName, 220F, 180F, titlePaint)// divider
+        canvas.drawText(orgTitle, 220F, 180F, titlePaint)// divider
         canvas.drawLine(40F, 248F, 1200 - 40F, 248F, linePaint)
 
         // QR Code
@@ -653,17 +653,18 @@ class EventDetails : Fragment() {
 
     }
 
-    fun formatDateTime(date_time: String): String {
-
-        var dateFormat: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
-        val today = dateFormat.format(date_time)
-        return today
-    }
-
-
-    fun toSimpleString(date: Date): String {
-        val format = SimpleDateFormat("dd/MM/yyy")
-        return format.format(date)
+    fun getFormattedDate(dateInString: String): String
+    {
+        try {
+            var dateFormat: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd");
+            var date: Date = dateFormat.parse(dateInString);
+            val formatter: DateFormat = SimpleDateFormat("EEEEEEEEE, dd MMM yyyy ")
+            val today = formatter.format(date)
+            return today
+        }catch (e: Exception){
+            Log.e("xoxo","date conversion excepption:"+e.toString() )
+        }
+      return ""
     }
 
     private fun getEventQRCode(event_id: Int) {
