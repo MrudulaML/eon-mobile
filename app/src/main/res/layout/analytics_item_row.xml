@@ -37,16 +37,19 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/appCompatTextView24"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:paddingStart="@dimen/_16sdp"
+            android:paddingEnd="@dimen/_4sdp"
             android:text="@{organized_event.name}"
             android:textColor="@color/dark_grey2"
             android:textSize="16sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/appCompatTextView23"
             app:layout_constraintStart_toStartOf="@+id/appCompatTextView20"
-            app:layout_constraintTop_toBottomOf="@+id/appCompatTextView20" />
+            app:layout_constraintTop_toBottomOf="@+id/appCompatTextView20"
+            tools:text="ajdhajdhajdhajdhjkadhajhd" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/appCompatTextView21"
