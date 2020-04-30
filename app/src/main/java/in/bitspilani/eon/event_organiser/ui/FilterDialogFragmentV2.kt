@@ -39,7 +39,6 @@ class FilterDialogFragmentV2 : DialogFragment() {
 
     private var eventList: ArrayList<String> = arrayListOf()
     private lateinit var eventDashboardViewModel: EventDashboardViewModel
-
     private var selectedEventType: Int? = null
     private var selectedEventStatus: String? = null
     private var selectedEventFees: String? = null
@@ -69,9 +68,9 @@ class FilterDialogFragmentV2 : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if(ModelPreferencesManager.getInt(Constants.USER_ROLE)==2)
-            chb_by_me.visibility=View.GONE
-        val user =  ModelPreferencesManager.get<FilterResponse>(Constants.EVENT_TYPES)
+        if (ModelPreferencesManager.getInt(Constants.USER_ROLE) == 2)
+            chb_by_me.visibility = View.GONE
+        val user = ModelPreferencesManager.get<FilterResponse>(Constants.EVENT_TYPES)
         user?.data?.let { populateFilters(it) }
 
         setDatePicker(edt_start_date)
@@ -171,7 +170,7 @@ class FilterDialogFragmentV2 : DialogFragment() {
                 position: Int,
                 id: Long
             ) {
-                selectedEventStatusPos=position
+                selectedEventStatusPos = position
                 selectedEventStatus =
                     if (parent?.getItemAtPosition(position).toString().toLowerCase()
                             .equals("upcoming")
@@ -194,7 +193,7 @@ class FilterDialogFragmentV2 : DialogFragment() {
                 position: Int,
                 id: Long
             ) {
-                selectedEventFeesPos=position
+                selectedEventFeesPos = position
                 selectedEventFees = if (position == 0)
                     null
                 else
@@ -217,18 +216,29 @@ class FilterDialogFragmentV2 : DialogFragment() {
         val myCalendar = Calendar.getInstance()
         val datePickerOnDataSetListener =
             DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+
                 myCalendar.set(Calendar.YEAR, year)
                 myCalendar.set(Calendar.MONTH, monthOfYear)
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                 updateLabel(myCalendar, dateEditText)
             }
         dateEditText.setOnClickListener {
-            DatePickerDialog(
-                activity!!, datePickerOnDataSetListener, myCalendar
-                    .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                myCalendar.get(Calendar.DAY_OF_MONTH)
-            ).show()
+
+            if (!dateEditText.text.isNullOrEmpty()) {
+                val date = dateEditText.text.toString().split("-")
+                DatePickerDialog(
+                    activity!!, datePickerOnDataSetListener, date[0].toInt(),
+                    date[1].toInt()-1,
+                    date[2].toInt()).show()
+            } else {
+                DatePickerDialog(
+                    activity!!, datePickerOnDataSetListener, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                    myCalendar.get(Calendar.DAY_OF_MONTH)
+                ).show()
+            }
         }
+
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -253,7 +263,7 @@ class FilterDialogFragmentV2 : DialogFragment() {
 
         val eventStatusAdapter = ArrayAdapter(
             context!!,
-            R.layout.spinner_item_row, arrayListOf("Upcoming", "Completed", "Cancelled","All")
+            R.layout.spinner_item_row, arrayListOf("Upcoming", "Completed", "Cancelled", "All")
         )
         event_status_spinner.adapter = eventStatusAdapter
 
@@ -281,10 +291,10 @@ class FilterDialogFragmentV2 : DialogFragment() {
             event_types_spinner.setSelection(it)
         }
         filters?.eventFees?.let {
-                event_fees_spinner.setSelection(it)
+            event_fees_spinner.setSelection(it)
         }
         filters?.byMe?.let {
-            chb_by_me.isChecked= it.toLowerCase().equals("true")
+            chb_by_me.isChecked = it.toLowerCase().equals("true")
         }
 
         filters?.startDate?.let {
@@ -293,6 +303,7 @@ class FilterDialogFragmentV2 : DialogFragment() {
 
         filters?.endDate?.let {
             edt_end_date.setText(it)
+
         }
 
 
