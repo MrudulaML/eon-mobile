@@ -26,9 +26,6 @@
         android:id="@+id/appCompatImageView2"
         android:layout_width="0dp"
         android:layout_height="@dimen/_200dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
         android:scaleType="centerCrop"
         app:imageUrl="@{eventDetail.data.images}"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,6 +46,23 @@
         app:layout_constraintTop_toBottomOf="@+id/appCompatImageView2"
         tools:text="Name" />
 
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_url"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="20dp"
+        android:gravity="center"
+        android:drawableLeft="@drawable/ic_icon_url"
+        android:padding="@dimen/_4sdp"
+        android:textAlignment="center"
+        android:textColor="@color/grey"
+        app:layout_constraintBottom_toBottomOf="@+id/appCompatTextView4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/appCompatTextView15" />
+
+    <!-- type of event-->
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/appCompatTextView15"
         android:layout_width="wrap_content"
@@ -67,20 +81,22 @@
         tools:text="Location" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/text_url"
+        android:id="@+id/tv_event_status"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginEnd="20dp"
-        android:gravity="center"
-        android:drawableLeft="@drawable/ic_icon_url"
-        android:padding="@dimen/_4sdp"
-        android:textAlignment="center"
-        android:textColor="@color/grey"
-        app:layout_constraintBottom_toBottomOf="@+id/appCompatTextView4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/appCompatTextView15" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="10dp"
 
-    <!-- type of event-->
+        android:gravity="center"
+        android:paddingStart="10dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="5dp"
+        android:textColor="@color/grey"
+        eventStatus="@{eventDetail.data.event_status}"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView15"
+        tools:text="Event Status" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/appCompatTextView5"
@@ -94,7 +110,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.052"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appCompatTextView15"
+        app:layout_constraintTop_toBottomOf="@+id/tv_event_status"
         tools:text="Description" />
 
     <androidx.appcompat.widget.AppCompatTextView

@@ -98,9 +98,7 @@ class ProfileBasicDetailFragment(val userProfileCallBack: UserProfileCallBack) :
 
     private fun validateDataAndConfirm() {
 
-        if (Validator.isValidName(rdt_org_name, true)
-            && Validator.isValidPhone(rdt_basic_contact, true)
-        ) {
+        if (Validator.isValidName(rdt_org_name, true) && Validator.isValidPhone(rdt_basic_contact, true ) && isContactNumberValid()) {
 
             val userData = ModelPreferencesManager.get<Data>(Constants.CURRENT_USER)
 
@@ -130,6 +128,22 @@ class ProfileBasicDetailFragment(val userProfileCallBack: UserProfileCallBack) :
 
     }
 
+    fun isContactNumberValid():Boolean{
+
+
+        if(rdt_basic_contact.text!!.length==10){
+            return true
+        }else
+           showUserMsg("Please enter 10 digit mobile number")
+
+        return false
+
+    }
+
+    fun showUserMsg(msg: String){
+
+        Toast.makeText(activity!!,msg,Toast.LENGTH_LONG).show()
+    }
     private fun setData() {
         rdt_basic_email.isEnabled = false
         val userData = ModelPreferencesManager.get<Data>(Constants.CURRENT_USER)

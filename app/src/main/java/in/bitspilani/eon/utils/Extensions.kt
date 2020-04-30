@@ -202,6 +202,9 @@ fun setEventStatus(view : TextView, status : String ){
 
 }
 
+
+
+
 @BindingAdapter("organizedEventStatus")
 fun setOrganizedEventStatus(view : TextView, status : String ){
 

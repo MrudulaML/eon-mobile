@@ -196,7 +196,7 @@ class FeedbackFragment : Fragment() {
 
         feedbackViewmodel.postFeedbackData.observe(viewLifecycleOwner, Observer {
 
-            showUserMsg("Feedback Submitted Successfully")
+            showUserMsg("Feedback submitted successfully")
             findNavController().popBackStack()
         })
 

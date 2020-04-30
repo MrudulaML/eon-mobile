@@ -106,6 +106,9 @@ class EventDetails : Fragment() {
 
             tv_seat_counter.text = 1.toString()
 
+            btn_price.transformationMethod = null
+            btn_feedback.transformationMethod=null
+
             setClicks()
         } catch (e: Exception) {
 
@@ -292,7 +295,7 @@ class EventDetails : Fragment() {
 
     }
 
-    var allowBooking: Boolean= true
+    var allowBooking: Boolean = true
 
     var count = 1
     fun setDummyCounterLogic() {
@@ -301,16 +304,15 @@ class EventDetails : Fragment() {
         iv_increment.setOnClickListener {
 
 
+            if (count < data.remainingTickets + data.subscription_details!!.no_of_tickets_bought) {
 
-                if (count < data.remainingTickets+data.subscription_details!!.no_of_tickets_bought) {
+                seatCount.postValue(++count)
 
-                    seatCount.postValue(++count)
+                changePriceButtonColor()
+            } else {
 
-                    changePriceButtonColor()
-                } else {
-
-                    showUserMsg("Only " + data.remainingTickets + " Tickets are remaining.")
-                }
+                showUserMsg("Only " + data.remainingTickets + " Tickets are remaining.")
+            }
 
 
         }
@@ -325,13 +327,12 @@ class EventDetails : Fragment() {
 
     }
 
-    fun changePriceButtonColor(){
+    fun changePriceButtonColor() {
 
-        if(!isCountAndBoughtTicketsSame()){
+        if (!isCountAndBoughtTicketsSame()) {
             btn_price.setBackgroundResource(R.drawable.bg_blue_cruve)
             btn_price.setTextColor(activity!!.resources.getColor(R.color.white))
-        }
-        else{
+        } else {
             btn_price.setBackgroundResource(R.drawable.bg_grey_curve)
             btn_price.setTextColor(activity!!.resources.getColor(R.color.black))
         }
@@ -339,12 +340,12 @@ class EventDetails : Fragment() {
 
     }
 
-    fun isCountAndBoughtTicketsSame() : Boolean{
+    fun isCountAndBoughtTicketsSame(): Boolean {
 
-        if(data.subscription_details!=null){
+        if (data.subscription_details != null) {
 
-            return count==data.subscription_details!!.no_of_tickets_bought
-        }else
+            return count == data.subscription_details!!.no_of_tickets_bought
+        } else
             return false
 
     }
@@ -377,6 +378,8 @@ class EventDetails : Fragment() {
             included_seat_counter.goneUnless(data.eventStatus.equals("upcoming"))
             btn_cancel.goneUnless(data.eventStatus.equals("upcoming"))
 
+            setEventStatus(tv_event_status, data.eventStatus)
+
 
             if (amount > 0) btn_price.text = "₹ $amount" else btn_price.text = "Confirm"
 
@@ -384,6 +387,7 @@ class EventDetails : Fragment() {
 
             if (data.feedback_given) {
                 isFeedbackGiven = true
+
                 btn_feedback.text = "View Feedback"
             }
 
@@ -522,93 +526,93 @@ class EventDetails : Fragment() {
     // create pdf and save external directory
     private fun createPdf() {
 
-        try{
-        val eventId = Integer.toString(data.event_id) // event id
-
-        val userData =
-            ModelPreferencesManager.get<`in`.bitspilani.eon.login.data.Data>(Constants.CURRENT_USER)
-
-        val multiFormatWriter = MultiFormatWriter()
-        var barcodeEncoder = BarcodeEncoder()
-        var bitMatrix: BitMatrix? = null
-
-
-        val orgTitle = "EOn"
-        val eventName = data.event_name
-        val eventDateTime = getFormattedDate(data.date)
-        val eventLocation = data.location
-        val eventSeatCounter = data.subscription_details?.no_of_tickets_bought
-        val eventAmount = data.subscription_details?.amount_paid.toString()
-
-        val bookingNotes = "It's non-transferable ticket"
-        val bookingDate = getFormattedDate(data.subscription_details!!.createdOn)
-
-        var userEmailId = userData!!.user.email
-        var userName = ""
-
-        if (userData!!.user.name == null) {
-            userName = userEmailId.substring(0, userEmailId.indexOf("@"));
-        } else {
-            userName = userData!!.user.name
-        }
-
-        val userContact = userData!!.user.contact_number
-
-        val logoBitmap = BitmapFactory.decodeResource(resources, R.drawable.logo_bits)
-
-        // resize logo
-        val resizedLogoBitmap = Bitmap.createScaledBitmap(
-            logoBitmap, 128, 128, false
-        )
-
-        val document = PdfDocument()
-        val pageInfo = PdfDocument.PageInfo.Builder(1200, 2010, 1).create()
-        val page = document.startPage(pageInfo)
-        val canvas = page.canvas
-
-        val bitmapPaint = Paint()
-        val titlePaint = Paint()
-        val linePaint = Paint()
-        val textPaint = Paint()
-
-        // logo
-        canvas.drawBitmap(resizedLogoBitmap, 40F, 80F, bitmapPaint)
-
-        // header
-        titlePaint.textSize = resources.getDimension(R.dimen._22fs)
-        titlePaint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
-        canvas.drawText(orgTitle, 220F, 180F, titlePaint)// divider
-        canvas.drawLine(40F, 248F, 1200 - 40F, 248F, linePaint)
-
-        // QR Code
         try {
-            bitMatrix = multiFormatWriter.encode(eventId, BarcodeFormat.QR_CODE, 240, 240)
-            val myBitmap: Bitmap = barcodeEncoder.createBitmap(bitMatrix)
-            canvas.drawBitmap(myBitmap, 40F, 290F, bitmapPaint)
-        } catch (e: WriterException) {
-            Log.e("QRCode", "Error: " + e.toString());
-            showUserMsg("Error!")
-        }
+            val eventId = Integer.toString(data.event_id) // event id
 
-        // Event info
-        textPaint.textSize = resources.getDimension(R.dimen._14fs)
-        textPaint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)
-        canvas.drawText("Event Name: " + eventName, 300F, 350F, textPaint);
-        canvas.drawText("Number of seats: " + eventSeatCounter, 300F, 410F, textPaint);
-        canvas.drawText("Amount: " + eventAmount, 300F, 470F, textPaint);
-        canvas.drawText("Event Date: " + eventDateTime, 300F, 530F, textPaint);
-        canvas.drawText("Location: " + eventLocation, 300F, 590F, textPaint);
-        canvas.drawText("Subscriber Name: " + userName, 300F, 650F, textPaint);
-        canvas.drawText("Email Id: " + userEmailId, 300F, 710F, textPaint);
-        canvas.drawText("Contact: " + userContact, 300F, 770F, textPaint);
-        canvas.drawText("Booking Date: " + bookingDate, 300F, 830F, textPaint);
+            val userData =
+                ModelPreferencesManager.get<`in`.bitspilani.eon.login.data.Data>(Constants.CURRENT_USER)
 
-        // Note
-        textPaint.textSize = resources.getDimension(R.dimen._14fs)
-        textPaint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
-        canvas.drawText("*Note: " + bookingNotes, 40F, 920F, textPaint);
+            val multiFormatWriter = MultiFormatWriter()
+            var barcodeEncoder = BarcodeEncoder()
+            var bitMatrix: BitMatrix? = null
 
-        document.finishPage(page)
+
+            val orgTitle = "EOn"
+            val eventName = data.event_name
+            val eventDateTime = getFormattedDate(data.date)
+            val eventLocation = data.location
+            val eventSeatCounter = data.subscription_details?.no_of_tickets_bought
+            val eventAmount = data.subscription_details?.amount_paid.toString()
+
+            val bookingNotes = "It's non-transferable ticket"
+            val bookingDate = getFormattedDate(data.subscription_details!!.createdOn)
+
+            var userEmailId = userData!!.user.email
+            var userName = ""
+
+            if (userData!!.user.name == null) {
+                userName = userEmailId.substring(0, userEmailId.indexOf("@"));
+            } else {
+                userName = userData!!.user.name
+            }
+
+            val userContact = userData!!.user.contact_number
+
+            val logoBitmap = BitmapFactory.decodeResource(resources, R.drawable.logo_bits)
+
+            // resize logo
+            val resizedLogoBitmap = Bitmap.createScaledBitmap(
+                logoBitmap, 128, 128, false
+            )
+
+            val document = PdfDocument()
+            val pageInfo = PdfDocument.PageInfo.Builder(1200, 2010, 1).create()
+            val page = document.startPage(pageInfo)
+            val canvas = page.canvas
+
+            val bitmapPaint = Paint()
+            val titlePaint = Paint()
+            val linePaint = Paint()
+            val textPaint = Paint()
+
+            // logo
+            canvas.drawBitmap(resizedLogoBitmap, 40F, 80F, bitmapPaint)
+
+            // header
+            titlePaint.textSize = resources.getDimension(R.dimen._22fs)
+            titlePaint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+            canvas.drawText(orgTitle, 220F, 180F, titlePaint)// divider
+            canvas.drawLine(40F, 248F, 1200 - 40F, 248F, linePaint)
+
+            // QR Code
+            try {
+                bitMatrix = multiFormatWriter.encode(eventId, BarcodeFormat.QR_CODE, 240, 240)
+                val myBitmap: Bitmap = barcodeEncoder.createBitmap(bitMatrix)
+                canvas.drawBitmap(myBitmap, 40F, 290F, bitmapPaint)
+            } catch (e: WriterException) {
+                Log.e("QRCode", "Error: " + e.toString());
+                showUserMsg("Error!")
+            }
+
+            // Event info
+            textPaint.textSize = resources.getDimension(R.dimen._14fs)
+            textPaint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)
+            canvas.drawText("Event Name: " + eventName, 300F, 350F, textPaint);
+            canvas.drawText("Number of seats: " + eventSeatCounter, 300F, 410F, textPaint);
+            canvas.drawText("Amount: " + eventAmount, 300F, 470F, textPaint);
+            canvas.drawText("Event Date: " + eventDateTime, 300F, 530F, textPaint);
+            canvas.drawText("Location: " + eventLocation, 300F, 590F, textPaint);
+            canvas.drawText("Subscriber Name: " + userName, 300F, 650F, textPaint);
+            canvas.drawText("Email Id: " + userEmailId, 300F, 710F, textPaint);
+            canvas.drawText("Contact: " + userContact, 300F, 770F, textPaint);
+            canvas.drawText("Booking Date: " + bookingDate, 300F, 830F, textPaint);
+
+            // Note
+            textPaint.textSize = resources.getDimension(R.dimen._14fs)
+            textPaint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+            canvas.drawText("*Note: " + bookingNotes, 40F, 920F, textPaint);
+
+            document.finishPage(page)
 
             val directoryPath = Environment.getExternalStorageDirectory().path + "/invoices/"
 
@@ -621,7 +625,7 @@ class EventDetails : Fragment() {
                 dir.mkdirs()
             val filePath: File
 
-            filePath = File(directoryPath, eventName+"-"+userName+".pdf")
+            filePath = File(directoryPath, eventName + "-" + userName + ".pdf")
 
             if (filePath.exists()) {
                 filePath.delete()
@@ -642,29 +646,36 @@ class EventDetails : Fragment() {
 
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
                 // to do
-            }else{
-                downloadManager.addCompletedDownload(filePath.name, filePath.name, true,"application/pdf", filePath.absolutePath, filePath.length(), true)
+            } else {
+                downloadManager.addCompletedDownload(
+                    filePath.name,
+                    filePath.name,
+                    true,
+                    "application/pdf",
+                    filePath.absolutePath,
+                    filePath.length(),
+                    true
+                )
             }
-        }catch (e: Exception){
-            Log.e("xoxo","external prob: "+e.toString())
-            showSnackBar(e.toString(),true)
+        } catch (e: Exception) {
+            Log.e("xoxo", "external prob: " + e.toString())
+            showSnackBar(e.toString(), true)
 
         }
 
     }
 
-    fun getFormattedDate(dateInString: String): String
-    {
+    fun getFormattedDate(dateInString: String): String {
         try {
             var dateFormat: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd");
             var date: Date = dateFormat.parse(dateInString);
             val formatter: DateFormat = SimpleDateFormat("EEEEEEEEE, dd MMM yyyy ")
             val today = formatter.format(date)
             return today
-        }catch (e: Exception){
-            Log.e("xoxo","date conversion excepption:"+e.toString() )
+        } catch (e: Exception) {
+            Log.e("xoxo", "date conversion excepption:" + e.toString())
         }
-      return ""
+        return ""
     }
 
     private fun getEventQRCode(event_id: Int) {
