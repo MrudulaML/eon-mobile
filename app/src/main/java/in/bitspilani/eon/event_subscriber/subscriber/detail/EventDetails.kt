@@ -380,6 +380,7 @@ class EventDetails : Fragment() {
 
             setEventStatus(tv_event_status, data.eventStatus)
 
+            getType(tv_type_of_event_value,data.event_type)
 
             if (amount > 0) btn_price.text = "₹ $amount" else btn_price.text = "Confirm"
 
