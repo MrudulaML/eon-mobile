@@ -1,4 +1,3 @@
-
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.event_organiser.models.EventType
 import `in`.bitspilani.eon.event_organiser.models.FilterResponse
@@ -8,6 +7,7 @@ import `in`.bitspilani.eon.login.data.Data
 import `in`.bitspilani.eon.login.data.UserInfo
 import `in`.bitspilani.eon.utils.*
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,6 +55,7 @@ class ProfileBasicDetailFragment(val userProfileCallBack: UserProfileCallBack) :
     private fun setObservables() {
         userProfileViewModel.basicDetailLiveData.observe(viewLifecycleOwner, Observer {
 
+
             progress_bar.visibility = View.GONE
 
             setUpdatedData(it.data)
@@ -63,6 +64,12 @@ class ProfileBasicDetailFragment(val userProfileCallBack: UserProfileCallBack) :
     }
 
     private fun setUpdatedData(data: UserInfo) {
+
+        userData?.user?.name=data.name
+        userData?.user?.organization=data.organization
+
+        ModelPreferencesManager.put(userData, Constants.CURRENT_USER)
+
 
         rdt_basic_name.setText(data.name, TextView.BufferType.EDITABLE)
         edt_basic_address.setText(data.address, TextView.BufferType.EDITABLE)
@@ -98,7 +105,11 @@ class ProfileBasicDetailFragment(val userProfileCallBack: UserProfileCallBack) :
 
     private fun validateDataAndConfirm() {
 
-        if (Validator.isValidName(rdt_org_name, true) && Validator.isValidPhone(rdt_basic_contact, true ) && isContactNumberValid()) {
+        if ((Validator.isValidName(rdt_org_name, true) || Validator.isValidName(
+                rdt_basic_name,
+                true
+            )) && Validator.isValidPhone(rdt_basic_contact, true) && isContactNumberValid()
+        ) {
 
             val userData = ModelPreferencesManager.get<Data>(Constants.CURRENT_USER)
 
@@ -128,39 +139,66 @@ class ProfileBasicDetailFragment(val userProfileCallBack: UserProfileCallBack) :
 
     }
 
-    fun isContactNumberValid():Boolean{
+    fun isContactNumberValid(): Boolean {
 
 
-        if(rdt_basic_contact.text!!.length==10){
+        if (rdt_basic_contact.text!!.length == 10) {
             return true
-        }else
-           showUserMsg("Please enter 10 digit mobile number")
+        } else
+            showUserMsg("Please enter 10 digit mobile number")
 
         return false
 
     }
 
-    fun showUserMsg(msg: String){
+    fun showUserMsg(msg: String) {
 
-        Toast.makeText(activity!!,msg,Toast.LENGTH_LONG).show()
+        Toast.makeText(activity!!, msg, Toast.LENGTH_LONG).show()
     }
+
+    var userData: Data? = null
+
     private fun setData() {
         rdt_basic_email.isEnabled = false
-        val userData = ModelPreferencesManager.get<Data>(Constants.CURRENT_USER)
+        try {
+            userData = ModelPreferencesManager.get<Data>(Constants.CURRENT_USER)
 
-        if(userData?.user?.organization == null){
-            rdt_org_name.hint ="Organization Name"
-        }else{
-            rdt_org_name.hint =""
-            rdt_org_name.setText(userData?.user?.organization, TextView.BufferType.EDITABLE)
+
+            if (userData!!.user.role.id == 1) {
+
+                layout_basic_name.visibility = View.GONE
+                layout_org_name.visibility = View.VISIBLE
+                if (userData?.user?.organization == null) {
+                    rdt_org_name.hint = "Organization Name"
+                } else {
+                    rdt_org_name.hint = ""
+                    rdt_org_name.setText(userData?.user?.organization, TextView.BufferType.EDITABLE)
+                }
+
+            } else {
+
+                layout_basic_name.visibility - View.VISIBLE
+                layout_org_name.visibility = View.GONE
+
+                if (userData?.user?.name == null) {
+                    rdt_basic_name.hint = "User Name"
+                } else {
+                    rdt_basic_name.hint = ""
+                    rdt_basic_name.setText(userData?.user?.name, TextView.BufferType.EDITABLE)
+                }
+            }
+
+
+            rdt_basic_email.setText(userData?.user?.email, TextView.BufferType.EDITABLE)
+            edt_basic_address.setText(userData?.user?.address, TextView.BufferType.EDITABLE)
+            rdt_basic_contact.setText(
+                userData?.user?.contact_number.toString(),
+                TextView.BufferType.EDITABLE
+            )
+        } catch (e: Exception) {
+
+            Log.e("xoxo", "proile exception: " + e.toString())
         }
-        rdt_basic_name.setText(userData?.user?.name, TextView.BufferType.EDITABLE)
-        rdt_basic_email.setText(userData?.user?.email, TextView.BufferType.EDITABLE)
-        edt_basic_address.setText(userData?.user?.address, TextView.BufferType.EDITABLE)
-        rdt_basic_contact.setText(
-            userData?.user?.contact_number.toString(),
-            TextView.BufferType.EDITABLE
-        )
     }
 
     private fun populateFilters(eventTypeList: List<EventType>) {

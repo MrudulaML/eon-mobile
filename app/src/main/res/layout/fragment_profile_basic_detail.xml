@@ -56,6 +56,7 @@
             android:layout_marginEnd="24dp"
             android:background="@drawable/rounded_corner_grey_4"
             android:layout_marginTop="24dp"
+            android:visibility="visible"
             android:padding="@dimen/_18dp"
             android:theme="@style/TextLabel">
 
@@ -85,7 +86,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:background="@drawable/rounded_corner_grey_4"
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_marginTop="24dp"
             android:padding="@dimen/_18dp"
             android:hint="@string/name"
