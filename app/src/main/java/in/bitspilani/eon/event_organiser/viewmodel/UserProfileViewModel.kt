@@ -11,7 +11,8 @@ import com.google.gson.JsonObject
 
 class UserProfileViewModel(val apiService: ApiService) : BaseViewModel() {
 
-     var basicDetailLiveData: SingleLiveEvent<BasicDetailsResponse> = SingleLiveEvent()
+     var basicDetailUpdateLiveData: SingleLiveEvent<BasicDetailsResponse> = SingleLiveEvent()
+    var basicDetailGetLiveData: SingleLiveEvent<BasicDetailsResponse> = SingleLiveEvent()
 
 
     fun updateUserDetails(
@@ -37,7 +38,7 @@ class UserProfileViewModel(val apiService: ApiService) : BaseViewModel() {
         apiService.updateBasicDetails(user_id,body)
             .enqueue(object : ApiCallback<BasicDetailsResponse>() {
                 override fun onSuccessResponse(responseBody: BasicDetailsResponse) {
-                    basicDetailLiveData.postValue(responseBody)
+                    basicDetailUpdateLiveData.postValue(responseBody)
                     showProgress(false)
                 }
 
@@ -49,4 +50,26 @@ class UserProfileViewModel(val apiService: ApiService) : BaseViewModel() {
             })
 
     }
+
+
+    fun getUserDetails(id: Int){
+
+        showProgress(true)
+        apiService.getUserDetail(id)
+            .enqueue(object : ApiCallback<BasicDetailsResponse>() {
+                override fun onSuccessResponse(responseBody: BasicDetailsResponse) {
+                    basicDetailGetLiveData.postValue(responseBody)
+                    showProgress(false)
+                }
+
+                override fun onApiError(errorType: ApiError, error: String?) {
+                    /*progress.value=false
+                    errorView.postValue(error)*/
+                    showProgress(false)
+                }
+            })
+
+    }
+
+
 }

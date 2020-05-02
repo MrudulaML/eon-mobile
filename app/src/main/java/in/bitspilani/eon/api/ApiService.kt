@@ -94,6 +94,9 @@ interface ApiService {
     @PATCH("core/user/{user_id}/")
     fun updateBasicDetails(@Path("user_id") user_id: Int, @Body jsonObject: JsonObject): Call<BasicDetailsResponse>
 
+    @GET("core/user/{user_id}/")
+    fun getUserDetail(@Path("user_id") user_id: Int): Call<BasicDetailsResponse>
+
     @GET("core/feedback-questions/")
     fun getQuestions(): Call<QuestionsResponse>
 

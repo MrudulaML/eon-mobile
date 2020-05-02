@@ -1,9 +1,11 @@
+import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.event_organiser.models.EventType
 import `in`.bitspilani.eon.event_organiser.models.FilterResponse
 import `in`.bitspilani.eon.event_organiser.ui.UserProfileCallBack
 import `in`.bitspilani.eon.event_organiser.viewmodel.UserProfileViewModel
 import `in`.bitspilani.eon.login.data.Data
+import `in`.bitspilani.eon.login.data.User
 import `in`.bitspilani.eon.login.data.UserInfo
 import `in`.bitspilani.eon.utils.*
 import android.os.Bundle
@@ -39,6 +41,7 @@ class ProfileBasicDetailFragment(val userProfileCallBack: UserProfileCallBack) :
         return inflater.inflate(R.layout.fragment_profile_basic_detail, container, false)
     }
 
+    var userType: Int=0
     override fun getTheme(): Int {
         return R.style.DialogTheme
     }
@@ -48,28 +51,113 @@ class ProfileBasicDetailFragment(val userProfileCallBack: UserProfileCallBack) :
         val eventTypeCached = ModelPreferencesManager.get<FilterResponse>(Constants.EVENT_TYPES)
         if (eventTypeCached != null && ModelPreferencesManager.getInt(Constants.USER_ROLE) == 2)
             populateFilters(eventTypeCached.data)
+        init()
         setUpClickListeners()
         setObservables()
     }
 
+    var userData : Data?=null
+    fun init() {
+
+        progress_bar.visibility = View.VISIBLE
+
+        userData = ModelPreferencesManager.get<Data>(Constants.CURRENT_USER)
+
+        userType=userData!!.user.role.id
+
+
+            userProfileViewModel.getUserDetails(userData!!.user.user_id)
+
+    }
+
+
     private fun setObservables() {
-        userProfileViewModel.basicDetailLiveData.observe(viewLifecycleOwner, Observer {
+        userProfileViewModel.basicDetailUpdateLiveData.observe(viewLifecycleOwner, Observer {
 
 
             progress_bar.visibility = View.GONE
 
             setUpdatedData(it.data)
 
+            Toast.makeText(activity, "User details updated successfully", Toast.LENGTH_LONG).show()
+
+
         })
+
+        userProfileViewModel.basicDetailGetLiveData.observe(viewLifecycleOwner, Observer {
+
+            progress_bar.visibility = View.GONE
+
+            setData(it.data)
+
+        })
+
+
+        //loader observable
+        userProfileViewModel.progressLiveData.observe(viewLifecycleOwner, Observer {
+
+            (activity as BitsEonActivity).showProgress(it)
+        })
+
+    }
+
+
+    private fun setData( user: UserInfo) {
+        rdt_basic_email.isEnabled = false
+        try {
+
+            if (userType == 1) {
+
+                layout_basic_name.visibility = View.GONE
+                layout_org_name.visibility = View.VISIBLE
+                if (user.organization == null) {
+                    rdt_org_name.hint = "Organization Name"
+                } else {
+                    rdt_org_name.hint = ""
+                    rdt_org_name.setText(user.organization, TextView.BufferType.EDITABLE)
+                }
+
+            } else {
+
+                layout_basic_name.visibility - View.VISIBLE
+                layout_org_name.visibility = View.GONE
+
+                if (user.name == null) {
+                    rdt_basic_name.hint = "User Name"
+                } else {
+                    rdt_basic_name.hint = ""
+                    rdt_basic_name.setText(user.name, TextView.BufferType.EDITABLE)
+                }
+
+
+                try {
+
+
+                } catch (e: Exception) {
+
+                    Log.e("xoxo", "")
+
+                }
+
+
+            }
+
+
+            updateInterests(user.interest)
+
+            rdt_basic_email.setText(userData!!.user.email, TextView.BufferType.EDITABLE)
+            edt_basic_address.setText(user.address, TextView.BufferType.EDITABLE)
+            rdt_basic_contact.setText(
+                user?.contact_number.toString(),
+                TextView.BufferType.EDITABLE
+            )
+        } catch (e: Exception) {
+
+            Log.e("xoxo", "proile exception: " + e.toString())
+        }
     }
 
     private fun setUpdatedData(data: UserInfo) {
-
-        userData?.user?.name = data.name
-        userData?.user?.organization = data.organization
-        userData?.user?.interest = data.interest
-
-        ModelPreferencesManager.put(userData, Constants.CURRENT_USER)
 
 
         rdt_basic_name.setText(data.name, TextView.BufferType.EDITABLE)
@@ -79,17 +167,28 @@ class ProfileBasicDetailFragment(val userProfileCallBack: UserProfileCallBack) :
             TextView.BufferType.EDITABLE
         )
 
-        data.interest?.let {
-            for (i in it) {
-                val chip = chip_group.getChildAt(i) as Chip
-                if (chip.id == i) {
-                    chip.isCheckable = true
+
+        updateInterests(data.interest)
+
+
+    }
+
+    fun updateInterests(interests: List<Int>?){
+
+
+        if (interests != null) {
+
+
+                interests.forEach {
+
+
+                    val chip = chip_group.getChildAt(it - 1) as Chip
+
+                    chip.isChecked = true
+
                 }
-            }
 
         }
-
-        Toast.makeText(activity, "User details updated successfully", Toast.LENGTH_LONG).show()
 
 
     }
@@ -101,7 +200,6 @@ class ProfileBasicDetailFragment(val userProfileCallBack: UserProfileCallBack) :
             validateDataAndConfirm()
 
         }
-        setData()
     }
 
     private fun validateDataAndConfirm() {
@@ -157,76 +255,7 @@ class ProfileBasicDetailFragment(val userProfileCallBack: UserProfileCallBack) :
         Toast.makeText(activity!!, msg, Toast.LENGTH_LONG).show()
     }
 
-    var userData: Data? = null
 
-    private fun setData() {
-        rdt_basic_email.isEnabled = false
-        try {
-            userData = ModelPreferencesManager.get<Data>(Constants.CURRENT_USER)
-
-
-            if (userData!!.user.role.id == 1) {
-
-                layout_basic_name.visibility = View.GONE
-                layout_org_name.visibility = View.VISIBLE
-                if (userData?.user?.organization == null) {
-                    rdt_org_name.hint = "Organization Name"
-                } else {
-                    rdt_org_name.hint = ""
-                    rdt_org_name.setText(userData?.user?.organization, TextView.BufferType.EDITABLE)
-                }
-
-            } else {
-
-                layout_basic_name.visibility - View.VISIBLE
-                layout_org_name.visibility = View.GONE
-
-                if (userData?.user?.name == null) {
-                    rdt_basic_name.hint = "User Name"
-                } else {
-                    rdt_basic_name.hint = ""
-                    rdt_basic_name.setText(userData?.user?.name, TextView.BufferType.EDITABLE)
-                }
-
-
-                try {
-
-                    if(userData!!.user?.interest!=null){
-
-                        userData!!.user?.interest?.let {
-
-                            it.forEach {
-
-
-                                val chip = chip_group.getChildAt(it-1) as Chip
-
-                                chip.isChecked=true
-
-                            }
-                        }
-                    }
-
-                }catch (e: Exception){
-
-                    Log.e("xoxo", "")
-
-                }
-
-
-            }
-
-
-            rdt_basic_email.setText(userData?.user?.email, TextView.BufferType.EDITABLE)
-            edt_basic_address.setText(userData?.user?.address, TextView.BufferType.EDITABLE)
-            rdt_basic_contact.setText(
-                userData?.user?.contact_number.toString(),
-                TextView.BufferType.EDITABLE
-            )
-        } catch (e: Exception) {
-
-            Log.e("xoxo", "proile exception: " + e.toString())
-        }
-    }
 
     private fun populateFilters(eventTypeList: List<EventType>) {
         for (i in eventTypeList) {
