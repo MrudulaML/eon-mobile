@@ -144,7 +144,7 @@ class PaymentFrag : Fragment() {
 
     fun setClicks() {
 
-        btn_proceed.setOnClickListener {
+        btn_proceed.clickWithDebounce(3000) {
             if (et_card_owner_name.text.isEmpty())
                 showUserMsg("Please enter Card owner's name")
             else if (et_card_number.text.isEmpty())
@@ -182,7 +182,7 @@ class PaymentFrag : Fragment() {
         //show dialog
         val mAlertDialog = mBuilder.show()
 
-        mDialogView.btn_okay.clickWithDebounce {
+        mDialogView.btn_okay.clickWithDebounce (3000){
 
             findNavController().popBackStack(R.id.eventDetails, false)
 

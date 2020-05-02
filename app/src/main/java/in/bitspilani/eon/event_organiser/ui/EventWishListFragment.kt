@@ -25,6 +25,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_dashboard.*
+import kotlinx.android.synthetic.main.fragment_dashboard.btn_filter
+import kotlinx.android.synthetic.main.fragment_dashboard.btn_filter_clear
+import kotlinx.android.synthetic.main.fragment_dashboard.event_search_view
+import kotlinx.android.synthetic.main.fragment_dashboard.rv_event_list
+import kotlinx.android.synthetic.main.fragment_wishlist.*
 import timber.log.Timber
 
 
@@ -57,13 +62,13 @@ class EventWishListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        return inflater.inflate(R.layout.fragment_dashboard, container, false)
+        return inflater.inflate(R.layout.fragment_wishlist, container, false)
 
     }
 
     override fun onResume() {
         super.onResume()
-        actionbarHost?.showToolbar(showToolbar = true, title = "WishList", showBottomNav = false)
+        actionbarHost?.showToolbar(showToolbar = false, showBottomNav = false)
 
     }
 
@@ -107,6 +112,11 @@ class EventWishListFragment : Fragment() {
         btn_filter_clear.clickWithDebounce {
             btn_filter_clear.visibility = View.GONE
             eventDashboardViewModel.getEvents()
+        }
+
+        btn_close.clickWithDebounce {
+
+            findNavController().popBackStack()
         }
     }
 

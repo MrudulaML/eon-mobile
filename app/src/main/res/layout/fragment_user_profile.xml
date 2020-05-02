@@ -8,11 +8,40 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".event_organiser.ui.ToolbarUserProfileFragment">
 
-    <!--<ListView
-      android:id="@+id/lv_user_profile"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"/>-->
-    <!--Basic details-->
+
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_45sdp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/_50sdp"
+            android:gravity="center_vertical|left"
+            android:text="User Profile"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_20fs" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btn_close"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="@dimen/_24dp"
+            android:layout_height="@dimen/_24dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:background="@drawable/ic_arrow_back" />
+
+    </RelativeLayout>
+
     <LinearLayout
         android:id="@+id/profile_basic_details"
         android:layout_width="match_parent"

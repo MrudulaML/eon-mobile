@@ -28,6 +28,7 @@ data class User (
     @SerializedName("active_status") val active_status : Boolean,
     @SerializedName("name") var name : String,
     @SerializedName("created_on") val created_on : String,
+    var interest: List<Int>? =null,
     @SerializedName("updated_on") val updated_on : String,
     @SerializedName("contact_number") val contact_number : Long,
     @SerializedName("organization") var organization : String,

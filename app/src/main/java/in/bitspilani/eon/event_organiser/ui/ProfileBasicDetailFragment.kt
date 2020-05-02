@@ -65,8 +65,9 @@ class ProfileBasicDetailFragment(val userProfileCallBack: UserProfileCallBack) :
 
     private fun setUpdatedData(data: UserInfo) {
 
-        userData?.user?.name=data.name
-        userData?.user?.organization=data.organization
+        userData?.user?.name = data.name
+        userData?.user?.organization = data.organization
+        userData?.user?.interest = data.interest
 
         ModelPreferencesManager.put(userData, Constants.CURRENT_USER)
 
@@ -80,7 +81,7 @@ class ProfileBasicDetailFragment(val userProfileCallBack: UserProfileCallBack) :
 
         data.interest?.let {
             for (i in it) {
-                val chip = radio_group_user.getChildAt(i) as Chip
+                val chip = chip_group.getChildAt(i) as Chip
                 if (chip.id == i) {
                     chip.isCheckable = true
                 }
@@ -113,10 +114,10 @@ class ProfileBasicDetailFragment(val userProfileCallBack: UserProfileCallBack) :
 
             val userData = ModelPreferencesManager.get<Data>(Constants.CURRENT_USER)
 
-            for (i in 0 until radio_group_user.childCount) {
-                val chip = radio_group_user.getChildAt(i) as Chip
+            for (i in 0 until chip_group.childCount) {
+                val chip = chip_group.getChildAt(i) as Chip
                 if (chip.isChecked) {
-                    interestList.add(radio_group_user.getChildAt(i).id)
+                    interestList.add(chip_group.getChildAt(i).id)
                 }
             }
             val array = JsonArray()
@@ -186,6 +187,32 @@ class ProfileBasicDetailFragment(val userProfileCallBack: UserProfileCallBack) :
                     rdt_basic_name.hint = ""
                     rdt_basic_name.setText(userData?.user?.name, TextView.BufferType.EDITABLE)
                 }
+
+
+                try {
+
+                    if(userData!!.user?.interest!=null){
+
+                        userData!!.user?.interest?.let {
+
+                            it.forEach {
+
+
+                                val chip = chip_group.getChildAt(it-1) as Chip
+
+                                chip.isChecked=true
+
+                            }
+                        }
+                    }
+
+                }catch (e: Exception){
+
+                    Log.e("xoxo", "")
+
+                }
+
+
             }
 
 
@@ -203,13 +230,15 @@ class ProfileBasicDetailFragment(val userProfileCallBack: UserProfileCallBack) :
 
     private fun populateFilters(eventTypeList: List<EventType>) {
         for (i in eventTypeList) {
-            val radioButton =
-                layoutInflater.inflate(R.layout.item_radio_button, radio_group_user, false) as Chip
-            radioButton.id = i.id
-            radioButton.text = i.type
-            radio_group_user.addView(radioButton)
+            val chip =
+                layoutInflater.inflate(R.layout.item_radio_button, chip_group, false) as Chip
+            chip.id = i.id
+            chip.text = i.type
+            chip_group.addView(chip)
             Timber.e("interest sze${interestList.size}")
         }
 
     }
+
+
 }

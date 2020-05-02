@@ -27,7 +27,7 @@ import timber.log.Timber
 /**
  * A simple [Fragment] subclass.
  */
-class ToolbarUserProfileFragment : Fragment(),UserProfileCallBack {
+class ToolbarUserProfileFragment : Fragment(), UserProfileCallBack {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +47,7 @@ class ToolbarUserProfileFragment : Fragment(),UserProfileCallBack {
      * toggle visibility of different navigation
      */
     private var actionbarHost: ActionbarHost? = null
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is ActionbarHost) {
@@ -56,7 +57,11 @@ class ToolbarUserProfileFragment : Fragment(),UserProfileCallBack {
 
     override fun onResume() {
         super.onResume()
-        actionbarHost?.showToolbar(showToolbar = true,title = "User Profile",showBottomNav = false)
+        actionbarHost?.showToolbar(
+            showToolbar = false,
+            title = "User Profile",
+            showBottomNav = false
+        )
 
     }
 
@@ -85,51 +90,61 @@ class ToolbarUserProfileFragment : Fragment(),UserProfileCallBack {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         onItemClick()
-        if(ModelPreferencesManager.getInt(Constants.USER_ROLE)==UserType.SUBSCRIBER.ordinal)
-            profile_wish_list.visibility=View.GONE
+        if (ModelPreferencesManager.getInt(Constants.USER_ROLE) == UserType.SUBSCRIBER.ordinal)
+            profile_wish_list.visibility = View.GONE
     }
 
 
-     private fun onItemClick() {
-         profile_basic_details.clickWithDebounce {
+    private fun onItemClick() {
+        profile_basic_details.clickWithDebounce {
 
-             val dialogFragment = ProfileBasicDetailFragment(this)
-             dialogFragment.show(childFragmentManager, "profileBasicDetail")
+            val dialogFragment = ProfileBasicDetailFragment(this)
+            dialogFragment.show(childFragmentManager, "profileBasicDetail")
 
-         }
-         profile_wish_list.clickWithDebounce {
-             findNavController().navigate(R.id.action_profile_to_sub_wish_list,
-                 bundleOf("isWishListed" to true),
-                 NavOptions.Builder()
-                     .setPopUpTo(R.id.userProfileFragment,
-                         false).build())
+        }
+        profile_wish_list.clickWithDebounce {
+            findNavController().navigate(
+                R.id.action_profile_to_sub_wish_list,
+                bundleOf("isWishListed" to true),
+                NavOptions.Builder()
+                    .setPopUpTo(
+                        R.id.userProfileFragment,
+                        false
+                    ).build()
+            )
 
-         }
-         profile_change_password.clickWithDebounce {
-             val dialogFragment = ChangePasswordFragment()
-             dialogFragment.show(childFragmentManager, "changePassword")
-         }
-         profile_logout.clickWithDebounce {
+        }
+        profile_change_password.clickWithDebounce {
+            val dialogFragment = ChangePasswordFragment()
+            dialogFragment.show(childFragmentManager, "changePassword")
+        }
+        profile_logout.clickWithDebounce {
 
-             ModelPreferencesManager.clearCache()
-             activity?.viewModelStore?.clear()
-             Timber.d("Cached cleared + view model")
-             (activity as BitsEonActivity).showProgress(true)
-             lifecycleScope.launch {
-                 delay(400)
+            ModelPreferencesManager.clearCache()
+            activity?.viewModelStore?.clear()
+            Timber.d("Cached cleared + view model")
+            (activity as BitsEonActivity).showProgress(true)
+            lifecycleScope.launch {
+                delay(400)
 
-                 findNavController().navigate(R.id.signInFragment,
-                     null,
-                     NavOptions.Builder()
-                         .setPopUpTo(R.id.app_nav,
-                             true)
-                         .build())
-                 (activity as BitsEonActivity).showProgress(false)
-             }
+                findNavController().navigate(
+                    R.id.signInFragment,
+                    null,
+                    NavOptions.Builder()
+                        .setPopUpTo(
+                            R.id.app_nav,
+                            true
+                        )
+                        .build()
+                )
+                (activity as BitsEonActivity).showProgress(false)
+            }
 
-         }
+        }
 
-     }
+        btn_close.clickWithDebounce { findNavController().popBackStack() }
+
+    }
 
     override fun UpdateBasicDetails() {
         TODO("Not yet implemented")
