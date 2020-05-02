@@ -7,6 +7,7 @@ import `in`.bitspilani.eon.event_organiser.models.EventList
 import `in`.bitspilani.eon.event_organiser.models.MonoEvent
 import `in`.bitspilani.eon.event_organiser.ui.adapter.EventAdapter
 import `in`.bitspilani.eon.event_organiser.viewmodel.EventDashboardViewModel
+import `in`.bitspilani.eon.event_organiser.viewmodel.NotificationViewModel
 import `in`.bitspilani.eon.login.ui.ActionbarHost
 import `in`.bitspilani.eon.utils.*
 import android.content.Context
@@ -15,6 +16,7 @@ import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavOptions
@@ -30,12 +32,14 @@ import timber.log.Timber
  *
  */
 class HomeFragment : Fragment() {
-   // private val dashboardViewModel by viewModels<EventDashboardViewModel> { getViewModelFactory() }
     private var actionbarHost: ActionbarHost? = null
-    lateinit var  eventListUpdated : ArrayList<MonoEvent>
+    lateinit var eventListUpdated: ArrayList<MonoEvent>
     private lateinit var layoutManager: RecyclerView.LayoutManager
     private lateinit var eventAdapter: EventAdapter
     private lateinit var eventDashboardViewModel: EventDashboardViewModel
+
+    private val notificationViewModel by viewModels<NotificationViewModel> { getViewModelFactory() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         eventDashboardViewModel = activity?.run {
@@ -47,12 +51,15 @@ class HomeFragment : Fragment() {
         setHasOptionsMenu(true)
         eventDashboardViewModel.resetFilters()
 
+
     }
+
+    lateinit var itemToHide: MenuItem
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.top_navigation, menu)
         if (ModelPreferencesManager.getInt(Constants.USER_ROLE) == 2) {
-            val itemToHide = menu.findItem(R.id.notificationFragment)
+            itemToHide = menu.findItem(R.id.notificationFragment)
             itemToHide?.isVisible = true
         }
         super.onCreateOptionsMenu(menu, inflater)
@@ -77,7 +84,7 @@ class HomeFragment : Fragment() {
 
 
     private fun setUpSearch() {
-        event_search_view.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+        event_search_view.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 defocusAndHideKeyboard(activity)
                 return false
@@ -87,13 +94,18 @@ class HomeFragment : Fragment() {
             override fun onQueryTextChange(newText: String?): Boolean {
 
 
-                    eventAdapter.filter.filter(newText.toString())
+                eventAdapter.filter.filter(newText.toString())
 
                 return false
             }
 
 
         })
+
+        if (ModelPreferencesManager.getInt(Constants.USER_ROLE) == 2){
+
+            notificationViewModel.getNotification()
+        }
     }
 
     private fun setUpClickListeners() {
@@ -104,7 +116,7 @@ class HomeFragment : Fragment() {
 
         }
         btn_filter_clear.clickWithDebounce {
-            btn_filter_clear.visibility=View.GONE
+            btn_filter_clear.visibility = View.GONE
             eventDashboardViewModel.getEvents()
         }
     }
@@ -115,14 +127,18 @@ class HomeFragment : Fragment() {
         })
 
         eventDashboardViewModel.eventClickObservable.observe(viewLifecycleOwner, Observer {
-            if (ModelPreferencesManager.getInt(Constants.USER_ROLE)==1)
-                findNavController().navigate(R.id.action_homeFragment_to_organiser_eventDetailsFragment,
+            if (ModelPreferencesManager.getInt(Constants.USER_ROLE) == 1)
+                findNavController().navigate(
+                    R.id.action_homeFragment_to_organiser_eventDetailsFragment,
                     bundleOf("id" to it),
                     NavOptions.Builder()
-                        .setPopUpTo(R.id.homeFragment,
-                            false).build())
+                        .setPopUpTo(
+                            R.id.homeFragment,
+                            false
+                        ).build()
+                )
             else
-                //TODO change this to builder pattern
+            //TODO change this to builder pattern
                 findNavController().navigate(
                     R.id.eventDetails,
                     bundleOf(Constants.EVENT_ID to it)
@@ -136,24 +152,31 @@ class HomeFragment : Fragment() {
 
         eventDashboardViewModel.errorView.observe(viewLifecycleOwner, Observer {
 
-            if(it!=null)
-            view?.showSnackbar(it,0)
+            if (it != null)
+                view?.showSnackbar(it, 0)
         })
 
+        notificationViewModel.notificationLiveData.observe(viewLifecycleOwner, Observer {
+
+            if(it.data.size>0){
+
+                itemToHide.setIcon(R.drawable.ic_notifications)
+
+            }
+        })
     }
 
     private fun setEventRecyclerView(eventList: EventList) {
 
-        eventListUpdated=eventList.eventList
-        val isSubscriber :  Boolean = ModelPreferencesManager.getInt(Constants.USER_ROLE)==2
+        eventListUpdated = eventList.eventList
+        val isSubscriber: Boolean = ModelPreferencesManager.getInt(Constants.USER_ROLE) == 2
         Timber.e("is subcriber$isSubscriber")
         layoutManager = LinearLayoutManager(activity)
         //TODO fix this hack
         if (eventList.fromFilter) {
-            btn_filter_clear.visibility=View.VISIBLE
+            btn_filter_clear.visibility = View.VISIBLE
             bindList(eventListUpdated, isSubscriber)
-        }
-        else
+        } else
             bindList(eventListUpdated, isSubscriber)
 
     }
@@ -173,10 +196,18 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        if(ModelPreferencesManager.getInt(Constants.USER_ROLE)==UserType.SUBSCRIBER.ordinal)
-            actionbarHost?.showToolbar(showToolbar = true,title = "Event Management",showBottomNav = true)
+        if (ModelPreferencesManager.getInt(Constants.USER_ROLE) == UserType.SUBSCRIBER.ordinal)
+            actionbarHost?.showToolbar(
+                showToolbar = true,
+                title = "Event Management",
+                showBottomNav = true
+            )
         else
-            actionbarHost?.showToolbar(showToolbar = true,title = "Event Management",showBottomNav = false)
+            actionbarHost?.showToolbar(
+                showToolbar = true,
+                title = "Event Management",
+                showBottomNav = false
+            )
     }
 
 

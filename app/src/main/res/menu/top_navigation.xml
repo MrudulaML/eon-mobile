@@ -7,7 +7,7 @@
         android:orderInCategory="100"
         android:title=""
         android:visible="false"
-        android:icon="@drawable/ic_notifications"
+        android:icon="@drawable/ic_notificaiton_without_red"
         app:showAsAction="always" />
 
     <item
