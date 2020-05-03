@@ -59,7 +59,7 @@ class AuthViewModel : BaseViewModel() {
         body.addProperty("email",username)
         body.addProperty("password",password)
         showProgress(true)
-        restClient.authClient.create(ApiService::class.java).login(body)
+        restClient.noAuthClient.create(ApiService::class.java).login(body)
             .enqueue(object : ApiCallback<LoginResponse>(){
                 override fun onSuccessResponse(responseBody: LoginResponse) {
                     loginLiveData.postValue(responseBody)

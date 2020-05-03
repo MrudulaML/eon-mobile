@@ -319,7 +319,7 @@ class EventDetails : Fragment() {
 
         iv_decrement.setOnClickListener {
 
-            if (count > 0)
+            if (count > 1)
                 seatCount.postValue(--count)
 
             changePriceButtonColor()

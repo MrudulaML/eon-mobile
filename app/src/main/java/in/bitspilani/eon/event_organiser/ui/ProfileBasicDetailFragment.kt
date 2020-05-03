@@ -143,6 +143,7 @@ class ProfileBasicDetailFragment(val userProfileCallBack: UserProfileCallBack) :
             }
 
 
+            if(userType==2)
             updateInterests(user.interest)
 
             rdt_basic_email.setText(userData!!.user.email, TextView.BufferType.EDITABLE)
@@ -167,7 +168,7 @@ class ProfileBasicDetailFragment(val userProfileCallBack: UserProfileCallBack) :
             TextView.BufferType.EDITABLE
         )
 
-
+        if(userType==2)
         updateInterests(data.interest)
 
 
@@ -187,9 +188,7 @@ class ProfileBasicDetailFragment(val userProfileCallBack: UserProfileCallBack) :
                     chip.isChecked = true
 
                 }
-
         }
-
 
     }
 

@@ -68,7 +68,9 @@ class EventSummaryFrag : Fragment() {
 
         et_promocode.goneUnless(discountPercentage > 0)
         tv_apply.goneUnless(discountPercentage > 0)
-        iv_cancel_promo.visibility=View.GONE
+
+        tv_promocode.goneUnless(discountPercentage > 0)
+        et_promocode.text=  discountPercentage.toString() + "% discount available"
 
         cl_normal_summary.visibility = View.VISIBLE
 
@@ -97,16 +99,6 @@ class EventSummaryFrag : Fragment() {
             findNavController().navigate(R.id.action_summery_to_payment, bundle)
         }
 
-        iv_cancel_promo.clickWithDebounce {
-
-            var a = ""
-            et_promocode.text = a
-
-            tv_apply.visibility = View.VISIBLE
-            iv_cancel_promo.visibility = View.GONE
-            tv_payable_amount.text = "Payable Amount  ₹" + amount
-            tv_discounted_amount.visibility = View.GONE
-        }
 
         tv_apply.clickWithDebounce {
 
@@ -124,7 +116,6 @@ class EventSummaryFrag : Fragment() {
                     "Payable Amount  ₹" + (amount - discountAmount)
                 tv_discounted_amount.visibility = View.VISIBLE
                 tv_apply.visibility = View.GONE
-                iv_cancel_promo.visibility = View.VISIBLE
             }
 
         }

@@ -13,18 +13,19 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.layout_dialog_payment_success.view.*
 import kotlinx.android.synthetic.main.payment_fragment.*
+import java.util.*
+import kotlin.collections.HashMap
 
 
 class PaymentFrag : Fragment() {
@@ -144,7 +145,7 @@ class PaymentFrag : Fragment() {
 
     fun setClicks() {
 
-        btn_proceed.clickWithDebounce(3000) {
+        btn_proceed.clickWithDebounce(3500) {
             if (et_card_owner_name.text.isEmpty())
                 showUserMsg("Please enter Card owner's name")
             else if (et_card_number.text.isEmpty())
@@ -161,7 +162,7 @@ class PaymentFrag : Fragment() {
 
                 hashMap.put("card_number", et_card_number.text.toString().toLong())
                 hashMap.put("expiry_month", expiryMonth)
-                hashMap.put("expiry_year", 2000+expiryYear)
+                hashMap.put("expiry_year",expiryYear)
 
                 paymentViewModel.payAndSubscribe(hashMap)
             }
@@ -186,14 +187,11 @@ class PaymentFrag : Fragment() {
 
             findNavController().popBackStack(R.id.eventDetails, false)
 
-//            findNavController().navigate(
-//                R.id.action_payment_to_eventDetail,
-//                bundleOf(Constants.EVENT_ID to eventId),
-//                NavOptions.Builder().setPopUpTo(R.id.homeFragment, false).build()
-//            )
-
             mAlertDialog.dismiss()
         }
+
+        mAlertDialog.setCancelable(false)
+        mAlertDialog.setCanceledOnTouchOutside(false)
 
     }
 
@@ -221,19 +219,25 @@ class PaymentFrag : Fragment() {
 
         var date: String = et_expiry_date.text.toString()
         expiryMonth = date.substring(0, 2).toInt()
-        expiryYear = date.substring(3, 5).toInt()
+        expiryYear = date.substring(3, 5).toInt()+2000
 
         if (expiryMonth < 1 || expiryMonth > 12) {
 
             return false
         }
 
+        val c: Calendar = Calendar.getInstance()
+        val year: Int = c.get(Calendar.YEAR)
+        val month: Int = c.get(Calendar.MONTH)+1
 
-        if (expiryYear < 20) {
+
+        if (expiryYear < year) {
             return false
         }
 
-        if(expiryYear==20 && expiryMonth<4)
+
+
+        if(expiryYear==year && expiryMonth<=month)
         {return false}
 
         return true

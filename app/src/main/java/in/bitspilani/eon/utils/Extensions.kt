@@ -143,9 +143,9 @@ fun AppCompatImageView.isSelected(isSelected: Boolean) {
 @BindingAdapter("imageUrl")
 fun loadImage(view: ImageView, imageUrl: String?) {
 
-    if(imageUrl!=null && !imageUrl.isEmpty())
-    Picasso.get().load(imageUrl).into(view)
-      else{
+    if (imageUrl != null && !imageUrl.isEmpty())
+        Picasso.get().load(imageUrl).fit().into(view)
+    else {
         Picasso.get().load(R.drawable.dummy_image).into(view)
 
     }
@@ -174,27 +174,27 @@ fun getType(view: TextView, id: Int) {
 }
 
 @BindingAdapter("eventStatus")
-fun setEventStatus(view : TextView, status : String ){
+fun setEventStatus(view: TextView, status: String) {
 
-    if(status.toLowerCase().equals("upcoming")){
+    if (status.toLowerCase().equals("upcoming")) {
 
-        view.text="Upcoming"
+        view.text = "Upcoming"
         view.setBackgroundResource(R.drawable.stroke_orange_rectangle)
         view.setTextColor(view.resources.getColor(R.color.orange_status))
 
     }
 
-    if(status.toLowerCase().equals("completed")){
+    if (status.toLowerCase().equals("completed")) {
 
-        view.text="Completed"
+        view.text = "Completed"
         view.setBackgroundResource(R.drawable.stroke_green_rectangle)
         view.setTextColor(view.resources.getColor(R.color.green_status))
 
     }
 
-    if(status.toLowerCase().equals("cancelled")){
+    if (status.toLowerCase().equals("cancelled")) {
 
-        view.text="Cancelled"
+        view.text = "Cancelled"
         view.setBackgroundResource(R.drawable.stroke_red_rectangle)
         view.setTextColor(view.resources.getColor(R.color.red_status))
 
@@ -203,28 +203,26 @@ fun setEventStatus(view : TextView, status : String ){
 }
 
 
-
-
 @BindingAdapter("organizedEventStatus")
-fun setOrganizedEventStatus(view : TextView, status : String ){
+fun setOrganizedEventStatus(view: TextView, status: String) {
 
-    if(status.toLowerCase().equals("upcoming")){
+    if (status.toLowerCase().equals("upcoming")) {
 
-        view.text=status.capitalize()
+        view.text = status.capitalize()
         view.setTextColor(view.resources.getColor(R.color.orange_status))
 
     }
 
-    if(status.toLowerCase().equals("completed")){
+    if (status.toLowerCase().equals("completed")) {
 
-        view.text=status.capitalize()
+        view.text = status.capitalize()
         view.setTextColor(view.resources.getColor(R.color.green_status))
 
     }
 
-    if(status.toLowerCase().equals("cancelled")){
+    if (status.toLowerCase().equals("cancelled")) {
 
-        view.text=status.capitalize()
+        view.text = status.capitalize()
         view.setTextColor(view.resources.getColor(R.color.red_status))
 
     }
@@ -233,7 +231,8 @@ fun setOrganizedEventStatus(view : TextView, status : String ){
 
 @BindingAdapter("statusVisibility")
 fun setDeleteVisibility(view: View, value: String) {
-    view.visibility = if (value.equals("completed") || value.equals("cancelled") ) View.GONE else View.VISIBLE
+    view.visibility =
+        if (value.equals("completed") || value.equals("cancelled")) View.GONE else View.VISIBLE
 }
 
 
@@ -297,25 +296,23 @@ val Int.px: Int
 
 
 @BindingAdapter("time")
-fun convertTime(view: TextView, dateInString: String)
-{
+fun convertTime(view: TextView, dateInString: String) {
 
-    var inputFormat=SimpleDateFormat("hh:mm:ss", Locale.ENGLISH)
-    var outputFormat=SimpleDateFormat("KK:mm a", Locale.ENGLISH)
+    var inputFormat = SimpleDateFormat("hh:mm:ss", Locale.ENGLISH)
+    var outputFormat = SimpleDateFormat("KK:mm a", Locale.ENGLISH)
 
-    view.text=outputFormat.format(inputFormat.parse(dateInString)!!)
+    view.text = outputFormat.format(inputFormat.parse(dateInString)!!)
 
 }
 
 
 @BindingAdapter("dateAndTime")
-fun convertDateAndTime(view: TextView, dateInString: String)
-{
+fun convertDateAndTime(view: TextView, dateInString: String) {
 
-    var inputFormat=SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH)
-    var outputFormat=SimpleDateFormat("EEE, dd MMM yyyy, KK:mm a", Locale.ENGLISH)
+    var inputFormat = SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH)
+    var outputFormat = SimpleDateFormat("EEE, dd MMM yyyy, KK:mm a", Locale.ENGLISH)
 
-    view.text=outputFormat.format(inputFormat.parse(dateInString)!!)
+    view.text = outputFormat.format(inputFormat.parse(dateInString)!!)
 
 }
 
