@@ -19,6 +19,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import kotlinx.android.synthetic.main.event_summary_fragment.*
 import kotlinx.android.synthetic.main.layout_attendees_amount.*
+import kotlin.math.round
 
 
 class EventSummaryFrag : Fragment() {

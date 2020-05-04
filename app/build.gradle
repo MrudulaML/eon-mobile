@@ -65,16 +65,15 @@ android {
         }
 
         PRODUCTION {
-            applicationId "in.bitspilani.eon.local"
-            versionNameSuffix "-local"
-            buildConfigField 'String', 'BASE_SERVER_URL', testingProperties.BASE_URL_PROD
+            applicationId "in.bitspilani.eon"
+            versionNameSuffix "-dev"
+            buildConfigField 'String', 'BASE_SERVER_URL', testingProperties.BASE_URL_DEV
 
         }
 
     }
 
 }
-//TODO update all the versions to project level gradle
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -172,6 +171,9 @@ dependencies {
 
     //bar graph
     implementation 'com.highsoft.highcharts:highcharts:7.0.3'
+
+    //Canary
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.2'
 
 
 }

@@ -170,7 +170,6 @@ class HomeFragment : Fragment() {
 
         eventListUpdated = eventList.eventList
         val isSubscriber: Boolean = ModelPreferencesManager.getInt(Constants.USER_ROLE) == 2
-        Timber.e("is subcriber$isSubscriber")
         layoutManager = LinearLayoutManager(activity)
         //TODO fix this hack
         if (eventList.fromFilter) {
