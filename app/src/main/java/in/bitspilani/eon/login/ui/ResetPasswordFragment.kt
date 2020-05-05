@@ -105,7 +105,10 @@ class ResetPasswordFragment : Fragment() {
 
         if (isBack){
             isBack = false
-            //to do for back address screen
+            authViewModel.forgotPasswordSteps = ForgotPasswordSteps.ENTER_DETAILS
+            binding.step = ForgotPasswordSteps.ENTER_DETAILS
+            binding.stepView.go(0, true)
+
         }else{
             findNavController().popBackStack()  //  <- this code is to take him back to login screen
         }
@@ -114,6 +117,7 @@ class ResetPasswordFragment : Fragment() {
     private fun onNextClick() {
         when (authViewModel.forgotPasswordSteps) {
             ForgotPasswordSteps.ENTER_DETAILS -> {
+                isBack = true
                 if (Validator.isValidEmail(edit_user_email, true)) {
                     email=edit_user_email.text.toString()
                     authViewModel.forgotPasswordSteps = ForgotPasswordSteps.VERIFICATION_CODE
@@ -123,17 +127,6 @@ class ResetPasswordFragment : Fragment() {
 
             ForgotPasswordSteps.VERIFICATION_CODE -> {
                 if (Validator.isValidVerificationCode(edit_verification_code)) {
-//                    if (TextUtils.equals(edt_create_new_password.text, edt_re_enter_password.text)
-//                        && Validator.isValidPassword(edt_create_new_password)
-//                    ) {
-//
-//                        authViewModel.resetPassword(
-//                            email!!,
-//                            edit_verification_code.text.toString(),
-//                            edt_create_new_password.text.toString()
-//                        )
-//
-//                    }
 
                     if(Validator.isValidPassword(edt_create_new_password, true) && Validator.isValidPassword(edt_re_enter_password, true))
                     {

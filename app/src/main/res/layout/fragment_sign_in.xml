@@ -117,8 +117,9 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/emailAddressWrapper"
                     android:background="@drawable/bg_edit_text"
-                    android:paddingBottom="@dimen/_4sdp"
-                    android:theme="@style/TextLabel">
+                    android:theme="@style/TextLabel"
+                    android:paddingBottom="@dimen/_16dp"
+                    android:paddingTop="@dimen/_6dp">
 
                     <androidx.appcompat.widget.AppCompatEditText
                         android:id="@+id/etEmailAddress"
@@ -128,7 +129,7 @@
                         android:background="@android:color/transparent"
                         android:drawableStart="@drawable/ic_user"
                         android:drawableLeft="@drawable/ic_user"
-                        android:drawablePadding="@dimen/_8sdp"
+                        android:drawablePadding="@dimen/_8dp"
                         android:hint="Email"
                         android:gravity="center_vertical|left"
                         android:inputType="textEmailAddress"
@@ -146,6 +147,8 @@
                     android:layout_below="@id/emailAddressWrapper"
                     android:background="@drawable/bg_edit_text"
                     app:passwordToggleEnabled="true"
+                    android:paddingBottom="@dimen/_12dp"
+                    android:paddingTop="@dimen/_4dp"
                     android:theme="@style/TextLabel">
 
                     <androidx.appcompat.widget.AppCompatEditText
@@ -156,7 +159,7 @@
                         android:layout_gravity="center"
                         android:drawableStart="@drawable/ic_icon_lock_password_grey"
                         android:drawableLeft="@drawable/ic_icon_lock_password_grey"
-                        android:drawablePadding="@dimen/_8sdp"
+                        android:drawablePadding="@dimen/_8dp"
                         android:hint="@string/password_hint"
                         android:inputType="textPassword"
                         android:gravity="center_vertical|left"
@@ -170,7 +173,7 @@
                     android:id="@+id/tv_forgot_password"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
                     android:layout_gravity="right"
                     android:clickable="true"
                     android:onClick="tvForgotPassword"

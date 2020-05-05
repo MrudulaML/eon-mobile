@@ -135,7 +135,7 @@ class ToolbarNotificationFragment : Fragment() {
         //dummy list
         actionbarHost?.showToolbar(
             showToolbar = true,
-            title = "My Notifications",
+            title = "Notifications",
             showBottomNav = false
         )
 
