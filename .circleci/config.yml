@@ -29,6 +29,8 @@ jobs:
       - save_cache:
           paths:
             - ~/.gradle
+            key: jars-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
+
       - run:
           name: Export Path
           command: export PATH=~/.local/bin:$PATH
