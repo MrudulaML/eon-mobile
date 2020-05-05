@@ -147,7 +147,7 @@ class PaymentFrag : Fragment() {
 
         btn_proceed.clickWithDebounce(3500) {
             if (et_card_owner_name.text.isEmpty())
-                showUserMsg("Please enter Card owner's name")
+                showUserMsg("Please enter card owner's name")
             else if (et_card_number.text.isEmpty())
                 showUserMsg("Please enter Card number")
             else if (et_card_number.text.toString().length != 16)
