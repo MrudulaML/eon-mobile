@@ -213,7 +213,7 @@ class BasicDetailsFragment : Fragment() {
 
 
                     } else {
-                        showUserMsg("Password Does not match")
+                        showUserMsg("Password doesn't match")
                     }
                 }
             }
