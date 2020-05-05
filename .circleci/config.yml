@@ -1,7 +1,6 @@
 version: 2
 jobs:
   build:
-    resource_class: 2xlarge+
 
     working_directory: ~/code
     docker:
