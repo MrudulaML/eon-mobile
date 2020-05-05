@@ -1,11 +1,71 @@
-version: 2.1
+version: 2
 jobs:
-  test:
-    docker:
-      - image: circleci/android:api-28-alpha  # gcloud is baked into this image
-    steps:
-      - run:
-          name: Build debug APK and release APK
-          command: |
-            ./gradlew :app:assembleTESTINGDebug
+  build:
+    resource_class: 2xlarge+
 
+    working_directory: ~/code
+    docker:
+      - image: circleci/android:api-28-alpha
+    environment:
+      JVM_OPTS: -Xmx8192m
+      GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx8192m -XX:+HeapDumpOnOutOfMemoryError"'
+    steps:
+      - checkout
+      - run:
+          name: Set ANDROID_HOME
+          command:  echo sdk.dir = $ANDROID_HOME > local.properties
+      - run:
+          name: Install dependencies
+          command: pip install awscli --upgrade --user
+      - run:
+          name: Export Path
+          command: export PATH=~/.local/bin:$PATH
+      - run:
+          name: Set minify system variable
+          command: echo 'export MINIFY_ENABLED="true"' >> $BASH_ENV
+
+      - run:
+          name: Download Dependencies
+          command: ./gradlew androidDependencies
+      - save_cache:
+          paths:
+            - ~/.gradle
+      - run:
+          name: Export Path
+          command: export PATH=~/.local/bin:$PATH
+      - run:
+          name: Chmod permissions #if permission for Gradlew Dependencies fail, use this.
+          command: sudo chmod +x ./gradlew
+      - run:
+          name: Run Tests
+          command: ./gradlew :app:testTESTINGDebugUnitTest
+      # for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
+      - run:
+          name: Save test results
+          command: |
+            mkdir -p ~/test-results/junit/
+            find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} ~/test-results/junit/ \;
+          when: always
+      - store_test_results:
+          path: ~/test-results
+      - store_artifacts:
+          path: ~/test-results/junit
+      - run:
+          name: Build APKS
+          command: ./gradlew --info assembleTESTINGDebug
+      - run:
+          name: Copying mapping file
+          command:
+            if [ -e /home/circleci/code/app/build/outputs/mapping/PRODUCTION/release/mapping.txt ];
+            then
+            cp /home/circleci/code/app/build/outputs/mapping/PRODUCTION/release/mapping.txt /home/circleci/code/app/build/outputs/apk/PRODUCTION/release/mapping.txt;
+            else
+            echo "Skipping to copy mapping file";
+            fi
+      - store_artifacts:
+          path: app/build/outputs/apk
+          destination: reports
+      - run:
+          name: Running dex script
+          command: bash ./.circleci/script.sh
+#what a fantastic commit
