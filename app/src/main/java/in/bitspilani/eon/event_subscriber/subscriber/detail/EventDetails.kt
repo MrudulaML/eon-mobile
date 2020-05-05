@@ -311,7 +311,7 @@ class EventDetails : Fragment() {
                 changePriceButtonColor()
             } else {
 
-                showUserMsg("Only " + data.remainingTickets + " Tickets are remaining.")
+                showUserMsg("Only " + data.remainingTickets + " tickets are remaining")
             }
 
 
