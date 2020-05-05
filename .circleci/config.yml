@@ -10,9 +10,7 @@ jobs:
       GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx8192m -XX:+HeapDumpOnOutOfMemoryError"'
     steps:
       - checkout
-      - run:
-          name: Set ANDROID_HOME
-          command:  echo sdk.dir = $ANDROID_HOME > local.properties
+
       - run:
           name: Install dependencies
           command: pip install awscli --upgrade --user
