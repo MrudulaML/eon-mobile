@@ -23,6 +23,9 @@ class SuccessDialog {
             //show dialog
             val mAlertDialog = mBuilder.show()
 
+            mAlertDialog.setCancelable(false)
+            mAlertDialog.setCanceledOnTouchOutside(false)
+
             mDialogView.btn_okay.clickWithDebounce {
 
                 onOkayClick.invoke()

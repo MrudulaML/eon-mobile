@@ -11,6 +11,7 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -179,13 +180,16 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
 
         text_url.clickWithDebounce {
             try {
-                val browserIntent =
-                    Intent(Intent.ACTION_VIEW, Uri.parse(eventDetailResponse.data.external_links))
-                startActivity(browserIntent)
+                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(eventDetailResponse.data.external_links))
+
+                activity!!.startActivity(browserIntent)
+
             } catch (e: Exception) {
 
+                Log.e("xoxo","intent error: "+e.toString())
             }
         }
+
         send_updates.clickWithDebounce {
             isFromUpdate = false
             val dialogFragment = NotifySubscriberFragment(this, isFromUpdate)

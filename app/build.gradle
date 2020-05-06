@@ -172,8 +172,6 @@ dependencies {
     //bar graph
     implementation 'com.highsoft.highcharts:highcharts:7.0.3'
 
-    //Canary
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.2'
 
 
 }

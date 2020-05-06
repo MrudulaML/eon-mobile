@@ -18,7 +18,7 @@ class CommonUtil {
                 Intent.ACTION_VIEW,
                 Uri.parse(url)
             )
-            activity!!.startActivity(browserIntent)
+            activity.startActivity(browserIntent)
 
         }
 
