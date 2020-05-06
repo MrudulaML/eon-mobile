@@ -74,5 +74,7 @@
     <string name="no_data">No events found</string>
 
     <string name="revenue_earned">\u20B9 %s</string>
+    <string name="bank_details">Bank Details</string>
+
 
 </resources>
