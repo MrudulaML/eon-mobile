@@ -10,18 +10,15 @@ jobs:
       - checkout
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-      #      - run:
-      #         name: Chmod permissions #if permission for Gradlew Dependencies fail, use this.
-      #         command: sudo chmod +x ./gradlew
 
-  - run:
-      name: Set ANDROID_HOME
-      command:  echo sdk.dir = $ANDROID_HOME > local.properties
+     - run:
+       name: Set ANDROID_HOME
+       command:  echo sdk.dir = $ANDROID_HOME > local.properties
 
-    - run:
+     - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
-    - run:
+     - run:
          name: Build APKS
           command: ./gradlew --info assembleTESTINGDebug
 
