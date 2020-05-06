@@ -616,7 +616,7 @@ class EventDetails : Fragment() {
 
             document.finishPage(page)
 
-            val directoryPath = Environment.getExternalStorageDirectory().path + "/invoices/"
+            val directoryPath = Environment.getExternalStorageDirectory().path + "/Download/"
 
             var downloadManager: DownloadManager? = null
             downloadManager = context?.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
@@ -627,7 +627,7 @@ class EventDetails : Fragment() {
                 dir.mkdirs()
             val filePath: File
 
-            filePath = File(directoryPath, eventName + "-" + userName + ".pdf")
+            filePath = File(directoryPath, eventName+"-"+userName+".pdf")
 
             if (filePath.exists()) {
                 filePath.delete()
@@ -647,7 +647,7 @@ class EventDetails : Fragment() {
             document.close();
 
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
-                // to do
+                showSnackBar("Downloaded", true);
             } else {
                 downloadManager.addCompletedDownload(
                     filePath.name,
