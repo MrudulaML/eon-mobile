@@ -35,6 +35,7 @@
             android:fillViewport="true"
             android:focusableInTouchMode="true"
             android:scrollbars="vertical"
+            android:scrollbarThumbVertical="@null"
             tools:context=".login.ui.SignInFragment">
 
             <androidx.appcompat.widget.LinearLayoutCompat
