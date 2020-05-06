@@ -65,6 +65,7 @@ android {
 
         }
 
+
         PRODUCTION {
             applicationId "in.bitspilani.eon"
             versionNameSuffix "-dev"
