@@ -6,33 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/lightGrey"
-        android:orientation="vertical"
-        tools:context=".login.ui.SignInFragment">
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/appCompatImageView3"
-            android:layout_width="@dimen/_100dp"
-            android:layout_height="@dimen/_100sdp"
-            android:layout_gravity="center"
-            android:layout_marginTop="32dp"
-            app:layout_constraintEnd_toEndOf="@+id/linearLayoutCompat"
-            app:layout_constraintHorizontal_bias="0.31"
-            app:layout_constraintStart_toStartOf="@+id/linearLayoutCompat"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/logo_bits" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="EOn"
-            android:textColor="@color/navy"
-            android:textSize="40sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView3"
-            app:layout_constraintStart_toEndOf="@+id/appCompatImageView3"
-            app:layout_constraintTop_toTopOf="@+id/appCompatImageView3" />
+        android:background="@color/lightGrey">
 
         <com.github.florent37.shapeofview.shapes.ArcView
             android:id="@+id/arcView"
@@ -53,171 +27,197 @@
                 android:scaleType="centerCrop"
                 app:srcCompat="@drawable/dummy_image" />
 
-
         </com.github.florent37.shapeofview.shapes.ArcView>
 
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/linearLayoutCompat"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_24dp"
-            android:orientation="vertical"
-            android:animateLayoutChanges="true"
-            android:paddingBottom="@dimen/_20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appCompatImageView3">
-
-
-            <com.google.android.material.chip.ChipGroup
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/_24sdp">
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/organiser"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:allowUndo="false"
-                    app:chipBackgroundColor="@color/chip_states"
-                    android:checkable="true"
-                    android:text="@string/organiser"
-                    app:checkedIconEnabled="false"
-                    android:textColor="@color/chip_text_states"
-                    android:theme="@style/Theme.MaterialComponents.Light" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/subscriber"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_32dp"
-                    android:allowUndo="false"
-                    app:chipBackgroundColor="@color/chip_states"
-                    android:checkable="true"
-                    app:checkedIconEnabled="false"
-                    android:text="@string/subscriber"
-                    android:textColor="@color/chip_text_states"
-                    android:theme="@style/Theme.MaterialComponents.Light" />
-            </com.google.android.material.chip.ChipGroup>
-
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:focusableInTouchMode="true"
+            android:scrollbars="vertical"
+            tools:context=".login.ui.SignInFragment">
 
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/linearLayoutCompat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:background="@drawable/custom_shape"
+                android:layout_marginHorizontal="@dimen/_24dp"
                 android:orientation="vertical"
-                android:padding="@dimen/_20dp">
+                android:animateLayoutChanges="true"
+                android:paddingBottom="@dimen/_20dp">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/emailAddressWrapper"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/emailAddressWrapper"
-                    android:background="@drawable/bg_edit_text"
-                    android:theme="@style/TextLabel"
-                    android:paddingBottom="@dimen/_16dp"
-                    android:paddingTop="@dimen/_6dp">
+                    android:layout_marginTop="@dimen/_32dp"
+                    android:gravity="center">
 
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/etEmailAddress"
-                        android:layout_width="match_parent"
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/appCompatImageView3"
+                        android:layout_width="@dimen/_100dp"
+                        android:layout_height="@dimen/_100dp"
+                        android:layout_centerVertical="true"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="32dp"
+                        app:srcCompat="@drawable/logo_bits"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:background="@android:color/transparent"
-                        android:drawableStart="@drawable/ic_user"
-                        android:drawableLeft="@drawable/ic_user"
-                        android:drawablePadding="@dimen/_8dp"
-                        android:hint="Email"
-                        android:gravity="center_vertical|left"
-                        android:inputType="textEmailAddress"
-                        android:padding="@dimen/_8dp"
-                        android:textColorHint="@color/grey"
-                        android:textSize="14sp" />
+                        android:layout_marginStart="@dimen/_80sdp"
+                        android:text="EOn"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/navy"
+                        android:textSize="40sp"
+                        android:textStyle="bold"/>
 
-                </com.google.android.material.textfield.TextInputLayout>
+                </RelativeLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/passwordWrapper"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_below="@id/emailAddressWrapper"
-                    android:background="@drawable/bg_edit_text"
-                    app:passwordToggleEnabled="true"
-                    android:paddingBottom="@dimen/_12dp"
-                    android:paddingTop="@dimen/_4dp"
-                    android:theme="@style/TextLabel">
-
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/etPassword"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:layout_gravity="center"
-                        android:drawableStart="@drawable/ic_icon_lock_password_grey"
-                        android:drawableLeft="@drawable/ic_icon_lock_password_grey"
-                        android:drawablePadding="@dimen/_8dp"
-                        android:hint="@string/password_hint"
-                        android:inputType="textPassword"
-                        android:gravity="center_vertical|left"
-                        android:padding="@dimen/_8dp"
-                        android:textColorHint="@color/grey"
-                        android:textSize="14sp" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_forgot_password"
+                <com.google.android.material.chip.ChipGroup
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_12sdp"
-                    android:layout_gravity="right"
-                    android:clickable="true"
-                    android:onClick="tvForgotPassword"
-                    android:text="@string/forgot_password"
-                    android:textColor="@color/navy"
-                    android:textSize="@dimen/_16fs" />
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_24sdp">
 
-            </androidx.appcompat.widget.LinearLayoutCompat>
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/organiser"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:allowUndo="false"
+                        app:chipBackgroundColor="@color/chip_states"
+                        android:checkable="true"
+                        android:text="@string/organiser"
+                        app:checkedIconEnabled="false"
+                        android:textColor="@color/chip_text_states"
+                        android:theme="@style/Theme.MaterialComponents.Light" />
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_20dp"
-                android:orientation="vertical">
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/subscriber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_32dp"
+                        android:allowUndo="false"
+                        app:chipBackgroundColor="@color/chip_states"
+                        android:checkable="true"
+                        app:checkedIconEnabled="false"
+                        android:text="@string/subscriber"
+                        android:textColor="@color/chip_text_states"
+                        android:theme="@style/Theme.MaterialComponents.Light" />
+                </com.google.android.material.chip.ChipGroup>
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_login"
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_button_rounded_corners"
-                    android:clickable="true"
-                    android:onClick="btnLogin"
-                    android:padding="@dimen/_18dp"
-                    android:text="@string/login"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white" />
+                    android:gravity="center"
+                    android:background="@drawable/custom_shape"
+                    android:orientation="vertical"
+                    android:padding="@dimen/_20dp">
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_register"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/emailAddressWrapper"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/emailAddressWrapper"
+                        android:background="@drawable/bg_edit_text"
+                        android:theme="@style/TextLabel"
+                        android:paddingBottom="@dimen/_16dp"
+                        android:paddingTop="@dimen/_6dp">
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/etEmailAddress"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@android:color/transparent"
+                            android:drawableStart="@drawable/ic_user"
+                            android:drawableLeft="@drawable/ic_user"
+                            android:drawablePadding="@dimen/_8dp"
+                            android:hint="Email"
+                            android:gravity="center_vertical|left"
+                            android:inputType="textEmailAddress"
+                            android:padding="@dimen/_8dp"
+                            android:textColorHint="@color/grey"
+                            android:textSize="14sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/passwordWrapper"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_below="@id/emailAddressWrapper"
+                        android:background="@drawable/bg_edit_text"
+                        app:passwordToggleEnabled="true"
+                        android:paddingBottom="@dimen/_12dp"
+                        android:paddingTop="@dimen/_4dp"
+                        android:theme="@style/TextLabel">
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/etPassword"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:layout_gravity="center"
+                            android:drawableStart="@drawable/ic_icon_lock_password_grey"
+                            android:drawableLeft="@drawable/ic_icon_lock_password_grey"
+                            android:drawablePadding="@dimen/_8dp"
+                            android:hint="@string/password_hint"
+                            android:inputType="textPassword"
+                            android:gravity="center_vertical|left"
+                            android:padding="@dimen/_8dp"
+                            android:textColorHint="@color/grey"
+                            android:textSize="14sp" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tv_forgot_password"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:layout_gravity="right"
+                        android:clickable="true"
+                        android:onClick="tvForgotPassword"
+                        android:text="@string/forgot_password"
+                        android:textColor="@color/navy"
+                        android:textSize="@dimen/_16fs" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_20dp"
-                    android:background="@drawable/bg_register_button"
-                    android:clickable="true"
-                    android:onClick="btnLogin"
-                    android:padding="@dimen/_18dp"
-                    android:text="Register"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white" />
+                    android:layout_margin="@dimen/_20dp"
+                    android:orientation="vertical">
 
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_login"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_button_rounded_corners"
+                        android:clickable="true"
+                        android:onClick="btnLogin"
+                        android:padding="@dimen/_18dp"
+                        android:text="@string/login"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_register"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_20dp"
+                        android:background="@drawable/bg_register_button"
+                        android:clickable="true"
+                        android:onClick="btnLogin"
+                        android:padding="@dimen/_18dp"
+                        android:text="Register"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.appcompat.widget.LinearLayoutCompat>
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-
+        </androidx.core.widget.NestedScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>
