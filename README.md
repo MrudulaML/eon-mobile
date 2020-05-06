@@ -1,6 +1,51 @@
- Bits-Eon is a project to get details about latest events and thus subscribe to them. In its different branches you'll find the same architecture, MVVM with Data binding applicable in most cases.
+================================================================================
+SET UP STARTS HERE
 
-In the main branch you'll find:
+Installation and Setup:
+
+Following are the steps to install necessary tools and sdks to start with:
+
+1) git clone https://github.com/bits-pgp-fse/eon-mobile.git
+
+2) The installation links below consist of installation steps based on your operating system. Please select your system’s operating system in it to get steps accordingly.
+
+## Install java
+ https://java.com/en/download/help/download_options.xml
+
+## Install Android studio
+ https://developer.android.com/studio 
+
+## Set JAVA_HOME environment variable in linux
+https://www.cyberciti.biz/faq/linux-unix-set-java_home-path-variable/
+
+## Set JAVA_HOME environment variable in Windows
+https://mkyong.com/java/how-to-set-java_home-on-windows-10/
+
+After installing and configuring these steps, open the cloned repository -> eon-mobile (While Opening android studio it will ask you to start new project or open existing one), please sync your gradle files in android studio and download the api sdks if asked in android studio.
+
+Running the application:
+
+Before running the application please connect an actual device using usb to your system with developer options on or create a Virtual device on your Android emulator.
+
+For creating a device on android emulator refer:  
+https://developer.android.com/studio/run/managing-avds
+
+
+
+In order to run the application 
+Select build from toolbar -> Build variant -> select TestingDebug -> tap on Play/Run icon on the toolbar. 
+Before running the application, make sure you have selected one of the connected or virtual devices in the toolbar under the running device option.
+
+
+Generating apk:
+To generate an apk t, please select TestingDebug build variant and tap on build from toolbar -> Build Bundle/Apks -> Build Apk. You will see a pop up on bottom right  of the
+screen, after android studio successfully rebuilds. Tap on locate button of that pop up, it will take you to the generated apk.
+ 
+SET UP ENDS HERE
+================================================================================
+
+Overview of architecture:
+Architecture components: MVVM with Data binding applicable in most cases.
 
 A single-activity architecture, using the Navigation component to manage fragment operations.
 A presentation layer that contains a fragment (View) and a ViewModel per screen (or feature).
@@ -8,79 +53,97 @@ Reactive UIs using LiveData observables and Data Binding.
 A data layer with a repository and  remote data sources that are queried with one-shot operations.
 Two product flavors, TESTING and PRODUCTION, to ease development and testing.
 
-
- Libraries that we are using:
+Libraries: 
 
 Android libraries:
 
-Android-X: AndroidX is a major improvement to the original Android Support Library, which is no longer maintained.
-Androidx packages fully replace the Support Library by providing feature parity and new libraries.
+Android-X: 
+Android-x replaces conventional support libraries, so we are using it over here.
+For more info: https://developer.android.com/jetpack/androidx
 
-core-ktx:
+Core-ktx:
+ Ktx provides kotlin extensions which are also part of android jetpack.
+ For more info:https://developer.android.com/kotlin/ktx
 
-Android KTX is a set of Kotlin extensions that are included with Android Jetpack and other Android libraries. KTX extensions provide concise, idiomatic Kotlin to Jetpack, Android platform, and other APIs. 
+Jetpack Navigation:
+We are using this library to navigate from one fragment to another, using the same base activity.
+For more info: https://developer.android.com/guide/navigation
 
-Jetpack Navigation:Navigation refers to the interactions that allow users to navigate across, into, and back out from the different pieces of content within your app. Android Jetpack's Navigation component helps you implement navigation, from simple button clicks to more complex patterns, such as app bars and the navigation drawer. The Navigation component also ensures a consistent and predictable user experience by adhering to an established set of principles.
-
-Viewmodel: The ViewModel class is designed to store and manage UI-related data in a lifecycle conscious way. The ViewModel class allows data to survive configuration changes such as screen rotations.
-
+Viewmodel: 
+Viewmodel helps us to retain data  even when our screen is rotated and new instance of activity is created, also viewmodel is lifecycle aware component. 
+For more info: https://developer.android.com/topic/libraries/architecture/viewmodel
 
 Other libraries:
 
-Retrofit2: Type-safe HTTP client for Android and Java by Square, Inc.
+Retrofit2: 
+We have used retrofit to make api calls over the network
+For more info: https://square.github.io/retrofit/
 
-Stepview: A simple animated step view for Android. Backward and forward animations is supported.
+Stepview: 
+Used for Steps UI  
+For more info: https://github.com/shuhart/StepView
 
-Facebook stetho: Stetho is a sophisticated debug bridge for Android applications. When enabled, developers have access to the Chrome Developer Tools feature natively part of the Chrome desktop browser. We are using this in development environment only.
+Facebook stetho: 
+This library is integrated so that we can check all the network calls over the network and their exact responses in chrome browser. 
+For more info: http://facebook.github.io/stetho/
 
-florent37 ShapeOfView: a custom shape to any android view, Material Design 2 ready
+Facebook-share: 
+We are using this library to share posts on facebook about events. 
+For more info: https://developers.facebook.com/docs/sharing/android/
 
-zxing: barcode scanning library for Java, Android
+florent37 ShapeOfView: 
+Used to create custom shapes
+For more info: https://github.com/florent37/ShapeOfView
 
+Zxing: 
+Barcode scanning library that helps us generate QR code
+For more info: https://github.com/zxing/zxing
 
-hellocharts: Charts/graphs library for Android compatible with API 8+, several chart types with support for scaling, scrolling and animations
+hellocharts: 
+Charts library with several chart options for making custom charts.
+For more info: https://github.com/lecho/hellocharts-android
 
-
-highcharts: The most popular, robust and battle-tested JavaScript Charting library is now available for Android with our new Java wrapper. Get gorgeous, multi-touch charts with minimal effort.
-
-
+Highcharts: 
+Also used to create charts and graphs
+For more info: https://www.highcharts.com/blog/products/android/
 
 
 Folder/package Structure:
 
-In Project mode : 
+On the left side of your screen, in android studio, you will be able to see a tilted button with the name project. Tap on it and a small menu will show up. On top of that menu, usually by default, Android mode is selected, please tap on that dropdown and select project, to view project in project mode.
+
+Now, Inside, Project mode : 
 Eon Mobile: consists the entire project and all packages
 
-App module: Our very own app/root module for the project.
+App module:  App/root module for the project.
 
-Inside app->src->Main:
+Inside app -> src -> Main
 
- Api: Consists of The app service interface and all the common response models
+Api: 
+Consists of The app service interface and all the common response models
 
- Event Organiser: It contains the following packages:
-Models: It constains all the model classes used in organiser module 
+Event Organiser: 
+It contains the following packages:
+Models: It contains all the model classes used in organiser module 
 UI: Contains all the fragment and views to display organiser related data such as events, graphs, invitee list etc 
 Viewmodels: Contains all viewmodels used in organiser to make api calls and retain data over the lifecycle of the related view
 
-Event Subscriber: Contrary to Organiser,subscriber has  folder structure that is feature based :
+Event Subscriber: 
 Models: Consist common models being used in subscriber
-Subscriber: This packagae consists all the feature packages such as subscriber event detail, summary, payment etc with their views and viewmodel 
-in same package. 
+Subscriber: This package consists of all the feature packages such as subscriber event detail, summary, payment etc with their views and viewmodel in the same package. 
  
-Login: Login packagae contains all the files related to login and signing up a user. It consists of two packages, data and ui.
- Now, contrary to organiser, since this has quite less viewmodels, viewmodels are used in same package as view i.e. in ui.
+Login:
+Login package contains all the files related to login and signing up a user. It consists of two packages, data and ui.
 
 Direct/Global Files inside Main:
 
-Baseviewmodel: A viewmodel class that is being used as super viewmodel class by all the viewmodels regardless of subscriber package or organiser 
-in order to show progressbars and errors.
+Baseviewmodel: 
+A viewmodel class that is being used as super viewmodel class by all the viewmodels regardless of subscriber package or organiser 
+in order to show progress bars and errors.
 
-BitsEonActivity: A single-activity architecture, using the Navigation component to manage fragment operations.
+BitsEonActivity: 
+A single-activity architecture, using the Navigation component to manage fragment operations.
 
-EonViewModelFactory: A viewmodel factory used in generating viewmodel instances as per parameter passed in entire application.
-
-
- 
-
-
+EonViewModelFactory: 
+A viewmodel factory used in generating view model instances as per parameter passed in the entire application.
 

@@ -179,17 +179,16 @@
 
                                 </com.google.android.material.textfield.TextInputLayout>
 
-                                <androidx.appcompat.widget.AppCompatTextView
-                                    android:id="@+id/tv_forgot_password"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="right"
-                                    android:layout_marginTop="@dimen/_12sdp"
-                                    android:clickable="true"
-                                    android:onClick="tvForgotPassword"
-                                    android:text="@string/forgot_password"
-                                    android:textColor="@color/navy"
-                                    android:textSize="@dimen/_16fs" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_forgot_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_gravity="right"
+                    android:clickable="true"
+                    android:text="@string/forgot_password"
+                    android:textColor="@color/navy"
+                    android:textSize="@dimen/_16fs" />
 
                             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -199,30 +198,28 @@
                                 android:layout_margin="@dimen/_20dp"
                                 android:orientation="vertical">
 
-                                <androidx.appcompat.widget.AppCompatButton
-                                    android:id="@+id/btn_login"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:background="@drawable/bg_button_rounded_corners"
-                                    android:clickable="true"
-                                    android:onClick="btnLogin"
-                                    android:padding="@dimen/_18dp"
-                                    android:text="@string/login"
-                                    android:textAllCaps="false"
-                                    android:textColor="@color/white" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_button_rounded_corners"
+                    android:clickable="true"
+                    android:padding="@dimen/_18dp"
+                    android:text="@string/login"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white" />
 
-                                <androidx.appcompat.widget.AppCompatButton
-                                    android:id="@+id/btn_register"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/_20dp"
-                                    android:background="@drawable/bg_register_button"
-                                    android:clickable="true"
-                                    android:onClick="btnLogin"
-                                    android:padding="@dimen/_18dp"
-                                    android:text="Register"
-                                    android:textAllCaps="false"
-                                    android:textColor="@color/white" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_register"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_20dp"
+                    android:background="@drawable/bg_register_button"
+                    android:clickable="true"
+                    android:padding="@dimen/_18dp"
+                    android:text="Register"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white" />
 
                             </androidx.appcompat.widget.LinearLayoutCompat>
                         </androidx.appcompat.widget.LinearLayoutCompat>
