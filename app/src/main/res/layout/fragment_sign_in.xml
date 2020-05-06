@@ -191,7 +191,6 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/bg_button_rounded_corners"
                     android:clickable="true"
-                    android:onClick="btnLogin"
                     android:padding="@dimen/_18dp"
                     android:text="@string/login"
                     android:textAllCaps="false"
