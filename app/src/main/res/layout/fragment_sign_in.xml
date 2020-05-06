@@ -173,7 +173,6 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_gravity="right"
                     android:clickable="true"
-                    android:onClick="tvForgotPassword"
                     android:text="@string/forgot_password"
                     android:textColor="@color/navy"
                     android:textSize="@dimen/_16fs" />
@@ -205,7 +204,6 @@
                     android:layout_marginTop="@dimen/_20dp"
                     android:background="@drawable/bg_register_button"
                     android:clickable="true"
-                    android:onClick="btnLogin"
                     android:padding="@dimen/_18dp"
                     android:text="Register"
                     android:textAllCaps="false"
