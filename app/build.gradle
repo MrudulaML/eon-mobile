@@ -11,7 +11,7 @@ testingProperties.load(new FileInputStream(rootProject.file("app/common.properti
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
-    buildToolsVersion "29.0.2"
+    buildToolsVersion "28.0.1"
     defaultConfig {
         applicationId "in.bitspilani.eon"
         minSdkVersion rootProject.minSdkVersion
