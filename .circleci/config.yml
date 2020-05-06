@@ -14,9 +14,7 @@ jobs:
       #         name: Chmod permissions #if permission for Gradlew Dependencies fail, use this.
       #         command: sudo chmod +x ./gradlew
 
-    - run:
-      name: Accept licenses
-      command: yes | $ANDROID_HOME/tools/bin/sdkmanager --licenses || if [ $? -ne '141' ]; then exit $?; fi;  #Captures SIGPIPE 141 error but still allow repeating "y" to accept all licenses
+
 
     - run:
           name: Download Dependencies
