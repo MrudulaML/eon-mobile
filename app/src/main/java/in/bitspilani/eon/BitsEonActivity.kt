@@ -68,7 +68,6 @@ class BitsEonActivity : AppCompatActivity(), ActionbarHost {
                     delay(3000)
                     navController.navigate(R.id.action_splashScreen_to_signInFragment)
 
-                    //TODO fix this hack put null safety prone to crash
                 }
                 JWT(userData!!.access).isExpired(10) -> {
                     delay(400)

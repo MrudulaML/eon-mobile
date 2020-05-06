@@ -162,7 +162,6 @@ fun EditText.onChange(cb: (String) -> Unit) {
     })
 }
 
-//TODO optimise this hacky thing
 @BindingAdapter("eventType")
 fun getType(view: TextView, id: Int) {
     val eventTypeCached = ModelPreferencesManager.get<FilterResponse>(Constants.EVENT_TYPES)

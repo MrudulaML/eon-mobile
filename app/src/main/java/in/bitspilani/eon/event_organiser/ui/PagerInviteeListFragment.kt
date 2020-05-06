@@ -144,7 +144,6 @@ class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganis
     }
 
 
-    //TODO fix this with data binding
     private fun setUpVisibility() {
         if (detailResponse.data.self_organised) {
 

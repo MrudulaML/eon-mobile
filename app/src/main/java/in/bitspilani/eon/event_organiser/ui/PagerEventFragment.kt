@@ -177,7 +177,6 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
             shareFacebook() // to do
         }
 
-        //TODO handle thi elegently
         text_url.clickWithDebounce {
             try {
                 val browserIntent =
