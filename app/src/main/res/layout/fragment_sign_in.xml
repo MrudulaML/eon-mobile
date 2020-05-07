@@ -121,7 +121,7 @@
                         android:layout_below="@id/emailAddressWrapper"
                         android:background="@drawable/bg_edit_text"
                         android:theme="@style/TextLabel"
-                        android:paddingBottom="@dimen/_8dp">
+                        android:paddingBottom="@dimen/_12dp">
 
                         <androidx.appcompat.widget.AppCompatEditText
                             android:id="@+id/etEmailAddress"
@@ -146,7 +146,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:paddingBottom="@dimen/_8dp"
+                        android:paddingBottom="@dimen/_12dp"
                         android:layout_below="@id/emailAddressWrapper"
                         android:background="@drawable/bg_edit_text"
                         app:passwordToggleEnabled="true"
