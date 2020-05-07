@@ -15,15 +15,11 @@ class SplashScreen : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        activity?.actionBar?.setDisplayHomeAsUpEnabled(false)
-        activity?.actionBar?.setDisplayShowTitleEnabled(false)
+        //TODO check this and remove from all the fragments if not necessary
+
+
         return inflater.inflate(R.layout.fragment_splash_screen, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-    }
 
 }

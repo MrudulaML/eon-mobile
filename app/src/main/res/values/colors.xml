@@ -2,21 +2,34 @@
 <resources>
     <color name="colorPrimary">#201D70</color>
     <color name="colorPrimaryDark">#0C0C18</color>
-    <color name="colorAccent">#0C03F1</color>
 
     <color name="white">#ffffff</color>
-    <color name="label_text_color">#f7676768</color>
-    <color name="textDark">#f5484747</color>
     <color name="red">#d50000</color>
     <color name="black">#000</color>
-    <color name="chip_bg">#535970</color>
+    <color name="dark_grey">#F52B2B2B</color>
     <color name="appColor">#42D1E4</color>
     <color name="grey">#808080</color>
+    <color name="grey_mid">#737373</color>
     <color name="lightGrey">#F1F1F1</color>
-    <color name="appHeaderTextColor">#9369DE</color>
     <color name="blue">#6111EE</color>
     <color name="navy">#2A046F</color>
+    <color name="blue_card">#1058cb</color>
+    <color name="transparent_grey">#489A9A9A</color>
+    <color name="green">#2ba093</color>
+    <color name="orange_pie">#ff9800</color>
+    <color name="red_pie">#f54b11</color>
+    <color name="green_pie">#72c5a6</color>
 
-    <color name="green">#25AC2B</color>
-    <color name="yellow">#FFC400</color>
+    <color name="yellow">#ffca6b</color>
+    <color name="subscribed_bg_color">#e5f4f3</color>
+
+    <color name="subscribed_text_color">#64c1b8</color>
+    <color name="subscribed_bg_color2">#e8c7f5</color>
+    <color name="dark_grey2">#514e5e</color>
+    <color name="medium_aqua_marine">#71c79b</color>
+
+    <color name="orange_status">#FA8C16</color>
+    <color name="orang_status_bg">#fff7e6</color>
+    <color name="red_status">#F5222D</color>
+    <color name="green_status">#52C41A</color>
 </resources>

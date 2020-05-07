@@ -14,12 +14,13 @@ class Validator {
     companion object {
 
         // Default validation messages
-        private val PASSWORD_POLICY = "Password doesnt match requirements"
+        private const val PASSWORD_POLICY = "Password doesn't meet all the given requirements!"
 
         private const val NAME_VALIDATION_MSG = "Enter a valid name"
-        private const val EMAIL_VALIDATION_MSG = "Enter a valid email address"
+        private const val EMAIL_VALIDATION_MSG = "Please enter a valid email!"
         private const val PHONE_VALIDATION_MSG = "Enter a valid phone number"
         private const val IFSC_VALIDATION_MSG = "Enter a valid ifsc"
+        private const val PASSWORD_VALIDATION_MSG = "Please input your password!"
 
 
         /**
@@ -75,6 +76,19 @@ class Validator {
             return valid
         }
 
+        fun isValidLoginPassword(data: Any, updateUI: Boolean = true): Boolean {
+            val str = getText(data)
+            val valid = str.trim().length > 2
+
+            // Set error if required
+            if (updateUI) {
+                val error: String? = if (valid) null else PASSWORD_VALIDATION_MSG
+                setError(data, error)
+            }
+
+            return valid
+        }
+
         /**
          * Checks if the phone is valid.
          * @param data - can be EditText or String
@@ -108,7 +122,7 @@ class Validator {
 
             // to do
             val str = getText(data)
-            val valid = str.trim().length >= 6
+            val valid = str.trim().length >= 4
             if (updateUI) {
                 val error: String? = if (valid) null else NAME_VALIDATION_MSG
                 setError(data, error)
@@ -174,12 +188,13 @@ class Validator {
 
             // Password should contain at least one special character
             // Allowed special characters : "~!@#$%^&*()-_=+|/,."';:{}[]<>?"
-            exp = ".*[~!@#\$%\\^&*()\\-_=+\\|\\[{\\]};:'\",<.>/?].*"
-            pattern = Pattern.compile(exp)
-            matcher = pattern.matcher(str)
-            if (!matcher.matches()) {
-                valid = false
-            }
+            // commented after matching with web as per qa requirement
+//            exp = ".*[~!@#\$%\\^&*()\\-_=+\\|\\[{\\]};:'\",<.>/?].*"
+//            pattern = Pattern.compile(exp)
+//            matcher = pattern.matcher(str)
+//            if (!matcher.matches()) {
+//                valid = false
+//            }
 
             // Set error if required
             if (updateUI) {
@@ -205,6 +220,19 @@ class Validator {
             }
         }
 
+
+        @JvmStatic
+        val CREDIT_CARD_REGEX = "^(?:(?<visa>4[0-9]{12}(?:[0-9]{3})?)|" +
+                "(?<mastercard>5[1-5][0-9]{14})|" +
+                "(?<discover>6(?:011|5[0-9]{2})[0-9]{12})|" +
+                "(?<amex>3[47][0-9]{13})|" +
+                "(?<diners>3(?:0[0-5]|[68][0-9])?[0-9]{11})|" +
+                "(?<jcb>(?:2131|1800|35[0-9]{3})[0-9]{11}))$"
+
+        fun isCardValid(number: String): Boolean {
+            return CREDIT_CARD_REGEX.toRegex().matches(number);
+        }
     }
+
 
 }

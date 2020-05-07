@@ -5,7 +5,7 @@
     android:id="@+id/app_nav"
     app:startDestination="@id/splashScreen">
 
-
+    <!--Splash fragment-->
     <fragment
         android:id="@+id/splashScreen"
         android:name="in.bitspilani.eon.login.ui.SplashScreen"
@@ -13,22 +13,37 @@
         tools:layout="@layout/fragment_splash_screen">
         <action
             android:id="@+id/action_splashScreen_to_signInFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left"
+            app:popUpTo="@id/splashScreen"
+            app:popUpToInclusive="true"
             app:destination="@id/signInFragment" />
         <action
-            android:id="@+id/action_splashScreen_to_homeFragment"
-            app:destination="@id/homeFragment" />
-        <action
-            android:id="@+id/action_splashScreen_to_notificationFragment"
-            app:destination="@id/notificationFragment" />
-        <action
-            android:id="@+id/action_splashScreen_to_userProfileFragment"
-            app:destination="@id/userProfileFragment" />
+            android:id="@+id/action_splashScreen_to_HomeFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left"
+            app:popUpTo="@id/app_nav"
+            app:popUpToInclusive="false"
+            app:destination="@id/home_nav" />
 
     </fragment>
+
+    <fragment
+        android:id="@+id/shareFacebook"
+        android:name="in.bitspilani.eon.event_subscriber.ui.EventFacebookFragment"
+        android:label="fragment_event_facebook"
+        tools:layout="@layout/fragment_event_facebook">
+
+    </fragment>
+
+    <!--sign in fragment-->
     <fragment
         android:id="@+id/signInFragment"
         android:name="in.bitspilani.eon.login.ui.SignInFragment"
-
         tools:layout="@layout/fragment_sign_in">
         <action
             android:id="@+id/action_signInFragment_to_basicInfo"
@@ -38,64 +53,400 @@
             app:destination="@id/createPasswordFragment" />
         <action
             android:id="@+id/action_signInFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/homeFragment"
-        android:name="in.bitspilani.eon.eventOrganiser.ui.HomeFragment"
+            app:destination="@id/home_nav" />
 
-        tools:layout="@layout/fragment_dashboard" >
-        <action android:id="@+id/action_homeFragment_to_createPasswordFragment"
-                app:destination="@id/createPasswordFragment"/>
-        <action
-            android:id="@+id/action_homeFragment_to_eventDetailsFragment"
-            app:destination="@id/eventDetailsFragment" />
     </fragment>
+    <!--create password-->
+    <fragment
+        android:id="@+id/createPasswordFragment"
+        android:name="in.bitspilani.eon.login.ui.ResetPasswordFragment"
+
+        tools:layout="@layout/fragment_create_password">
+        <action
+            android:id="@+id/action_basicInfo_to_signInFragment"
+            app:destination="@id/signInFragment" />
+
+
+    </fragment>
+
+
+    <!-- basic info -->
     <fragment
         android:id="@+id/basicInfo"
         android:name="in.bitspilani.eon.login.ui.BasicDetailsFragment"
-
         tools:layout="@layout/fragment_basic_details">
-        <action android:id="@+id/action_basicInfo_to_homeFragment" app:destination="@id/homeFragment"/>
+
+        <action
+            android:id="@+id/sign_into_homepage"
+            app:destination="@id/app_nav" />
+
+        <action
+            android:id="@+id/action_BasicInfoFragment_to_signInFragment"
+            app:popUpTo="@id/signInFragment"
+            app:popUpToInclusive="true"
+            app:destination="@id/signInFragment" />
+
+        <action
+            android:id="@+id/action_BasicInfoFragment_to_homeFragment"
+            app:destination="@id/home_nav" />
+
     </fragment>
-    <fragment
-        android:id="@+id/createPasswordFragment"
-        android:name="in.bitspilani.eon.login.ui.ResetPassword"
 
-        tools:layout="@layout/fragment_create_password"/>
-    <fragment
-        android:id="@+id/changePasswordFragment"
-        android:name="in.bitspilani.eon.login.ui.ChangePasswordFragment"
+    <!--after login navigation-->
+    <navigation
+        android:id="@+id/home_nav"
+        app:startDestination="@id/homeFragment">
+        <fragment
+            android:id="@+id/homeFragment"
+            android:name="in.bitspilani.eon.event_organiser.ui.HomeFragment"
+            tools:layout="@layout/fragment_dashboard">
 
-        tools:layout="@layout/fragment_change_password">
-        <action android:id="@+id/action_changePasswordFragment_to_homeFragment"
-            app:destination="@id/homeFragment"/>
-    </fragment>
+            <action
+                android:id="@+id/action_homeFragment_to_createPasswordFragment"
+                app:destination="@id/createPasswordFragment" />
+            <action
+                android:id="@+id/action_homeFragment_to_organiser_eventDetailsFragment"
+                app:destination="@id/eventDetailsOrganiserFragment" />
 
-    <action android:id="@+id/action_to_change_password"
-        app:destination="@id/changePasswordFragment"/>
-
-    <fragment
-        android:id="@+id/eventDetailsFragment"
-        android:name="in.bitspilani.eon.eventOrganiser.ui.EventDetailsFragment"
-
-        tools:layout="@layout/fragment_event_detail"/>
-    <action android:id="@+id/action_homeFragment_to_eventDetailsFragment"
-        app:popUpTo="@id/homeFragment"
-        app:destination="@id/eventDetailsFragment"/>
-    <fragment
-        android:id="@+id/notificationFragment"
-        android:name="in.bitspilani.eon.eventOrganiser.ui.NotificationFragment"
-        tools:layout="@layout/fragment_notification" />
-    <action android:id="@+id/toolbar_to_notification"
-        app:destination="@id/notificationFragment"/>
-    <fragment
-        android:id="@+id/userProfileFragment"
-        android:name="in.bitspilani.eon.eventOrganiser.ui.UserProfileFragment"
-        tools:layout="@layout/fragment_user_profile" />
+            <action
+                android:id="@+id/action_homeFragment_to_subscriber_eventDetailsFragment"
+                app:destination="@id/eventDetails" />
+        </fragment>
 
 
-    tools:layout="@layout/fragment_create_password"/>
+        <fragment
+            android:id="@+id/changePasswordFragment"
+            android:name="in.bitspilani.eon.login.ui.ChangePasswordFragment"
 
-    <action android:id="@+id/action_global_signInFragment" app:destination="@id/signInFragment"/>
+            tools:layout="@layout/fragment_change_password">
+            <action
+                android:id="@+id/action_changePasswordFragment_to_homeFragment"
+                app:destination="@id/homeFragment" />
+
+            <action
+                android:id="@+id/action_changePasswordFragment_to_signinfragment"
+                app:destination="@id/app_nav"
+                app:popUpTo="@id/app_nav"
+                app:popUpToInclusive="true" />
+
+        </fragment>
+
+        <action
+            android:id="@+id/action_to_change_password"
+            app:destination="@id/changePasswordFragment" />
+
+        <!--event details fragment-->
+        <fragment
+            android:id="@+id/eventDetailsOrganiserFragment"
+            android:name="in.bitspilani.eon.event_organiser.ui.EventDetailsOrganiserFragment"
+            tools:layout="@layout/fragment_event_detail_organiser">
+
+            <action
+                android:id="@+id/action_PagerEvent_to_feedback"
+                app:destination="@id/organiserFeedback" />
+            <action
+                android:id="@+id/action_event_details_organiser_to_dashboardFragment"
+                app:popUpTo="@id/homeFragment"
+                app:popUpToInclusive="false" />
+
+        </fragment>
+
+        <fragment
+            android:id="@+id/PagerEventFragment"
+            android:name="in.bitspilani.eon.event_organiser.ui.PagerEventFragment"
+            tools:layout="@layout/fragment_event">
+
+            <action
+                android:id="@+id/action_PagerEvent_to_feedback"
+                app:destination="@id/organiserFeedback" />
+
+        </fragment>
+
+        <fragment
+            android:id="@+id/organiserFeedback"
+            android:name="in.bitspilani.eon.event_organiser.ui.OrganiserFeedbackFragment"
+            tools:layout="@layout/fragment_organiser_feedback" >
+
+            <argument
+                android:name="event_id"
+                android:defaultValue="0"
+                app:argType="integer" />
+
+            <argument
+                android:name="feedback_count"
+                android:defaultValue="0"
+                app:argType="integer" />
+
+            <action
+                android:id="@+id/action_orgFeedback_to_orgFeedbackDetail"
+                app:destination="@id/organiserFeedbackDetail" />
+
+        </fragment>
+
+        <fragment
+            android:id="@+id/organiserFeedbackDetail"
+            android:name="in.bitspilani.eon.event_organiser.ui.OrganizerFeedbackDetail"
+            tools:layout="@layout/fragment_org_feedback_detail">
+            <argument
+                android:name="response_list"
+                app:argType="string" />
+
+        </fragment>
+
+
+
+        <fragment
+            android:id="@+id/paymentFrag"
+            android:name="in.bitspilani.eon.event_subscriber.subscriber.payments.PaymentFrag"
+            tools:layout="@layout/payment_fragment">
+            <action
+                android:id="@+id/action_details_to_payment"
+                app:destination="@id/paymentFrag"
+                app:popUpTo="@id/eventDetails"
+                app:popUpToInclusive="true" />
+
+            <action
+                android:id="@+id/action_payment_to_eventDetail"
+                app:destination="@id/eventDetails" />
+            <action
+                android:id="@+id/action_payment_to_homeFragment"
+                app:destination="@id/homeFragment"
+                app:popUpTo="@id/homeFragment"
+                app:popUpToInclusive="true" />
+
+            <argument
+                android:name="no_of_tickets"
+                android:defaultValue="0"
+                app:argType="integer" />
+            <argument
+                android:name="event_id"
+                android:defaultValue="0"
+                app:argType="integer" />
+            <argument
+                android:name="amount"
+                android:defaultValue="0"
+                app:argType="integer" />
+            <argument
+                android:name="discount_amount"
+                android:defaultValue="0"
+                app:argType="integer" />
+
+        </fragment>
+
+        <fragment
+            android:id="@+id/eventSummaryFrag"
+            android:name="in.bitspilani.eon.event_subscriber.subscriber.summary.EventSummaryFrag">
+            <action
+                android:id="@+id/action_summery_to_payment"
+                app:destination="@id/paymentFrag"
+                />
+
+            <argument
+                android:name="amount"
+                android:defaultValue="0"
+                app:argType="integer" />
+
+            <argument
+                android:name="attendees"
+                android:defaultValue="0"
+
+                app:argType="integer" />
+            <argument
+                android:name="promocode"
+                android:defaultValue="0"
+
+                app:argType="integer" />
+            <argument
+                android:name="discount_amount"
+                android:defaultValue="0"
+                app:argType="integer" />
+
+            <argument
+                android:name="event_id"
+                android:defaultValue="0"
+                app:argType="integer" />
+
+            <argument
+                android:name="no_of_tickets_bought"
+                android:defaultValue="0"
+                app:argType="integer" />
+            <argument
+                android:name="is_update"
+                android:defaultValue="false"
+                app:argType="boolean" />
+
+        </fragment>
+
+        <fragment
+            android:id="@+id/eventDetails"
+            android:name="in.bitspilani.eon.event_subscriber.subscriber.detail.EventDetails"
+            android:label="fragment_event_details"
+            tools:layout="@layout/event_details_fragment">
+            <action
+                android:id="@+id/action_eventDetails_to_summary"
+                app:destination="@id/eventSummaryFrag"
+                />
+
+            <action
+                android:id="@+id/action_eventDetails_to_eventDetails"
+                app:destination="@id/eventDetails"
+                app:popUpTo="@id/eventDetails"
+                app:popUpToInclusive="true" />
+
+            <action
+                android:id="@+id/action_subsEventDetails_to_orgFeedbackDetail"
+                app:destination="@id/organiserFeedbackDetail" />
+
+            <action
+                android:id="@+id/action_eventDetails_to_Homefragment"
+                app:destination="@id/homeFragment"
+                app:popUpTo="@id/homeFragment"
+                app:popUpToInclusive="true" />
+
+            <action
+                android:id="@+id/action_eventDetails_to_subscriberFeedback"
+                app:destination="@+id/subcriberFeedback" />
+
+            <argument
+                android:name="event_id"
+                android:defaultValue="0"
+                app:argType="integer" />
+
+        </fragment>
+
+        <fragment
+            android:id="@+id/refundFragment"
+            android:name="in.bitspilani.eon.event_subscriber.subscriber.summary.RefundFragment"
+            android:label="fragment_refund"
+            tools:layout="@layout/fragment_redund">
+            <action
+                android:id="@+id/action_eventDetails_to_summary"
+                app:destination="@id/eventSummaryFrag"
+                app:popUpTo="@id/homeFragment" />
+
+            <action
+                android:id="@+id/action_refund_to_eventDetail"
+                app:destination="@id/eventDetails" />
+            <action
+                android:id="@+id/action_refundFrag_to_homefrag"
+                app:destination="@id/homeFragment"
+                app:popUpTo="@id/homeFragment" />
+            <argument
+                android:name="event_id"
+                android:defaultValue="0"
+                app:argType="integer" />
+
+            <argument
+                android:name="no_of_tickets_bought"
+                android:defaultValue="0"
+                app:argType="integer" />
+
+            <argument
+                android:name="attendees"
+                android:defaultValue="0"
+                app:argType="integer" />
+            <argument
+                android:name="discount_amount"
+                android:defaultValue="0"
+                app:argType="integer" />
+
+            <argument
+                android:name="amount"
+                android:defaultValue="0"
+                app:argType="integer" />
+
+            <argument
+                android:name="amount_paid"
+                android:defaultValue="0"
+                app:argType="integer" />
+
+            <argument
+                android:name="discount_given"
+                android:defaultValue="0"
+                app:argType="integer" />
+
+        </fragment>
+
+
+        <fragment
+            android:id="@+id/subcriberFeedback"
+            android:name="in.bitspilani.eon.event_subscriber.subscriber.feedback.FeedbackFragment"
+            android:label="fragment_feedback"
+            tools:layout="@layout/fragment_feedback">
+
+            <argument
+                android:name="event_id"
+                android:defaultValue="0"
+                app:argType="integer" />
+
+            <argument
+                android:name="event_name"
+                app:argType="string" />
+
+        </fragment>
+
+        <fragment
+            android:id="@+id/notificationFragment"
+            android:name="in.bitspilani.eon.event_organiser.ui.ToolbarNotificationFragment"
+            tools:layout="@layout/fragment_notification" />
+        <action
+            android:id="@+id/toolbar_to_notification"
+            app:destination="@id/notificationFragment" />
+
+        <!--profile fragment-->
+        <fragment
+            android:id="@+id/userProfileFragment"
+            android:name="in.bitspilani.eon.event_organiser.ui.ToolbarUserProfileFragment"
+            tools:layout="@layout/fragment_user_profile">
+            <!-- action to popup back-stack-->
+            <action
+                android:id="@+id/action_to_sign_in"
+                app:destination="@id/signInFragment"/>
+            <action
+                android:id="@+id/action_profile_to_sub_wish_list"
+                app:destination="@id/eventWishListFragment" />
+
+
+
+        </fragment>
+        <fragment
+            android:id="@+id/eventFilterFragment"
+            android:name="in.bitspilani.eon.event_organiser.ui.FilterEventFragment"
+            android:label="EventFilterFragment">
+
+            <action
+                android:id="@+id/filter_to_dashboard"
+                app:destination="@id/homeFragment"
+                app:popUpTo="@id/homeFragment"
+                app:popUpToInclusive="true" />
+        </fragment>
+
+        <!-- global actions for nav bar-->
+        <action
+            android:id="@+id/nav_user_profile"
+            app:destination="@id/userProfileFragment"
+            app:popUpTo="@id/homeFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_left"
+            app:popUpToInclusive="false" />
+        <fragment
+            android:id="@+id/eventWishListFragment"
+            android:name="in.bitspilani.eon.event_organiser.ui.EventWishListFragment"
+            android:label="EventWishListFragment">
+            <action
+                android:id="@+id/action_eventWishListFragment_to_userProfileFragment"
+                app:destination="@id/userProfileFragment" />
+            <action
+                android:id="@+id/action_wishlist_to_subscriber_eventDetails"
+                app:destination="@id/eventDetails" />
+
+        </fragment>
+        <fragment
+            android:id="@+id/analyticsDashboardFragment"
+            android:name="in.bitspilani.eon.analytics.AnalyticsDashboardFragment"
+            android:label="AnalyticsDashboardFragment" />
+    </navigation>
+
 </navigation>

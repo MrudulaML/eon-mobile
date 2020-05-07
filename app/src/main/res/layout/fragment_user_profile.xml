@@ -3,14 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".eventOrganiser.ui.UserProfileFragment">
+    tools:context=".event_organiser.ui.ToolbarUserProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
-  <!--<ListView
+    <!--<ListView
       android:id="@+id/lv_user_profile"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"/>-->
@@ -20,13 +18,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:layout_marginTop="@dimen/_8sdp"
+        android:padding="@dimen/_16sdp"
         android:focusable="true"
-
-        android:layout_margin="@dimen/_4sdp"
+        android:background="?attr/selectableItemBackground"
         android:orientation="horizontal">
         <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_24sdp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
             app:srcCompat="@drawable/ic_user"/>
@@ -46,14 +43,14 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="true"
-
-        android:layout_margin="@dimen/_4sdp"
+        android:padding="@dimen/_16sdp"
+        android:background="?attr/selectableItemBackground"
         android:orientation="horizontal">
         <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_24sdp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
-            app:srcCompat="@drawable/ic_user"/>
+            app:srcCompat="@drawable/ic_icon_lock_password_grey"/>
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -69,15 +66,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
+        android:padding="@dimen/_16sdp"
         android:focusable="true"
-
-        android:layout_margin="@dimen/_4sdp"
+        android:background="?attr/selectableItemBackground"
         android:orientation="horizontal">
         <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_24sdp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
-            app:srcCompat="@drawable/ic_user"/>
+            app:srcCompat="@drawable/ic_icon_wishlist"/>
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -93,14 +90,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
+        android:padding="@dimen/_16sdp"
+        android:background="?attr/selectableItemBackground"
         android:focusable="true"
-        android:layout_margin="@dimen/_4sdp"
         android:orientation="horizontal">
         <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_24sdp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
-            app:srcCompat="@drawable/ic_user"/>
+            app:srcCompat="@drawable/ic_icon_logout"/>
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

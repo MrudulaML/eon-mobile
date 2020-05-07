@@ -1,27 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:background="@color/white">
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_invitee_list"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:listitem="@layout/invitee_item_row" />
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/delete_menu"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_88sdp"
+            android:background="@color/colorPrimary"
+            android:layout_alignParentTop="true"
+            android:visibility="gone">
+
+            <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/chb_select_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="@dimen/_2sdp"
+                android:buttonTint="@color/white"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:text="Select All"
+                android:textColor="@color/white"
+                android:gravity="center" />
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btn_close"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:src="@android:drawable/ic_menu_close_clear_cancel" />
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/btn_delete_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:src="@drawable/ic_delete_black_24dp"/>
+
+        </RelativeLayout>
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/invitee_search_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/delete_menu"
+            android:padding="0dp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:visibility="gone"
+            android:layout_marginBottom="@dimen/_2sdp"
+            android:background="@color/white"
+            app:iconifiedByDefault="false"
+            app:queryHint="Email / Contact" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_above="@id/rv_invitee_list"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:theme="@style/CircularProgress"
+            android:visibility="gone" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_invitee_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/invitee_search_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/invitee_search_view"
+            tools:listitem="@layout/invitee_item_row"/>
+
+
+
+    </RelativeLayout>
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_16sdp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="@dimen/_32sdp"
+        android:layout_marginBottom="@dimen/_42sdp"
+        android:background="@color/navy"
+        android:src="@android:drawable/ic_input_add"
         android:tint="@color/white"
-        android:src="@android:drawable/ic_input_add" />
+        app:useCompatPadding="true" />
 
-</RelativeLayout>
-
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

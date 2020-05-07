@@ -1,75 +1,82 @@
 package `in`.bitspilani.eon
 
 
+import `in`.bitspilani.eon.api.ApiService
+import `in`.bitspilani.eon.api.RestClient
+import `in`.bitspilani.eon.event_organiser.models.FilterResponse
+import `in`.bitspilani.eon.login.data.Data
 import `in`.bitspilani.eon.login.ui.ActionbarHost
-import `in`.bitspilani.eon.login.ui.AuthViewModel
+import `in`.bitspilani.eon.utils.ApiCallback
+import `in`.bitspilani.eon.utils.Constants
+import `in`.bitspilani.eon.utils.ModelPreferencesManager
 import `in`.bitspilani.eon.utils.goneUnless
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Handler
+import android.util.Base64
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProviders
+import androidx.core.os.postDelayed
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
+import com.auth0.android.jwt.JWT
+import com.facebook.FacebookSdk
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_bits_eon.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 
 
 class BitsEonActivity : AppCompatActivity(),ActionbarHost {
-    lateinit var navController: NavController
-    lateinit var authViewModel: AuthViewModel
-    lateinit var bottomNavigation : BottomNavigationView
 
-
-
+    private lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        FacebookSdk.sdkInitialize(this.applicationContext)
         setContentView(R.layout.activity_bits_eon)
-        authViewModel = ViewModelProviders.of(this).get(AuthViewModel::class.java)
+
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
-        bottomNavigation= findViewById(R.id.bottom_navigation)
+
         setSupportActionBar(toolbar)
-        supportActionBar!!.hide()
-        bottom_navigation.visibility=View.GONE
-        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        showToolbar(showToolbar = false,showBottomNav = false)
+
+
         checkIfAuthenticated()
-        NavigationUI.setupWithNavController(bottomNavigation,navController)
+        NavigationUI.setupWithNavController(bottom_navigation,navController)
 
     }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.top_navigation, menu)
-        return true
-    }
-
 
     private fun checkIfAuthenticated(){
         lifecycleScope.launch {
-            if (true){
+            val userData = ModelPreferencesManager.get<Data>(Constants.CURRENT_USER)
+            when {
+                userData?.access.isNullOrEmpty() -> {
+                    delay(400)
+                    navController.navigate(R.id.action_splashScreen_to_signInFragment)
 
-                delay(200)
-                navController.navigate(R.id.action_splashScreen_to_signInFragment,
-                    null,
-                    NavOptions.Builder()
-                        .setPopUpTo(R.id.splashScreen,
-                            true).build()
-                )
-            }else{
+                    //TODO fix this hack put null safety prone to crash
+                }
+                JWT(userData!!.access).isExpired(10) -> {
+                    delay(400)
+                    ModelPreferencesManager.clearCache()
+                    Toast.makeText(this@BitsEonActivity, "Session expired", Toast.LENGTH_LONG).show()
+                    navController.navigate(R.id.action_splashScreen_to_signInFragment)
 
-                delay(200)
-                navController.navigate(R.id.action_splashScreen_to_homeFragment,
-                    null,
-                    NavOptions.Builder()
-                        .setPopUpTo(R.id.splashScreen,
-                            true).build()
-                )
+                }
+                else -> {
+                    delay(400)
+                    navController.navigate(R.id.action_splashScreen_to_HomeFragment)
+
+                }
             }
         }
 
@@ -79,13 +86,12 @@ class BitsEonActivity : AppCompatActivity(),ActionbarHost {
         return when (item.itemId) {
             R.id.userProfileFragment -> {
 
-                navController.navigate(R.id.userProfileFragment)
+                navController.navigate(R.id.nav_user_profile)
 
                 true
             }
             R.id.notificationFragment ->{
                 navController.navigate(R.id.notificationFragment)
-
                 return true
             }
 
@@ -108,5 +114,28 @@ class BitsEonActivity : AppCompatActivity(),ActionbarHost {
         bottom_navigation.goneUnless(showBottomNav)
 
     }
+  /*  private var backPressedOnce = false
+    override fun onBackPressed() {
+        if (navController.graph.startDestination == navController.currentDestination?.id)
+        {
+            if (backPressedOnce)
+            {
+                super.onBackPressed()
+                return
+            }
+
+            backPressedOnce = true
+            Toast.makeText(this, "Press BACK again to exit", Toast.LENGTH_SHORT).show()
+
+            Handler().postDelayed(2000) {
+                backPressedOnce = false
+            }
+        }
+        else {
+            super.onBackPressed()
+        }
+    }*/
+
+    fun showProgress(show: Boolean) = progress.goneUnless(visible = show)
 
 }

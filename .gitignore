@@ -14,3 +14,7 @@
 
 #built application files
 *.apk
+/.idea/gradle.xml
+/.idea/misc.xml
+/.idea/vcs.xml
+/.idea/codeStyles/

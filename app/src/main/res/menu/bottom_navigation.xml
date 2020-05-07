@@ -2,10 +2,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/action_one"
+        android:id="@+id/analyticsDashboardFragment"
         android:orderInCategory="100"
         android:title=""
-        android:icon="@drawable/ic_ifsce_code"
+        android:iconTint="@color/grey"
+        android:icon="@drawable/ic_icon_analytics_on"
         app:showAsAction="never" />
 
     <item
@@ -13,20 +14,8 @@
         android:orderInCategory="200"
         android:title=""
         android:checkable="true"
-        android:icon="@drawable/ic_calendar_header"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_three"
-        android:orderInCategory="200"
-        android:title=""
-        android:icon="@drawable/ic_users__guests"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/action_four"
-        android:orderInCategory="200"
-        android:title=""
-        android:icon="@drawable/ic_tickets"
+        android:iconTint="@color/grey"
+        android:icon="@drawable/ic_icon_event_calendar_on"
         app:showAsAction="never" />
 
 </menu>

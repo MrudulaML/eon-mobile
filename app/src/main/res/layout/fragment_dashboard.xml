@@ -1,28 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".eventOrganiser.ui.HomeFragment">
+    tools:context=".event_organiser.ui.HomeFragment">
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/_44sdp">
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/appCompatTextView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:text="All Events"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/btn_filter"
             android:layout_width="wrap_content"
@@ -30,20 +20,39 @@
             android:layout_marginEnd="6dp"
             android:background="?android:attr/actionBarItemBackground"
             android:padding="@dimen/_8sdp"
-            android:src="@drawable/ic_filter"
+            android:src="@drawable/ic_icon_sort_blue"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.appcompat.widget.SearchView
+        <!--clearing filter-->
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btn_filter_clear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="2dp"
+            android:layout_marginEnd="6dp"
+            android:visibility="gone"
+            android:background="?android:attr/actionBarItemBackground"
+            android:padding="@dimen/_5sdp"
+            android:src="@drawable/com_facebook_close"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/event_search_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:paddingHorizontal="@dimen/_2sdp"
             android:background="@color/white"
-            app:iconifiedByDefault="true"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_filter"
+            app:iconifiedByDefault="false"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btn_filter"
-            app:layout_constraintTop_toTopOf="@+id/btn_filter" />
+            app:layout_constraintHorizontal_bias="0.54"
+            app:layout_constraintStart_toStartOf="parent"
+            app:queryHint="Event Name / Location" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -52,7 +61,9 @@
         android:id="@+id/rv_event_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:nestedScrollingEnabled="false"
         app:layout_constraintTop_toBottomOf="@+id/appCompatTextView2"
         tools:listitem="@layout/event_item_row" />
+
 
 </androidx.appcompat.widget.LinearLayoutCompat>
