@@ -90,7 +90,7 @@ class EventSummaryFrag : Fragment() {
             var bundle = bundleOf(
                 Constants.EVENT_ID to arguments?.getInt("event_id", 0),
                 "no_of_tickets" to totalAttendees,
-                Constants.AMOUNT to (amount - discountAmount),
+                Constants.AMOUNT to (amount),
                 Constants.DISCOUNT_AMOUNT to discountAmount
             )
 
