@@ -146,25 +146,32 @@ class PaymentFrag : Fragment() {
     fun setClicks() {
 
         btn_proceed.clickWithDebounce(3500) {
-            if (et_card_owner_name.text.isEmpty())
-                showUserMsg("Please enter card owner's name")
-            else if (et_card_number.text.isEmpty())
-                showUserMsg("Please enter Card number")
-            else if (et_card_number.text.toString().length != 16)
-                showUserMsg("please enter valid card number")
-            else if (et_expiry_date.text.isEmpty()) {
-                showUserMsg("Please enter expiry date")
-            } else if (!checkExpiryDate()) {
-                showUserMsg("Please enter valid expiry date")
 
-            } else {
+            try {
+
+                if (et_card_owner_name.text.isEmpty())
+                    showUserMsg("Please enter card owner's name")
+                else if (et_card_number.text.isEmpty())
+                    showUserMsg("Please enter Card number")
+                else if (et_card_number.text.toString().length != 16)
+                    showUserMsg("please enter valid card number")
+                else if (et_expiry_date.text.isEmpty()) {
+                    showUserMsg("Please enter expiry date")
+                } else if (!checkExpiryDate()) {
+                    showUserMsg("Please enter valid expiry date")
+
+                } else {
 
 
-                hashMap.put("card_number", et_card_number.text.toString().toLong())
-                hashMap.put("expiry_month", expiryMonth)
-                hashMap.put("expiry_year",expiryYear)
+                    hashMap.put("card_number", et_card_number.text.toString().toLong())
+                    hashMap.put("expiry_month", expiryMonth)
+                    hashMap.put("expiry_year",expiryYear)
 
-                paymentViewModel.payAndSubscribe(hashMap)
+                    paymentViewModel.payAndSubscribe(hashMap)
+                }
+            }catch (e: Exception){
+
+                Log.e("xoxo"," crash fix: "+e.toString())
             }
 
         }

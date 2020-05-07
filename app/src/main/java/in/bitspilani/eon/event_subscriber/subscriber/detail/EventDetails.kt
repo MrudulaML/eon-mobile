@@ -228,7 +228,13 @@ class EventDetails : Fragment() {
 
         iv_external_share.clickWithDebounce {
 
-            CommonUtil.openLinkBrowser(activity!!, data.external_links)
+            try {
+
+                CommonUtil.openLinkBrowser(activity!!, data.external_links)
+
+            }catch (e:Exception){
+
+            }
         }
 
         btn_feedback.clickWithDebounce {
