@@ -88,7 +88,7 @@ android {
         PRODUCTION {
             applicationId "in.bitspilani.eon"
             versionNameSuffix "-dev"
-            buildConfigField 'String', 'BASE_SERVER_URL', testingProperties.BASE_URL_DEV
+            buildConfigField 'String', 'BASE_SERVER_URL', testingProperties.BASE_URL_PROD
 
         }
 
