@@ -147,15 +147,12 @@ class ToolbarUserProfileFragment : Fragment(), UserProfileCallBack {
     }
 
     override fun UpdateBasicDetails() {
-        TODO("Not yet implemented")
     }
 
     override fun Logout() {
-        TODO("Not yet implemented")
     }
 
     override fun WishListClicked() {
-        TODO("Not yet implemented")
     }
 }
 

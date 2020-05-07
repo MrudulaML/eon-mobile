@@ -102,7 +102,6 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
         Toast.makeText(activity!!, msg, Toast.LENGTH_LONG).show()
     }
 
-    //TODO fix this with data binding
     private fun setOffEventsForOrganiser() {
 
         if (eventDetailResponse.data.self_organised) {
@@ -155,7 +154,6 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
 
     }
 
-    //TODO fix this use appcompat
     private fun openReminderDialog(message: String) {
         val builder =
             AlertDialog.Builder(context!!)

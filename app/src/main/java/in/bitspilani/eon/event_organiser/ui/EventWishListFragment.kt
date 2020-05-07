@@ -104,7 +104,6 @@ class EventWishListFragment : Fragment() {
 
     private fun setUpClickListeners() {
         btn_filter.clickWithDebounce {
-            //TODO move it to nav graph please
             val dialogFragment = FilterDialogFragmentV2()
             dialogFragment.show(childFragmentManager, "filterDialog")
 
@@ -137,7 +136,6 @@ class EventWishListFragment : Fragment() {
                         ).build()
                 )
             else
-            //TODO change this to builder pattern
                 findNavController().navigate(
                     R.id.action_wishlist_to_subscriber_eventDetails,
                     bundleOf(Constants.EVENT_ID to it),
@@ -164,7 +162,6 @@ class EventWishListFragment : Fragment() {
         //if from wishlist
         arguments?.getInt("id")?.let { isWishListed = true }
         layoutManager = LinearLayoutManager(activity)
-        //TODO fix this hack
         if (eventList.fromFilter) {
             btn_filter_clear.visibility = View.VISIBLE
             bindList(eventList, isSubscriber, isWishListed)

@@ -9,6 +9,9 @@ apply plugin: 'kotlin-kapt'
 def testingProperties = new Properties()
 testingProperties.load(new FileInputStream(rootProject.file("app/common.properties")))
 
+def signingProperties = new Properties()
+signingProperties.load(new FileInputStream(rootProject.file("app/signing.properties")))
+
 android {
     compileSdkVersion rootProject.compileSdkVersion
     buildToolsVersion "29.0.2"
@@ -21,6 +24,22 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
+
+    signingConfigs {
+        release {
+            storeFile file("release.keystore.jks")
+            storePassword signingProperties.RELEASE_STORE_PASSWORD
+            keyAlias signingProperties.RELEASE_KEY_ALIAS
+            keyPassword signingProperties.RELEASE_KEY_PASSWORD
+        }
+        debug {
+            storeFile file("release.keystore.jks")
+            storePassword signingProperties.RELEASE_STORE_PASSWORD
+            keyAlias signingProperties.RELEASE_KEY_ALIAS
+            keyPassword signingProperties.RELEASE_KEY_PASSWORD
+        }
+    }
+
     buildTypes {
 
 
@@ -30,7 +49,7 @@ android {
             useProguard true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            //signingConfig signingConfigs.release
+            signingConfig signingConfigs.release
         }
         debug {
             debuggable true

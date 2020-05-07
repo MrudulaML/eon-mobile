@@ -181,7 +181,6 @@ class PagerInviteeListFragment(private val detailResponse: DetailResponseOrganis
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                //TODO dont do this chaos fix this on time Ashutosh
                 inviteesAdapter.filter.filter(newText)
                 return false
             }

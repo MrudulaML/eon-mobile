@@ -112,7 +112,6 @@ class HomeFragment : Fragment() {
 
     private fun setUpClickListeners() {
         btn_filter.clickWithDebounce {
-            //TODO move it to nav graph please
             val dialogFragment = FilterDialogFragmentV2()
             dialogFragment.show(childFragmentManager, "filterDialog")
 
@@ -144,7 +143,6 @@ class HomeFragment : Fragment() {
                         ).build()
                 )
             else
-            //TODO change this to builder pattern
                 findNavController().navigate(
                     R.id.eventDetails,
                     bundleOf(Constants.EVENT_ID to it)
@@ -177,7 +175,6 @@ class HomeFragment : Fragment() {
         eventListUpdated = eventList.eventList
         val isSubscriber: Boolean = ModelPreferencesManager.getInt(Constants.USER_ROLE) == 2
         layoutManager = LinearLayoutManager(activity)
-        //TODO fix this hack
         if (eventList.fromFilter) {
             btn_filter_clear.visibility = View.VISIBLE
             bindList(eventListUpdated, isSubscriber)

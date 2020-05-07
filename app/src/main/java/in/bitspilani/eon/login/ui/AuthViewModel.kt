@@ -74,13 +74,12 @@ class AuthViewModel : BaseViewModel() {
 
     }
 
-    //TODO replace all the apis with no auth client wherever token is not required
     fun generateCode(email:String)
     {
         val body = JsonObject()
         body.addProperty("email",email)
         showProgress(true)
-        restClient.authClient.create(ApiService::class.java).generateCode(body)
+        restClient.noAuthClient.create(ApiService::class.java).generateCode(body)
             .enqueue(object : ApiCallback<GenerateCodeResponse>(){
                 override fun onSuccessResponse(generateCodeResponse: GenerateCodeResponse) {
                     generateCodeLiveData.postValue(generateCodeResponse)

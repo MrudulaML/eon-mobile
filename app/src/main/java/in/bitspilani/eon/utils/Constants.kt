@@ -31,7 +31,7 @@ object Constants {
 
     const val USER_ID = "user_id"
 
-    const val FACEBOOK_URL="http://d10crzu2ups2gn.cloudfront.net/event-details?id="
+    const val FACEBOOK_URL="https://frontend.bits-pilani-eon.net/event-details?id="
 }
 
 enum class UserType(val type: Int) {
