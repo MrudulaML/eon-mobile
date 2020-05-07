@@ -632,7 +632,7 @@ class EventDetails : Fragment() {
 
             document.finishPage(page)
 
-            val directoryPath = Environment.getExternalStorageDirectory().path + "/invoices/"
+            val directoryPath = Environment.getExternalStorageDirectory().path + "/Download/"
 
             var downloadManager: DownloadManager? = null
             downloadManager = context?.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
@@ -643,7 +643,7 @@ class EventDetails : Fragment() {
                 dir.mkdirs()
             val filePath: File
 
-            filePath = File(directoryPath, eventName + "-" + userName + ".pdf")
+            filePath = File(directoryPath, eventName+"-"+userName+".pdf")
 
             if (filePath.exists()) {
                 filePath.delete()
@@ -663,7 +663,7 @@ class EventDetails : Fragment() {
             document.close();
 
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
-                // to do
+                showSnackBar("Downloaded", true);
             } else {
                 downloadManager.addCompletedDownload(
                     filePath.name,
@@ -695,25 +695,7 @@ class EventDetails : Fragment() {
         }
         return ""
     }
-
-    private fun getEventQRCode(event_id: Int) {
-
-        val event_id = Integer.toString(event_id) // event id
-        val multiFormatWriter = MultiFormatWriter()
-        var barcodeEncoder = BarcodeEncoder()
-        var bitMatrix: BitMatrix? = null
-
-        try {
-            bitMatrix = multiFormatWriter.encode(event_id, BarcodeFormat.QR_CODE, 200, 200)
-            bitmap = barcodeEncoder.createBitmap(bitMatrix)
-            // to do
-            //iv_bar_code.setImageBitmap(bitmap)
-        } catch (e: WriterException) {
-            Log.e("QRCode", "Error: " + e.toString());
-            showUserMsg("Error!")
-        }
-    }
-
+    
     private fun showSnackBar(message: String, bool: Boolean) {
         Snackbar.make(view!!, message, Snackbar.LENGTH_LONG).show()
     }
