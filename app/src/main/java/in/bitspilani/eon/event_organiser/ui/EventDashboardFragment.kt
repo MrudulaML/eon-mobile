@@ -54,6 +54,8 @@ class HomeFragment : Fragment() {
 
     }
 
+
+
     lateinit var itemToHide: MenuItem
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -127,6 +129,10 @@ class HomeFragment : Fragment() {
         })
 
         eventDashboardViewModel.eventClickObservable.observe(viewLifecycleOwner, Observer {
+
+            event_search_view.setQuery("", false);
+            event_search_view.clearFocus();
+
             if (ModelPreferencesManager.getInt(Constants.USER_ROLE) == 1)
                 findNavController().navigate(
                     R.id.action_homeFragment_to_organiser_eventDetailsFragment,

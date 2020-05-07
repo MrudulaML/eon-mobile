@@ -86,7 +86,7 @@ fun formatDate(view: TextView, datestring: String) {
 
     var dateFormat: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd");
     var date: Date = dateFormat.parse(datestring);
-    val formatter: DateFormat = SimpleDateFormat("EEEEEEEEE, dd MMM yyyy ")
+    val formatter: DateFormat = SimpleDateFormat("EEEEEEEEE, dd MMM yy ")
     val today = formatter.format(date)
     view.text = today
 }
@@ -309,7 +309,7 @@ fun convertTime(view: TextView, dateInString: String) {
 fun convertDateAndTime(view: TextView, dateInString: String) {
 
     var inputFormat = SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ENGLISH)
-    var outputFormat = SimpleDateFormat("EEE, dd MMM yyyy, KK:mm a", Locale.ENGLISH)
+    var outputFormat = SimpleDateFormat("EEE, dd MMM yy, KK:mm a", Locale.ENGLISH)
 
     view.text = outputFormat.format(inputFormat.parse(dateInString)!!)
 

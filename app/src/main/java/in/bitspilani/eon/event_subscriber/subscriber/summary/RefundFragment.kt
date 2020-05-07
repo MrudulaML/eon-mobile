@@ -2,10 +2,7 @@ package `in`.bitspilani.eon.event_subscriber.subscriber.summary
 
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.login.data.Data
-import `in`.bitspilani.eon.utils.Constants
-import `in`.bitspilani.eon.utils.ModelPreferencesManager
-import `in`.bitspilani.eon.utils.clickWithDebounce
-import `in`.bitspilani.eon.utils.getViewModelFactory
+import `in`.bitspilani.eon.utils.*
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -49,14 +46,11 @@ class RefundFragment : Fragment() {
 
         noOfTickets = arguments!!.getInt(Constants.NUMBER_OF_TICKETS_BOUGHT, 0)
 
-        Log.e("xoxo", "noOfTickets in args: " + noOfTickets)
 
         attendees = arguments!!.getInt(Constants.ATTENDEES, 0)
 
-        Log.e("xoxo", "attendees in args: " + attendees)
 
         amount = arguments!!.getInt(Constants.AMOUNT_PAID, 0)
-        Log.e("xoxo", "amount in args: " + amount)
         discountAmount = arguments!!.getInt(Constants.DISCOUNT_GIVEN, 0)
         eventId = arguments!!.getInt(Constants.EVENT_ID, 0)
 
@@ -111,9 +105,12 @@ class RefundFragment : Fragment() {
 
         eventSummaryViewModel.subcriptionData.observe(viewLifecycleOwner, Observer {
 
-            showUserMsg(it.message)
-            //  findNavController().navigate(R.id.homeFragment)
-            findNavController().popBackStack()
+            SuccessDialog.openDialog(activity!!){
+
+                findNavController().popBackStack()
+            }
+
+
         })
 
     }

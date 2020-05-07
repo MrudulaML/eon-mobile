@@ -38,7 +38,7 @@ class SendEmailDialog {
                     showUserMsg("Please enter an email id")
                 if (!EmailValidator.isEmailValid(mDialogView.et_email_id.text.toString()))
                     showUserMsg("Please enter a valid email id")
-                else if (mDialogView.et_message.text.isEmpty())
+                else if (mDialogView.et_message.text.isEmpty() || mDialogView.et_message.text.toString().trim().equals(""))
                     showUserMsg("Please enter some message")
                 else {
                     onSendClick.invoke(mDialogView.et_email_id.text.toString(), mDialogView.et_message.text.toString())

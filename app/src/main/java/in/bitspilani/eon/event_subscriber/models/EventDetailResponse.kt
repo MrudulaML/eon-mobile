@@ -54,5 +54,6 @@ data class Subscription_details(
     @SerializedName("no_of_tickets_bought") val no_of_tickets_bought: Int = 0,
     @SerializedName("amount_paid") val amount_paid: Int=0,
     @SerializedName("discount_given") val discount_given: Int,
-    @SerializedName("created_on") val createdOn : String
+    @SerializedName("created_on") val createdOn : String,
+    @SerializedName("discount_percentage")val discount_percentage: Int=0
 )

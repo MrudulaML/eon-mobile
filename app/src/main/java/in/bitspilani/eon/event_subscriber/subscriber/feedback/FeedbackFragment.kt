@@ -98,10 +98,11 @@ class FeedbackFragment : Fragment() {
                 list.forEach {
 
 
-                    if (it.answer?.description == null) {
+                    if (it.answer?.description == null || it.answer?.description!!.trim().equals("")) {
 
                         // it.answer = null
                         submitFeedback = false
+                        return@forEach
                     }
 
                 }

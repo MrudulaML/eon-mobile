@@ -39,7 +39,7 @@
 
 
     <string name="download">Download</string>
-    <string name="send_feedback">Send Feedback</string>
+    <string name="send_feedback">Submit Feedback</string>
     <string name="cancel">Cancel</string>
 
     <string name="reset_password">Reset Password</string>
@@ -75,4 +75,6 @@
 
     <string name="revenue_earned">\u20B9 %s</string>
 
+    <string name="cancel_event_subscription">Cancel Event Subscription</string>
+    <string name="cancel_subs_description">Your subscription for this event will be cancelled. All the money paid will be refunded to you.</string>
 </resources>

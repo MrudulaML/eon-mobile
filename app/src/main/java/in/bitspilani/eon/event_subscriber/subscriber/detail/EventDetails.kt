@@ -165,6 +165,9 @@ class EventDetails : Fragment() {
                     if (isSubscribed) {
                         bundle.putInt(Constants.ATTENDEES, count - noOfTickets)
                         bundle.putInt(Constants.AMOUNT, amount)
+                       bundle.putInt( Constants.PROMOCODE,  data!!.subscription_details!!.discount_percentage)
+
+                        bundle.putInt(Constants.DISCOUNT_AMOUNT , calculateDiscount())
 
                     }
 
@@ -267,9 +270,21 @@ class EventDetails : Fragment() {
 
     fun calculateDiscount(): Int {
 
-        if (data.discountPercentage == 0) {
+        if(isSubscribed){
+
+            if( data!!.subscription_details!!.discount_percentage==0)
+                return 0
+            else{
+
+                return ((data!!.subscription_details!!.discount_percentage.toDouble() / 100) * amount).toInt()
+            }
+
+        }
+
+        else  if (data.discountPercentage == 0) {
             return 0
         }
+
 
         return ((data.discountPercentage.toDouble() / 100) * amount).toInt()
 
@@ -432,6 +447,7 @@ class EventDetails : Fragment() {
 
             showUserMsg(it)
         })
+
         //wishlist observer
 
         eventDetailsViewModel.wishlistData.observe(viewLifecycleOwner, Observer {
