@@ -1,6 +1,9 @@
 version: 2.1
 jobs:
   build:
+    branches:
+      only:
+        - master
     working_directory: ~/code
     docker:
       - image: circleci/android:api-29
@@ -18,7 +21,7 @@ jobs:
           command: ./gradlew androidDependencies
       - run:
           name: Build debug APK and release APK
-          command: ./gradlew :app:assembleTESTINGDebug :app:assemblePRODUCTIONRelease
+          command: ./gradlew :app:assembleTESTINGDebug assemblePRODUCTIONRelease
 
       - save_cache:
           paths:
