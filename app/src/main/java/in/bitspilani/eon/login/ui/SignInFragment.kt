@@ -125,6 +125,8 @@ class SignInFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        organiser.isChecked = true
+        subscriber.isChecked = false
         actionbarHost?.showToolbar(showToolbar = false, showBottomNav = false)
     }
 
