@@ -197,7 +197,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_button_rounded_corners"
                         android:clickable="true"
-                        android:padding="@dimen/_18dp"
+                        android:padding="@dimen/_21sdp"
                         android:text="@string/login"
                         android:textAllCaps="false"
                         android:textColor="@color/white" />
@@ -209,7 +209,7 @@
                         android:layout_marginTop="@dimen/_20dp"
                         android:background="@drawable/bg_register_button"
                         android:clickable="true"
-                        android:padding="@dimen/_18dp"
+                        android:padding="@dimen/_21sdp"
                         android:text="Register"
                         android:textAllCaps="false"
                         android:textColor="@color/white" />
