@@ -2,12 +2,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/lightGrey">
-
         <com.github.florent37.shapeofview.shapes.ArcView
             android:id="@+id/arcView"
             android:layout_width="match_parent"
@@ -20,15 +18,12 @@
             app:shape_arc_cropDirection="outside"
             app:shape_arc_height="40dp"
             app:shape_arc_position="top">
-
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 app:srcCompat="@drawable/dummy_image" />
-
         </com.github.florent37.shapeofview.shapes.ArcView>
-
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -37,7 +32,6 @@
             android:scrollbars="vertical"
             android:scrollbarThumbVertical="@null"
             tools:context=".login.ui.SignInFragment">
-
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/linearLayoutCompat"
                 android:layout_width="match_parent"
@@ -46,13 +40,11 @@
                 android:orientation="vertical"
                 android:animateLayoutChanges="true"
                 android:paddingBottom="@dimen/_20dp">
-
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_32dp"
                     android:gravity="center">
-
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/appCompatImageView3"
                         android:layout_width="@dimen/_100dp"
@@ -61,7 +53,6 @@
                         android:gravity="center_vertical"
                         android:layout_marginTop="32dp"
                         app:srcCompat="@drawable/logo_bits"/>
-
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -71,15 +62,12 @@
                         android:textColor="@color/navy"
                         android:textSize="40sp"
                         android:textStyle="bold"/>
-
                 </RelativeLayout>
-
                 <com.google.android.material.chip.ChipGroup
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/_24sdp">
-
                     <com.google.android.material.chip.Chip
                         android:id="@+id/organiser"
                         android:layout_width="wrap_content"
@@ -91,7 +79,6 @@
                         app:checkedIconEnabled="false"
                         android:textColor="@color/chip_text_states"
                         android:theme="@style/Theme.MaterialComponents.Light" />
-
                     <com.google.android.material.chip.Chip
                         android:id="@+id/subscriber"
                         android:layout_width="wrap_content"
@@ -105,7 +92,6 @@
                         android:textColor="@color/chip_text_states"
                         android:theme="@style/Theme.MaterialComponents.Light" />
                 </com.google.android.material.chip.ChipGroup>
-
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -113,16 +99,15 @@
                     android:background="@drawable/custom_shape"
                     android:orientation="vertical"
                     android:padding="@dimen/_20dp">
-
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/emailAddressWrapper"
                         android:layout_width="match_parent"
-                        android:layout_height="55dp"
+                        android:layout_height="wrap_content"
                         android:layout_below="@id/emailAddressWrapper"
                         android:background="@drawable/bg_edit_text"
                         android:theme="@style/TextLabel"
-                        android:paddingBottom="@dimen/_12dp">
-
+                        android:paddingBottom="@dimen/_16dp"
+                        android:paddingTop="@dimen/_6dp">
                         <androidx.appcompat.widget.AppCompatEditText
                             android:id="@+id/etEmailAddress"
                             android:layout_width="match_parent"
@@ -138,20 +123,18 @@
                             android:padding="@dimen/_8dp"
                             android:textColorHint="@color/grey"
                             android:textSize="14sp" />
-
                     </com.google.android.material.textfield.TextInputLayout>
-
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/passwordWrapper"
                         android:layout_width="match_parent"
-                        android:layout_height="55dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:paddingBottom="@dimen/_12dp"
                         android:layout_below="@id/emailAddressWrapper"
                         android:background="@drawable/bg_edit_text"
                         app:passwordToggleEnabled="true"
+                        android:paddingBottom="@dimen/_16dp"
+                        android:paddingTop="@dimen/_4dp"
                         android:theme="@style/TextLabel">
-
                         <androidx.appcompat.widget.AppCompatEditText
                             android:id="@+id/etPassword"
                             android:layout_width="match_parent"
@@ -167,9 +150,7 @@
                             android:padding="@dimen/_8dp"
                             android:textColorHint="@color/grey"
                             android:textSize="14sp" />
-
                     </com.google.android.material.textfield.TextInputLayout>
-
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_forgot_password"
                         android:layout_width="wrap_content"
@@ -180,36 +161,31 @@
                         android:text="@string/forgot_password"
                         android:textColor="@color/navy"
                         android:textSize="@dimen/_16fs" />
-
                 </androidx.appcompat.widget.LinearLayoutCompat>
-
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_20dp"
                     android:orientation="vertical">
-
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_login"
                         android:layout_width="match_parent"
-                        android:layout_height="55dp"
+                        android:layout_height="@dimen/_60sdp"
                         android:background="@drawable/bg_button_rounded_corners"
                         android:clickable="true"
                         android:text="@string/login"
                         android:textAllCaps="false"
                         android:textColor="@color/white" />
-
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_register"
                         android:layout_width="match_parent"
-                        android:layout_height="55dp"
+                        android:layout_height="@dimen/_60sdp"
                         android:layout_marginTop="@dimen/_20dp"
                         android:background="@drawable/bg_register_button"
                         android:clickable="true"
                         android:text="Register"
                         android:textAllCaps="false"
                         android:textColor="@color/white" />
-
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.core.widget.NestedScrollView>
