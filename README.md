@@ -1,3 +1,4 @@
+Android
 ================================================================================
 SET UP STARTS HERE
 
@@ -51,7 +52,6 @@ A single-activity architecture, using the Navigation component to manage fragmen
 A presentation layer that contains a fragment (View) and a ViewModel per screen (or feature).
 Reactive UIs using LiveData observables and Data Binding.
 A data layer with a repository and  remote data sources that are queried with one-shot operations.
-Two product flavors, TESTING and PRODUCTION, to ease development and testing.
 
 Libraries: 
 
@@ -99,14 +99,17 @@ Zxing:
 Barcode scanning library that helps us generate QR code
 For more info: https://github.com/zxing/zxing
 
-hellocharts: 
-Charts library with several chart options for making custom charts.
-For more info: https://github.com/lecho/hellocharts-android
 
 Highcharts: 
 Also used to create charts and graphs
 For more info: https://www.highcharts.com/blog/products/android/
 
+
+CircleCi:
+CircleCi is integrated with this project for continuous integration and deployment of the apk.
+Go to circle.com -> Signin (if you haven't signed in tap on sign in using github) -> select 
+Bits-pgp-fse project-> Tap on eon-mobile repo -> pipelines -> here you will be able to
+see all the jobs running corresponding to each commits. Tap on any job-> tap on build ->artifacts -> now you can see all the apks based on your configuration and will be able to download it.
 
 Folder/package Structure:
 
@@ -120,7 +123,8 @@ App module:  App/root module for the project.
 Inside app -> src -> Main
 
 Api: 
-Consists of The app service interface and all the common response models
+Consists of The app service interface and all the common response models.
+In this service interface we mention all the end points of the apis with their specific request method annotated.
 
 Event Organiser: 
 It contains the following packages:
@@ -146,4 +150,5 @@ A single-activity architecture, using the Navigation component to manage fragmen
 
 EonViewModelFactory: 
 A viewmodel factory used in generating view model instances as per parameter passed in the entire application.
+
 
