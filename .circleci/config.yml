@@ -18,7 +18,7 @@ jobs:
           command: ./gradlew androidDependencies
       - run:
           name: Build debug APK and release APK
-          command: ./gradlew :app:assembleTESTINGDebug
+          command: ./gradlew :app:assembleTESTINGDebug :app:assemblePRODUCTIONRelease
 
       - save_cache:
           paths:
