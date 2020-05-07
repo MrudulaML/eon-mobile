@@ -117,11 +117,11 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/emailAddressWrapper"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="55dp"
                         android:layout_below="@id/emailAddressWrapper"
                         android:background="@drawable/bg_edit_text"
                         android:theme="@style/TextLabel"
-                        android:paddingBottom="@dimen/_16dp"
+                        android:paddingBottom="@dimen/_6dp"
                         android:paddingTop="@dimen/_6dp">
 
                         <androidx.appcompat.widget.AppCompatEditText
@@ -145,12 +145,12 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/passwordWrapper"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="55dp"
                         android:layout_marginTop="@dimen/_10sdp"
+                        android:paddingBottom="@dimen/_6dp"
                         android:layout_below="@id/emailAddressWrapper"
                         android:background="@drawable/bg_edit_text"
                         app:passwordToggleEnabled="true"
-                        android:paddingBottom="@dimen/_12dp"
                         android:paddingTop="@dimen/_4dp"
                         android:theme="@style/TextLabel">
 
@@ -194,10 +194,9 @@
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_login"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="55dp"
                         android:background="@drawable/bg_button_rounded_corners"
                         android:clickable="true"
-                        android:padding="@dimen/_20sdp"
                         android:text="@string/login"
                         android:textAllCaps="false"
                         android:textColor="@color/white" />
@@ -205,11 +204,10 @@
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_register"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="55dp"
                         android:layout_marginTop="@dimen/_20dp"
                         android:background="@drawable/bg_register_button"
                         android:clickable="true"
-                        android:padding="@dimen/_20sdp"
                         android:text="Register"
                         android:textAllCaps="false"
                         android:textColor="@color/white" />
