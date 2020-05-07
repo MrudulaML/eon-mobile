@@ -679,25 +679,7 @@ class EventDetails : Fragment() {
         }
         return ""
     }
-
-    private fun getEventQRCode(event_id: Int) {
-
-        val event_id = Integer.toString(event_id) // event id
-        val multiFormatWriter = MultiFormatWriter()
-        var barcodeEncoder = BarcodeEncoder()
-        var bitMatrix: BitMatrix? = null
-
-        try {
-            bitMatrix = multiFormatWriter.encode(event_id, BarcodeFormat.QR_CODE, 200, 200)
-            bitmap = barcodeEncoder.createBitmap(bitMatrix)
-            // to do
-            //iv_bar_code.setImageBitmap(bitmap)
-        } catch (e: WriterException) {
-            Log.e("QRCode", "Error: " + e.toString());
-            showUserMsg("Error!")
-        }
-    }
-
+    
     private fun showSnackBar(message: String, bool: Boolean) {
         Snackbar.make(view!!, message, Snackbar.LENGTH_LONG).show()
     }
