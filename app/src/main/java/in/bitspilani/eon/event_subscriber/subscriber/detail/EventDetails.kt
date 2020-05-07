@@ -438,6 +438,10 @@ class EventDetails : Fragment() {
 
                     changePriceButtonColor()
                 }
+            }else{
+
+                count=1
+                seatCount.postValue(count)
             }
 
         })
