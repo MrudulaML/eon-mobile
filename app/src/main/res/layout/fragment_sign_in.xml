@@ -170,7 +170,7 @@
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_login"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_60sdp"
+                        android:layout_height="50dp"
                         android:background="@drawable/bg_button_rounded_corners"
                         android:clickable="true"
                         android:text="@string/login"
@@ -179,7 +179,7 @@
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_register"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_60sdp"
+                        android:layout_height="50dp"
                         android:layout_marginTop="@dimen/_20dp"
                         android:background="@drawable/bg_register_button"
                         android:clickable="true"
