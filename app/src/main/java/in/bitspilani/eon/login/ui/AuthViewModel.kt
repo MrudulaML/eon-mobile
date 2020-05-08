@@ -55,22 +55,29 @@ class AuthViewModel : BaseViewModel() {
 
 
     fun login(username:String, password:String){
-        val body = JsonObject()
-        body.addProperty("email",username)
-        body.addProperty("password",password)
-        showProgress(true)
-        restClient.noAuthClient.create(ApiService::class.java).login(body)
-            .enqueue(object : ApiCallback<LoginResponse>(){
-                override fun onSuccessResponse(responseBody: LoginResponse) {
-                    loginLiveData.postValue(responseBody)
-                    showProgress(false)
-                }
+        try {
 
-                override fun onApiError(errorType: ApiError, error: String?) {
-                    showProgress(false)
-                    errorView.postValue(error)
-                }
-            })
+            val body = JsonObject()
+            body.addProperty("email",username)
+            body.addProperty("password",password)
+            showProgress(true)
+            restClient.noAuthClient.create(ApiService::class.java).login(body)
+                .enqueue(object : ApiCallback<LoginResponse>(){
+                    override fun onSuccessResponse(responseBody: LoginResponse) {
+                        loginLiveData.postValue(responseBody)
+                        showProgress(false)
+                    }
+
+                    override fun onApiError(errorType: ApiError, error: String?) {
+                        showProgress(false)
+                        errorView.postValue(error)
+                    }
+                })
+
+        }catch (e : Exception){
+
+            Log.e("xoxo","login error: "+e.toString())
+        }
 
     }
 

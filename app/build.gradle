@@ -45,17 +45,13 @@ android {
 
         release {
             debuggable false
-            minifyEnabled true
             useProguard true
-            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
         debug {
             debuggable true
-            minifyEnabled false
             useProguard false
-            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             ext.alwaysUpdateBuildId = false
         }
@@ -86,7 +82,7 @@ android {
 
 
         PRODUCTION {
-            applicationId "in.bitspilani.eon"
+
             buildConfigField 'String', 'BASE_SERVER_URL', testingProperties.BASE_URL_PROD
 
         }
