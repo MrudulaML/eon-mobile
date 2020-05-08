@@ -1,5 +1,6 @@
 package `in`.bitspilani.eon.event_subscriber.subscriber.summary
 
+import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.login.data.Data
 import `in`.bitspilani.eon.utils.*
@@ -86,9 +87,8 @@ class RefundFragment : Fragment() {
 
         hashMap.put(Constants.NUMBER_OF_TICKETS, attendees - noOfTickets)
 
-        Log.e("xoxo","refund map: "+hashMap)
 
-        btn_confirm.clickWithDebounce {
+        btn_confirm.clickWithDebounce(4000) {
             eventSummaryViewModel.reduceTickets(hashMap)
         }
 
@@ -111,6 +111,17 @@ class RefundFragment : Fragment() {
             }
 
 
+        })
+
+        eventSummaryViewModel.errorData.observe(viewLifecycleOwner, Observer {
+
+            showUserMsg(it)
+        })
+
+
+        eventSummaryViewModel.progressLiveData.observe(viewLifecycleOwner, Observer {
+
+            (activity as BitsEonActivity).showProgress(it)
         })
 
     }

@@ -155,11 +155,10 @@ class PaymentFrag : Fragment() {
                     showUserMsg("Please enter Card number")
                 else if (et_card_number.text.toString().length != 16)
                     showUserMsg("please enter valid card number")
-                else if (et_expiry_date.text.isEmpty()) {
+                else if (et_expiry_date.text.isEmpty() )
                     showUserMsg("Please enter expiry date")
-                } else if (!checkExpiryDate()) {
+                else if (et_expiry_date.text.length<5  || !checkExpiryDate()) {
                     showUserMsg("Please enter valid expiry date")
-
                 } else {
 
 
@@ -171,7 +170,7 @@ class PaymentFrag : Fragment() {
                 }
             }catch (e: Exception){
 
-                Log.e("xoxo"," crash fix: "+e.toString())
+
             }
 
         }
@@ -224,30 +223,40 @@ class PaymentFrag : Fragment() {
 
     fun checkExpiryDate(): Boolean {
 
-        var date: String = et_expiry_date.text.toString()
-        expiryMonth = date.substring(0, 2).toInt()
-        expiryYear = date.substring(3, 5).toInt()+2000
+        try{
 
-        if (expiryMonth < 1 || expiryMonth > 12) {
+            var date: String = et_expiry_date.text.toString()
+            expiryMonth = date.substring(0, 2).toInt()
+            expiryYear = date.substring(3, 5).toInt()+2000
 
-            return false
+            if (expiryMonth < 1 || expiryMonth > 12) {
+
+                return false
+            }
+
+            val c: Calendar = Calendar.getInstance()
+            val year: Int = c.get(Calendar.YEAR)
+            val month: Int = c.get(Calendar.MONTH)+1
+
+
+            if (expiryYear < year) {
+                return false
+            }
+
+
+
+            if(expiryYear==year && expiryMonth<=month)
+            {return false}
+
+            return true
+
+        }catch (e: Exception){
+
+            showUserMsg("Please enter valid expiry date")
         }
 
-        val c: Calendar = Calendar.getInstance()
-        val year: Int = c.get(Calendar.YEAR)
-        val month: Int = c.get(Calendar.MONTH)+1
+        return false
 
-
-        if (expiryYear < year) {
-            return false
-        }
-
-
-
-        if(expiryYear==year && expiryMonth<=month)
-        {return false}
-
-        return true
     }
 
 

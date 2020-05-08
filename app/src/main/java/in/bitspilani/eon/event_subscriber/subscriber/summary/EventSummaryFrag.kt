@@ -56,6 +56,8 @@ class EventSummaryFrag : Fragment() {
         getAndSetValues()
     }
 
+    var discountApplied: Boolean = false
+
     fun getAndSetValues() {
 
 
@@ -71,7 +73,7 @@ class EventSummaryFrag : Fragment() {
         tv_apply.goneUnless(discountPercentage > 0)
 
         tv_promocode.goneUnless(discountPercentage > 0)
-        et_promocode.text=  discountPercentage.toString() + "% discount available"
+        et_promocode.text = discountPercentage.toString() + "% discount available"
 
         cl_normal_summary.visibility = View.VISIBLE
 
@@ -90,9 +92,17 @@ class EventSummaryFrag : Fragment() {
             var bundle = bundleOf(
                 Constants.EVENT_ID to arguments?.getInt("event_id", 0),
                 "no_of_tickets" to totalAttendees,
-                Constants.AMOUNT to (amount),
-                Constants.DISCOUNT_AMOUNT to discountAmount
+                Constants.AMOUNT to (amount)
             )
+            if (discountApplied) {
+
+                bundle.putInt(Constants.DISCOUNT_AMOUNT, discountAmount)
+
+            } else {
+
+                bundle.putInt(Constants.DISCOUNT_AMOUNT, 0)
+
+            }
 
 
             Log.e("xoxo", "bundle from eventsummary: " + bundle)
@@ -107,6 +117,7 @@ class EventSummaryFrag : Fragment() {
                 showUserMsg("Promocode not available")
             else {
 
+                discountApplied = true
 
                 var a = discountPercentage.toString() + "% Applied"
                 et_promocode.text = a
