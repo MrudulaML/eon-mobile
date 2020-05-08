@@ -105,6 +105,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_edit_text"
+                        android:padding="@dimen/_2sdp"
+                        android:hint="@string/email_id"
                         android:theme="@style/TextLabel">
 
                         <androidx.appcompat.widget.AppCompatEditText
@@ -115,12 +117,12 @@
                             android:drawableStart="@drawable/ic_user"
                             android:drawableLeft="@drawable/ic_user"
                             android:drawablePadding="@dimen/_8sdp"
-                            android:hint="@string/email_id"
-                            android:layout_marginBottom="@dimen/_10dp"
-                            android:padding="@dimen/_10sdp"
+                            android:layout_marginBottom="@dimen/_12dp"
+                            android:padding="@dimen/_8sdp"
                             android:inputType="textEmailAddress"
                             android:textColorHint="@color/grey"
                             android:gravity="center_vertical|left"
+                            android:paddingBottom="@dimen/_1sdp"
                             android:textSize="@dimen/_14fs" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -130,9 +132,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_edit_text"
-                        android:layout_marginTop="@dimen/_10dp"
+                        android:layout_marginTop="@dimen/_20dp"
                         android:hint="@string/password_hint"
                         app:passwordToggleEnabled="true"
+                        android:padding="@dimen/_2sdp"
                         android:theme="@style/TextLabel">
 
                         <androidx.appcompat.widget.AppCompatEditText
@@ -146,7 +149,7 @@
                             android:inputType="textPassword"
                             android:gravity="center_vertical|left"
                             android:layout_marginBottom="@dimen/_10dp"
-                            android:padding="@dimen/_10sdp"
+                            android:padding="@dimen/_8sdp"
                             android:textColorHint="@color/grey"
                             android:textSize="@dimen/_14fs"/>
                     </com.google.android.material.textfield.TextInputLayout>
