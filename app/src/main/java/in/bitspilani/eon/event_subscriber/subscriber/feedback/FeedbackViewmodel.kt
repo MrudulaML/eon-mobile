@@ -100,10 +100,6 @@ class FeedbackViewmodel(private val apiService: ApiService) : BaseViewModel() {
                     } else {
 
                         errorData.postValue(response.message())
-                        Log.e(
-                            "xoxo",
-                            "image upload error: " + response.message() + " code: " + response.code()
-                        )
 
                     }
 
@@ -115,7 +111,6 @@ class FeedbackViewmodel(private val apiService: ApiService) : BaseViewModel() {
 
                     errorData.postValue(t.message)
 
-                    Log.e("xoxo", "image upload onfailure: " + t.toString())
 
                 }
             })

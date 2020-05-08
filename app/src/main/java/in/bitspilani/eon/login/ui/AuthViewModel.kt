@@ -76,7 +76,6 @@ class AuthViewModel : BaseViewModel() {
 
         }catch (e : Exception){
 
-            Log.e("xoxo","login error: "+e.toString())
         }
 
     }
@@ -143,7 +142,6 @@ class AuthViewModel : BaseViewModel() {
                 })
         } catch (e: Exception) {
 
-            Log.e("xoxo", "register error: " + e.toString())
 
         }
     }

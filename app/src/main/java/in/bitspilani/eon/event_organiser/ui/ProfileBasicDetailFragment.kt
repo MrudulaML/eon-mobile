@@ -130,16 +130,6 @@ class ProfileBasicDetailFragment(val userProfileCallBack: UserProfileCallBack) :
                 }
 
 
-                try {
-
-
-                } catch (e: Exception) {
-
-                    Log.e("xoxo", "")
-
-                }
-
-
             }
 
 
@@ -154,7 +144,6 @@ class ProfileBasicDetailFragment(val userProfileCallBack: UserProfileCallBack) :
             )
         } catch (e: Exception) {
 
-            Log.e("xoxo", "proile exception: " + e.toString())
         }
     }
 

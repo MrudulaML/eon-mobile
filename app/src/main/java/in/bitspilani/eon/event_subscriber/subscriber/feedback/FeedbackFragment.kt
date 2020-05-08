@@ -143,7 +143,6 @@ class FeedbackFragment : Fragment() {
         feedbackViewmodel.questionsData.observe(viewLifecycleOwner, Observer {
 
 
-            Log.e("xoxo", "questions observer called")
 
             list = it.data
 
@@ -151,7 +150,6 @@ class FeedbackFragment : Fragment() {
             rv_subscriber_feedback.adapter = FeedbackAdapter(list) {
 
                 position = it
-                Log.e("xoxo", "position got from image click: " + position)
 
                 openGallery()
             }
@@ -173,14 +171,12 @@ class FeedbackFragment : Fragment() {
 
             list[position].let {
 
-                Log.e("xoxo", "position after uploading image: " + position)
 
                 it.imageUri = imageUri
                 it.answer?.image = imageName
             }
 
 
-            Log.e("xoxo", "list before notify: " + list)
 
 
             rv_subscriber_feedback.adapter!!.notifyItemChanged(position)
@@ -252,7 +248,6 @@ class FeedbackFragment : Fragment() {
         if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
             imageUri = data!!.getData()
 
-            Log.e("xoxo", "file name" + getRealPathFromURI(activity!!, imageUri!!))
             updateAdapter(imageUri)
 
         }
@@ -270,7 +265,6 @@ class FeedbackFragment : Fragment() {
             cursor!!.moveToFirst()
             cursor.getString(column_index)
         } catch (e: Exception) {
-            Log.e("xoxo", "getRealPathFromURI Exception : $e")
             ""
         } finally {
             if (cursor != null) {

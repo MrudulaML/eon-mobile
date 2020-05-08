@@ -105,7 +105,6 @@ class EventSummaryFrag : Fragment() {
             }
 
 
-            Log.e("xoxo", "bundle from eventsummary: " + bundle)
 
             findNavController().navigate(R.id.action_summery_to_payment, bundle)
         }

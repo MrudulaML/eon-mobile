@@ -39,8 +39,19 @@ Before running the application, make sure you have selected one of the connected
 
 
 Generating apk:
-To generate an apk t, please select TestingDebug build variant and tap on build from toolbar -> Build Bundle/Apks -> Build Apk. You will see a pop up on bottom right  of the
+
+For building Testing Apk:
+To generate a testing apk , please select TestingDebug build variant and tap on build from toolbar -> Build Bundle/Apks -> Build Apk. You will see a pop up on bottom right  of the
 screen, after android studio successfully rebuilds. Tap on locate button of that pop up, it will take you to the generated apk.
+
+For Building Production Apk to upload on playstore:
+To generate a production apk , please select ProductionRelease build variant and tap on build from toolbar -> Build Bundle/Apks -> Build Apk. You will see a pop up on bottom right  of the
+screen, after android studio successfully rebuilds. Tap on locate button of that pop up, it will take you to the generated apk.
+
+Note: This ProductionRelease apk is uploadable to playstore, as this is a signed apk.
+You don't have to manually add necessary release credentials for it, as they are handled from gradle signingConfig.
+
+
  
 SET UP ENDS HERE
 ================================================================================
@@ -60,6 +71,7 @@ Android libraries:
 Android-X: 
 Android-x replaces conventional support libraries, so we are using it over here.
 For more info: https://developer.android.com/jetpack/androidx
+
 
 Core-ktx:
  Ktx provides kotlin extensions which are also part of android jetpack.
@@ -105,11 +117,12 @@ Also used to create charts and graphs
 For more info: https://www.highcharts.com/blog/products/android/
 
 
-CircleCi:
+Continuous integration - CircleCi :
 CircleCi is integrated with this project for continuous integration and deployment of the apk.
 Go to circle.com -> Signin (if you haven't signed in tap on sign in using github) -> select 
-Bits-pgp-fse project-> Tap on eon-mobile repo -> pipelines -> here you will be able to
-see all the jobs running corresponding to each commits. Tap on any job-> tap on build ->artifacts -> now you can see all the apks based on your configuration and will be able to download it.
+Bits-pgp-fse project -> Tap on eon-mobile repo -> pipelines -> here you will be able to
+see all the jobs running corresponding to each commit. 
+Tap on any job-> tap on build -> artifacts -> now you can see all the apks based on your configuration and will be able to download it.
 
 Folder/package Structure:
 
@@ -150,5 +163,4 @@ A single-activity architecture, using the Navigation component to manage fragmen
 
 EonViewModelFactory: 
 A viewmodel factory used in generating view model instances as per parameter passed in the entire application.
-
 

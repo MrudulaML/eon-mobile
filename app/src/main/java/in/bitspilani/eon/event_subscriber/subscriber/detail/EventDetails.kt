@@ -686,7 +686,6 @@ class EventDetails : Fragment() {
                 )
             }
         } catch (e: Exception) {
-            Log.e("xoxo", "external prob: " + e.toString())
             showSnackBar(e.toString(), true)
 
         }
@@ -701,7 +700,6 @@ class EventDetails : Fragment() {
             val today = formatter.format(date)
             return today
         } catch (e: Exception) {
-            Log.e("xoxo", "date conversion excepption:" + e.toString())
         }
         return ""
     }

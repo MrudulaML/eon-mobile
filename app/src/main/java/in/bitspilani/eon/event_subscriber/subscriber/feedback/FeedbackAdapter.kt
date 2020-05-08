@@ -38,7 +38,6 @@ class FeedbackAdapter(
         fun bind(item: FeedbackData, position: Int) {
             with(binding) {
 
-                Log.e("xoxo", "position of update:"+position)
 
                 item.questionNumber = position + 1
                 binding.feedbackData = item
@@ -54,7 +53,6 @@ class FeedbackAdapter(
 
                     override fun afterTextChanged(s: Editable) {
 
-                        // Log.e("xoxo","my object: "+feedbackList[position] +"answer" +feedbackList[position].answer!!.description)
 
 
 

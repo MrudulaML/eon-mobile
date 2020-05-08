@@ -184,7 +184,6 @@ class PagerEventFragment(private val eventDetailResponse: DetailResponseOrganise
 
             } catch (e: Exception) {
 
-                Log.e("xoxo","intent error: "+e.toString())
             }
         }
 
