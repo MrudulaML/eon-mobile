@@ -30,7 +30,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import id.zelory.compressor.Compressor
 import kotlinx.android.synthetic.main.fragment_feedback.*
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import java.io.File
@@ -162,7 +165,10 @@ class FeedbackFragment : Fragment() {
         feedbackViewmodel.presignData.observe(viewLifecycleOwner, Observer {
 
             imageName = it.data.image_name
-            feedbackViewmodel.uploadImageToS3(it.data.presigned_url, getRequestBody(imageUri))
+
+            getRequestBody(imageUri,imageName)
+
+
 
         })
 
@@ -288,11 +294,21 @@ class FeedbackFragment : Fragment() {
     }
 
 
-    fun getRequestBody(imageUri: Uri?): RequestBody {
+    fun getRequestBody(imageUri: Uri?, imageName: String) {
 
-        val file = File(getRealPathFromURI(activity!!, imageUri!!)!!)
+        var file = File(getRealPathFromURI(activity!!, imageUri!!)!!)
 
-        return RequestBody.create(MediaType.parse("image/jpeg"), file)
+        Log.e("xoxo","file size before comp: "+file.length())
+
+//        MainScope().launch {
+//
+//            file = Compressor.compress(activity!!,file)
+//
+//            Log.e("xoxo","file size after comp: "+file.length())
+//
+//        }
+        feedbackViewmodel.uploadImageToS3(imageName,RequestBody.create(MediaType.parse("image/jpeg"), file))
+
     }
 
 

@@ -188,6 +188,8 @@ dependencies {
     //bar graph
     implementation 'com.highsoft.highcharts:highcharts:7.0.3'
 
+    //compressor
+    implementation 'id.zelory:compressor:3.0.0'
 
 
 }
