@@ -146,7 +146,6 @@ class FeedbackFragment : Fragment() {
         feedbackViewmodel.questionsData.observe(viewLifecycleOwner, Observer {
 
 
-
             list = it.data
 
             rv_subscriber_feedback.layoutManager = LinearLayoutManager(activity!!)
@@ -166,8 +165,7 @@ class FeedbackFragment : Fragment() {
 
             imageName = it.data.image_name
 
-            getRequestBody(imageUri,imageName)
-
+            uploadImagetoS3(it.data.presigned_url, imageUri)
 
 
         })
@@ -251,10 +249,18 @@ class FeedbackFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
-            imageUri = data!!.getData()
+        try {
 
-            updateAdapter(imageUri)
+            if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
+                imageUri = data!!.getData()
+
+                updateAdapter(imageUri)
+
+            }
+
+        } catch (e: Exception) {
+
+            showUserMsg("Exception while taking image: " + e.toString())
 
         }
 
@@ -264,13 +270,14 @@ class FeedbackFragment : Fragment() {
     private fun getRealPathFromURI(context: Context, contentUri: Uri): String? {
         var cursor: Cursor? = null
         return try {
-            val proj =
-                arrayOf(MediaStore.Images.Media.DATA)
+            val proj = arrayOf(MediaStore.Images.Media.DATA)
             cursor = context.contentResolver.query(contentUri, proj, null, null, null)
             val column_index: Int = cursor!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
             cursor!!.moveToFirst()
             cursor.getString(column_index)
         } catch (e: Exception) {
+
+            showUserMsg("Exception while gettingPath: " + e.toString())
             ""
         } finally {
             if (cursor != null) {
@@ -282,32 +289,70 @@ class FeedbackFragment : Fragment() {
 
     fun updateAdapter(imageUri: Uri?) {
 
-        this.imageUri = imageUri
-        val file = File(imageUri?.path)
 
-        feedbackViewmodel.getPresignUrl(file.name)
+        try {
+            this.imageUri = imageUri
+            val file = File(imageUri?.path)
+
+            feedbackViewmodel.getPresignUrl(file.name)
+        } catch (e: Exception) {
+
+            showUserMsg("Exception in updateAdapter: " + e.toString())
+
+        }
 
 
-//        list[position].imageUri = imageUri
-//
-//        rv_subscriber_feedback.adapter!!.notifyItemChanged(position)
     }
 
 
-    fun getRequestBody(imageUri: Uri?, imageName: String) {
+    fun uploadImagetoS3(presignedUrl: String, imageUri: Uri?) {
 
-        var file = File(getRealPathFromURI(activity!!, imageUri!!)!!)
+        try {
 
-        Log.e("xoxo","file size before comp: "+file.length())
 
-//        MainScope().launch {
-//
-//            file = Compressor.compress(activity!!,file)
-//
-//            Log.e("xoxo","file size after comp: "+file.length())
-//
-//        }
-        feedbackViewmodel.uploadImageToS3(imageName,RequestBody.create(MediaType.parse("image/jpeg"), file))
+            var file = File(getRealPathFromURI(activity!!, imageUri!!)!!)
+
+            try {
+                showUserMsg("file presence: " + file.length())
+            } catch (e: Exception) {
+
+                showUserMsg("file error: " + e.toString())
+
+            }
+
+
+            MainScope().launch {
+
+                file = Compressor.compress(activity!!, file)
+
+                showUserMsg("file presence after compress: " + file.length())
+
+                try {
+                    showUserMsg(
+                        "requestboy presence: " + RequestBody.create(
+                            MediaType.parse("image/jpeg"), file
+                        )
+                    )
+                } catch (e: Exception) {
+
+                    showUserMsg("requestbody create error: " + e.toString())
+
+
+                }
+
+
+                feedbackViewmodel.uploadImageToS3(
+                    presignedUrl,
+                    RequestBody.create(MediaType.parse("image/jpeg"), file)
+                )
+
+            }
+
+        } catch (e: Exception) {
+
+            showUserMsg("Exception while uploading: " + e.toString())
+        }
+
 
     }
 
@@ -331,17 +376,14 @@ class FeedbackFragment : Fragment() {
     fun askPermissions() {
 
         ActivityCompat.requestPermissions(
-            activity!!,
-            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-            READ_PERMISSION
+            activity!!, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), READ_PERMISSION
         )
 
     }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
-        permissions: Array<String>, grantResults: IntArray
-    ) {
+        permissions: Array<String>, grantResults: IntArray) {
         when (requestCode) {
             READ_PERMISSION -> {
 
