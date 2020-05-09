@@ -4,7 +4,9 @@ import `in`.bitspilani.eon.analytics.data.AnalyticsResponse
 import `in`.bitspilani.eon.event_organiser.models.*
 import `in`.bitspilani.eon.event_subscriber.models.*
 import `in`.bitspilani.eon.login.data.*
+import `in`.bitspilani.eon.utils.InputStreamRequestBody
 import com.google.gson.JsonObject
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -108,6 +110,9 @@ interface ApiService {
 
     @PUT
     fun uploadImage(@Url url: String, @Body image: RequestBody): Call<Void>
+
+
+
 
     @GET("core/feedback/")
     fun getFeedbackList(@Query("event_id") id: Int):Call<FeedbackListResponse>

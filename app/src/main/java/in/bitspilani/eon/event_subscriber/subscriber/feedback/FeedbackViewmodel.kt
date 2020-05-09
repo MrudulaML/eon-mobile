@@ -86,8 +86,7 @@ class FeedbackViewmodel(private val apiService: ApiService) : BaseViewModel() {
         showProgress(true)
 
 
-        restClient.noAuthClient.create(ApiService::class.java)
-            .uploadImage(url, requestBody)
+        restClient.noAuthClient.create(ApiService::class.java).uploadImage(url, requestBody)
             .enqueue(object : Callback<Void> {
 
                 override fun onResponse(
@@ -102,9 +101,6 @@ class FeedbackViewmodel(private val apiService: ApiService) : BaseViewModel() {
 
                         errorData.postValue(response.message())
 
-                        Log.e("xoxo","image upload error onresponse: "+response.toString())
-
-
                     }
 
                 }
@@ -115,14 +111,9 @@ class FeedbackViewmodel(private val apiService: ApiService) : BaseViewModel() {
 
                     errorData.postValue(t.message)
 
-                    Log.e("xoxo","image upload error: "+t.toString())
-
 
                 }
             })
-
-
-
 
 
     }

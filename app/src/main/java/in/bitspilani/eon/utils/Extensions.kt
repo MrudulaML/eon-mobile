@@ -3,10 +3,12 @@ package `in`.bitspilani.eon.utils
 
 import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.event_organiser.models.FilterResponse
+import android.content.ContentResolver
 import android.content.Context
 import android.content.res.Resources
 import android.net.Uri
 import android.os.SystemClock
+import android.provider.OpenableColumns
 import android.text.Editable
 import android.text.TextWatcher
 import android.text.format.DateUtils
@@ -315,6 +317,17 @@ fun convertDateAndTime(view: TextView, dateInString: String) {
 
 }
 
+fun ContentResolver.getFileName(fileUri: Uri): String {
+    var name = ""
+    val returnCursor = this.query(fileUri, null, null, null, null)
+    if (returnCursor != null) {
+        val nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+        returnCursor.moveToFirst()
+        name = returnCursor.getString(nameIndex)
+        returnCursor.close()
+    }
+    return name
+}
 
 
 

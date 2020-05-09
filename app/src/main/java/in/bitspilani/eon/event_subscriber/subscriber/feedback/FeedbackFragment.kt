@@ -5,9 +5,11 @@ import `in`.bitspilani.eon.R
 import `in`.bitspilani.eon.event_subscriber.models.Answer
 import `in`.bitspilani.eon.event_subscriber.models.FeedbackBody
 import `in`.bitspilani.eon.event_subscriber.models.FeedbackData
+import `in`.bitspilani.eon.event_subscriber.models.UploadRequestBody
 import `in`.bitspilani.eon.login.ui.ActionbarHost
 import `in`.bitspilani.eon.utils.Constants
 import `in`.bitspilani.eon.utils.clickWithDebounce
+import `in`.bitspilani.eon.utils.getFileName
 import `in`.bitspilani.eon.utils.getViewModelFactory
 import android.Manifest
 import android.app.Activity.RESULT_OK
@@ -30,13 +32,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import id.zelory.compressor.Compressor
 import kotlinx.android.synthetic.main.fragment_feedback.*
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.launch
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
 
 
 class FeedbackFragment : Fragment() {
@@ -48,7 +49,7 @@ class FeedbackFragment : Fragment() {
 
     var READ_PERMISSION: Int = 912
     var PICK_IMAGE: Int = 911
-   lateinit var imageUri: Uri
+    var imageUri: Uri? = null
 
     var eventId: Int = 0
     var position: Int = -1
@@ -146,6 +147,7 @@ class FeedbackFragment : Fragment() {
         feedbackViewmodel.questionsData.observe(viewLifecycleOwner, Observer {
 
 
+
             list = it.data
 
             rv_subscriber_feedback.layoutManager = LinearLayoutManager(activity!!)
@@ -165,9 +167,7 @@ class FeedbackFragment : Fragment() {
 
             imageName = it.data.image_name
 
-            uploadImagetoS3(it.data.presigned_url, imageUri)
-
-
+            uploadImage(it.data.presigned_url)
         })
 
 
@@ -185,7 +185,6 @@ class FeedbackFragment : Fragment() {
 
             rv_subscriber_feedback.adapter!!.notifyItemChanged(position)
 
-//            rv_subscriber_feedback.adapter!!.notifyDataSetChanged()
 
             showUserMsg("Image uploaded successfully")
 
@@ -249,46 +248,39 @@ class FeedbackFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-
-
         if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
-            imageUri = data!!.getData()!!
+            imageUri = data!!.getData()
 
             updateAdapter(imageUri)
 
         }
 
-
     }
 
-
-
-    private fun getRealPathFromURI(context: Context, contentUri: Uri): String {
-        var cursor: Cursor? = null
-        return try {
-            val proj = arrayOf(MediaStore.Images.Media.DATA)
-
-            cursor = context.contentResolver.query(contentUri, proj, null, null, null)
-
-            val column_index: Int = cursor!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-
-            cursor!!.moveToFirst()
-
-            cursor.getString(column_index)
-
-        } catch (e: Exception) {
-
-
-            ""
-        } finally {
-            if (cursor != null) {
-                cursor.close()
-            }
+    private fun uploadImage(presigned_url: String) {
+        if (imageUri == null) {
+           showUserMsg("Select an Image First")
+            return
         }
+
+        val parcelFileDescriptor =
+            context!!.contentResolver.openFileDescriptor(imageUri!!, "r", null) ?: return
+
+        val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
+        val file = File(context!!.cacheDir, context!!.contentResolver.getFileName(imageUri!!))
+        val outputStream = FileOutputStream(file)
+        inputStream.copyTo(outputStream)
+
+
+        feedbackViewmodel.uploadImageToS3(presigned_url, RequestBody.create(MediaType.parse("image/jpeg"), file))
+
+
     }
 
 
-    fun updateAdapter(imageUri: Uri) {
+
+
+    fun updateAdapter(imageUri: Uri?) {
 
         this.imageUri = imageUri
         val file = File(imageUri?.path)
@@ -299,35 +291,23 @@ class FeedbackFragment : Fragment() {
     }
 
 
-    fun uploadImagetoS3(presignedUrl: String, imageUri: Uri) {
 
-        var file = File(getRealPathFromURI(activity!!, imageUri))
-
-
-        MainScope().launch {
-
-            file = Compressor.compress(activity!!, file)
-
-            feedbackViewmodel.uploadImageToS3(
-                presignedUrl,
-                RequestBody.create(MediaType.parse("image/jpeg"), file)
-            )
-
+    private fun openImageChooser() {
+        Intent(Intent.ACTION_PICK).also {
+            it.type = "image/*"
+            val mimeTypes = arrayOf("image/jpeg", "image/png")
+            it.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
+            startActivityForResult(it, PICK_IMAGE)
         }
-
-
     }
-
-
     private fun openGallery() {
 
         if (ContextCompat.checkSelfPermission(activity!!, Manifest.permission.READ_EXTERNAL_STORAGE)
             == PackageManager.PERMISSION_GRANTED
         ) {
 
-            val gallery =
-                Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-            startActivityForResult(gallery, PICK_IMAGE)
+          openImageChooser()
+
         } else {
 
             askPermissions()
@@ -338,7 +318,9 @@ class FeedbackFragment : Fragment() {
     fun askPermissions() {
 
         ActivityCompat.requestPermissions(
-            activity!!, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), READ_PERMISSION
+            activity!!,
+            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+            READ_PERMISSION
         )
 
     }
