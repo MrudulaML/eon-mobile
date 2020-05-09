@@ -48,7 +48,7 @@ class FeedbackFragment : Fragment() {
 
     var READ_PERMISSION: Int = 912
     var PICK_IMAGE: Int = 911
-    var imageUri: Uri? = null
+   lateinit var imageUri: Uri
 
     var eventId: Int = 0
     var position: Int = -1
@@ -249,35 +249,36 @@ class FeedbackFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        try {
 
-            if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
-                imageUri = data!!.getData()
 
-                updateAdapter(imageUri)
+        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
+            imageUri = data!!.getData()!!
 
-            }
-
-        } catch (e: Exception) {
-
-            showUserMsg("Exception while taking image: " + e.toString())
+            updateAdapter(imageUri)
 
         }
+
 
     }
 
 
-    private fun getRealPathFromURI(context: Context, contentUri: Uri): String? {
+
+    private fun getRealPathFromURI(context: Context, contentUri: Uri): String {
         var cursor: Cursor? = null
         return try {
             val proj = arrayOf(MediaStore.Images.Media.DATA)
+
             cursor = context.contentResolver.query(contentUri, proj, null, null, null)
+
             val column_index: Int = cursor!!.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+
             cursor!!.moveToFirst()
+
             cursor.getString(column_index)
+
         } catch (e: Exception) {
 
-            showUserMsg("Exception while gettingPath: " + e.toString())
+
             ""
         } finally {
             if (cursor != null) {
@@ -287,70 +288,31 @@ class FeedbackFragment : Fragment() {
     }
 
 
-    fun updateAdapter(imageUri: Uri?) {
+    fun updateAdapter(imageUri: Uri) {
 
+        this.imageUri = imageUri
+        val file = File(imageUri?.path)
 
-        try {
-            this.imageUri = imageUri
-            val file = File(imageUri?.path)
-
-            feedbackViewmodel.getPresignUrl(file.name)
-        } catch (e: Exception) {
-
-            showUserMsg("Exception in updateAdapter: " + e.toString())
-
-        }
+        feedbackViewmodel.getPresignUrl(file.name)
 
 
     }
 
 
-    fun uploadImagetoS3(presignedUrl: String, imageUri: Uri?) {
+    fun uploadImagetoS3(presignedUrl: String, imageUri: Uri) {
 
-        try {
-
-
-            var file = File(getRealPathFromURI(activity!!, imageUri!!)!!)
-
-            try {
-                showUserMsg("file presence: " + file.length())
-            } catch (e: Exception) {
-
-                showUserMsg("file error: " + e.toString())
-
-            }
+        var file = File(getRealPathFromURI(activity!!, imageUri))
 
 
-            MainScope().launch {
+        MainScope().launch {
 
-                file = Compressor.compress(activity!!, file)
+            file = Compressor.compress(activity!!, file)
 
-                showUserMsg("file presence after compress: " + file.length())
+            feedbackViewmodel.uploadImageToS3(
+                presignedUrl,
+                RequestBody.create(MediaType.parse("image/jpeg"), file)
+            )
 
-                try {
-                    showUserMsg(
-                        "requestboy presence: " + RequestBody.create(
-                            MediaType.parse("image/jpeg"), file
-                        )
-                    )
-                } catch (e: Exception) {
-
-                    showUserMsg("requestbody create error: " + e.toString())
-
-
-                }
-
-
-                feedbackViewmodel.uploadImageToS3(
-                    presignedUrl,
-                    RequestBody.create(MediaType.parse("image/jpeg"), file)
-                )
-
-            }
-
-        } catch (e: Exception) {
-
-            showUserMsg("Exception while uploading: " + e.toString())
         }
 
 
@@ -383,7 +345,8 @@ class FeedbackFragment : Fragment() {
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
-        permissions: Array<String>, grantResults: IntArray) {
+        permissions: Array<String>, grantResults: IntArray
+    ) {
         when (requestCode) {
             READ_PERMISSION -> {
 

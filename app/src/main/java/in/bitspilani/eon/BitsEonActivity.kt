@@ -31,6 +31,7 @@ import androidx.navigation.ui.NavigationUI
 import com.auth0.android.jwt.JWT
 import com.facebook.FacebookSdk
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import kotlinx.android.synthetic.main.activity_bits_eon.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -54,6 +55,8 @@ class BitsEonActivity : AppCompatActivity(), ActionbarHost {
 
         checkIfAuthenticated()
         NavigationUI.setupWithNavController(bottom_navigation, navController)
+
+        val crashlytics = FirebaseCrashlytics.getInstance()
 
 
     }
