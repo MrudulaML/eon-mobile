@@ -35,6 +35,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.facebook.CallbackManager
+import com.facebook.common.Common
 import com.facebook.share.model.ShareLinkContent
 import com.facebook.share.widget.ShareDialog
 import com.google.android.material.snackbar.Snackbar
@@ -629,7 +630,8 @@ class EventDetails : Fragment() {
             canvas.drawText("Number of seats: " + eventSeatCounter, 300F, 410F, textPaint);
             canvas.drawText("Amount: " + eventAmount, 300F, 470F, textPaint);
             canvas.drawText("Event Date: " + eventDateTime, 300F, 530F, textPaint);
-            canvas.drawText("Location: " + eventLocation, 300F, 590F, textPaint);
+            canvas.drawText("Time: "+ CommonUtil.formatTime(data.time),300F,590F,textPaint)
+            canvas.drawText("Location: " + eventLocation, 300F, 6200F, textPaint);
             canvas.drawText("Subscriber Name: " + userName, 300F, 650F, textPaint);
             canvas.drawText("Email Id: " + userEmailId, 300F, 710F, textPaint);
             canvas.drawText("Contact: " + userContact, 300F, 770F, textPaint);

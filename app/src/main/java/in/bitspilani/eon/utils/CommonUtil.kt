@@ -36,5 +36,13 @@ class CommonUtil {
 
             return today
         }
+
+        fun formatTime(timeInString: String) : String{
+
+            var inputFormat = SimpleDateFormat("hh:mm:ss", Locale.ENGLISH)
+            var outputFormat = SimpleDateFormat("KK:mm a", Locale.ENGLISH)
+
+           return outputFormat.format(inputFormat.parse(timeInString)!!)
+        }
     }
 }

@@ -9,6 +9,7 @@ import `in`.bitspilani.eon.utils.*
 import android.app.Dialog
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -149,9 +150,22 @@ class AddInviteeFragment(
         edt_discount.onChange {
             if (it.isNotEmpty()) {
 
-                val fees = eventData.subscription_fee - (it.toDouble()
-                    .roundToInt() * (eventData.subscription_fee / 100))
-                text_updated_fees.text = fees.toString()
+                val percentValue : Double =  ((it.toDouble()/100) * eventData.subscription_fee)
+
+                var fees : Double  = (eventData.subscription_fee.minus( percentValue))
+
+
+                if((fees-fees.toInt())==0.0){
+
+                    text_updated_fees.text = fees.toInt().toString()
+
+                }else{
+
+                    text_updated_fees.text = fees.toString()
+
+                }
+
+
             } else {
 
                 text_updated_fees.text = eventData.subscription_fee.toString()
