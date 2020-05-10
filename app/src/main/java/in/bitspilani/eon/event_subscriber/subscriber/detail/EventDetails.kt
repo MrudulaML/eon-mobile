@@ -631,16 +631,16 @@ class EventDetails : Fragment() {
             canvas.drawText("Amount: " + eventAmount, 300F, 470F, textPaint);
             canvas.drawText("Event Date: " + eventDateTime, 300F, 530F, textPaint);
             canvas.drawText("Time: "+ CommonUtil.formatTime(data.time),300F,590F,textPaint)
-            canvas.drawText("Location: " + eventLocation, 300F, 6200F, textPaint);
-            canvas.drawText("Subscriber Name: " + userName, 300F, 650F, textPaint);
-            canvas.drawText("Email Id: " + userEmailId, 300F, 710F, textPaint);
-            canvas.drawText("Contact: " + userContact, 300F, 770F, textPaint);
-            canvas.drawText("Booking Date: " + bookingDate, 300F, 830F, textPaint);
+            canvas.drawText("Location: " + eventLocation, 300F, 650F, textPaint);
+            canvas.drawText("Subscriber Name: " + userName, 300F, 710F, textPaint);
+            canvas.drawText("Email Id: " + userEmailId, 300F, 770F, textPaint);
+            canvas.drawText("Contact: " + userContact, 300F, 830F, textPaint);
+            canvas.drawText("Booking Date: " + bookingDate, 300F, 890F, textPaint);
 
             // Note
             textPaint.textSize = resources.getDimension(R.dimen._14fs)
             textPaint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)
-            canvas.drawText("*Note: " + bookingNotes, 300F, 930F, textPaint);
+            canvas.drawText("*Note: " + bookingNotes, 300F, 960F, textPaint);
 
             document.finishPage(page)
 
