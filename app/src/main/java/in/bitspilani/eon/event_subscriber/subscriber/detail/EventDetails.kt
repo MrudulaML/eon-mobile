@@ -55,6 +55,7 @@ import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
+import kotlin.math.round
 
 
 class EventDetails : Fragment() {
@@ -168,7 +169,7 @@ class EventDetails : Fragment() {
                         bundle.putInt(Constants.AMOUNT, amount)
                        bundle.putInt( Constants.PROMOCODE,  data!!.subscription_details!!.discount_percentage)
 
-                        bundle.putInt(Constants.DISCOUNT_AMOUNT , calculateDiscount())
+                        bundle.putLong(Constants.DISCOUNT_AMOUNT , calculateDiscount())
 
                     }
 
@@ -275,7 +276,7 @@ class EventDetails : Fragment() {
     }
 
 
-    fun calculateDiscount(): Int {
+    fun calculateDiscount(): Long {
 
         if(isSubscribed){
 
@@ -283,7 +284,8 @@ class EventDetails : Fragment() {
                 return 0
             else{
 
-                return ((data!!.subscription_details!!.discount_percentage.toDouble() / 100) * amount).toInt()
+
+                return  Math.round((data!!.subscription_details!!.discount_percentage.toDouble() / 100) * amount)
             }
 
         }
@@ -293,7 +295,7 @@ class EventDetails : Fragment() {
         }
 
 
-        return ((data.discountPercentage.toDouble() / 100) * amount).toInt()
+        return Math.round((data.discountPercentage.toDouble() / 100) * amount)
 
     }
 

@@ -29,7 +29,7 @@ class EventSummaryFrag : Fragment() {
 
     var amount: Int = 0
     var discountPercentage: Int = 0
-    var discountAmount: Int = 0
+    var discountAmount: Long = 0
     var isUpdate: Boolean = false
     var totalAttendees: Int = 0
 
@@ -66,7 +66,7 @@ class EventSummaryFrag : Fragment() {
         amount = (arguments!!.getInt(Constants.AMOUNT, 0) * totalAttendees)
         tv_amount_value.text = amount.toString()
         discountPercentage = arguments!!.getInt(Constants.PROMOCODE, 0)
-        discountAmount = (arguments!!.getInt(Constants.DISCOUNT_AMOUNT, 0) * totalAttendees)
+        discountAmount = (arguments!!.getLong(Constants.DISCOUNT_AMOUNT, 0) * totalAttendees)
         isUpdate = arguments!!.getBoolean(Constants.IS_UPDATE, false)
 
         et_promocode.goneUnless(discountPercentage > 0)
@@ -96,11 +96,11 @@ class EventSummaryFrag : Fragment() {
             )
             if (discountApplied) {
 
-                bundle.putInt(Constants.DISCOUNT_AMOUNT, discountAmount)
+                bundle.putLong(Constants.DISCOUNT_AMOUNT, discountAmount)
 
             } else {
 
-                bundle.putInt(Constants.DISCOUNT_AMOUNT, 0)
+                bundle.putLong(Constants.DISCOUNT_AMOUNT, 0L)
 
             }
 

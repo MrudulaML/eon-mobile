@@ -139,7 +139,7 @@ class PaymentFrag : Fragment() {
         hashMap.put("user_id", userData!!.user!!.user_id)
         hashMap.put("no_of_tickets", arguments!!.getInt("no_of_tickets", 0))
         hashMap.put("amount", arguments!!.getInt(Constants.AMOUNT, 0))
-        hashMap.put("discount_amount", arguments!!.getInt(Constants.DISCOUNT_AMOUNT, 0))
+        hashMap.put("discount_amount", arguments!!.getLong(Constants.DISCOUNT_AMOUNT, 0))
 
     }
 

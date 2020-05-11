@@ -24,7 +24,7 @@ class RefundFragment : Fragment() {
     var noOfTickets: Int = 0
     var attendees: Int = 0
     var amount: Int = 0
-    var discountAmount: Int = 0
+    var discountAmount: Long = 0
     var eventId: Int = 0
 
     override fun onCreateView(
@@ -52,7 +52,7 @@ class RefundFragment : Fragment() {
 
 
         amount = arguments!!.getInt(Constants.AMOUNT_PAID, 0)
-        discountAmount = arguments!!.getInt(Constants.DISCOUNT_GIVEN, 0)
+        discountAmount = arguments!!.getLong(Constants.DISCOUNT_GIVEN, 0L)
         eventId = arguments!!.getInt(Constants.EVENT_ID, 0)
 
         tv_attendees_value.text = (noOfTickets - attendees).toString()
@@ -77,7 +77,7 @@ class RefundFragment : Fragment() {
         hashMap.put(Constants.AMOUNT, (amount/noOfTickets) * (noOfTickets - attendees))
         hashMap.put(Constants.EVENT_ID, eventId)
         hashMap.put(Constants.USER_ID, userData!!.user.user_id)
-        if (discountAmount == 0)
+        if (discountAmount == 0L)
             hashMap.put(Constants.DISCOUNT_AMOUNT, discountAmount)
         else
             hashMap.put(
