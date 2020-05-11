@@ -2,7 +2,6 @@ package `in`.bitspilani.eon.event_subscriber.subscriber.feedback
 
 import `in`.bitspilani.eon.BitsEonActivity
 import `in`.bitspilani.eon.R
-import `in`.bitspilani.eon.event_subscriber.models.Answer
 import `in`.bitspilani.eon.event_subscriber.models.FeedbackBody
 import `in`.bitspilani.eon.event_subscriber.models.FeedbackData
 import `in`.bitspilani.eon.login.ui.ActionbarHost
@@ -15,11 +14,8 @@ import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -258,7 +254,7 @@ class FeedbackFragment : Fragment() {
 
     private fun uploadImage(presigned_url: String) {
         if (imageUri == null) {
-            showUserMsg("Select an Image First")
+           showUserMsg("Select an Image First")
             return
         }
 
@@ -305,7 +301,7 @@ class FeedbackFragment : Fragment() {
             == PackageManager.PERMISSION_GRANTED
         ) {
 
-            openImageChooser()
+          openImageChooser()
 
         } else {
 

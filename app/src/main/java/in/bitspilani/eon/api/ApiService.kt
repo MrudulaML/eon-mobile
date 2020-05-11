@@ -109,6 +109,9 @@ interface ApiService {
     @PUT
     fun uploadImage(@Url url: String, @Body image: RequestBody): Call<Void>
 
+
+
+
     @GET("core/feedback/")
     fun getFeedbackList(@Query("event_id") id: Int):Call<FeedbackListResponse>
 

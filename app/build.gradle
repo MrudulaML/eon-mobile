@@ -6,6 +6,13 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: 'com.android.application'
+
+// Apply the Google Services plugin (if it's not there already).
+apply plugin: 'com.google.gms.google-services'
+
+apply plugin: 'com.google.firebase.crashlytics'
+
 def testingProperties = new Properties()
 testingProperties.load(new FileInputStream(rootProject.file("app/common.properties")))
 
@@ -152,7 +159,7 @@ dependencies {
     implementation 'androidx.room:room-rxjava2:2.1.0'
 
     //fcm
-    implementation 'com.google.firebase:firebase-messaging:20.1.3'
+    implementation 'com.google.firebase:firebase-messaging:20.1.6'
 
     //stepview
     implementation 'com.shuhart.stepview:stepview:1.5.1'
@@ -188,6 +195,8 @@ dependencies {
     //bar graph
     implementation 'com.highsoft.highcharts:highcharts:7.0.3'
 
+    //compressor
+    implementation 'id.zelory:compressor:3.0.0'
 
 
 }

@@ -228,8 +228,8 @@
                 app:argType="integer" />
             <argument
                 android:name="discount_amount"
-                android:defaultValue="0"
-                app:argType="integer" />
+                android:defaultValue="0L"
+                app:argType="long" />
 
         </fragment>
 
@@ -258,8 +258,8 @@
                 app:argType="integer" />
             <argument
                 android:name="discount_amount"
-                android:defaultValue="0"
-                app:argType="integer" />
+                android:defaultValue="0L"
+                app:argType="long" />
 
             <argument
                 android:name="event_id"
@@ -347,8 +347,8 @@
                 app:argType="integer" />
             <argument
                 android:name="discount_amount"
-                android:defaultValue="0"
-                app:argType="integer" />
+                android:defaultValue="0L"
+                app:argType="long" />
 
             <argument
                 android:name="amount"

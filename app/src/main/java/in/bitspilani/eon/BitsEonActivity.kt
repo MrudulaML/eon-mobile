@@ -56,6 +56,7 @@ class BitsEonActivity : AppCompatActivity(), ActionbarHost {
         NavigationUI.setupWithNavController(bottom_navigation, navController)
 
 
+
     }
 
 
