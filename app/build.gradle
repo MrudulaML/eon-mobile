@@ -8,10 +8,6 @@ apply plugin: 'kotlin-kapt'
 
 apply plugin: 'com.android.application'
 
-// Apply the Google Services plugin (if it's not there already).
-apply plugin: 'com.google.gms.google-services'
-
-apply plugin: 'com.google.firebase.crashlytics'
 
 def testingProperties = new Properties()
 testingProperties.load(new FileInputStream(rootProject.file("app/common.properties")))
